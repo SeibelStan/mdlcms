@@ -175,4 +175,9 @@ class A_BaseModel {
         dbu("delete from $this->table where id = $id");
     }
 
+    public static function resetAttemts($type = '') {
+        $where = $type ? "where type = '$type'" : '';
+        echo dbu("delete from attempts $where");
+    }
+
 }

@@ -19,7 +19,6 @@ $router->map('GET|POST', '/users/do-register', 'UsersController::doRegister');
 $router->map('GET|POST', '/users/logout', 'UsersController::logout');
 $router->map('GET', '/users', 'UsersController::index');
 $router->map('GET', '/users/[i:id]', 'UsersController::index');
-$router->map('GET', '/users/reset-attempts/[a:type]', 'UsersController::resetAttemts');
 
 // Files
 $router->map('GET|POST', '/admin/files', 'FilesController::index');
@@ -38,3 +37,7 @@ $router->map('GET', '/admin/edit-models/[a:modelName]/[i:id]', 'AdminController:
 $router->map('GET|POST', '/admin/save-models/[a:modelName]/[i:id]', 'AdminController::saveUnit');
 $router->map('GET|POST', '/admin/save-models/[a:modelName]', 'AdminController::saveUnit');
 $router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminController::deleteUnit');
+
+// Cron
+$router->map('GET', '/cron-key/reset-attempts/[a:type]', 'A_BaseModel::resetAttemts');
+$router->map('GET', '/cron-key/reset-attempts', 'A_BaseModel::resetAttemts');

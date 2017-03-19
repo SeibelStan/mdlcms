@@ -41,8 +41,4 @@ class UsersController extends BaseController {
         redirect(ROOT . 'users/login');
     }
 
-    public static function resetAttemts($type) {
-        dbu("delete from attempts where type = '$type'");
-    }
-
 }
