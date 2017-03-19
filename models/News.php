@@ -16,11 +16,10 @@ class News extends A_BaseModel {
         'date'      => 'timestamp::CURRENT_TIMESTAMP',
         'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
-    public $fillable = ['title', 'active', 'content'];
     public $extraView = [
         'content' => 'wysiwyg'
     ];
-    public $noEmpty = ['active', 'date', 'dateup'];
+    public $noEmpty = ['date', 'dateup'];
     public $titles = [
         'title'     => 'Название',
         'url'       => 'Ссылка ЧПУ',
