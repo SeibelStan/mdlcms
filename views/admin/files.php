@@ -18,7 +18,7 @@
             <input type="checkbox" id="outerlink" title="Внешние ссылки" style="display: none;">
             <a id="outerlink_toggle" class="nav-link">Ссылки: внут.</a>
     </div>
-    <div class="filemanager_panes <?= $filesInPage ? 'container-fluid' : '' ?>">
+    <div class="filemanager_panes <?= $filesInPage ? 'container-fluid' : 'row' ?>">
         <div class="filemanager_left col-sm-8">
             <div class="filemanager_crumbs nav nav-pills"></div>
             <div class="filemanager_files row"></div>

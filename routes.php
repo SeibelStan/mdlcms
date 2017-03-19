@@ -9,6 +9,10 @@ $router->map('GET|POST', '/home/send-feedback', 'HomeController::sendFeedback');
 $router->map('GET|POST', '/catalog/[**:url]', 'CatalogController::index');
 $router->map('GET|POST', '/catalog', 'CatalogController::index');
 
+// News
+$router->map('GET|POST', '/news/[**:url]', 'NewsController::index');
+$router->map('GET|POST', '/news', 'NewsController::index');
+
 // Users
 $router->map('GET', '/users/login', 'UsersController::login');
 $router->map('GET', '/login', 'UsersController::login');

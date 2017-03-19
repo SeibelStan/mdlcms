@@ -15,13 +15,22 @@ $(function () {
         showAlert($('#smes-val').val(), $('#smes-type').val());
     }
 
-    $('.ajax-form').ajaxForm(function (data) {
-        data = JSON.parse(data);
-        if(data.message) {
-            showAlert(data.message, data.messageType);
-        }
-        if(data.callback) {
-            eval(data.callback);
+    $('.ajax-form').ajaxForm({
+        beforeSubmit: function () {
+            console.log(1);
+            if(typeof CKEDITOR != 'undefined') {
+                console.log(2);
+                CKEDITOR.instances.content.updateElement();
+            }
+        },
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.message) {
+                showAlert(data.message, data.messageType);
+            }
+            if(data.callback) {
+                eval(data.callback);
+            }
         }
     });
 

@@ -108,16 +108,6 @@ function stripWord($str, $length, $addon = '') {
     return $str;
 }
 
-function extractImage($str) {
-    if(preg_match('/\<img/', $str) && preg_match('/src="(.+?)"/', $str, $imgs)) {
-        $image = $imgs[1];
-    }
-    else {
-        $image = 'assets/img/noimage.jpg';
-    }
-    return $image;
-}
-
 function doubleDig($i) {
     return ($i < 10) ? '0' . $i : $i;
 }
