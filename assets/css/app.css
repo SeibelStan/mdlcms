@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.alert-sticky {
+    position: fixed;
+    top: -100%;
+    z-index: 999;
+    right: 10px;
+}
+.custom-checkbox {
+    vertical-align: middle;
+}
+
+a {
+    cursor: pointer;
+}
+
+#filesModal .modal-dialog {
+    max-width: 95%;
+}
+
+.custom-select + [data-filter],
+.form-control + [data-filter] {
+    display: inline-block;
+    width: auto;
+    position: relative;
+    top: 1px;
+}
