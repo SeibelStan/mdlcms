@@ -60,7 +60,6 @@ class Users extends A_BaseModel {
 
    public static function register($login, $password) {
         if(ATTEMPTS) {
-            dbi("insert into attempts (type, data, ip) values ('register', '$login, $password', '" . USER_IP . "')");
             $attempts = dbs("select * from attempts where type = 'register' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
             if($count_att >= 5) {
@@ -68,6 +67,7 @@ class Users extends A_BaseModel {
                     'message' => 'Попробуйте позже'
                 ];
             }
+            dbi("insert into attempts (type, data, ip) values ('register', '$login, $password', '" . USER_IP . "')");
         }
 
         $user = dbs("select * from users WHERE login = '$login' and active = 1");

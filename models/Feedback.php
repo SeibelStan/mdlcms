@@ -20,7 +20,6 @@ class Feedback extends A_BaseModel {
     public function send($data) {
         global $db;
         if(ATTEMPTS) {
-            dbi("insert into attempts (type, data, ip) values ('feedback', '" . $db->real_escape_string(json_encode($data)) . "', '" . USER_IP . "')");
             $attempts = dbs("select * from attempts where type = 'feedback' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
             if($count_att >= 5) {
@@ -29,6 +28,7 @@ class Feedback extends A_BaseModel {
                     'error' => true
                 ];
             }
+            dbi("insert into attempts (type, data, ip) values ('feedback', '" . $db->real_escape_string(json_encode($data)) . "', '" . USER_IP . "')");
         }
 
         $mailHeaders = "Content-type: text/html; charset=utf-8 \r\n";
