@@ -11,18 +11,18 @@ class Files extends A_BaseModel {
 
     public function upload($data) {
         $files = $data['files'];
-		for($i = 0; $i < count($files['name']); $i++) {
-			$fileName = $files['name'][$i];
-			$filePath = $this->uploadPath . $fileName;
-			move_uploaded_file($files['tmp_name'][$i], $filePath);
-			chmod($filePath, 0777);
+        for($i = 0; $i < count($files['name']); $i++) {
+            $fileName = $files['name'][$i];
+            $filePath = $this->uploadPath . $fileName;
+            move_uploaded_file($files['tmp_name'][$i], $filePath);
+            chmod($filePath, 0777);
 
-			$postfix = false;
-			$matches = [];
-			if(preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
-				Files::resize($filePath, $matches[1]);
-			}
-		}
+            $postfix = false;
+            $matches = [];
+            if(preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
+                Files::resize($filePath, $matches[1]);
+            }
+        }
         return $i;
     }
 
@@ -31,73 +31,73 @@ class Files extends A_BaseModel {
         $fileName = $file['name'];
         $filePath = $this->uploadPath . $fileName;
 
-		$callback = request('CKEditorFuncNum');
-		$error = '';
+        $callback = request('CKEditorFuncNum');
+        $error = '';
 
-		if($_FILES['upload']) {
-			move_uploaded_file($_FILES['upload']['tmp_name'], $filePath);
-			chmod($filePath, 0777);
-			Files::resize();
-		}
+        if($_FILES['upload']) {
+            move_uploaded_file($_FILES['upload']['tmp_name'], $filePath);
+            chmod($filePath, 0777);
+            Files::resize();
+        }
 
-		return '<script>window.parent.CKEDITOR.tools.callFunction(' . $callback . ', "' . ROOT . $filePath . '", "' . $error . '" );</script>';
+        return '<script>window.parent.CKEDITOR.tools.callFunction(' . $callback . ', "' . ROOT . $filePath . '", "' . $error . '" );</script>';
     }
 
     public function get() {
         $files = delDots(scandir($this->uploadPath));
-		$iconBase = ROOT . 'assets/img/';
+        $iconBase = ROOT . 'assets/img/';
 
-		$returnFiles = [];
-		foreach($files as $file) {
-			$fullName = $this->uploadPath . $file;
-			$fileName = $file;
-			$icon = $iconBase . 'inode_file.png';
-			$type = 'file';
-			$ext = '';
+        $returnFiles = [];
+        foreach($files as $file) {
+            $fullName = $this->uploadPath . $file;
+            $fileName = $file;
+            $icon = $iconBase . 'inode_file.png';
+            $type = 'file';
+            $ext = '';
 
-			if(is_dir($fullName)) {
-				$type = 'dir';
-				$icon = $iconBase . 'inode_directory.png';
-				$fullName .= '/';
-			}
-			else {
-				$pathInfo = pathinfo($fullName);
-				if(isset($pathInfo['extension'])) {
-					$ext = $pathInfo['extension'];
-				}
-			}
+            if(is_dir($fullName)) {
+                $type = 'dir';
+                $icon = $iconBase . 'inode_directory.png';
+                $fullName .= '/';
+            }
+            else {
+                $pathInfo = pathinfo($fullName);
+                if(isset($pathInfo['extension'])) {
+                    $ext = $pathInfo['extension'];
+                }
+            }
 
-			if(in_array(strtolower($ext), ['jpg', 'jpeg', 'svg', 'png', 'gif'])) {
-				$icon = ROOT . $fullName;
-			}
+            if(in_array(strtolower($ext), ['jpg', 'jpeg', 'svg', 'png', 'gif'])) {
+                $icon = ROOT . $fullName;
+            }
 
-			array_push($returnFiles, [
-				'type' => $type,
-				'name' => $fileName,
-				'fullname' => $fullName,
-				'icon' => $icon,
-				'ext' => $ext
-			]);
-		}
+            array_push($returnFiles, [
+                'type' => $type,
+                'name' => $fileName,
+                'fullname' => $fullName,
+                'icon' => $icon,
+                'ext' => $ext
+            ]);
+        }
 
-		usort($returnFiles, function ($item1, $item2) {
-			return $item1['type'] <=> $item2['type'];
-		});
+        usort($returnFiles, function ($item1, $item2) {
+            return $item1['type'] <=> $item2['type'];
+        });
 
         return json_encode($returnFiles);
     }
 
     public function remove($files) {
-		foreach($files as $path) {
-			$this->removeDirectory($path);
-		}
+        foreach($files as $path) {
+            $this->removeDirectory($path);
+        }
         return 1;
-	}
+    }
     
     public function rename($oldName, $newName) {
         print_r(scandir($oldName));
         print_r(scandir($newName));
-		return rename($oldName, $newName) ? 1 : 0;
+        return rename($oldName, $newName) ? 1 : 0;
     }
 
     public function createDir($name = '') {

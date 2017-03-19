@@ -5,7 +5,7 @@ class Catalog extends A_BaseModel {
     public $table = 'catalog';
     public $title = 'Каталог';
     public $addable = true;
-   	public $removable = true;
+       public $removable = true;
     public $fields = [
         'id'        => 'int(11):key_ai',
         'title'     => 'varchar(100)',

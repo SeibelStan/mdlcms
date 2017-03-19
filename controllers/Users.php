@@ -8,16 +8,16 @@ class UsersController extends BaseController {
     }
 
     public static function login() {
-		if(USERID) {
-			redirect(ROOT . 'users');
-		}
+        if(USERID) {
+            redirect(ROOT . 'users');
+        }
         include(view('users/login'));
     }
 
     public static function doLogin($login = '', $password = '') {
         $login = $login ?: clearRequest('login', 50);
-		$password = clearRequest('password', 128);
-		$result = Users::login($login, $password);
+        $password = clearRequest('password', 128);
+        $result = Users::login($login, $password);
         die(json_encode($result));
     }
 
@@ -26,13 +26,13 @@ class UsersController extends BaseController {
     }
 
     public static function doRegister() {
-		$login = clearRequest('login', 50);
-		$password = clearRequest('password', 128);
+        $login = clearRequest('login', 50);
+        $password = clearRequest('password', 128);
 
-		$result = Users::register($login, $password);
-		if(isset($result['user'])) {
-			Users::login($login, $password);
-		}
+        $result = Users::register($login, $password);
+        if(isset($result['user'])) {
+            Users::login($login, $password);
+        }
         die(json_encode($user));
     }
 

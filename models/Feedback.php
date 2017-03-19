@@ -4,8 +4,8 @@ class Feedback extends A_BaseModel {
 
     public $table = 'feedback';
     public $title = 'Обратная связь';
-   	public $addable = true;
-   	public $removable = true;
+       public $addable = true;
+       public $removable = true;
     public $fields = [
         'id'      => 'int(11):key_ai',
         'name'    => 'varchar(100)',
@@ -20,16 +20,16 @@ class Feedback extends A_BaseModel {
     public function send($data) {
         global $db;
         if(ATTEMPTS) {
-			dbi("insert into attempts (type, data, ip) values ('feedback', '" . $db->real_escape_string(json_encode($data)) . "', '" . USER_IP . "')");
-			$attempts = dbs("select * from attempts where type = 'feedback' and ip = '" . USER_IP . "'");
-			$count_att = count($attempts);
-			if($count_att >= 5) {
-				return [
-					'message' => 'Попробуйте позже',
+            dbi("insert into attempts (type, data, ip) values ('feedback', '" . $db->real_escape_string(json_encode($data)) . "', '" . USER_IP . "')");
+            $attempts = dbs("select * from attempts where type = 'feedback' and ip = '" . USER_IP . "'");
+            $count_att = count($attempts);
+            if($count_att >= 5) {
+                return [
+                    'message' => 'Попробуйте позже',
                     'error' => true
-				];
-			}
-		}
+                ];
+            }
+        }
 
         $mailHeaders = "Content-type: text/html; charset=utf-8 \r\n";
         $mailHeaders .= "From: " . SITE_NAME . "<" . ADMIN_EMAIL . ">\r\n";
