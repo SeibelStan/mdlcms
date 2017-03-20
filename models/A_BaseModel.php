@@ -134,7 +134,7 @@ class A_BaseModel {
         return $units;
     }
 
-    public function saveUnit($table, $id, $data) {
+    public function saveUnit($id, $data) {
         global $db;
         $fields = $this->getFields($id);
         
@@ -145,7 +145,7 @@ class A_BaseModel {
         }
 
         if($id) {
-            $sql = "update $table set ";
+            $sql = "update ' . $this->getTable() . ' set ";
             foreach($fields as $i => $field) {
                 if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
@@ -156,7 +156,7 @@ class A_BaseModel {
             $sql .= " where id = '" . dbEscape($data['id']) . "'";
         }
         else {
-            $sql = "insert into $table (";
+            $sql = "insert into " . $this->getTable() . " (";
             foreach($fields as $i => $field) {
                 if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
@@ -180,8 +180,11 @@ class A_BaseModel {
         echo $db->error;
     }
 
-    public function deleteUnit($field, $id = 0) {
-        dbu("delete from $this->table where id = $id");
+    public function deleteUnit($field, $value = 0, $condition = false) {
+        $where = "where $field = '$value'";
+        $where .= $condition ? " and " . $condition : '';
+        $sql = "delete from " . $this->getTable() . " $where";
+        return dbu($sql);
     }
 
     public static function resetAttemts($type = '') {

@@ -9,7 +9,46 @@ function showAlert(message, type, time = 3000) {
         })
 }
 
+function getCart() {
+    $.get(
+        baseURL + 'cart/get',
+        function (data) {
+            data = JSON.parse(data);
+            $('#cart-widget li:not(.noremove)').remove();
+            for(var i in data) {
+                var item = data[i];
+                $('#cart-widget').prepend('\
+                    <li class="dropdown-item">\
+                        <a href="' + baseURL + item.model + '/' + item.id + '" style="display: flex;">'
+                            + item.title + ' (' + item.count + ') - '
+                            + item.count * item.price + ' ' + $('#currency').val() + '\
+                            <form class="form-ajax" action="' + baseURL + 'cart/remove" method="post">\
+                                <button class="btn btn-link btn-text pull-right" type="submit">&times;</button>\
+                                <input type="hidden" name="id" value="' + item.cart_id + '">\
+                            </form>\
+                        </a>\
+                    </li>\
+                ');
+            }
+            if(data.length) {
+                $('#cart-widget-actions').show();
+                $('#cart-widget-noitems').hide();
+            }
+            else {
+                $('#cart-widget-actions').hide();
+                $('#cart-widget-noitems').show();
+            }
+        }
+    );
+}
+
 $(function () {
+
+    getCart();
+
+    $('body').on('click', '.alert-sticky', function () {
+        $(this).remove();
+    });
 
     if($('#smes-val').val()) {
         showAlert($('#smes-val').val(), $('#smes-type').val());
@@ -32,13 +71,16 @@ $(function () {
         }
     });
 
-    $('.form-ajax').ajaxForm(function (data) {
-        data = JSON.parse(data);
-        if(data.message) {
-            showAlert(data.message, data.messageType);
-        }
-        if(data.callback) {
-            eval(data.callback);
+    $('.form-ajax').ajaxForm({
+        delegation: true,
+        success: function (data) {
+            data = JSON.parse(data);
+            if(data.message) {
+                showAlert(data.message, data.messageType);
+            }
+            if(data.callback) {
+                eval(data.callback);
+            }
         }
     });
 
@@ -73,6 +115,12 @@ $(function () {
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
         event.preventDefault();
         $(this).ekkoLightbox();
+    });
+
+    $('#direct-unit-count').on('input', function () {
+        $('#direct-unit-price').html(
+            $(this).val() * $('#direct-unit-price').data('price')
+        );
     });
 
 });

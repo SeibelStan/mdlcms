@@ -45,14 +45,9 @@
                     Корзина
                 </a>
                 <span class="caret"></span>
-                <ul class="dropdown-menu items-nohover">
-                    <li class="dropdown-item">
-                        <a href="<?= ROOT ?>">Товар первый (2) - 250 <?= CURRENCY ?></a>
-                        <a class="pull-right">&times;</a>
-                    <li class="dropdown-item">
-                        <a href="<?= ROOT ?>">Товар второй - 7000 <?= CURRENCY ?></a>
-                        <a class="pull-right">&times;</a>
-                    <li class="dropdown-item"><button class="btn btn-success btn-sm">Купить</button>
+                <ul id="cart-widget" class="dropdown-menu items-nohover">
+                    <li class="dropdown-item noremove" id="cart-widget-actions"><button class="btn btn-success btn-sm">Купить</button>
+                    <li class="dropdown-item noremove text-muted" id="cart-widget-noitems">Корзина пуста
                 </ul>
             </li>
 

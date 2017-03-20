@@ -29,7 +29,7 @@ class AdminController extends BaseController {
     public static function saveUnit($modelName, $id = 0) {
         checkAdmin();
         $model = new $modelName();
-        $model->saveUnit($model->getTable(), $id, $data = $_REQUEST);
+        $model->saveUnit($id, $data = $_REQUEST);
         $result = [
             'message' => 'Сохранено',
             'messageType' => 'success'

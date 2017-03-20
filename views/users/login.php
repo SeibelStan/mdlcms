@@ -1,4 +1,4 @@
-<?php include(view('includes/admin-header')) ?>
+<?php include(view('includes/header')) ?>
 
 <div class="container">
     <div class="row">
@@ -16,4 +16,4 @@
     </div>
 </div>
 
-<?php include(view('includes/admin-footer')) ?>
+<?php include(view('includes/footer')) ?>

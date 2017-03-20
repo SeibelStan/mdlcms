@@ -81,5 +81,11 @@ a {
 .items-nohover > :hover {
     background-color: transparent;
 }
+.btn-text {
+    padding: 0;
+    vertical-align: baseline;
+    line-height: 1.5;
+    margin-left: 5px;
+}
 
 /* /APP */

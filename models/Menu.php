@@ -15,7 +15,6 @@ class Menu extends A_BaseModel {
         'params'    => 'varchar(255)',
         'sort'      => 'varchar(10)'
     ];
-    public $fillable = ['name', 'content'];
     public $titles = [
         'namespace' => 'Пространство',
         'title'     => 'Название',

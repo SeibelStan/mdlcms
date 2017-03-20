@@ -24,6 +24,11 @@ $router->map('GET|POST', '/users/logout', 'UsersController::logout');
 $router->map('GET', '/users', 'UsersController::index');
 $router->map('GET', '/users/[i:id]', 'UsersController::index');
 
+// Cart
+$router->map('GET', '/cart/get', 'CartController::get');
+$router->map('POST', '/cart/add', 'CartController::add');
+$router->map('GET|POST', '/cart/remove', 'CartController::remove');
+
 // Files
 $router->map('GET|POST', '/admin/files', 'FilesController::index');
 $router->map('POST', '/files/upload', 'FilesController::upload');
