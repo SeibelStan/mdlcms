@@ -9,7 +9,7 @@ class Codeparts extends A_BaseModel {
     public $fields = [
         'id'        => 'int(11):key_ai',
         'namespace' => 'varchar(20)',
-        'title' => 'varchar(50)',
+        'title'     => 'varchar(50)',
         'type'      => 'varchar(20)',
         'link'      => 'varchar(255)',
         'name'      => 'varchar(50)',

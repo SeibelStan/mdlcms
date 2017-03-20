@@ -9,7 +9,8 @@ class Feedback extends A_BaseModel {
     public $fields = [
         'id'      => 'int(11):key_ai',
         'name'    => 'varchar(100)',
-        'content' => 'text'
+        'content' => 'text',
+        'date'    => 'timestamp::CURRENT_TIMESTAMP',
     ];
     public $fillable = ['name', 'content'];
     public $titles = [
