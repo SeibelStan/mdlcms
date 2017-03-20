@@ -15,13 +15,21 @@ $(function () {
         showAlert($('#smes-val').val(), $('#smes-type').val());
     }
 
-    $('.ajax-form').on('submit', function () {
+    $('.form-resetable').on('submit', function () {
+        $(this).find('*').each(function () {
+            if($(this).attr('type') != 'hidden') {
+                $(this).val('');
+            }
+        });
+    });
+
+    $('.form-ajax').on('submit', function () {
         if(typeof CKEDITOR != 'undefined') {
             CKEDITOR.instances.content.updateElement();
         }
     });
 
-    $('.ajax-form').ajaxForm(function (data) {
+    $('.form-ajax').ajaxForm(function (data) {
         data = JSON.parse(data);
         if(data.message) {
             showAlert(data.message, data.messageType);

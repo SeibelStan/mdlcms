@@ -2,16 +2,13 @@
 
 <div class="nav">
     <li class="nav-item"><a href="<?= ROOT ?><?= $model->getTable() ?>" class="nav-link"><?= $model->getTitle() ?></a>
-    <?php if($parentUnit) : ?>
-        <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>catalog/<?= $parentUnit->url ?>"><?= $parentUnit->title ?></a>
-    <?php endif; ?>
     <?php if($directUnit) : ?>
         <li class="nav-item"><span class="nav-link"><?= $directUnit->title ?></span>
     <?php endif; ?>
 </div>
 
 <div class="container">
-    <?php if($directUnit && !$directUnit->iscatalog) : ?>
+    <?php if($directUnit) : ?>
         <?php include(view($model->getTable() . '/direct-unit')) ?>
     <?php endif; ?>
 

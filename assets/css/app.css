@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body > .container {
+    padding-top: 30px;
+}
+
 .alert-sticky {
     position: fixed;
     top: -100%;
@@ -27,4 +31,21 @@ a {
     width: auto;
     position: relative;
     top: 1px;
+}
+
+.card-img-top-cover {
+    background-position: center center;
+    background-size: cover;
+    display: block;
+    background-color: rgba(0,0,0,.125);
+}
+.height-card-image {
+    height: 180px;
+}
+.height-card-image-half {
+    height: 90px;
+}
+.card-text {
+    max-width: 100%;
+    word-wrap: break-word;
 }

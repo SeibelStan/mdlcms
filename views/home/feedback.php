@@ -2,12 +2,14 @@
 
 <div class="container">
     <?php if($model->isAddable()) : ?>
-        <form action="<?= ROOT ?>home/send-feedback" class="ajax-form" method="post">
-            <?php include(view('includes/fields')) ?>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Отправить</button>
-            </div>
-        </form>
+        <div class="row">
+            <form class="col-sm-4 form-ajax form-resetable" action="<?= ROOT ?>home/send-feedback" method="post">
+                <?php include(view('includes/fields')) ?>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+            </form>
+        </div>
     <?php endif; ?>
 </div>
 

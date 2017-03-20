@@ -8,10 +8,13 @@ class NewsController extends BaseController {
         $directUnit = $model->getByField($urlType, $url, "and active");
         if($directUnit) {
             $directUnit->url = $directUnit->url ?: $directUnit->id;
+            $units = false;
         }
-        $units = $model->getUnits("active", "date desc");
-        foreach($units as $unit) {
-            $unit->url = $unit->url ?: $unit->id;
+        else {
+            $units = $model->getUnits("active", "date desc");
+            foreach($units as $unit) {
+                $unit->url = $unit->url ?: $unit->id;
+            }
         }
         include(view('news/index'));
     }

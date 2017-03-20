@@ -138,6 +138,12 @@ class A_BaseModel {
         global $db;
         $fields = $this->getFields($id);
         
+        foreach($fields as $field) {
+            if($field->control == 'checkbox') {
+                $data[$field->name] = isset($data[$field->name]) && ($data[$field->name] == 'on') ? 1 : 0;
+            }
+        }
+
         if($id) {
             $sql = "update $table set ";
             foreach($fields as $i => $field) {

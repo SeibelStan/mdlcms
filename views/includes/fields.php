@@ -21,13 +21,9 @@
             <?php endif; ?>
         </div>
     </div>
-    <?php
-        $filesModalCond1 = in_array($field->name, ['images']);
-        $filesModalCond2 = $field->name == 'image' && !isset($fields['images']);
-    ?>
-    <?php if($filesModalCond1 || $filesModalCond2) : ?>
+    <?php if(in_array($field->name, ['images', 'image'])) : ?>
         <div class="form-group">
-            <a class="btn btn-secondary" data-toggle="modal" data-target="#filesModal">Выбрать</a>
+            <a class="btn btn-secondary last-focused-top" data-toggle="modal" data-target="#filesModal">Выбрать</a>
         </div>
     <?php endif; ?>
 <?php endforeach; ?>

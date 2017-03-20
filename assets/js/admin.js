@@ -2,7 +2,7 @@ var lastFocused;
 
 function imagesFieldFill() {
     $('.filemanager_links li').each(function () {
-        if(lastFocused.prop('tagName') == 'textarea') {
+        if(lastFocused.prop('tagName') == 'TEXTAREA') {
             lastFocused.val(
                 lastFocused.val() + $(this).html() + '\n'
             );
@@ -18,8 +18,8 @@ function imagesFieldFill() {
 
 $(function () {
 
-    $('input, textarea').focus(function () {
-        lastFocused = $(this);
+    $('.last-focused-top').click(function () {
+        lastFocused = $(this).parent().prev().find('input, textarea');
     });
 
 });

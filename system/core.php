@@ -21,6 +21,10 @@ function dbEscape($data) {
     return $db->real_escape_string($data);
 }
 
+function getTextRows($data) {
+    return explode("\n", trim($data));
+}
+
 function request($name) {
     return isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
 }
@@ -96,7 +100,7 @@ function dbu($sql) {
     return $db->affected_rows;
 }
 
-function stripWord($str, $length, $addon = '') {
+function stripWord($str, $length, $addon = '...') {
     $str = strip_tags($str);
 
     if(mb_strlen($str) > $length) {
@@ -134,6 +138,9 @@ function dateNowHour($for_bd = false) {
 function dateNowFull($for_bd = false) {
     $strafe = $for_bd ? DB_TIME_DELTA : 0;
     return dateStrafe('+' . $strafe . ' seconds', 'Y-m-d H:i:s');
+}
+function dateReformat($date, $format = 'd.m.Y H:i') {
+    return date($format, strtotime($date));
 }
 
 function passGen($length = 16) {

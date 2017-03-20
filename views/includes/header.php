@@ -6,12 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= SITE_NAME ?><?= isset($pageTitle) ? ' - ' . $pageTitle : '' ?></title>
     <link rel="icon" type="image/png" href="<?= ROOT ?>assets/img/favicon.png">
+    <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css">
-    <meta name="theme-color" content="#ffffff">
     <script src="<?= ROOT ?>vendor/jquery-3.1.1.min.js"></script>
+    <meta name="theme-color" content="#ffffff">
     <script>
         var baseURL = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
     </script>
 </head>
 <body>
+
+<nav class="navbar navbar-toggleable-md bg-inverse navbar-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="<?= ROOT ?>admin">MDLCMS</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="<?= ROOT ?>catalog">Каталог</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= ROOT ?>news">Новости</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= ROOT ?>home/feedback">Обратная связь</a>
+            </li>
+            <li>
+                <a class="nav-link" href="https://github.com/SeibelStan/mdlcms">Github</a>
+            </li>
+        </ul>
+    </div>
+</nav>

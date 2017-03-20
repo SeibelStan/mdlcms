@@ -1,6 +1,6 @@
 <?php include(view('includes/header')) ?>
 
-<form class="ajax-form autolabel" action="<?= ROOT ?>users/do-register" method="post">
+<form class="form-ajax autolabel" action="<?= ROOT ?>users/do-register" method="post">
     <div class="form-group">
         <label>Логин</label>
         <input type="text" name="login" required>

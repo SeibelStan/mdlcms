@@ -19,7 +19,7 @@
         <?php endif; ?>
     </div>
 
-    <form class="ajax-form" action="<?= ROOT ?>admin/save-models/<?= $modelName ?><?= $id ? '/' . $id : '' ?>" method="post">
+    <form class="form-ajax" action="<?= ROOT ?>admin/save-models/<?= $modelName ?><?= $id ? '/' . $id : '' ?>" method="post">
         <?php include(view('includes/fields')) ?>
         <div class="form-group">
             <?php if($id || $model->isAddable()) : ?>

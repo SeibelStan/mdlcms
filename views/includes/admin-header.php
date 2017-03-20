@@ -26,15 +26,15 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="<?= ROOT ?>admin/edit-models">Модели</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="<?= ROOT ?>admin/files">Файлы</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="<?= ROOT ?>users/logout">Выйти</a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= ROOT ?>admin/edit-models">Модели</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= ROOT ?>admin/files">Файлы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= ROOT ?>users/logout">Выйти</a>
+            </li>
         </ul>
     </div>
 </nav>

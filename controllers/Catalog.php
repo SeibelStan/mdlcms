@@ -9,11 +9,13 @@ class CatalogController extends BaseController {
         if($directUnit) {
             $directUnit->url = $directUnit->url ?: $directUnit->id;
         }
-        $parentUnit = $directUnit ? $model->getByField('id', $directUnit->connect, "and active") : false;
+        $parentUnit = $directUnit ? $model->getByField('id', $directUnit->connect, "or url = '$directUnit->connect' and active") : false;
         if($parentUnit) {
             $parentUnit->url = $parentUnit->url ?: $parentUnit->id;
         }
-        $units = $model->getUnits("active and connect = '" . ($directUnit ? $directUnit->id : 0) . "'", "title asc");
+        $connectId = $directUnit ? $directUnit->id : 0;
+        $connectUrl = $directUnit ? $directUnit->url : '';
+        $units = $model->getUnits("active and connect = '$connectId' or connect = '$connectUrl'", "title asc");
         foreach($units as $unit) {
             $unit->url = $unit->url ?: $unit->id;
         }

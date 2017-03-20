@@ -14,7 +14,7 @@ class Catalog extends A_BaseModel {
         'content'   => 'text',
         'image'     => 'varchar(199)',
         'images'    => 'text',
-        'connect'   => 'int(11)',
+        'connect'   => 'varchar(50)',
         'active'    => 'int(1)::1',
         'iscatalog' => 'int(1)',
         'date'      => 'timestamp::CURRENT_TIMESTAMP',
