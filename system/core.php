@@ -168,3 +168,8 @@ function getMenu($namespace) {
     $model = new Menu();
     return $model->getUnits("namespace = '$namespace'", "sort asc, title asc");
 }
+
+function getCodeparts($namespace = false) {
+    $model = new Codeparts($namespace ? "namespace = '$namespace'" : '');
+    return $model->getUnits();
+}

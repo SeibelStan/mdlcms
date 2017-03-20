@@ -17,6 +17,8 @@
         var baseURL = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
     </script>
+    <?php $codeparts = getCodeparts(); ?>
+    <?php include(view('includes/codeparts')) ?>
 </head>
 <body>
 
@@ -30,7 +32,9 @@
         <ul class="navbar-nav mr-auto">
             <?php foreach(getMenu('main') as $item) : ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>"><?= $item->title ?></a>
+                    <a class="nav-link" <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
+                        <?= $item->title ?>
+                    </a>
                 </li>
             <?php endforeach; ?>
         </ul>

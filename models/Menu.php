@@ -17,7 +17,7 @@ class Menu extends A_BaseModel {
     ];
     public $fillable = ['name', 'content'];
     public $titles = [
-        'namespace' => 'Меню',
+        'namespace' => 'Пространство',
         'title'     => 'Название',
         'link'      => 'Ссылка',
         'external'  => 'Внешняя',
