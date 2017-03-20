@@ -1,13 +1,21 @@
 <div class="row">
     <div class="col-sm-6">
         <?php if($directUnit->image) : ?>
-            <p><img class="img-fluid" src="<?= $directUnit->image ?>">
+            <p>
+                <a href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
+                    <img class="img-fluid" src="<?= $directUnit->image ?>">
+                </a>
         <?php endif; ?>
         <?php if($directUnit->images) : ?>
             <div class="row">
                 <?php foreach(getTextRows($directUnit->images) as $image) : ?>
                     <div class="col-sm-4">
-                        <div class="card-img-top-cover height-card-image-half" style="background-image: url('<?= $image ?>')"></div>
+                        <a href="<?= $image ?>"
+                            data-toggle="lightbox"
+                            data-gallery="lightbox"
+                            class="card-img-top-cover height-card-image-half"
+                            style="background-image: url('<?= $image ?>')"
+                        ></a>
                     </div>
                 <?php endforeach; ?>
             </div>
