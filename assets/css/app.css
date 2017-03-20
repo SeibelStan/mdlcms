@@ -72,4 +72,14 @@ a {
     padding: 20px;
 }
 
+.dropdown-toggle {
+    min-width: 150px;
+}
+.user-dropdown {
+    text-align: right;
+}
+.items-nohover > :hover {
+    background-color: transparent;
+}
+
 /* /APP */

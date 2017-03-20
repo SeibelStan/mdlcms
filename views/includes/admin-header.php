@@ -36,5 +36,18 @@
                 </li>
             <?php endforeach; ?>
         </ul>
+         
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
+                    <?= getUser()->login ?>
+                </a>
+                <span class="caret"></span>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="<?= ROOT ?>">Сайт</a>
+                    <li><a class="dropdown-item" href="<?= ROOT ?>users/logout">Выход</a>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>

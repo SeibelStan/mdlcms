@@ -89,7 +89,7 @@ class Users extends A_BaseModel {
             'message' => 'Получилось!',
             'messageType' => 'success',
             'callback' => 'location.href = "' . ROOT . 'users";',
-            'user' => Users::getByField('id', $lid)
+            'user' => getUser($lid)
         ];
     }
 

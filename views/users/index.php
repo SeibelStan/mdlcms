@@ -1,5 +1,7 @@
 <?php include(view('includes/header')) ?>
 
-<?= USERID ?>
+<div class="container">
+    <?= USERID ?>
+</div>
 
 <?php include(view('includes/footer')) ?>

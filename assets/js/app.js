@@ -24,7 +24,10 @@ $(function () {
     });
 
     $('.form-ajax').on('submit', function () {
-        if(typeof CKEDITOR.instances.content != 'undefined') {
+        if(
+            typeof CKEDITOR != 'undefined' &&
+            typeof CKEDITOR.instances.content != 'undefined'
+        ) {
             CKEDITOR.instances.content.updateElement();
         }
     });

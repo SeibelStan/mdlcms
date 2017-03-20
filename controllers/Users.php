@@ -33,7 +33,7 @@ class UsersController extends BaseController {
         if(isset($result['user'])) {
             Users::login($login, $password);
         }
-        die(json_encode($user));
+        die(json_encode($result));
     }
 
     public static function logout() {

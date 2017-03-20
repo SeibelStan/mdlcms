@@ -38,5 +38,45 @@
                 </li>
             <?php endforeach; ?>
         </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
+                    Корзина
+                </a>
+                <span class="caret"></span>
+                <ul class="dropdown-menu items-nohover">
+                    <li class="dropdown-item">
+                        <a href="<?= ROOT ?>">Товар первый (2) - 250 <?= CURRENCY ?></a>
+                        <a class="pull-right">&times;</a>
+                    <li class="dropdown-item">
+                        <a href="<?= ROOT ?>">Товар второй - 7000 <?= CURRENCY ?></a>
+                        <a class="pull-right">&times;</a>
+                    <li class="dropdown-item"><button class="btn btn-success btn-sm">Купить</button>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
+                    <?php if(USERID) : ?>
+                        <?= getUser()->login ?>
+                    <?php else : ?>
+                        Вход / Регистрация
+                    <?php endif; ?>
+                </a>
+                <span class="caret"></span>
+                <ul class="dropdown-menu">
+                    <?php if(USERID) : ?>
+                        <?php if(getUser()->isadmin) : ?>
+                            <li class="dropdown-item"><a href="<?= ROOT ?>admin">Управление</a>
+                        <?php endif; ?>
+                        <li class="dropdown-item"><a href="<?= ROOT ?>users/logout">Выход</a>
+                    <?php else : ?>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>users/register">Регистрация</a>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>users/login">Вход</a>
+                    <?php endif; ?>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>
