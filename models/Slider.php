@@ -10,7 +10,6 @@ class Slider extends A_BaseModel {
         'id'        => 'int(11):key_ai',
         'title'     => 'varchar(100)',
         'name'      => 'varchar(20)',
-        'images'    => 'text',
         'height'    => 'int(11)::320',
         'toshow'    => 'int(11)::1',
         'toscroll'  => 'int(11)::1',
@@ -18,8 +17,6 @@ class Slider extends A_BaseModel {
         'speed'     => 'int(11)::2000',
         'dots'      => 'int(1)',
         'active'    => 'int(1)::1',
-        'date'      => 'timestamp::CURRENT_TIMESTAMP',
-        'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
     public $noEmpty = ['speed', 'height', 'toshow', 'toscroll', 'date', 'dateup'];
     public $titles = [
@@ -33,8 +30,6 @@ class Slider extends A_BaseModel {
         'speed'     => 'Скорость',
         'dots'      => 'Точки',
         'active'    => 'Активен',
-        'date'      => 'Дата добавления',
-        'dateup'    => 'Дата обновления'
     ];
 
 }

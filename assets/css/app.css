@@ -54,6 +54,22 @@ a {
     background-size: cover;
     background-position: center center;
     width: 100%;
+    text-decoration: none;
+}
+.slider-item:hover, .slider-item :hover {
+    text-decoration: none;
+}
+.slider-item:not([href]) {
+    cursor: default;
+}
+.slider-item-inner {
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
 }
 
 /* /APP */
