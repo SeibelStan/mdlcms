@@ -4,8 +4,8 @@ class Feedback extends A_BaseModel {
 
     public $table = 'feedback';
     public $title = 'Обратная связь';
-       public $addable = true;
-       public $removable = true;
+    public $addable = true;
+    public $removable = true;
     public $fields = [
         'id'      => 'int(11):key_ai',
         'name'    => 'varchar(100)',

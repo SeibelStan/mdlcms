@@ -26,20 +26,13 @@
     </button>
     <a class="navbar-brand" href="<?= ROOT ?>admin">MDLCMS</a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT ?>catalog">Каталог</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT ?>news">Новости</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT ?>home/feedback">Обратная связь</a>
-            </li>
-            <li>
-                <a class="nav-link" href="https://github.com/SeibelStan/mdlcms">Github</a>
-            </li>
+            <?php foreach(getMenu('main') as $item) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>"><?= $item->title ?></a>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
 </nav>

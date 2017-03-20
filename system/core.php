@@ -163,3 +163,8 @@ function tableExists($tableName) {
     $found = $result->num_rows > 0;
     return $found;
 }
+
+function getMenu($namespace) {
+    $model = new Menu();
+    return $model->getUnits("namespace = '$namespace'", "sort asc, title asc");
+}

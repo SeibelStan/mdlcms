@@ -24,17 +24,13 @@
     </button>
     <a class="navbar-brand" href="<?= ROOT ?>admin">Управление</a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT ?>admin/edit-models">Модели</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT ?>admin/files">Файлы</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT ?>users/logout">Выйти</a>
-            </li>
+            <?php foreach(getMenu('admin') as $item) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>"><?= $item->title ?></a>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
 </nav>
