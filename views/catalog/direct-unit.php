@@ -16,7 +16,7 @@
     <div class="col-sm-6">
         <h1><?= $directUnit->title ?></h1>
 
-        <p class="text-success"><?= $directUnit->price ?>
+        <p class="text-success"><?= $directUnit->price ?> <?= CURRENCY ?>
 
         <article>
             <?= $directUnit->content ?>

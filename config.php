@@ -9,6 +9,7 @@ define('CONTACT_EMAIL', 'seibel.stan@ya.ru');
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 define('DEBUG', true);
 define('ATTEMPTS', true);
+define('CURRENCY', 'KZT');
 
 if(preg_match('/\./', SITE_HOST)) {
     define('ENV', 'prod');
