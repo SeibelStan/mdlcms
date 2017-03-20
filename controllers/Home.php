@@ -3,6 +3,8 @@
 class HomeController extends BaseController {
 
     public static function index() {
+        $modelSlider = new Slider();
+        $slider = $modelSlider->getByField('name', 'home');
         include(view('home/index'));
     }
 

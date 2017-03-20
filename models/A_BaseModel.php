@@ -9,7 +9,7 @@ class A_BaseModel {
         if(!(in_array($fieldName, $this->noEmpty))) {
             return true;
         }
-        return $value != false
+        return $value !== ''
             && !preg_match('/0000-00-00/', $value)
             && !preg_match('/1970-01-01/', $value);
     }

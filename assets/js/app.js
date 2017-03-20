@@ -24,7 +24,7 @@ $(function () {
     });
 
     $('.form-ajax').on('submit', function () {
-        if(typeof CKEDITOR != 'undefined') {
+        if(typeof CKEDITOR.instances.content != 'undefined') {
             CKEDITOR.instances.content.updateElement();
         }
     });

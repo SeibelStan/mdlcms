@@ -7,6 +7,8 @@
     <title><?= SITE_NAME ?><?= isset($pageTitle) ? ' - ' . $pageTitle : '' ?></title>
     <link rel="icon" type="image/png" href="<?= ROOT ?>assets/img/favicon.png">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= ROOT ?>vendor/slick/slick.css">
+    <link rel="stylesheet" href="<?= ROOT ?>vendor/slick/slick-theme.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css">
     <script src="<?= ROOT ?>vendor/jquery-3.1.1.min.js"></script>
     <meta name="theme-color" content="#ffffff">

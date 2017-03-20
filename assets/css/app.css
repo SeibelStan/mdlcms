@@ -49,3 +49,11 @@ a {
     max-width: 100%;
     word-wrap: break-word;
 }
+
+.slider-item {
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+}
+
+/* /APP */
