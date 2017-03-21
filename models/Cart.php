@@ -30,9 +30,8 @@ class Cart extends A_BaseModel {
     ];
 
     public function get() {
-        $table = $this->getTable();
         $result = [];
-        $cartItems = dbs("select * from $table where user_id = '$this->userId' order by date desc");
+        $cartItems = dbs("select * from " . $this->getTable() . " where user_id = '$this->userId' order by date desc");
         foreach($cartItems as $cartItem) {
             $cartItem->model = strtolower($cartItem->model);
             $item = dbs("select * from $cartItem->model where id = '$cartItem->item_id'", true);

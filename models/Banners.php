@@ -1,9 +1,9 @@
 <?php
 
-class Slides extends A_BaseModel {
+class Banners extends A_BaseModel {
 
-    public $table = 'slides';
-    public $title = 'Слайды';
+    public $table = 'banners';
+    public $title = 'Баннеры / слайды';
     public $addable = true;
     public $removable = true;
     public $fields = [

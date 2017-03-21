@@ -4,7 +4,7 @@
     <?php foreach($slides as $slide) : ?>
         <a class="slider-item"
             <?php if($slide->link) : ?>
-                href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>"
+                href="<?= $slide->external ? '' : ROOT ?><?= $slide->link ?>"
             <?php endif; ?>
             style="background-image: url('<?= $slide->image ?>'); height: <?= $slider->height ?>px;">
             <div class="slider-item-inner">

@@ -5,7 +5,7 @@ class HomeController extends BaseController {
     public static function index() {
         $modelSlider = new Slider();
         $slider = $modelSlider->getByField('name', 'home');
-        $modelSlides = new Slides();
+        $modelSlides = new Banners();
         $slides = $modelSlides->getUnits("connect = 'home' and active", "rand()");
         include(view('home/index'));
     }
