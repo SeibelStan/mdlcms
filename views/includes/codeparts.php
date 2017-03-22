@@ -7,5 +7,7 @@
         <link <?= $codepart->params ?> rel="stylesheet" href="<?= $codepart->link ?>">
     <?php elseif($codepart->type == 'meta') : ?>
         <meta name="<?= $codepart->name ?>" content="<?= $codepart->content ?>">
+    <?php else : ?>
+        <?= $codepart->content ?>
     <?php endif; ?>
 <?php endforeach; ?>
