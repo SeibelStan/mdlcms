@@ -35,8 +35,9 @@ foreach($models as $modelName) {
             . "\n";
     }
     $sql .= ") ENGINE=InnoDB DEFAULT CHARSET=utf16;\n\n";
-    
     $db->query($sql);
+    echo $sql . "<br>";
+    
     foreach($prepfields as $field) {
         if($field->key) {
             $sql = "ALTER TABLE `" . $table . "` ADD PRIMARY KEY (`" . $field->name . "`);\n\n";

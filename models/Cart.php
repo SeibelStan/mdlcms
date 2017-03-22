@@ -2,36 +2,38 @@
 
 class Cart extends A_BaseModel {
 
-    public $userId;
-
-    function __construct($userId = false) {
-        $this->userId = $userId;
-    }
-
     public $table = 'cart';
     public $title = 'Корзина';
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'      => 'int(11):key_ai',
-        'user_id' => 'varchar(64)',
-        'model'   => 'varchar(20)',
-        'item_id' => 'int(11)',
-        'count'   => 'int(11)::1',
-        'date'    => 'timestamp::CURRENT_TIMESTAMP',
+        'id'       => 'int(11):key_ai',
+        'user_id'  => 'varchar(64)',
+        'session'  => 'varchar(32)',
+        'model'    => 'varchar(20)',
+        'item_id'  => 'int(11)',
+        'count'    => 'int(11)::1',
+        'order_id' => 'int(11)',
+        'date'     => 'timestamp::CURRENT_TIMESTAMP',
     ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
-        'user_id' => 'int(11)',
-        'model'   => 'Модель',
-        'item_id' => 'Номер предмета',
-        'count'   => 'Количество',
-        'date'    => 'Дата добавления'
+        'user_id'  => 'Пользователь',
+        'session'  => 'Сессия',
+        'model'    => 'Модель',
+        'item_id'  => 'Номер предмета',
+        'count'    => 'Количество',
+        'order_id' => 'Заказ',
+        'date'     => 'Дата добавления'
     ];
+
+    public $cartable = ['Catalog'];
 
     public function get() {
         $result = [];
-        $cartItems = dbs("select * from " . $this->getTable() . " where user_id = '$this->userId' order by date desc");
+        $cartItems = dbs("select * from " . $this->getTable() . "
+            where user_id = '" . USERID . "' or session = '" . session_id() . "'
+            and order_id = 0 order by date desc");
         foreach($cartItems as $cartItem) {
             $cartItem->model = strtolower($cartItem->model);
             $item = dbs("select * from $cartItem->model where id = '$cartItem->item_id'", true);
@@ -45,7 +47,13 @@ class Cart extends A_BaseModel {
 
     public function add($data) {
         global $db;
-        $data['user_id'] = $this->userId;
+        if(!in_array($data['model'], $this->cartable)) {
+            return [
+                'message' => 'Не правильный тип предмета',
+            ];
+        }
+        $data['user_id'] = USERID;
+        $data['session'] = session_id();
         $this->saveUnit(0, $data);
         return [
             'message' => 'Предмет добавлен в корзину',

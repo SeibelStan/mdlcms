@@ -7,20 +7,37 @@ class Users extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'        => 'int(11):key_ai',
-        'login'   => 'varchar(100)',
-        'full_name'   => 'varchar(100)',
-        'email'   => 'varchar(100)',
-        'password' => 'varchar(128)',
-        'hash' => 'varchar(64)',
-        'about' => 'varchar(1000)',
-        'isadmin' => 'int(1)::0',
-        'active' => 'int(1)::1',
+        'id'         => 'int(11):key_ai',
+        'login'      => 'varchar(100)',
+        'full_name'  => 'varchar(100)',
+        'tel'        => 'varchar(50)',
+        'email'      => 'varchar(100)',
+        'password'   => 'varchar(128)',
+        'address'    => 'varchar(100)',
+        'about'      => 'varchar(1000)',
+        'isadmin'    => 'int(1)::0',
+        'active'     => 'int(1)::1',
+        'hash'       => 'varchar(64)',
         'login_date' => 'datetime',
-        'register' => 'timestamp::CURRENT_TIMESTAMP',
-        'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
+        'register'   => 'timestamp::CURRENT_TIMESTAMP',
+        'dateup'     => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
-    public $fillable = ['full_name', 'email', 'password', 'about'];
+    public $fillable = ['full_name', 'tel', 'email', 'address', 'about'];
+    public $titles = [
+        'login'      => 'Логин',
+        'full_name'  => 'Имя',
+        'tel'        => 'Телефон',
+        'email'      => 'Емаил',
+        'password'   => 'Пароль',
+        'address'    => 'Адрес',
+        'about'      => 'О себе',
+        'isadmin'    => 'Администратор',
+        'active'     => 'Активный',
+        'login_date' => 'Последний вход',
+        'hash'       => 'Хэш',
+        'register'   => 'Дата регистрации',
+        'dateup'     => 'Дата обновления'
+    ];
 
     public static function login($login = '', $password = '') {
         if(ATTEMPTS) {

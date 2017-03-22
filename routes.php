@@ -29,6 +29,10 @@ $router->map('GET', '/cart/get', 'CartController::get');
 $router->map('POST', '/cart/add', 'CartController::add');
 $router->map('GET|POST', '/cart/remove', 'CartController::remove');
 
+// Orders
+$router->map('GET', '/orders', 'OrdersController::index');
+$router->map('POST', '/orders/add', 'OrdersController::create');
+
 // Files
 $router->map('GET|POST', '/admin/files', 'FilesController::index');
 $router->map('POST', '/files/upload', 'FilesController::upload');

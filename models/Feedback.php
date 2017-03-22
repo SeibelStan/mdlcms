@@ -15,7 +15,8 @@ class Feedback extends A_BaseModel {
     public $fillable = ['name', 'content'];
     public $titles = [
         'name'    => 'Имя',
-        'content' => 'Комментарий'
+        'content' => 'Комментарий',
+        'date'    => 'Дата добавления'
     ];
 
     public function send($data) {
