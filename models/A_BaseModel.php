@@ -38,6 +38,14 @@ class A_BaseModel {
         return in_array($fieldName, $this->getFillable());
     }
 
+    public function getRequired() {
+        return isset($this->required) && $this->required ? $this->required : [];
+    }
+
+    public function isRequired($fieldName) {
+        return in_array($fieldName, $this->getRequired());
+    }
+
     public function getExtraView($fieldName) {
         return isset($this->extraView) && isset($this->extraView[$fieldName]) ? $this->extraView[$fieldName] : false;
     }
@@ -90,6 +98,7 @@ class A_BaseModel {
                 'title' => $this->getFieldTitle($name),
                 'type' => $type,
                 'control' => $control,
+                'required' => $this->isRequired($name),
                 'value' => $exemp ? $exemp->$name : ''
             ];
 

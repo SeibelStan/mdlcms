@@ -23,6 +23,7 @@ class Users extends A_BaseModel {
         'dateup'     => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
     public $fillable = ['full_name', 'tel', 'email', 'address', 'about'];
+    public $required = ['full_name', 'email'];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
         'login'      => 'Логин',

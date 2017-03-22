@@ -54,14 +54,6 @@ $(function () {
         showAlert($('#smes-val').val(), $('#smes-type').val());
     }
 
-    $('.form-resetable').on('submit', function () {
-        $(this).find('*').each(function () {
-            if($(this).attr('type') != 'hidden') {
-                $(this).val('');
-            }
-        });
-    });
-
     $('.form-ajax').on('submit', function () {
         if(
             typeof CKEDITOR != 'undefined' &&
@@ -74,6 +66,12 @@ $(function () {
     $('.form-ajax').ajaxForm({
         delegation: true,
         success: function (data) {
+            $('.form-resetable *').each(function () {
+                if($(this).attr('type') != 'hidden') {
+                    $(this).val('');
+                }
+            });
+
             data = JSON.parse(data);
             if(data.message) {
                 showAlert(data.message, data.messageType);

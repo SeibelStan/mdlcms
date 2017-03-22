@@ -9,18 +9,22 @@ class Feedback extends A_BaseModel {
     public $fields = [
         'id'      => 'int(11):key_ai',
         'name'    => 'varchar(100)',
+        'tel'     => 'varchar(50)',
+        'email'   => 'varchar(100)',
         'content' => 'text',
         'date'    => 'timestamp::CURRENT_TIMESTAMP',
     ];
-    public $fillable = ['name', 'content'];
+    public $fillable = ['name', 'tel', 'email', 'content'];
+    public $required = ['name', 'content'];
     public $titles = [
         'name'    => 'Имя',
+        'tel'     => 'Телефон',
+        'email'   => 'Емаил',
         'content' => 'Комментарий',
         'date'    => 'Дата добавления'
     ];
 
     public function send($data) {
-        global $db;
         if(ATTEMPTS) {
             $attempts = dbs("select * from attempts where type = 'feedback' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
@@ -30,7 +34,7 @@ class Feedback extends A_BaseModel {
                     'error' => true
                 ];
             }
-            dbi("insert into attempts (type, data, ip) values ('feedback', '" . $db->real_escape_string(json_encode($data)) . "', '" . USER_IP . "')");
+            dbi("insert into attempts (type, data, ip) values ('feedback', '" . json_encode($data) . "', '" . USER_IP . "')");
         }
 
         $mailHeaders = "Content-type: text/html; charset=utf-8 \r\n";
@@ -40,8 +44,10 @@ class Feedback extends A_BaseModel {
         foreach($data as $name => $value) {
             $mailText .= '<p>' . $this->getFieldTitle($name) . ': ' . nl2br($value);
         }
+        mail(CONTACT_EMAIL, 'Отзыв от ' . $data['name'], $mailText, $mailHeaders);
 
-        //mail(CONTACT_EMAIL, 'Отзыв от ' . $data['name'], $mailText, $mailHeaders);
+        $this->saveUnit(0, $data, true);
+  
         return [
             'message' => 'Сообщение отправлено',
             'messageType' => 'success',
