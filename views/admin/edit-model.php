@@ -1,12 +1,13 @@
 <?php include(view('includes/admin-header')) ?>
 
 <div class="container">
+    <h1><?= $model->getTitle() ?></h1>
     <div class="form-group">
         <select class="custom-select select-links" id="model-units">
-            <option value="<?= ROOT ?>admin/edit-models/<?= $modelName ?>">Новый</option>
+            <option data-id="0" value="<?= ROOT ?>admin/edit-models/<?= $modelName ?>">Новый</option>
             <?php foreach($units as $unit) : ?>
                 <?php $thisLink = ROOT . 'admin/edit-models/' . $modelName . '/' . $unit->id; ?>
-                <option value="<?= $thisLink ?>" <?= $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '' ?>>
+                <option data-id="<?= $unit->id ?>" value="<?= $thisLink ?>" <?= $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '' ?>>
                     <?= $unit->display_name ?>
                 </option>
             <?php endforeach; ?>

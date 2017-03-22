@@ -66,7 +66,7 @@
                 <ul class="dropdown-menu">
                     <?php if(USERID) : ?>
                         <?php if(getUser()->isadmin) : ?>
-                            <li class="dropdown-item"><a href="<?= ROOT ?>admin">Управление</a>
+                            <li class="dropdown-item"><a href="<?= ROOT ?>admin/edit-models">Управление</a>
                         <?php endif; ?>
                         <li class="dropdown-item"><a href="<?= ROOT ?>orders">Заказы</a>
                         <li class="dropdown-item"><a href="<?= ROOT ?>users/logout">Выход</a>

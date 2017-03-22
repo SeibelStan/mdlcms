@@ -104,10 +104,11 @@ $(function () {
             regStr += filterVal[i] + '.*';
         }
         var reg = new RegExp(regStr, 'i');
-        $(collection + ' > *').show();
+        $(collection + ' > *').hide();
         $(collection + ' > *').each(function () {
-            if(!$(this).html().match(reg)) {
-                $(this).hide();
+            var dataId = [] + $(this).data('id');
+            if($(this).html().match(reg) || dataId.match(reg)) {
+                $(this).show();
             }
         });
     });

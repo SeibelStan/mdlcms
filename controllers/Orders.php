@@ -13,6 +13,11 @@ class OrdersController extends BaseController {
     }
 
     public static function create() {
+        if(!getUser()) {
+            die(json_encode([
+                'message' => 'Войдите или зарегистрируйтесь и заполните контактные данные'
+            ]));
+        }
         $model = new Orders();
         $result = $model->create($_REQUEST);
         die(json_encode($result));
