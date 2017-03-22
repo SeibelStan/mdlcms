@@ -134,30 +134,30 @@ class A_BaseModel {
         return $units;
     }
 
-    public function saveUnit($id, $data) {
+    public function saveUnit($id, $data, $fillable = false) {
         global $db;
-        $fields = $this->getFields($id);
-        
+        $fields = $this->getFields($id, $fillable);
+
         foreach($fields as $field) {
-            if($field->control == 'checkbox') {
-                $data[$field->name] = isset($data[$field->name]) && ($data[$field->name] == 'on') ? 1 : 0;
+            if($field->control == 'checkbox' && isset($data[$field->name])) {
+                $data[$field->name] = in_array($data[$field->name], ['on', '1']) ? 1 : 0;
             }
         }
 
         if($id) {
-            $sql = "update ' . $this->getTable() . ' set ";
-            foreach($fields as $i => $field) {
+            $sql = "update " . $this->getTable() . " set ";
+            foreach($fields as $field) {
                 if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
                 $sql .= $field->name . " = '" . $data[$field->name] . "', ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
-            $sql .= " where id = '" . dbEscape($data['id']) . "'";
+            $sql .= " where id = '$id'";
         }
         else {
             $sql = "insert into " . $this->getTable() . " (";
-            foreach($fields as $i => $field) {
+            foreach($fields as $field) {
                 if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
@@ -165,7 +165,7 @@ class A_BaseModel {
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ") VALUES (";
-            foreach($fields as $i => $field) {
+            foreach($fields as $field) {
                 if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }

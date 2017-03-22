@@ -13,7 +13,7 @@ class Users extends A_BaseModel {
         'tel'        => 'varchar(50)',
         'email'      => 'varchar(100)',
         'password'   => 'varchar(128)',
-        'address'    => 'varchar(100)',
+        'address'    => 'varchar(255)',
         'about'      => 'varchar(1000)',
         'isadmin'    => 'int(1)::0',
         'active'     => 'int(1)::1',
@@ -23,6 +23,7 @@ class Users extends A_BaseModel {
         'dateup'     => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
     public $fillable = ['full_name', 'tel', 'email', 'address', 'about'];
+    public $noEmpty = ['date', 'dateup'];
     public $titles = [
         'login'      => 'Логин',
         'full_name'  => 'Имя',
@@ -39,9 +40,9 @@ class Users extends A_BaseModel {
         'dateup'     => 'Дата обновления'
     ];
 
-    public static function login($login = '', $password = '') {
+    public static function login($data) {
         if(ATTEMPTS) {
-            dbi("insert into attempts (type, data, ip) values ('login', '$login, $password', '" . USER_IP . "')");
+            dbi("insert into attempts (type, data, ip) values ('login', '" . json_encode($data) . "', '" . USER_IP . "')");
             $attempts = dbs("select * from attempts where type = 'login' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
             if($count_att >= 10) {
@@ -58,7 +59,9 @@ class Users extends A_BaseModel {
             }
         }
 
-        $user = dbs("select * from users where login = '$login' and password = '$password' and active = 1 limit 1", true);
+        $user = dbs("select * from users
+            where login = '" . $data['login'] . "' and password = '" . $data['password'] . "'
+            and active = 1 limit 1", true);
 
         if(!$user) {
             return [
@@ -67,15 +70,16 @@ class Users extends A_BaseModel {
         }
 
         session('user_id', $user->id);
-        dbu("update users set login_date = '" . dateNow() . "' where id = '$user->id'");
+        dbu("update users set login_date = '" . dateNowFull() . "' where id = '$user->id'");
         return [
             'message' => 'Неверный логин или пароль',
             'messageType' => 'success',
             'callback' => 'location.href = "' . ROOT . ($user->isadmin ? 'admin' : 'users') . '";'
         ];
-   }
+    }
 
-   public static function register($login, $password) {
+    public function register($data) {
+        global $db;
         if(ATTEMPTS) {
             $attempts = dbs("select * from attempts where type = 'register' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
@@ -84,29 +88,30 @@ class Users extends A_BaseModel {
                     'message' => 'Попробуйте позже'
                 ];
             }
-            dbi("insert into attempts (type, data, ip) values ('register', '$login, $password', '" . USER_IP . "')");
+            dbi("insert into attempts (type, data, ip) values ('register', '" . json_encode($data) . "', '" . USER_IP . "')");
         }
 
-        $user = dbs("select * from users WHERE login = '$login' and active = 1");
+        $user = dbs("select * from users WHERE login = '" . $data['login'] . "' and active = 1");
 
         if($user) {
             return [
                 'message' => 'Пользователь существует'
             ];
         }
-        if(!preg_match('/^[A-z_]{3,50}$/', $login) || strlen($password) < 6) {
+        if(!preg_match('/^[A-z_]{3,50}$/', $data['login']) || strlen($data['password']) < 6) {
             return [
                 'message' => 'Проверьте данные'
             ];
         }
 
-        $hash = newHash();
-        $lid = dbi("insert into users (login, password, hash) VALUES ('$login', '$password', '$hash')");
+        $data['hash'] = newHash();
+        $data['active'] = '1';
+        $this->saveUnit(0, $data);
         return [
             'message' => 'Получилось!',
             'messageType' => 'success',
             'callback' => 'location.href = "' . ROOT . 'users";',
-            'user' => getUser($lid)
+            'user' => getUser($db->insert_id)
         ];
     }
 

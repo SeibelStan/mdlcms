@@ -129,15 +129,15 @@ function dateStrafe($period, $date = false) {
 }
 function dateNow($for_bd = false) {
     $strafe = $for_bd ? DB_TIME_DELTA : 0;
-    return dateStrafe('+' . $strafe . ' seconds', 'Y-m-d');
+    return dateStrafe('+' . $strafe . ' seconds', date('Y-m-d'));
 }
 function dateNowHour($for_bd = false) {
     $strafe = $for_bd ? DB_TIME_DELTA : 0;
-    return dateStrafe('+' . $strafe . ' seconds', 'Y-m-d H');
+    return dateStrafe('+' . $strafe . ' seconds', date('Y-m-d H'));
 }
 function dateNowFull($for_bd = false) {
     $strafe = $for_bd ? DB_TIME_DELTA : 0;
-    return dateStrafe('+' . $strafe . ' seconds', 'Y-m-d H:i:s');
+    return dateStrafe('+' . $strafe . ' seconds', date('Y-m-d H:i:s'));
 }
 function dateReformat($date, $format = 'd.m.Y H:i') {
     return date($format, strtotime($date));

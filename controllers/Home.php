@@ -20,9 +20,9 @@ class HomeController extends BaseController {
         $model = new Feedback();
         $data = $_REQUEST;
         $result = $model->send($data);
-        if(!isset($result['error'])) {
+        if(isset($result['messageType']) && $result['messageType'] == 'success') {
             $model = new Feedback();
-            $model->saveUnit($model->table, 0, $data);
+            $model->saveUnit(0, $data, true);
         }
         die(json_encode($result));
     }
