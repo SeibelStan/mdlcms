@@ -46,7 +46,10 @@
                 </a>
                 <span class="caret"></span>
                 <ul id="cart-widget" class="dropdown-menu items-nohover">
-                    <li class="dropdown-item noremove" id="cart-widget-actions"><button class="btn btn-success btn-sm">Купить</button>
+                    <li class="dropdown-item noremove" id="cart-widget-actions">
+                        <form class="ajax-form" action="<?= ROOT ?>orders/create" method="post">
+                            <button class="btn btn-success btn-sm">Купить</button>
+                        </form>
                     <li class="dropdown-item noremove text-muted" id="cart-widget-noitems">Корзина пуста
                 </ul>
             </li>
@@ -65,6 +68,7 @@
                         <?php if(getUser()->isadmin) : ?>
                             <li class="dropdown-item"><a href="<?= ROOT ?>admin">Управление</a>
                         <?php endif; ?>
+                        <li class="dropdown-item"><a href="<?= ROOT ?>orders">Заказы</a>
                         <li class="dropdown-item"><a href="<?= ROOT ?>users/logout">Выход</a>
                     <?php else : ?>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users/register">Регистрация</a>

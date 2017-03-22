@@ -30,7 +30,7 @@ $router->map('GET|POST', '/cart/remove', 'CartController::remove');
 
 // Orders
 $router->map('GET', '/orders', 'OrdersController::index');
-$router->map('POST', '/orders/add', 'OrdersController::create');
+$router->map('POST', '/orders/create', 'OrdersController::create');
 
 // Files
 $router->map('GET|POST', '/admin/files', 'FilesController::index');

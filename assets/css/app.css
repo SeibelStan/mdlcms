@@ -87,5 +87,10 @@ a {
     line-height: 1.5;
     margin-left: 5px;
 }
+.table-inline td {
+    padding-top: 0;
+    padding-bottom: 0;
+    border: none;
+}
 
 /* /APP */
