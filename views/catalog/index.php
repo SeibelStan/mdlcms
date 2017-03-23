@@ -27,11 +27,13 @@
                     <div class="card-header"><a href="<?= ROOT ?><?= $model->getTable() ?>/<?= $unit->url ?>"><?= $unit->title ?></a></div>
                     <div class="card-block">
                         <p class="card-text"><?= stripWord($unit->content, 100) ?></p>
-                        <?php if($unit->dateup > $unit->date) : ?>
-                            Обновлено <span data-timeago="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
-                        <?php else : ?>
-                            Размещено <span data-timeago="<?= strtotime($unit->date) ?>"><?= dateReformat($unit->date) ?></span>
-                        <?php endif; ?>
+                        <p class="card-text small text-muted">
+                            <?php if($unit->dateup > $unit->date) : ?>
+                                Обновлено <span data-timeago="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
+                            <?php else : ?>
+                                Размещено <span data-timeago="<?= strtotime($unit->date) ?>"><?= dateReformat($unit->date) ?></span>
+                            <?php endif; ?>
+                        </p>
                     </div>
                 </div>
             </div>

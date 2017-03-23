@@ -15,11 +15,13 @@
                     <?php if($unit->content) : ?>
                         <p class="card-text"><?= stripWord($unit->content, 100) ?></p>
                     <?php endif; ?>
-                    <?php if($unit->dateup > $unit->date) : ?>
-                        Обновлено <span data-timeago="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
-                    <?php else : ?>
-                        Размещено <span data-timeago="<?= strtotime($unit->date) ?>"><?= dateReformat($unit->date) ?></span>
-                    <?php endif; ?>
+                    <p class="card-text small text-muted">
+                        <?php if($unit->dateup > $unit->date) : ?>
+                            Обновлено <span data-timeago="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
+                        <?php else : ?>
+                            Размещено <span data-timeago="<?= strtotime($unit->date) ?>"><?= dateReformat($unit->date) ?></span>
+                        <?php endif; ?>
+                    </p>
                 </div>
             </div>
         </div>
