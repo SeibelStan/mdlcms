@@ -156,15 +156,15 @@ class A_BaseModel {
         $fields = $this->getFields($id, $fillable);
 
         foreach($fields as $field) {
-            if($field->control == 'checkbox' && isset($data[$field->name])) {
-                $data[$field->name] = in_array($data[$field->name], ['on', '1']) ? 1 : 0;
+            if($field->control == 'checkbox' && (isset($data[$field->name]) || isset($data['id']))) {
+                $data[$field->name] = $data[$field->name] ? 1 : 0;
             }
         }
 
         if($id) {
             $sql = "update " . $this->getTable() . " set ";
             foreach($fields as $field) {
-                if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
+                if($field->name == 'dateup' || !isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
                 $sql .= $field->name . " = '" . $data[$field->name] . "', ";

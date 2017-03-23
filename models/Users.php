@@ -110,7 +110,7 @@ class Users extends A_BaseModel {
         }
 
         $data['hash'] = newHash();
-        $data['active'] = '1';
+        $data['active'] = 'on';
         $this->saveUnit(0, $data);
         return [
             'message' => 'Получилось!',

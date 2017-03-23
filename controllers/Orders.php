@@ -15,7 +15,8 @@ class OrdersController extends BaseController {
     public static function create() {
         if(!getUser()) {
             die(json_encode([
-                'message' => 'Войдите или зарегистрируйтесь и заполните контактные данные'
+                'message' => 'Войдите или зарегистрируйтесь и заполните контактные данные',
+                'callback' => '$(".user-dropdown").click();'
             ]));
         }
         $model = new Orders();

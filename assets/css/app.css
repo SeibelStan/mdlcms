@@ -96,5 +96,8 @@ a {
 #search-form {
     position: relative;
 }
+.card-text:empty {
+    display: none;
+}
 
 /* /APP */

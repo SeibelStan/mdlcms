@@ -63,17 +63,26 @@ function attachForms() {
     });
 }
 
+function timeAgo() {
+    $('[data-timeago]:not(.parsed)').each(function () {
+        var time = $(this).data('timeago') * 1000;
+        $(this).html(new Date(time).toTwitterRelativeTime('ru'));
+        $(this).addClass('parsed');
+    });
+}
+
 $(function () {
 
     attachForms();
     getCart();
+    timeAgo();
 
     $('.search-widget-trigger').keyup(function () {
         var query = $(this).val();
         $.post(
             baseURL + 'search-widget',
             {
-                query: query
+                searchQuery: query
             },
             function (data) {
                 data = JSON.parse(data);

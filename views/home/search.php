@@ -1,25 +1,24 @@
 <?php include(view('includes/header')) ?>
 
 <div class="container">
-    <h1><?= count($result) ?> результатов по запросу &laquo;<?= request('query') ?>&raquo;</h1>
-    <p>
+    <p class="lead"><?= count($result) ?> результатов по запросу &laquo;<?= request('searchQuery') ?>&raquo;</ph1>
     <div class="row">
     <?php foreach($result as $unit) : ?>
         <div class="col-sm-3">
-            <div class="card">
+            <div class="card mb-4">
                 <a href="<?= $unit->link ?>"
                     class="card-img-top-cover height-card-image"
                     style="background-image: url('<?= $unit->image ?>')"
                 ></a>
+                <div class="card-header"><a href="<?= $unit->link ?>"><?= $unit->title ?></a></div>
                 <div class="card-block">
-                    <h4 class="card-title">
-                        <a href="<?= $unit->link ?>"><?= $unit->title ?></a>
-                    </h4>
                     <?php if($unit->content) : ?>
                         <p class="card-text"><?= stripWord($unit->content, 100) ?></p>
                     <?php endif; ?>
-                    <?php if($unit->date) : ?>
-                        <p class="card-text"><small class="text-muted"><?= dateReformat($unit->date) ?></small></p>
+                    <?php if($unit->dateup > $unit->date) : ?>
+                        Обновлено <span data-timeago="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
+                    <?php else : ?>
+                        Размещено <span data-timeago="<?= strtotime($unit->date) ?>"><?= dateReformat($unit->date) ?></span>
                     <?php endif; ?>
                 </div>
             </div>

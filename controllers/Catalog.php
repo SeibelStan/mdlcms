@@ -5,7 +5,7 @@ class CatalogController extends BaseController {
     public static function index($url = 0) {
         $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
         $model = new Catalog();
-        $directUnit = $model->getByField($urlType, $url, "and active");
+        $directUnit = $model->getByField($urlType, urldecode($url), "and active");
         if($directUnit) {
             $directUnit->url = $directUnit->url ?: $directUnit->id;
         }

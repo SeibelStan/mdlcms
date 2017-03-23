@@ -19,17 +19,19 @@
     <div class="row">
         <?php foreach($units as $unit) : ?>
             <div class="col-sm-3">
-                <div class="card">
+                <div class="card mb-4">
                     <a href="<?= ROOT ?><?= $model->getTable() ?>/<?= $unit->url ?>"
                         class="card-img-top-cover height-card-image"
                         style="background-image: url('<?= $unit->image ?>')"
                     ></a>
+                    <div class="card-header"><a href="<?= ROOT ?><?= $model->getTable() ?>/<?= $unit->url ?>"><?= $unit->title ?></a></div>
                     <div class="card-block">
-                        <h4 class="card-title">
-                            <a href="<?= ROOT ?><?= $model->getTable() ?>/<?= $unit->url ?>"><?= $unit->title ?></a>
-                        </h4>
                         <p class="card-text"><?= stripWord($unit->content, 100) ?></p>
-                        <p class="card-text"><small class="text-muted"><?= dateReformat($unit->date) ?></small></p>
+                        <?php if($unit->dateup > $unit->date) : ?>
+                            Обновлено <span data-timeago="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
+                        <?php else : ?>
+                            Размещено <span data-timeago="<?= strtotime($unit->date) ?>"><?= dateReformat($unit->date) ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
