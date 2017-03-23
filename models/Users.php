@@ -53,13 +53,13 @@ class Users extends A_BaseModel {
             if($count_att >= 10) {
                 dbi("insert into banned_ip (ip) values ('" . USER_IP . "')");
                 return [
-                    'messageText' => 'Заблокированы за перебор паролей',
+                    'message' => 'Заблокированы за перебор паролей',
                     'callback' => 'location.href = "' . ROOT . '";'
                 ];
             }
             if($count_att >= 5) {
                 return [
-                    'messageText' => 'Попробуйте позже или восстановите пароль. Не продолжайте вводить неподходящие данные!'
+                    'message' => 'Попробуйте позже или восстановите пароль. Не продолжайте вводить неподходящие данные!'
                 ];
             }
         }
@@ -78,8 +78,8 @@ class Users extends A_BaseModel {
         dbu("update users set login_date = '" . dateNowFull() . "' where id = '$user->id'");
         return [
             'message' => 'Неверный логин или пароль',
-            'messageType' => 'success',
-            'callback' => 'location.href = "' . ROOT . ($user->isadmin ? 'admin' : 'users') . '";'
+            'type' => 'success',
+            'callback' => 'location.href = "' . ROOT . ($user->isadmin ? 'admin/edit-models' : 'users') . '";'
         ];
     }
 
@@ -114,7 +114,7 @@ class Users extends A_BaseModel {
         $this->saveUnit(0, $data);
         return [
             'message' => 'Получилось!',
-            'messageType' => 'success',
+            'type' => 'success',
             'callback' => 'location.href = "' . ROOT . 'users";',
             'user' => getUser($db->insert_id)
         ];

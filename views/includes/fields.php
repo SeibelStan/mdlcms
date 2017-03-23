@@ -34,4 +34,9 @@
             <a class="btn btn-secondary last-focused-top" data-toggle="modal" data-target="#filesModal">Выбрать</a>
         </div>
     <?php endif; ?>
+    <?php if($field->name == 'url') : ?>
+        <div class="form-group">
+            <a class="btn btn-secondary friendly-url-fill">Генерировать</a>
+        </div>
+    <?php endif; ?>
 <?php endforeach; ?>

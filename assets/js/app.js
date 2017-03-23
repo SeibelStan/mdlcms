@@ -54,7 +54,7 @@ function attachForms() {
 
             data = JSON.parse(data);
             if(data.message) {
-                showAlert(data.message, data.messageType);
+                showAlert(data.message, data.type);
             }
             if(data.callback) {
                 eval(data.callback);

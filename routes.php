@@ -52,6 +52,7 @@ $router->map('GET|POST', '/admin/save-models/[a:modelName]/[i:id]', 'AdminContro
 $router->map('GET|POST', '/admin/save-models/[a:modelName]', 'AdminController::saveUnit');
 $router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminController::deleteUnit');
 
-// Cron
-$router->map('GET', '/cron-key/reset-attempts/[a:type]', 'A_BaseModel::resetAttemts');
-$router->map('GET', '/cron-key/reset-attempts', 'A_BaseModel::resetAttemts');
+// Helpers
+$router->map('GET', '/' . CRONKEY . '/reset-attempts/[a:type]', 'Helpers::resetAttemts');
+$router->map('GET', '/' . CRONKEY . '/reset-attempts', 'Helpers::resetAttemts');
+$router->map('POST', '/helpers/friendly-url', 'HelpersController::friendlyUrl');

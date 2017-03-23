@@ -55,7 +55,7 @@ class Feedback extends A_BaseModel {
   
         return [
             'message' => 'Сообщение отправлено',
-            'messageType' => 'success',
+            'type' => 'success',
             'mailText' => DEBUG ? $mailText : ''
         ];
     }

@@ -8,6 +8,9 @@
         <li class="nav-item">
             <a class="nav-link" href="<?= ROOT ?>admin/files">Файлы</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= ROOT . CRONKEY ?>/reset-attempts">Сбросить попытки</a>
+        </li>
     </ul>
 </div>
 

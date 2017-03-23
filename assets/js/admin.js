@@ -22,4 +22,16 @@ $(function () {
         lastFocused = $(this).parent().prev().find('input, textarea');
     });
 
+    $('.friendly-url-fill').click(function() {
+        $.post(
+            baseURL + 'helpers/friendly-url',
+            {
+                url: $('[name="title"]').val()
+            },
+            function (data) {
+                $('[name="url"]').val(data);
+            }
+        );
+    });
+
 });

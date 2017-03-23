@@ -76,7 +76,7 @@ class Cart extends A_BaseModel {
         $this->saveUnit(0, $data);
         return [
             'message' => 'Предмет добавлен в корзину',
-            'messageType' => 'success',
+            'type' => 'success',
             'callback' => 'getCart()'
         ];
     }

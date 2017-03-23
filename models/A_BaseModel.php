@@ -204,11 +204,6 @@ class A_BaseModel {
         return dbu($sql);
     }
 
-    public static function resetAttemts($type = '') {
-        $where = $type ? "where type = '$type'" : '';
-        echo dbu("delete from attempts $where");
-    }
-
     public static function search($query, $limit = 12) {
         global $models;
         $results = [];

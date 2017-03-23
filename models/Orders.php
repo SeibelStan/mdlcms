@@ -54,7 +54,7 @@ class Orders extends A_BaseModel {
 
         return [
             'message' => 'Заказ №' . $lid . ' создан и вскоре будет обработан',
-            'messageType' => 'success',
+            'type' => 'success',
             'callback' => 'getCart()',
             'items' => $data['items']
         ];

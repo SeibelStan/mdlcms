@@ -44,7 +44,7 @@ class UsersController extends BaseController {
         $model->saveUnit(USERID, $_REQUEST, true);
         die(json_encode([
             'message' => 'Сохранено',
-            'messageType' => 'success'
+            'type' => 'success'
         ]));
         back();
     }

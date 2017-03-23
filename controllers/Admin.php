@@ -32,7 +32,7 @@ class AdminController extends BaseController {
         $model->saveUnit($id, $data = $_REQUEST);
         $result = [
             'message' => 'Сохранено',
-            'messageType' => 'success'
+            'type' => 'success'
         ];
         if(!$id) {
             $result['callback'] = 'location.href = "' . ROOT . 'admin/edit-models/' . $modelName . '";';
