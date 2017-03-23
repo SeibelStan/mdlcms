@@ -39,6 +39,14 @@
             <?php endforeach; ?>
         </ul>
 
+        <form id="search-form" class="form-inline my-2 my-lg-0 mr-auto dropdown" action="<?= ROOT ?>search" method="post">
+            <input class="form-control mr-sm-2 search-widget-trigger" data-toggle="dropdown" type="text" name="query" value="<?= request('query') ?>">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Искать</button>
+            <ul class="dropdown-menu search-widget">
+                <li class="dropdown-item text-muted">Напишите запрос
+            </ul>
+        </form>
+
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
@@ -47,7 +55,7 @@
                 <span class="caret"></span>
                 <ul id="cart-widget" class="dropdown-menu items-nohover">
                     <li class="dropdown-item noremove" id="cart-widget-actions">
-                        <form class="ajax-form" action="<?= ROOT ?>orders/create" method="post">
+                        <form class="form-ajax" action="<?= ROOT ?>orders/create" method="post">
                             <button class="btn btn-success btn-sm">Купить</button>
                         </form>
                     <li class="dropdown-item noremove text-muted" id="cart-widget-noitems">Корзина пуста

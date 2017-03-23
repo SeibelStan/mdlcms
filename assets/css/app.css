@@ -93,4 +93,8 @@ a {
     border: none;
 }
 
+#search-form {
+    position: relative;
+}
+
 /* /APP */

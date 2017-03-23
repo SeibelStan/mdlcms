@@ -4,6 +4,8 @@
 $router->map('GET', '/', 'HomeController::index');
 $router->map('GET', '/home/feedback', 'HomeController::feedback');
 $router->map('GET|POST', '/home/send-feedback', 'HomeController::sendFeedback');
+$router->map('POST', '/search', 'HomeController::search');
+$router->map('POST', '/search-widget', 'HomeController::searchWidget');
 
 // Catalog
 $router->map('GET|POST', '/catalog/[**:url]', 'CatalogController::index');

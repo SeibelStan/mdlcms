@@ -24,6 +24,7 @@ class Catalog extends A_BaseModel {
         'content' => 'wysiwyg'
     ];
     public $noEmpty = ['date', 'dateup'];
+    public $searchable = ['title', 'url', 'content'];
     public $titles = [
         'title'     => 'Название',
         'url'       => 'Ссылка ЧПУ',

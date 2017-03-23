@@ -22,7 +22,7 @@ class A_BaseModel {
         return isset($this->addable) && $this->addable;
     }
 
-    public static function getName() {
+    public function getName() {
         return get_called_class();
     }
 
@@ -46,12 +46,20 @@ class A_BaseModel {
         return in_array($fieldName, $this->getRequired());
     }
 
+    public function getPattern($fieldName) {
+        return isset($this->pattern) && isset($this->pattern[$fieldName]) ? $this->pattern[$fieldName] : false;
+    }
+
     public function getExtraView($fieldName) {
         return isset($this->extraView) && isset($this->extraView[$fieldName]) ? $this->extraView[$fieldName] : false;
     }
 
     public function getTable() {
         return isset($this->table) && $this->table ? $this->table : false;
+    }
+
+    public function getSearchable() {
+        return isset($this->searchable) && $this->searchable ? $this->searchable : false;
     }
 
     public function getFieldTitle($fieldName) {
@@ -199,6 +207,39 @@ class A_BaseModel {
     public static function resetAttemts($type = '') {
         $where = $type ? "where type = '$type'" : '';
         echo dbu("delete from attempts $where");
+    }
+
+    public static function search($query, $limit = 12) {
+        global $models;
+        $results = [];
+        foreach($models as $modelName) {
+            $model = new $modelName();
+            if($searchable = $model->getSearchable()) {
+                $sql = "select * from " . $model->getTable() . " where";
+                foreach($searchable as $field) {
+                    $sql .= " $field like '%$query%' or";
+                }
+                $sql = preg_replace('/or$/', '', $sql);
+                $sql .= " order by id desc limit $limit";
+                $result = dbs($sql);
+                foreach($result as $unit) {
+                    $unit->url = isset($unit->url) && $unit->url ? $unit->url : $unit->id;
+                    $unit->link = ROOT . strtolower($model->getName()) . '/' . $unit->url;
+                    $unit->content = isset($unit->content) ? $unit->content : false;
+                    $unit->date = isset($unit->date) ? $unit->date : false;
+                    if(isset($unit->image)) {
+                    }
+                    elseif(isset($unit->images)) {
+                        $unit->image = getTextRows($unit->images)[0];
+                    }
+                    else {
+                        $unit->image = '';
+                    }
+                }
+                $results = array_merge($results, $result);
+            }
+        }
+        return $results;
     }
 
 }

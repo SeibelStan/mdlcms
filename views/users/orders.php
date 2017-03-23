@@ -26,7 +26,7 @@
                 </table>
             <td><?= $sum ?> <?= CURRENCY ?>
             <td><?= dateReformat($order->date) ?>
-            <td><?= getTextState($order->state) ?>
+            <td><?= getStateText($order->state) ?>
         <?php endforeach; ?>
         </table>
     </div>

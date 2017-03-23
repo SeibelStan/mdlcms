@@ -174,7 +174,7 @@ function getCodeparts($namespace = false) {
     return $model->getUnits();
 }
 
-function getTextState($state) {
+function getStateText($state) {
     switch($state) {
         case -2 : return 'Возврат';
         case -1 : return 'Отменён';

@@ -33,6 +33,7 @@ function getCart() {
             if(data.length) {
                 $('#cart-widget-actions').show();
                 $('#cart-widget-noitems').hide();
+                attachForms();
             }
             else {
                 $('#cart-widget-actions').hide();
@@ -42,9 +43,52 @@ function getCart() {
     );
 }
 
+function attachForms() {
+    $('.form-ajax').ajaxForm({
+        success: function (data) {
+            $('.form-resetable *').each(function () {
+                if($(this).attr('type') != 'hidden') {
+                    $(this).val('');
+                }
+            });
+
+            data = JSON.parse(data);
+            if(data.message) {
+                showAlert(data.message, data.messageType);
+            }
+            if(data.callback) {
+                eval(data.callback);
+            }
+        }
+    });
+}
+
 $(function () {
 
+    attachForms();
     getCart();
+
+    $('.search-widget-trigger').keyup(function () {
+        var query = $(this).val();
+        $.post(
+            baseURL + 'search-widget',
+            {
+                query: query
+            },
+            function (data) {
+                data = JSON.parse(data);
+                $('.search-widget').empty();
+                for(var i in data) {
+                    var item = data[i];
+                    $('.search-widget')
+                        .append('<li class="dropdown-item"><a href="' + item.link + '">' + item.title + '</a></li>');
+                }
+                if(!data.length) {
+                    $('.search-widget').append('<li class="dropdown-item text-muted">Ничего не найдено</li>');
+                }
+            }
+        );
+    });
 
     $('body').on('click', '.alert-sticky', function () {
         $(this).remove();
@@ -60,25 +104,6 @@ $(function () {
             typeof CKEDITOR.instances.content != 'undefined'
         ) {
             CKEDITOR.instances.content.updateElement();
-        }
-    });
-
-    $('.form-ajax').ajaxForm({
-        delegation: true,
-        success: function (data) {
-            $('.form-resetable *').each(function () {
-                if($(this).attr('type') != 'hidden') {
-                    $(this).val('');
-                }
-            });
-
-            data = JSON.parse(data);
-            if(data.message) {
-                showAlert(data.message, data.messageType);
-            }
-            if(data.callback) {
-                eval(data.callback);
-            }
         }
     });
 

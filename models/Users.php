@@ -24,6 +24,10 @@ class Users extends A_BaseModel {
     ];
     public $fillable = ['full_name', 'tel', 'email', 'address', 'about'];
     public $required = ['full_name', 'email'];
+    public $pattern = [
+        'login' => ['[А-яA-z_0-9]{3,50}', 'Длиннее трёх символов, может содержать буквы, цифры и _'],
+        'full_name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел']
+    ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
         'login'      => 'Логин',

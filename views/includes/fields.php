@@ -13,11 +13,19 @@
                 ?>
                 <input class="form-control" type="<?= $field->control ?>" name="<?= $field->name ?>" value="<?= $tvalue ?>">
             <?php elseif($field->control == 'textarea') : ?>
-                <textarea class="form-control" <?= $field->required ? 'required' : '' ?> name="<?= $field->name ?>"><?= $field->value ?></textarea>
+                <textarea class="form-control"
+                    <?= $field->required ? 'required' : '' ?>
+                      name="<?= $field->name ?>"><?= $field->value ?></textarea>
             <?php elseif($field->control == 'checkbox') : ?>       
                 <input type="<?= $field->control ?>" name="<?= $field->name ?>" <?= $field->value ? 'checked' : '' ?>>
             <?php else : ?>
-                <input class="form-control" <?= $field->required ? 'required' : '' ?> type="<?= $field->control ?>" name="<?= $field->name ?>" value="<?= $field->value ?>">
+                <input class="form-control"
+                    <?= $field->required ? 'required' : '' ?>
+                    <?php $pattern = $model->getPattern($field->name); ?>
+                    <?php if($pattern) : ?>
+                        pattern="<?= $pattern[0] ?>" title="<?= $pattern[1] ?>"
+                    <?php endif; ?>
+                    type="<?= $field->control ?>" name="<?= $field->name ?>" value="<?= $field->value ?>">
             <?php endif; ?>
         </div>
     </div>
