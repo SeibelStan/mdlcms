@@ -30,7 +30,8 @@
         <ul class="navbar-nav mr-auto">
             <?php foreach(getMenu('admin') as $item) : ?>
                 <li class="nav-item">
-                    <a class="nav-link" <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
+                    <a class="nav-link <?= $item->active ? 'active' : '' ?>"
+                        <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
                         <?= $item->title ?>
                     </a>
                 </li>

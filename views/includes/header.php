@@ -32,7 +32,8 @@
         <ul class="navbar-nav mr-auto">
             <?php foreach(getMenu('main') as $item) : ?>
                 <li class="nav-item">
-                    <a class="nav-link" <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
+                    <a class="nav-link <?= $item->active ? 'active' : '' ?>"
+                        <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
                         <?= $item->title ?>
                     </a>
                 </li>
@@ -75,11 +76,11 @@
                 <ul class="dropdown-menu">
                     <?php if(USERID) : ?>
                         <?php if(getUser()->isadmin) : ?>
-                            <li class="dropdown-item"><a href="<?= ROOT ?>admin/edit-models">Управление</a>
+                            <li><a class="dropdown-item" href="<?= ROOT ?>admin/edit-models">Управление</a>
                         <?php endif; ?>
-                        <li class="dropdown-item"><a href="<?= ROOT ?>users">Профиль</a>
-                        <li class="dropdown-item"><a href="<?= ROOT ?>orders">Заказы</a>
-                        <li class="dropdown-item"><a href="<?= ROOT ?>users/logout">Выход</a>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>users">Профиль</a>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>orders">Заказы</a>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>users/logout">Выход</a>
                     <?php else : ?>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users/register">Регистрация</a>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users/login">Вход</a>

@@ -166,7 +166,12 @@ function tableExists($tableName) {
 
 function getMenu($namespace) {
     $model = new Menu();
-    return $model->getUnits("namespace = '$namespace'", "sort asc, title asc");
+    $items = $model->getUnits("namespace = '$namespace'", "sort asc, title asc");
+    foreach($items as $item) {
+        $linkPreg = preg_replace('/\//', '\/', ROOT . $item->link);
+        $item->active = preg_match('/' . $linkPreg . '/', $_SERVER['REQUEST_URI']);
+    }
+    return $items;
 }
 
 function getCodeparts($namespace = false) {

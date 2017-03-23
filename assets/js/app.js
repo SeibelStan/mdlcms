@@ -90,7 +90,7 @@ $(function () {
                 for(var i in data) {
                     var item = data[i];
                     $('.search-widget')
-                        .append('<li class="dropdown-item"><a href="' + item.link + '">' + item.title + '</a></li>');
+                        .append('<li><a class="dropdown-item" href="' + item.link + '">' + item.title + '</a></li>');
                 }
                 if(!data.length) {
                     $('.search-widget').append('<li class="dropdown-item text-muted">Ничего не найдено</li>');
