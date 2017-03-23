@@ -17,7 +17,8 @@ class Feedback extends A_BaseModel {
     public $fillable = ['name', 'tel', 'email', 'content'];
     public $required = ['name', 'content'];
     public $pattern = [
-        'name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел']
+        'name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
+        'email' => ['.@.+?\.[A-z]+', '']
     ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
