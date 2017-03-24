@@ -76,9 +76,25 @@ class Cart extends A_BaseModel {
         }
         $data['user_id'] = USERID;
         $data['session'] = session_id();
-        $this->saveUnit(0, $data);
+
+        $itemId = $data['item_id'];
+        $item = (array)$this->getByField('item_id', $itemId, "and user_id = '" . $data['user_id'] . "' or session = '" . $data['session'] . "'");
+        if($item) {
+            $count = $data['count'];
+            $data = $item;
+            $data['count'] += $count;
+            $data['count'] = $data['count'] >= 1 ? $data['count'] : 1;
+            $this->saveUnit($item['id'], $data);
+            $message = 'Количество обновлено';
+        }
+        else {
+            $data['count'] = $data['count'] >= 1 ? $data['count'] : 1;
+            $this->saveUnit(0, $data);
+            $message = 'Предмет добавлен в корзину';
+        }
+
         return [
-            'message' => 'Предмет добавлен в корзину',
+            'message' => $message,
             'type' => 'success',
             'callback' => 'getCart()'
         ];

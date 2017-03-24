@@ -15,8 +15,10 @@ function getCart() {
         function (data) {
             data = JSON.parse(data);
             $('#cart-widget li:not(.noremove)').remove();
+            var sum = 0;
             for(var i in data) {
                 var item = data[i];
+                sum += item.count * item.price;
                 $('#cart-widget').prepend('\
                     <li class="dropdown-item">\
                         <a href="' + baseURL + item.model + '/' + item.id + '" style="display: flex;">'
@@ -31,6 +33,7 @@ function getCart() {
                 ');
             }
             if(data.length) {
+                $('.cart-sum').html(sum);
                 $('#cart-widget-actions').show();
                 $('#cart-widget-noitems').hide();
                 attachForms();

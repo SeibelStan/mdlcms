@@ -58,7 +58,7 @@
                 <ul id="cart-widget" class="dropdown-menu items-nohover">
                     <li class="dropdown-item noremove" id="cart-widget-actions">
                         <form class="form-ajax" action="<?= ROOT ?>orders/create" method="post">
-                            <button class="btn btn-success btn-sm">Купить</button>
+                            <button class="btn btn-success btn-sm">Купить (<span class="cart-sum"></span> <?= CURRENCY ?>)</button>
                         </form>
                     <li class="dropdown-item noremove text-muted" id="cart-widget-noitems">Корзина пуста
                 </ul>
