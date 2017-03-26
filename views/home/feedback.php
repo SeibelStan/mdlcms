@@ -3,7 +3,7 @@
 <div class="container">
     <?php if($model->isAddable()) : ?>
         <div class="row">
-            <form class="col-sm-4 form-ajax form-resetable" action="<?= ROOT ?>home/send-feedback" method="post">
+            <form class="col-lg-4 col-md-6 col-sm-12 form-ajax form-resetable" action="<?= ROOT ?>home/send-feedback" method="post">
                 <?php include(view('includes/fields')) ?>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Отправить</button>

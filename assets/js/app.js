@@ -47,6 +47,15 @@ function getCart() {
 }
 
 function attachForms() {
+    $('.form-ajax').on('submit', function () {
+        if(
+            typeof CKEDITOR != 'undefined' &&
+            typeof CKEDITOR.instances.content != 'undefined'
+        ) {
+            CKEDITOR.instances.content.updateElement();
+        }
+    });
+
     $('.form-ajax').ajaxForm({
         success: function (data) {
             $('.form-resetable *').each(function () {
@@ -109,15 +118,6 @@ $(function () {
     if($('#smes-val').val()) {
         showAlert($('#smes-val').val(), $('#smes-type').val());
     }
-
-    $('.form-ajax').on('submit', function () {
-        if(
-            typeof CKEDITOR != 'undefined' &&
-            typeof CKEDITOR.instances.content != 'undefined'
-        ) {
-            CKEDITOR.instances.content.updateElement();
-        }
-    });
 
     $('.autolabel label').each(function (i) {
         var label = 'autolabel-' + Math.random();

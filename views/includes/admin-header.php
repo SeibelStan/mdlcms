@@ -15,7 +15,7 @@
         var baseURL = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
     </script>
-    <?php $codeparts = getCodeparts(); ?>
+    <?php $codeparts = Helpers::getCodeparts(); ?>
     <?php include(view('includes/codeparts')) ?>
 </head>
 <body>
@@ -28,7 +28,7 @@
 
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <?php foreach(getMenu('admin') as $item) : ?>
+            <?php foreach(Helpers::getMenu('admin') as $item) : ?>
                 <li class="nav-item">
                     <a class="nav-link <?= $item->active ? 'active' : '' ?>"
                         <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
@@ -41,7 +41,7 @@
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
-                    <?= getUser()->login ?>
+                    <?= Helpers::getUser()->login ?>
                 </a>
                 <span class="caret"></span>
                 <ul class="dropdown-menu">

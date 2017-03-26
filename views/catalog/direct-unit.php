@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-lg-6 col-sm-12">
         <?php if($directUnit->image) : ?>
             <p>
                 <a href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
@@ -9,7 +9,7 @@
         <?php if($directUnit->images) : ?>
             <div class="row">
                 <?php foreach(getTextRows($directUnit->images) as $image) : ?>
-                    <div class="col-sm-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <a href="<?= $image ?>"
                             data-toggle="lightbox"
                             data-gallery="lightbox"
@@ -21,7 +21,7 @@
             </div>
         <?php endif; ?>
     </div>
-    <div class="col-sm-6">
+    <div class="col-lg-6 col-sm-12">
         <h1><?= $directUnit->title ?></h1>
 
         <p class="text-success">

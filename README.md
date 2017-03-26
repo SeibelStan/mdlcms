@@ -1,1 +1,1 @@
-# mdlcms v1.1
+# mdlcms v1.2

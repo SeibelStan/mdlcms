@@ -55,17 +55,13 @@ function abort($err) {
     die();
 }
 
-function getUser($id = USERID) {
-    $authUser = new Users;
-    return $authUser->getByField('id', $id);
-}
 function checkAuth() {
     if(!USERID) {
         abort(401);
     }
 }
 function checkAdmin() {
-    if(!USERID || !getUser(USERID)->isadmin) {
+    if(!USERID || !Helpers::getUser(USERID)->isadmin) {
         abort(401);
     }
 }
@@ -162,33 +158,6 @@ function tableExists($tableName) {
     );
     $found = $result->num_rows > 0;
     return $found;
-}
-
-function getMenu($namespace) {
-    $model = new Menu();
-    $items = $model->getUnits("namespace = '$namespace'", "sort asc, title asc");
-    foreach($items as $item) {
-        $linkPreg = preg_replace('/\//', '\/', ROOT . $item->link);
-        $item->active = preg_match('/' . $linkPreg . '/', $_SERVER['REQUEST_URI']);
-    }
-    return $items;
-}
-
-function getCodeparts($namespace = false) {
-    $model = new Codeparts($namespace ? "namespace = '$namespace'" : '');
-    return $model->getUnits();
-}
-
-function getStateText($state) {
-    switch($state) {
-        case -2 : return 'Возврат';
-        case -1 : return 'Отменён';
-        case  0 : return 'В обработке';
-        case  1 : return 'Принят';
-        case  2 : return 'Передан доставке';
-        case  3 : return 'Доставлен';
-        case  5 : return 'Завершен';
-    }
 }
 
 function translit($data) {

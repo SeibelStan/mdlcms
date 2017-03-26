@@ -116,7 +116,7 @@ class Users extends A_BaseModel {
             'message' => 'Получилось!',
             'type' => 'success',
             'callback' => 'location.href = "' . ROOT . 'users";',
-            'user' => getUser($db->insert_id)
+            'user' => Helpers::getUser($db->insert_id)
         ];
     }
 

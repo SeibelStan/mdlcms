@@ -38,7 +38,7 @@ function filesGet() {
 
             $.each(data, function (i, el) {
                 $('.filemanager_files').append('\
-                    <div class="col-sm-2 filemanager_item"\
+                    <div class="col-lg-2 col-md-4 col-sm-6 filemanager_item mb-3"\
                         data-type="' + el.type + '"\
                         data-fullname="' + el.fullname + '">\
                         <div class="filemanager_item_inner card">\

@@ -12,6 +12,7 @@ class News extends A_BaseModel {
         'url'       => 'varchar(100)',
         'content'   => 'text',
         'image'     => 'varchar(199)',
+        'static'    => 'int(1)',
         'active'    => 'int(1)::1',
         'date'      => 'timestamp::CURRENT_TIMESTAMP',
         'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
@@ -19,13 +20,14 @@ class News extends A_BaseModel {
     public $extraView = [
         'content' => 'wysiwyg'
     ];
-    public $noEmpty = ['date', 'dateup'];
+    public $noEmpty = ['date'];
     public $searchable = ['title', 'url', 'content'];
     public $titles = [
         'title'     => 'Название',
         'url'       => 'Ссылка ЧПУ',
         'content'   => 'Описание',
         'image'     => 'Главное изображение',
+	'static'    => 'Статичная',
         'active'    => 'Активен',
         'date'      => 'Дата добавления',
         'dateup'    => 'Дата обновления'

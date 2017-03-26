@@ -15,7 +15,7 @@
     <?php if($units) : ?>
     <div class="row">
         <?php foreach($units as $unit) : ?>
-            <div class="col-sm-3">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card mb-4">
                     <a href="<?= ROOT ?><?= $model->getTable() ?>/<?= $unit->url ?>"
                         class="card-img-top-cover height-card-image"

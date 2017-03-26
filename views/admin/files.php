@@ -19,11 +19,11 @@
             <a id="outerlink_toggle" class="nav-link">Ссылки: внут.</a>
     </div>
     <div class="filemanager_panes <?= $filesInPage ? 'container-fluid' : 'row' ?>">
-        <div class="filemanager_left col-sm-8">
+        <div class="filemanager_left col-lg-8 col-sm-12">
             <div class="filemanager_crumbs nav nav-pills"></div>
             <div class="filemanager_files row"></div>
         </div>
-        <div class="filemanager_right col-sm-4">
+        <div class="filemanager_right col-lg-4 col-sm-12">
             <ul class="filemanager_links"></ul>
         </div>
     </div>

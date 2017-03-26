@@ -22,8 +22,9 @@ class A_BaseModel {
         return isset($this->addable) && $this->addable;
     }
 
-    public function getName() {
-        return get_called_class();
+    public function getName($lowercase = true) {
+        $name = get_called_class();
+        return $lowercase ? strtolower($name) : $name;
     }
 
     public function getTitle() {
@@ -123,8 +124,14 @@ class A_BaseModel {
         if($condition) {
             $sql .= " " . $condition;
         }
-        $result =  dbs($sql);
-        return $result ? $result[0] : false;
+        $result = dbs($sql);
+        if($result) {
+            $result = $result[0];
+            if(isset($result->url) && !$result->url) {
+                $result->url = $result->id;
+            }
+        }
+        return $result;
     }
 
     public function getUnits($condition = false, $sort = false, $limit = false) {
@@ -147,6 +154,9 @@ class A_BaseModel {
                     $unit->display_name = $unit->$tryName;
                 }
             }
+            if(isset($unit->url) && !$unit->url) {
+                $unit->url = $unit->id;
+            }
         }
         return $units;
     }
@@ -157,7 +167,7 @@ class A_BaseModel {
 
         foreach($fields as $field) {
             if($field->control == 'checkbox' && (isset($data[$field->name]) || isset($data['id']))) {
-                $data[$field->name] = $data[$field->name] ? 1 : 0;
+                $data[$field->name] = isset($data[$field->name]) && $data[$field->name] ? 1 : 0;
             }
         }
 
@@ -167,7 +177,7 @@ class A_BaseModel {
                 if($field->name == 'dateup' || !isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
-                $sql .= $field->name . " = '" . $data[$field->name] . "', ";
+                $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= " where id = '$id'";
@@ -186,7 +196,7 @@ class A_BaseModel {
                 if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
-                $sql .= "'" . $data[$field->name] . "', ";
+                $sql .= "'" . $db->real_escape_string($data[$field->name]) . "', ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";

@@ -60,7 +60,6 @@ class Cart extends A_BaseModel {
             $cartItem->title = $item->title;
             $cartItem->price = $item->price;
             $cartItem->image = $item->image;
-            $cartItem->url = $item->url ?: $item->id;
             $cartItem->model = strtolower($cartItem->model);
             array_push($result, $cartItem);
         }

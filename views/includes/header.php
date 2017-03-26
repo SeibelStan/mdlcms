@@ -17,7 +17,7 @@
         var baseURL = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
     </script>
-    <?php $codeparts = getCodeparts(); ?>
+    <?php $codeparts = Helpers::getCodeparts(); ?>
     <?php include(view('includes/codeparts')) ?>
 </head>
 <body>
@@ -26,11 +26,11 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="<?= ROOT ?>">MDLCMS</a>
+    <a class="navbar-brand" href="<?= ROOT ?>"><?= SITE_NAME ?></a>
 
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <?php foreach(getMenu('main') as $item) : ?>
+            <?php foreach(Helpers::getMenu('main') as $item) : ?>
                 <li class="nav-item">
                     <a class="nav-link <?= $item->active ? 'active' : '' ?>"
                         <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
@@ -67,7 +67,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
                     <?php if(USERID) : ?>
-                        <?= getUser()->login ?>
+                        <?= Helpers::getUser()->login ?>
                     <?php else : ?>
                         Вход / Регистрация
                     <?php endif; ?>
@@ -75,7 +75,7 @@
                 <span class="caret"></span>
                 <ul class="dropdown-menu">
                     <?php if(USERID) : ?>
-                        <?php if(getUser()->isadmin) : ?>
+                        <?php if(Helpers::getUser()->isadmin) : ?>
                             <li><a class="dropdown-item" href="<?= ROOT ?>admin/edit-models">Управление</a>
                         <?php endif; ?>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users">Профиль</a>

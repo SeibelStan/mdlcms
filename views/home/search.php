@@ -4,7 +4,7 @@
     <p class="lead"><?= count($result) ?> результатов по запросу &laquo;<?= request('searchQuery') ?>&raquo;</ph1>
     <div class="row">
     <?php foreach($result as $unit) : ?>
-        <div class="col-sm-3">
+        <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="card mb-4">
                 <a href="<?= $unit->link ?>"
                     class="card-img-top-cover height-card-image"

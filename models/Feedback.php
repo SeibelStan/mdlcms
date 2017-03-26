@@ -20,7 +20,7 @@ class Feedback extends A_BaseModel {
         'name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
         'email' => ['.@.+?\.[A-z]+', '']
     ];
-    public $noEmpty = ['date', 'dateup'];
+    public $noEmpty = ['date'];
     public $titles = [
         'name'    => 'Имя',
         'tel'     => 'Телефон',
@@ -43,7 +43,7 @@ class Feedback extends A_BaseModel {
         }
 
         $mailHeaders = "Content-type: text/html; charset=utf-8 \r\n";
-        $mailHeaders .= "From: " . SITE_NAME . "<" . ADMIN_EMAIL . ">\r\n";
+        $mailHeaders .= "From: " . SITE_NAME . "<" . EMAIL_ADMIN . ">\r\n";
 
         $mailText = '';
         foreach($data as $name => $value) {

@@ -44,7 +44,7 @@ class AdminController extends BaseController {
         checkAdmin();
         $model = new $modelName();
         $model->deleteUnit('id', $id);
-        redirect(ROOT . 'admin/edit-model/' . $modelName);
+        redirect(ROOT . 'admin/edit-models/' . $modelName);
     }
 
 }
