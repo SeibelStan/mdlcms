@@ -1,6 +1,6 @@
 <?php include(view('includes/header')) ?>
 
-<div class="container">
+<main class="container">
     <div class="row">
         <form class="col-lg-4 col-md-6 col-sm-12 form-ajax" action="<?= ROOT ?>users/save" method="post">
             <?php include(view('includes/fields')) ?>
@@ -9,6 +9,6 @@
             </div>
         </form>
     </div>
-</div>
+</main>
 
 <?php include(view('includes/footer')) ?>

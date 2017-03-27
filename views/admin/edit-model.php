@@ -1,6 +1,6 @@
 <?php include(view('includes/admin-header')) ?>
 
-<div class="container">
+<main class="container">
     <h1><?= $model->getTitle() ?></h1>
     <div class="form-group">
         <select class="custom-select select-links" id="model-units">
@@ -31,7 +31,7 @@
             <?php endif; ?>
         </div>
     </form>
-</div>
+</main>
 
 <script src="<?= ROOT ?>vendor/ckeditor/ckeditor.js?v=<?= time() ?>"></script>
 <script src="<?= ROOT ?>vendor/ckeditor/adapters/jquery.js"></script>

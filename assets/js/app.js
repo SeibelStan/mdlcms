@@ -1,6 +1,6 @@
 function showAlert(message, type, time = 3000) {
     type = type ? type : 'danger';
-    $('body > .container').prepend('<div class="alert alert-' + type + ' alert-sticky">' + message + '</div>');
+    $('main').prepend('<div class="alert alert-' + type + ' alert-sticky">' + message + '</div>');
     $('body .alert:first-child')
         .animate({top: '10px'}, 500)
         .animate({clear: 'none'}, time)

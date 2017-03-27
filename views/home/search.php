@@ -1,6 +1,6 @@
 <?php include(view('includes/header')) ?>
 
-<div class="container">
+<main class="container">
     <p class="lead"><?= count($result) ?> результатов по запросу &laquo;<?= request('searchQuery') ?>&raquo;</ph1>
     <div class="row">
     <?php foreach($result as $unit) : ?>
@@ -27,6 +27,6 @@
         </div>
     <?php endforeach; ?>
     </div>
-</div>
+</main>
 
 <?php include(view('includes/footer')) ?>

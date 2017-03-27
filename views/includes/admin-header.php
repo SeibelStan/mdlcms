@@ -7,8 +7,8 @@
     <title><?= SITE_NAME ?><?= isset($pageTitle) ? ' - ' . $pageTitle : '' ?></title>
     <link rel="icon" type="image/png" href="<?= ROOT ?>assets/img/favicon.png">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css">
-    <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css">
+    <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
+    <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
     <script src="<?= ROOT ?>vendor/jquery-3.1.1.min.js"></script>
     <meta name="theme-color" content="#ffffff">
     <script>
@@ -20,6 +20,7 @@
 </head>
 <body>
 
+<header>
 <nav class="navbar navbar-toggleable-md bg-inverse navbar-inverse">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -52,3 +53,4 @@
         </ul>
     </div>
 </nav>
+</header>

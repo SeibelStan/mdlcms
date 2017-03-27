@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="<?= ROOT ?>vendor/slick/slick.css">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/slick/slick-theme.css">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/ekko-lightbox/ekko-lightbox.css">
-    <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css">
+    <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
+    <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
     <script src="<?= ROOT ?>vendor/jquery-3.1.1.min.js"></script>
     <meta name="theme-color" content="#ffffff">
     <script>
@@ -22,6 +23,7 @@
 </head>
 <body>
 
+<header>
 <nav class="navbar navbar-toggleable-md bg-inverse navbar-inverse">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -90,3 +92,4 @@
         </ul>
     </div>
 </nav>
+</header>

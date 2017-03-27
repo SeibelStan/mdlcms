@@ -1,6 +1,6 @@
 <?php include(view('includes/admin-header')) ?>
 
-<div class="container">
+<main class="container">
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link" href="<?= ROOT ?>admin/edit-models">Модели</a>
@@ -12,6 +12,6 @@
             <a class="nav-link" href="<?= ROOT . CRONKEY ?>/reset-attempts">Сбросить попытки</a>
         </li>
     </ul>
-</div>
+</main>
 
 <?php include(view('includes/admin-footer')) ?>

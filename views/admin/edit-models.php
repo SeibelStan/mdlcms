@@ -1,6 +1,6 @@
 <?php include(view('includes/admin-header')) ?>
 
-<div class="container">
+<main class="container">
     <ul class="nav flex-column">
         <?php foreach($modelListExemps as $model) : ?>
         <li class="nav-item">
@@ -8,6 +8,6 @@
         </li>
         <?php endforeach; ?>
     </ul>
-</div>
+</main>
 
 <?php include(view('includes/admin-footer')) ?>

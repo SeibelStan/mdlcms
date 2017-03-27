@@ -196,3 +196,12 @@ function friendlyUrl($data) {
     $data = preg_replace('/-+/', '-', $data);
     return translit($data);
 }
+
+function assetTime() {
+    if(DEBUG) {
+        return '?v=' . time();
+    }
+    else {
+        return 'v=' . date('Y-m-d');
+    }
+}

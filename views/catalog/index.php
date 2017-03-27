@@ -10,7 +10,7 @@
     <?php endif; ?>
 </div>
 
-<div class="container">
+<main class="container">
     <?php if($directUnit && !$directUnit->iscatalog) : ?>
         <?php include(view($model->getTable() . '/direct-unit')) ?>
     <?php endif; ?>
@@ -40,6 +40,6 @@
         <?php endforeach; ?>
     </div>
     <?php endif; ?>
-</div>
+</main>
 
 <?php include(view('includes/footer')) ?>

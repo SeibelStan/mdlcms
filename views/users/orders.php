@@ -1,6 +1,6 @@
 <?php include(view('includes/header')) ?>
 
-<div class="container">
+<main class="container">
     <div class="row">
         <table class="table">
         <tr>
@@ -30,6 +30,6 @@
         <?php endforeach; ?>
         </table>
     </div>
-</div>
+</main>
 
 <?php include(view('includes/footer')) ?>
