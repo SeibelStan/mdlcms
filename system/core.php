@@ -83,17 +83,23 @@ function dbs($sql, $single = false) {
             $data[] = (object)$row;
         }
     }
+    echo $db->error;
     return $single ? (isset($data[0]) ? $data[0] : []) : $data;
 }
 function dbi($sql) {
     global $db;
     $db->query($sql);
+    echo $db->error;
     return $db->insert_id;
 }
 function dbu($sql) {
     global $db;
     $db->query($sql);
+    echo $db->error;
     return $db->affected_rows;
+}
+function arrayFirst($data) {
+    return isset($data[0]) ? $data[0] : false;
 }
 
 function stripWord($str, $length, $addon = '...') {
@@ -204,4 +210,8 @@ function assetTime() {
     else {
         return 'v=' . date('Y-m-d');
     }
+}
+
+function jsLog($data) {
+    echo '<script>console.log("' . $data . '");</script>';
 }

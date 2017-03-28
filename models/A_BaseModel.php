@@ -134,7 +134,7 @@ class A_BaseModel {
         return $result;
     }
 
-    public function getUnits($condition = false, $sort = false, $limit = false) {
+    public function getUnits($condition = false, $sort = false, $limit = false, $single = false) {
         global $db;
         $sql = "select * from $this->table";
         
