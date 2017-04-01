@@ -7,11 +7,9 @@ function view($page) {
 function clear($data, $length) {
     $data = strip_tags($data);
     $data = trim($data);
-
     if($length) {
         $data = substr($data, 0, $length);
     }
-
     $data = htmlspecialchars($data);
     return $data;
 }
@@ -21,14 +19,13 @@ function dbEscape($data) {
     return $db->real_escape_string($data);
 }
 
-function getTextRows($data) {
+function textRows($data) {
     return explode("\n", trim($data));
 }
 
 function request($name) {
     return isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
 }
-
 function clearRequest($name, $length) {
     return clear(request($name), $length);
 }
@@ -104,7 +101,6 @@ function arrayFirst($data) {
 
 function stripWord($str, $length, $addon = '...') {
     $str = strip_tags($str);
-
     if(mb_strlen($str) > $length) {
         $str = mb_substr($str, 0, $length);
         $str = preg_replace('/\S+$/', '', $str);
@@ -132,10 +128,6 @@ function dateStrafe($period, $date = false) {
 function dateNow($for_bd = false) {
     $strafe = $for_bd ? DB_TIME_DELTA : 0;
     return dateStrafe('+' . $strafe . ' seconds', date('Y-m-d'));
-}
-function dateNowHour($for_bd = false) {
-    $strafe = $for_bd ? DB_TIME_DELTA : 0;
-    return dateStrafe('+' . $strafe . ' seconds', date('Y-m-d H'));
 }
 function dateNowFull($for_bd = false) {
     $strafe = $for_bd ? DB_TIME_DELTA : 0;

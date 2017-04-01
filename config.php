@@ -4,10 +4,7 @@ define('SITE_NAME', 'MDLCMS');
 define('SITE_HOST', $_SERVER['HTTP_HOST']);
 define('SITE_DOMAIN', 'http://' . SITE_HOST);
 define('EMAIL_ADMIN', 'admin@' . SITE_HOST);
-define('EMAIL_CONTACT', 'seibel.stan@ya.ru');
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
-define('DEBUG', true);
-define('ATTEMPTS', true);
 define('CURRENCY', 'KZT');
 define('CRONKEY', 'cron-key');
 

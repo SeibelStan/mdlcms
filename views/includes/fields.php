@@ -1,7 +1,7 @@
 <?php foreach($fields as $field) : ?>
     <div class="autolabel">
         <div class="form-group">
-            <label><?= $field->title ?></label>
+            <label><?= $field->title ?> <?= $field->required ? '*' : '' ?></label>
             <?php if($extraView = $model->getExtraView($field->name)) : ?>
                 <?php if($extraView == 'wysiwyg') : ?>
                     <textarea name="<?= $field->name ?>" class="ckeditor"><?= $field->value ?></textarea>

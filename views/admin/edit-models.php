@@ -1,11 +1,9 @@
 <?php include(view('includes/admin-header')) ?>
 
 <main class="container">
-    <ul class="nav flex-column">
+    <ul>
         <?php foreach($modelListExemps as $model) : ?>
-        <li class="nav-item">
-            <a class="nav-link" href="<?= ROOT ?>admin/edit-models/<?= $model->getName() ?>"><?= $model->getTitle() ?></a>
-        </li>
+        <li><a href="<?= ROOT ?>admin/edit-models/<?= $model->getName() ?>"><?= $model->getTitle() ?></a>
         <?php endforeach; ?>
     </ul>
 </main>

@@ -9,7 +9,6 @@ class AdminController extends BaseController {
 
     public static function editModels() {
         checkAdmin();
-        global $models;
         $modelsList = Admin::getModelsList();
         $modelListExemps = [];
         foreach($modelsList as $modelName) {

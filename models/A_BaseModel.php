@@ -202,7 +202,6 @@ class A_BaseModel {
             $sql .= ")";
         }
 
-        //echo $sql;
         $db->query($sql);
         echo $db->error;
     }
@@ -215,9 +214,9 @@ class A_BaseModel {
     }
 
     public static function search($query, $limit = 12) {
-        global $models;
+        $modelsList = Admin::getModelsList();
         $results = [];
-        foreach($models as $modelName) {
+        foreach($modelsList as $modelName) {
             $model = new $modelName();
             if($searchable = $model->getSearchable()) {
                 $sql = "select * from " . $model->getTable() . " where";
@@ -235,7 +234,7 @@ class A_BaseModel {
                     if(isset($unit->image)) {
                     }
                     elseif(isset($unit->images)) {
-                        $unit->image = getTextRows($unit->images)[0];
+                        $unit->image = textRows($unit->images)[0];
                     }
                     else {
                         $unit->image = '';

@@ -22,12 +22,12 @@
 
 <header>
 <nav class="navbar navbar-toggleable-md bg-inverse navbar-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="<?= ROOT ?>admin">Управление</a>
 
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <?php foreach(Helpers::getMenu('admin') as $item) : ?>
                 <li class="nav-item">

@@ -25,12 +25,12 @@
 
 <header>
 <nav class="navbar navbar-toggleable-md bg-inverse navbar-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="<?= ROOT ?>"><?= SITE_NAME ?></a>
 
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <?php foreach(Helpers::getMenu('main') as $item) : ?>
                 <li class="nav-item">
@@ -43,7 +43,7 @@
         </ul>
 
         <form id="search-form" class="form-inline my-2 my-lg-0 mr-auto dropdown" action="<?= ROOT ?>search" method="post">
-            <input class="form-control mr-sm-2 search-widget-trigger"
+            <input class="form-control mr-sm-2 search-widget-trigger" placeholder="Поиск"
                 required data-toggle="dropdown" type="text" name="searchQuery" value="<?= request('searchQuery') ?>">
             <button class="btn my-2 my-sm-0" type="submit">Искать</button>
             <ul class="dropdown-menu search-widget">

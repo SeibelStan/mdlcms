@@ -8,7 +8,7 @@
         <?php endif; ?>
         <?php if($directUnit->images) : ?>
             <div class="row">
-                <?php foreach(getTextRows($directUnit->images) as $image) : ?>
+                <?php foreach(textRows($directUnit->images) as $image) : ?>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <a href="<?= $image ?>"
                             data-toggle="lightbox"
