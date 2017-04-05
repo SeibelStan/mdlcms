@@ -200,7 +200,7 @@ function assetTime() {
         return '?v=' . time();
     }
     else {
-        return 'v=' . date('Y-m-d');
+        return '?v=' . date('Y-m-d');
     }
 }
 

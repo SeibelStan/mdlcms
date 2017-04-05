@@ -1,7 +1,7 @@
 <?php include(view('includes/header')) ?>
 
 <div class="nav">
-    <li class="nav-item"><a href="<?= ROOT ?><?= $model->getTable() ?>" class="nav-link"><?= $model->getTitle() ?></a>
+    <li class="nav-item"><a href="<?= ROOT ?><?= $model->getName() ?>" class="nav-link"><?= $model->getTitle() ?></a>
     <?php if($parentUnit) : ?>
         <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>catalog/<?= $parentUnit->url ?>"><?= $parentUnit->title ?></a>
     <?php endif; ?>
@@ -12,7 +12,7 @@
 
 <main class="container">
     <?php if($directUnit && !$directUnit->iscatalog) : ?>
-        <?php include(view($model->getTable() . '/direct-unit')) ?>
+        <?php include(view($model->getName() . '/direct-unit')) ?>
     <?php endif; ?>
 
     <?php if($units) : ?>
@@ -20,11 +20,11 @@
         <?php foreach($units as $unit) : ?>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card mb-4">
-                    <a href="<?= ROOT ?><?= $model->getTable() ?>/<?= $unit->url ?>"
+                    <a href="<?= ROOT ?><?= $model->getName() ?>/<?= $unit->url ?>"
                         class="card-img-top-cover height-card-image"
                         style="background-image: url('<?= $unit->image ?>')"
                     ></a>
-                    <div class="card-header"><a href="<?= ROOT ?><?= $model->getTable() ?>/<?= $unit->url ?>"><?= $unit->title ?></a></div>
+                    <div class="card-header"><a href="<?= ROOT ?><?= $model->getName() ?>/<?= $unit->url ?>"><?= $unit->title ?></a></div>
                     <div class="card-block">
                         <p class="card-text"><?= stripWord($unit->content, 100) ?></p>
                         <p class="card-text small text-muted">
