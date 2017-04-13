@@ -1,7 +1,7 @@
 var lastFocused;
 
 function imagesFieldFill() {
-    $('.filemanager_links li').each(function () {
+    $('.fm_links li').each(function () {
         if(lastFocused.prop('tagName') == 'TEXTAREA') {
             lastFocused.val(
                 lastFocused.val() + $(this).html() + '\n'
@@ -11,8 +11,8 @@ function imagesFieldFill() {
             lastFocused.val($(this).html());
         }
     });
-    filesGet();
-    $('.filemanager_links').empty();
+    FM.filesGet();
+    $('.fm_links').empty();
     $('#filesModal .close').click();
 }
 

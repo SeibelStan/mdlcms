@@ -1,157 +1,160 @@
-var filemanagerDir = '';
-var filemanagerSegments = [];
-var filemanagerChecked = [];
-var filemanagerDefaultPath = 'data/files/';
-var filemanagerInpage;
+var FM = {
+    dir: '',
+    segments: [],
+    checked: [],
+    defaultPath: 'data/files/',
+    inModal: false,
+    outerLink: false,
 
-function dirChange(path) {
-    if(!path) {
-        if(filemanagerInpage) {
-            path = location.hash ? location.hash.replace(/#/, '') : filemanagerDefaultPath;
+    dirChange: function(path) {
+        if(!path) {
+            if(FM.inModal) {
+                path = localStorage.getItem('path') ? localStorage.getItem('path') : FM.defaultPath;
+            }
+            else {
+                path = location.hash ? location.hash.replace(/#/, '') : FM.defaultPath;
+            }
+        }
+
+        FM.dir = path;
+        FM.segments = FM.dir.replace(/\/$/, '').split('/');
+        if(FM.inModal) {
+            localStorage.setItem('path', FM.dir);
         }
         else {
-            path = localStorage.getItem('path') ? localStorage.getItem('path') : filemanagerDefaultPath;
+            location.hash = FM.dir;
         }
-    }
+        $('.tool_upload_dir').val(FM.dir);
+        FM.filesGet();
+    },
 
-    filemanagerDir = path;
-    filemanagerSegments = filemanagerDir.replace(/\/$/, '').split('/');
-    if(filemanagerInpage) {
-        location.hash = filemanagerDir;
-    }
-    else {
-        localStorage.setItem('path', filemanagerDir);
-    }
-    $('.tool_upload_dir').val(filemanagerDir);
-    filesGet();
-}
-
-function filesGet() {
-    $('.filemanager_crumbs').empty();
-    for(var i = 0; i < filemanagerSegments.length; i++) {
-        var tmp = '';
-        for(var j = 0; j <= i; j++) {
-            tmp += filemanagerSegments[j] + '/';
+    filesGet: function() {
+        $('.fm_crumbs').empty();
+        for(var i = 0; i < FM.segments.length; i++) {
+            var tmp = '';
+            for(var j = 0; j <= i; j++) {
+                tmp += FM.segments[j] + '/';
+            }
+            $('.fm_crumbs').append('<li class="nav-item"><a class="nav-link" href="#" data-path="' + tmp + '">' + FM.segments[i] + '</a>');
         }
-        $('.filemanager_crumbs').append('<li class="nav-item"><a class="nav-link" href="#" data-path="' + tmp + '">' + filemanagerSegments[i] + '</a>');
-    }
-    $('.filemanager_crumbs .nav-item:last-child a').removeAttr('href');
+        $('.fm_crumbs .nav-item:last-child a').removeAttr('href');
 
-    $('.filemanager_files').html('');
-    $.post(
-        baseURL + 'files/get',
-        {
-            dir: filemanagerDir
-        },
-        function (data) {
-            data = JSON.parse(data);
-            $('.filemanager_files').empty();
+        $('.fm_files').empty();
+        $.post(
+            baseURL + 'files/get',
+            {
+                dir: FM.dir
+            },
+            function (data) {
+                data = JSON.parse(data);
+                $('.fm_files').empty();
 
-            $.each(data, function (i, el) {
-                $('.filemanager_files').append('\
-                    <div class="col-lg-2 col-md-4 col-sm-6 filemanager_item mb-3"\
-                        data-type="' + el.type + '"\
-                        data-fullname="' + el.fullname + '">\
-                        <div class="filemanager_item_inner card">\
-                            <div class="filemanager_item_icon card-img-top" style="background-image: url(\'' + el.icon + '\')"></div>\
-                            <input type="text" class="filemanager_item_title" value="' + el.name + '">\
+                $.each(data, function (i, el) {
+                    $('.fm_files').append('\
+                        <div class="col-lg-2 col-md-4 col-sm-6 fm_item mb-3"\
+                            data-type="' + el.type + '"\
+                            data-fullname="' + el.fullname + '">\
+                            <div class="fm_item_inner card">\
+                                <div class="fm_item_icon card-img-top" style="background-image: url(\'' + el.icon + '\')"></div>\
+                                <input type="text" class="fm_item_title" value="' + el.name + '">\
+                            </div>\
                         </div>\
-                    </div>\
-                ');
-            });
-        }
-    );
-}
+                    ');
+                });
+            }
+        );
+    },
 
-function filesRemove() {
-    if(!confirm('Точно?')) {
-        return false;
+    filesRemove: function() {
+        if(!confirm('Точно?')) {
+            return false;
+        }
+
+        var files = [];
+        $('.fm_item.checked').each(function () {
+            files.push($(this).data('fullname'));
+        });
+
+        $.post(
+            baseURL + 'files/remove',
+            {
+                files: files
+            },
+            function () {
+                FM.filesGet();
+            }
+        );
+    },
+
+    fileRename: function(oldName, newName) {
+        $.post(
+            baseURL + 'files/rename',
+            {
+                oldName: oldName,
+                newName: newName
+            },
+            function () {
+                FM.filesGet();
+            }
+        );
+    },
+
+    fileCheck: function() {
+        FM.outerLink = $('#outer_link').prop('checked');
+        $('.fm_links').empty();
+        $('.fm_item.checked').each(function () {
+            $('.fm_links').append('<li>' +
+                (FM.outerLink ? domainURL : '') +
+                baseURL + $(this).data('fullname') +
+            '</li>');
+        });
+    },
+
+    dirCreate: function() {
+        $.post(
+            baseURL + 'files/create-dir',
+            {
+                dir: FM.dir
+            },
+            function (data) {
+                FM.filesGet();
+            }
+        );
     }
-
-    var files = [];
-    $('.filemanager_item.checked').each(function () {
-        files.push($(this).data('fullname'));
-    });
-
-    $.post(
-        baseURL + 'files/remove',
-        {
-            files: files
-        },
-        function () {
-            filesGet();
-        }
-    );
-}
-
-function fileRename(oldName, newName) {
-    $.post(
-        baseURL + 'files/rename',
-        {
-            oldName: oldName,
-            newName: newName
-        },
-        function () {
-            filesGet();
-        }
-    );
-}
-
-function fileCheck() {
-    var outerLink = $('#outer_link').prop('checked');
-    $('.filemanager_links').html('');
-    $('.filemanager_item.checked').each(function () {
-        $('.filemanager_links').append('<li>' +
-            (outerLink ? domainURL : '') +
-            baseURL + $(this).data('fullname') +
-        '</li>');
-    });
-}
-
-function dirCreate() {
-    $.post(
-        baseURL + 'files/create-dir',
-        {
-            dir: filemanagerDir
-        },
-        function (data) {
-            filesGet();
-        }
-    );
-}
+};
 
 $(function () {
 
-    filemanagerInpage = $('.filemanager').data('inpage');
+    FM.inModal = $('.filemanager').data('inmodal');
 
-    dirChange(filemanagerDir);
+    FM.dirChange(FM.dir);
 
     $(window).on('hashchange', function() {
-        dirChange('');
+        FM.dirChange('');
     });
 
-    $('.filemanager').on('change', '.filemanager_item_title', function () {
-        fileRename(
-            $(this).closest('.filemanager_item').data('fullname'),
-            filemanagerDir + $(this).val()
+    $('.filemanager').on('change', '.fm_item_title', function () {
+        FM.fileRename(
+            $(this).closest('.fm_item').data('fullname'),
+            FM.dir + $(this).val()
         );
     });
     
 
-    $('.filemanager').on('click', '.filemanager_crumbs a', function () {
-        dirChange($(this).data('path'));
+    $('.filemanager').on('click', '.fm_crumbs a', function () {
+        FM.dirChange($(this).data('path'));
         return false;
     });
 
-    $('.filemanager').on('click', '.filemanager_item', function (e) {
-        if(!$(e.target).hasClass('filemanager_item_title')) {
+    $('.filemanager').on('click', '.fm_item', function (e) {
+        if(!$(e.target).hasClass('fm_item_title')) {
             $(this).toggleClass('checked');
-            fileCheck();
+            FM.fileCheck();
         }
     });
 
-    $('.filemanager').on('dblclick', '.filemanager_item[data-type="dir"]', function () {
-        dirChange($(this).data('fullname'));
+    $('.filemanager').on('dblclick', '.fm_item[data-type="dir"]', function () {
+        FM.dirChange($(this).data('fullname'));
     });
 
     $('.tool_upload').click(function () {
@@ -163,24 +166,23 @@ $(function () {
     });
 
     $('.tool_createdir').click(function () {
-        dirCreate();
+        FM.dirCreate();
     });
 
-    $('.filemanager_uploadhere').ajaxForm(function () {
-        filesGet();
+    $('.fm_uploadhere').ajaxForm(function () {
+        FM.filesGet();
     });
 
     $('.tool_remove').click(function () {
-        filesRemove();
+        FM.filesRemove();
     });
 
     $('.tool_refresh').click(function () {
-        filesGet();
+        FM.filesGet();
     });
 
-    $('#outerlink_toggle').click(function () {
-        console.log('1');
-        $('#outerlink').click();
+    $('#fm_outerlink_toggle').click(function () {
+        $('#fm_outerlink').click();
         var outerLinkVal = $('#outerlink').prop('checked');
         $(this).html('Ссылки: ' + (outerLinkVal ? 'внеш.' : 'внутр.'));
     });

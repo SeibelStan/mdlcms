@@ -4,7 +4,7 @@ class FilesController extends BaseController {
 
     public static function index() {
         checkAdmin();
-        $filesInPage = true;
+        $filesInModal = false;
         include(view('admin/files'));
     }
 

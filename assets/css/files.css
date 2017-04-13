@@ -1,23 +1,23 @@
-.filemanager_tools {
+.fm_tools {
     margin-bottom: 10px;
     align-items: center;
     height: 56px;
 }
-.filemanager_right {
+.fm_right {
     overflow: auto;
 }
-.filemanager_item_inner {
+.fm_item_inner {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
 }
-.filemanager_item.checked .card {
+.fm_item.checked .card {
     background-color: #dff0d8;
     border-color: #d0e9c6;
     color: #3c763d;
 }
-.filemanager_item_icon {
+.fm_item_icon {
     cursor: pointer;
     background-size: contain;
     background-position: center center;
@@ -27,7 +27,7 @@
     margin-bottom: 10px;
     background-repeat: no-repeat;
 }
-.filemanager_item_title {
+.fm_item_title {
     text-align: center;
     overflow: hidden;
     max-width: 100%;
@@ -38,14 +38,14 @@
     outline: none;
     background: transparent;
 }
-.filemanager_item_title:focus {
+.fm_item_title:focus {
     border-color: #31708f;
  }
-.filemanager_links {
+.fm_links {
     word-wrap: break-word;
     line-height: 1.2;
     margin-left: 10px;
 }
-.filemanager_crumbs {
+.fm_crumbs {
     margin-bottom: 20px;
 }
