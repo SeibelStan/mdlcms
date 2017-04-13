@@ -1,10 +1,10 @@
-<?php $filesInPage = isset($filesInPage) ? true : false; ?>
+<?php $filesInPage = isset($filesInPage) ? 1 : 0; ?>
 
 <?php if($filesInPage) : ?>
     <?php include(view('includes/admin-header')) ?>
 <?php endif; ?>
 
-<div class="filemanager">
+<div class="filemanager" data-inpage="<?= $filesInPage ?>">
     <div class="filemanager_tools nav bg-faded">
         <li class="nav-item"><a class="tool_refresh nav-link">Обновить</a>
         <li class="nav-item"><form action="<?= ROOT ?>files/upload" class="filemanager_uploadhere" method="post" enctype="multipart/form-data">

@@ -1,30 +1,41 @@
 var filemanagerDir = '';
 var filemanagerSegments = [];
 var filemanagerChecked = [];
-var defaultPath = 'data/files/';
+var filemanagerDefaultPath = 'data/files/';
+var filemanagerInpage;
 
 function dirChange(path) {
     if(!path) {
-        path = location.hash ? location.hash.replace(/#/, '') : defaultPath;
+        if(filemanagerInpage) {
+            path = location.hash ? location.hash.replace(/#/, '') : filemanagerDefaultPath;
+        }
+        else {
+            path = localStorage.getItem('path') ? localStorage.getItem('path') : filemanagerDefaultPath;
+        }
     }
 
     filemanagerDir = path;
     filemanagerSegments = filemanagerDir.replace(/\/$/, '').split('/');
-    location.hash = filemanagerDir;
+    if(filemanagerInpage) {
+        location.hash = filemanagerDir;
+    }
+    else {
+        localStorage.setItem('path', filemanagerDir);
+    }
     $('.tool_upload_dir').val(filemanagerDir);
     filesGet();
 }
 
 function filesGet() {
-    $('.filemanager_crumbs').html('');
+    $('.filemanager_crumbs').empty();
     for(var i = 0; i < filemanagerSegments.length; i++) {
         var tmp = '';
         for(var j = 0; j <= i; j++) {
             tmp += filemanagerSegments[j] + '/';
         }
-        $('.filemanager_crumbs').append('<li class="nav-item"><a class="nav-link" data-path="' + tmp + '">' + filemanagerSegments[i] + '</a>');
+        $('.filemanager_crumbs').append('<li class="nav-item"><a class="nav-link" href="#" data-path="' + tmp + '">' + filemanagerSegments[i] + '</a>');
     }
-    $('.filemanager_crumbs .nav-item:last-child a').addClass('active');
+    $('.filemanager_crumbs .nav-item:last-child a').removeAttr('href');
 
     $('.filemanager_files').html('');
     $.post(
@@ -34,7 +45,7 @@ function filesGet() {
         },
         function (data) {
             data = JSON.parse(data);
-            $('.filemanager_files').html('');
+            $('.filemanager_files').empty();
 
             $.each(data, function (i, el) {
                 $('.filemanager_files').append('\
@@ -111,6 +122,8 @@ function dirCreate() {
 
 $(function () {
 
+    filemanagerInpage = $('.filemanager').data('inpage');
+
     dirChange(filemanagerDir);
 
     $(window).on('hashchange', function() {
@@ -127,6 +140,7 @@ $(function () {
 
     $('.filemanager').on('click', '.filemanager_crumbs a', function () {
         dirChange($(this).data('path'));
+        return false;
     });
 
     $('.filemanager').on('click', '.filemanager_item', function (e) {

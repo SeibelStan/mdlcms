@@ -20,6 +20,9 @@ class Catalog extends A_BaseModel {
         'date'      => 'timestamp::CURRENT_TIMESTAMP',
         'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
+    public $inputTypes = [
+        'id' => 'hidden'
+    ];
     public $extraView = [
         'content' => 'wysiwyg'
     ];

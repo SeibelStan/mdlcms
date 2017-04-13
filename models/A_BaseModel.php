@@ -98,6 +98,9 @@ class A_BaseModel {
             elseif(in_array($type, ['date'])) {
                 $control = 'date';
             }
+            elseif(isset($this->inputTypes) && isset($this->inputTypes[$name])) {
+                $control = $this->inputTypes[$name];
+            }
             else {
                 $control = 'text';
             }

@@ -16,6 +16,9 @@ class Cart extends A_BaseModel {
         'order_id' => 'int(11)',
         'date'     => 'timestamp::CURRENT_TIMESTAMP',
     ];
+    public $inputTypes = [
+        'id' => 'hidden'
+    ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
         'user_id'  => 'Пользователь',

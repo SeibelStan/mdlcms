@@ -14,6 +14,9 @@ class Feedback extends A_BaseModel {
         'content' => 'text',
         'date'    => 'timestamp::CURRENT_TIMESTAMP',
     ];
+    public $inputTypes = [
+        'id' => 'hidden'
+    ];
     public $fillable = ['name', 'tel', 'email', 'content'];
     public $required = ['name', 'content'];
     public $pattern = [
