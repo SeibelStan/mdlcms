@@ -4,7 +4,7 @@
     <?php include(view('includes/admin-header')) ?>
 <?php endif; ?>
 
-<div class="filemanager" data-inpage="<?= $filesInModal ?>">
+<div class="filemanager" data-inmodal="<?= $filesInModal ?>">
     <div class="fm_tools nav bg-faded">
         <li class="nav-item"><a class="tool_refresh nav-link">Обновить</a>
         <li class="nav-item"><form action="<?= ROOT ?>files/upload" class="fm_uploadhere" method="post" enctype="multipart/form-data">

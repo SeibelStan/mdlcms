@@ -21,9 +21,9 @@ class Catalog extends A_BaseModel {
         'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
     public $inputTypes = [
-        'id' => 'hidden'
-    ];
-    public $extraView = [
+        'id' => 'hidden',
+        'date' => 'hidden',
+        'dateup' => 'hidden',
         'content' => 'wysiwyg'
     ];
     public $noEmpty = ['date', 'dateup'];

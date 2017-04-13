@@ -16,7 +16,7 @@ class Slider extends A_BaseModel {
         'autoplay'  => 'int(1)::1',
         'speed'     => 'int(11)::2000',
         'dots'      => 'int(1)',
-        'active'    => 'int(1)::1',
+        'active'    => 'int(1)::1'
     ];
     public $noEmpty = ['speed', 'height', 'toshow', 'toscroll', 'date', 'dateup'];
     public $titles = [
@@ -29,7 +29,7 @@ class Slider extends A_BaseModel {
         'autoplay'  => 'Автопрокручивание',
         'speed'     => 'Скорость',
         'dots'      => 'Точки',
-        'active'    => 'Активен',
+        'active'    => 'Активен'
     ];
 
 }

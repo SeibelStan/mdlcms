@@ -15,18 +15,19 @@ class Orders extends A_BaseModel {
         'state'   => 'int(11)',
         'date'    => 'timestamp::CURRENT_TIMESTAMP',
         'items'   => 'varchar(20)',
-        'session' => 'varchar(32)',
+        'session' => 'varchar(32)'
     ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
+        'id'      => '№ заказа',
         'user_id' => 'Пользователь',
-        'session' => 'Сессия',
-        'items'   => 'Предметы',
         'links'   => 'Ссылки',
         'tel'     => 'Телефон',
         'address' => 'Адрес',
         'state'   => 'Статус',
-        'date'    => 'Дата добавления'
+        'date'    => 'Дата добавления',
+        'items'   => 'Предметы',
+        'session' => 'Сессия'
     ];
 
     public function create($data) {

@@ -4,10 +4,8 @@
             <?php if($field->control != 'hidden') : ?>
                 <label><?= $field->title ?> <?= $field->required ? '*' : '' ?></label>
             <?php endif; ?>
-            <?php if($extraView = $model->getExtraView($field->name)) : ?>
-                <?php if($extraView == 'wysiwyg') : ?>
-                    <textarea name="<?= $field->name ?>" class="ckeditor"><?= $field->value ?></textarea>
-                <?php endif; ?>
+            <?php if($field->control == 'wysiwyg') : ?>
+                <textarea name="<?= $field->name ?>" class="ckeditor"><?= $field->value ?></textarea>
             <?php elseif($field->control == 'datetime-local') : ?>
                 <?php
                     $ttime = strtotime($field->value);

@@ -18,9 +18,8 @@ class News extends A_BaseModel {
         'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
     ];
     public $inputTypes = [
-        'id' => 'hidden'
-    ];
-    public $extraView = [
+        'id' => 'hidden',
+        'dateup' => 'hidden',
         'content' => 'wysiwyg'
     ];
     public $noEmpty = ['date'];
