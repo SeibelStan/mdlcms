@@ -86,7 +86,10 @@ class A_BaseModel {
             $pvalue = explode(':', $value);
             $type = $pvalue[0];
 
-            if(preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || $type == 'text') {
+            if(isset($this->inputTypes) && isset($this->inputTypes[$name])) {
+                $control = $this->inputTypes[$name];
+            }
+            elseif(preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || $type == 'text') {
                 $control = 'textarea';
             }
             elseif(preg_match('/int\(1\)/', $type)) {
@@ -97,9 +100,6 @@ class A_BaseModel {
             }
             elseif(in_array($type, ['date'])) {
                 $control = 'date';
-            }
-            elseif(isset($this->inputTypes) && isset($this->inputTypes[$name])) {
-                $control = $this->inputTypes[$name];
             }
             else {
                 $control = 'text';
