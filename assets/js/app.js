@@ -159,4 +159,31 @@ $(function () {
         );
     });
 
+    $('.pagination').each(function () {
+        var pagination = $(this);
+        var activePage = pagination.find('li.active a').attr('href').match(/(\d+)$/).pop();
+        var pagesCount = pagination.find('li:not([data-helper])').length;
+        var steps = pagination.data('steps') || 5;
+
+        var showPages = [1];
+        for(var i = 0; i <= steps; i++) {
+            showPages.push(activePage - i);
+        }
+        for(var i = 0; i <= steps; i++) {
+            showPages.push(parseInt(activePage) + i);
+        }
+        showPages.push(pagesCount);
+
+        $('.pagination').find('li:not([data-helper])').each(function () {
+            var page = parseInt($(this).find('a').attr('href').match(/(\d+)$/).pop());
+            if(showPages.indexOf(page) == -1) {
+                $(this).after('<li class="page-item dots"><a class="page-link">&bull;</a></li>');
+                $(this).remove();
+            }
+            $('.dots + .dots').remove();
+        });
+
+        pagination.fadeTo('fast', 1);
+    });
+
 });

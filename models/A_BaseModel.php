@@ -133,9 +133,54 @@ class A_BaseModel {
         return $result;
     }
 
-    public function getUnits($condition = false, $sort = false, $limit = false, $single = false) {
+    public function paginate($condition = false, $limit = 1, $page = 1) {
         global $db;
-        $sql = "select * from $this->table";
+        $sql = "select count(id) as count from " . $this->getTable();
+        if($condition) {
+            $sql .= " where " . $condition;
+        }
+        $units = dbs($sql);
+
+        $count = $units[0]->count;
+        if($count <= $limit) {
+            return false;
+        }
+
+        $result = [];
+        $iPage = 1;
+        for($i = 1; $i <= $count; $i += $limit) {
+            array_push($result, (object)[
+                'link' => ROOT . $this->getName() . '/page/' . $iPage,
+                'title' => $iPage,
+                'active' => $iPage == $page,
+            ]);
+            $iPage++;
+        }
+
+        if($page > 1) {
+            array_unshift($result, (object)[
+                'link' => ROOT . $this->getName() . '/page/' . ($iPage - 1),
+                'title' => '&laquo;',
+                'active' => '',
+                'helper' => 'prev'
+            ]);
+        }
+
+        if($page < $iPage - 1) {
+            array_push($result, (object)[
+                'link' => ROOT . $this->getName() . '/page/' . ($iPage + 1),
+                'title' => '&raquo;',
+                'active' => '',
+                'helper' => 'next'
+            ]);
+        }
+
+        return $result;
+    }
+
+    public function getUnits($condition = false, $sort = false, $limit = false, $page = false) {
+        global $db;
+        $sql = "select * from " . $this->getTable();
         
         if($condition) {
             $sql .= " where " . $condition;
@@ -145,6 +190,9 @@ class A_BaseModel {
         }
         if($limit) {
             $sql .= " limit " . $limit;
+        }
+        if($page) {
+            $sql .= " offset " . ($page - 1) * $limit;
         }
         $units = dbs($sql);
         foreach($units as $unit) {

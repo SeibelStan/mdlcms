@@ -15,6 +15,8 @@
         <?php include(view($model->getName() . '/direct-unit')) ?>
     <?php endif; ?>
 
+    <?php include(view('includes/pagination')) ?>
+
     <?php if($units) : ?>
     <div class="row">
         <?php foreach($units as $unit) : ?>
@@ -40,6 +42,8 @@
         <?php endforeach; ?>
     </div>
     <?php endif; ?>
+
+    <?php include(view('includes/pagination')) ?>
 </main>
 
 <?php include(view('includes/footer')) ?>
