@@ -34,4 +34,11 @@ class Helpers extends A_BaseModel {
         return $authUser->getByField('id', $id);
     }
 
+    public static function checkRoles($data) {
+        return array_intersect(
+            explode(',', Helpers::getUser()->roles),
+            explode(',', $data)
+        );
+    }
+
 }

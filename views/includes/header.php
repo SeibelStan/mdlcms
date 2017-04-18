@@ -77,7 +77,7 @@
                 <span class="caret"></span>
                 <ul class="dropdown-menu">
                     <?php if(USERID) : ?>
-                        <?php if(Helpers::getUser()->isadmin) : ?>
+                        <?php if(Helpers::checkRoles('admin')) : ?>
                             <li><a class="dropdown-item" href="<?= ROOT ?>admin/edit-models">Управление</a>
                         <?php endif; ?>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users">Профиль</a>

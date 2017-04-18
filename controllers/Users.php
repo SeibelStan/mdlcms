@@ -3,7 +3,7 @@
 class UsersController extends BaseController {
 
     public static function index() {
-        checkAuth();
+        guardAuth();
         $model = new Users();
         $fields = $model->getFields(USERID, true);
         include(view('users/index'));

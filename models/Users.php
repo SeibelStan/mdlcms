@@ -15,7 +15,7 @@ class Users extends A_BaseModel {
         'password'   => 'varchar(128)',
         'address'    => 'varchar(255)',
         'about'      => 'varchar(1000)',
-        'isadmin'    => 'int(1)::0',
+        'roles'    => 'varchar(50)',
         'active'     => 'int(1)::1',
         'hash'       => 'varchar(64)',
         'login_date' => 'datetime',
@@ -37,7 +37,7 @@ class Users extends A_BaseModel {
         'password'   => 'Пароль',
         'address'    => 'Адрес',
         'about'      => 'О себе',
-        'isadmin'    => 'Администратор',
+        'roles'      => 'Роли',
         'active'     => 'Активный',
         'login_date' => 'Последний вход',
         'hash'       => 'Хэш',
@@ -79,7 +79,7 @@ class Users extends A_BaseModel {
         return [
             'message' => 'Неверный логин или пароль',
             'type' => 'success',
-            'callback' => 'location.href = "' . ROOT . ($user->isadmin ? 'admin/edit-models' : 'users') . '";'
+            'callback' => 'location.href = "' . ROOT . (checkRoles($user->roles, 'admin') ? 'admin/edit-models' : 'users') . '";'
         ];
     }
 

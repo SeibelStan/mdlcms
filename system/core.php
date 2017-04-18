@@ -52,13 +52,13 @@ function abort($err) {
     die();
 }
 
-function checkAuth() {
+function guardAuth() {
     if(!USERID) {
         abort(401);
     }
 }
-function checkAdmin() {
-    if(!USERID || !Helpers::getUser(USERID)->isadmin) {
+function guardRoles($data) {
+    if(!USERID || !Helpers::checkRoles($data)) {
         abort(401);
     }
 }

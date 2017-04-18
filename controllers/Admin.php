@@ -3,12 +3,12 @@
 class AdminController extends BaseController {
 
     public static function index() {
-        checkAdmin();
+        guardRoles('admin');
         include(view('admin/index'));
     }
 
     public static function editModels() {
-        checkAdmin();
+        guardRoles('admin');
         $modelsList = Admin::getModelsList();
         $modelListExemps = [];
         foreach($modelsList as $modelName) {
@@ -18,7 +18,7 @@ class AdminController extends BaseController {
     }
 
     public static function editUnit($modelName, $id = 0) {
-        checkAdmin();
+        guardRoles('admin');
         $model = new $modelName();
         $fields = $model->getFields($id);
         $units = $model->getUnits(false, "id desc");
@@ -26,7 +26,7 @@ class AdminController extends BaseController {
     }
 
     public static function saveUnit($modelName, $id = 0) {
-        checkAdmin();
+        guardRoles('admin');
         $model = new $modelName();
         $model->saveUnit($id, $data = $_REQUEST);
         $result = [
@@ -40,7 +40,7 @@ class AdminController extends BaseController {
     }
 
     public static function deleteUnit($modelName, $id = 0) {
-        checkAdmin();
+        guardRoles('admin');
         $model = new $modelName();
         $model->deleteUnit('id', $id);
         redirect(ROOT . 'admin/edit-models/' . $modelName);
