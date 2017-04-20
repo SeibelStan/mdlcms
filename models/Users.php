@@ -79,7 +79,7 @@ class Users extends A_BaseModel {
         return [
             'message' => 'Неверный логин или пароль',
             'type' => 'success',
-            'callback' => 'location.href = "' . ROOT . (checkRoles($user->roles, 'admin') ? 'admin/edit-models' : 'users') . '";'
+            'callback' => 'location.href = "' . ROOT . (Helpers::checkRoles($user->roles, 'admin') ? 'admin/edit-models' : 'users') . '";'
         ];
     }
 
