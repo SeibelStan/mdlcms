@@ -125,15 +125,15 @@ function dateStrafe($period, $date = false) {
     $date = $date ?: date('Y-m-d');
     return date('Y-m-d H:i:s', strtotime($date . ' ' . $period));
 }
-function dateNow($for_bd = false) {
-    $strafe = $for_bd ? DB_TIME_DELTA : 0;
+function dateNow($forDB = false) {
+    $strafe = $forDB ? DB_TIME_DELTA : 0;
     return dateStrafe('+' . $strafe . ' seconds', date('Y-m-d'));
 }
-function dateNowFull($for_bd = false) {
-    $strafe = $for_bd ? DB_TIME_DELTA : 0;
+function dateNowFull($forDB = false) {
+    $strafe = $forDB ? DB_TIME_DELTA : 0;
     return dateStrafe('+' . $strafe . ' seconds', date('Y-m-d H:i:s'));
 }
-function dateReformat($date, $format = 'd.m.Y H:i') {
+function dateReformat($date, $format = 'd.m.y H:i') {
     return date($format, strtotime($date));
 }
 
@@ -196,12 +196,7 @@ function friendlyUrl($data) {
 }
 
 function assetTime() {
-    if(DEBUG) {
-        return '?v=' . time();
-    }
-    else {
-        return '?v=' . date('Y-m-d');
-    }
+    return '?v=' . (DEBUG ? time() : date('Y-m-d'));
 }
 
 function jsLog($data) {

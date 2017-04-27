@@ -1,5 +1,6 @@
 <?php
 
+setlocale(LC_ALL, 'ru_RU.UTF-8');
 define('SITE_NAME', 'MDLCMS');
 define('SITE_HOST', $_SERVER['HTTP_HOST']);
 define('SITE_DOMAIN', 'http://' . SITE_HOST);
