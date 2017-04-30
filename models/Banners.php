@@ -16,6 +16,9 @@ class Banners extends A_BaseModel {
         'external' => 'int(1)',
         'active'   => 'int(1)::1',
     ];
+    public $inputTypes = [
+        'id' => 'hidden'
+    ];
     public $titles = [
         'connect'  => 'Привязан к',
         'title'    => 'Название',

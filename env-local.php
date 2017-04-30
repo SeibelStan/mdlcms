@@ -9,5 +9,5 @@ define('ATTEMPTS', false);
 define('EMAIL_CONTACT', 'seibel.stan@ya.ru');
 
 $db = new mysqli('localhost', 'root', 'sss');
-$db->select_db('mdlcms');
+$db->select_db('mdlcms' . $dbPostfix);
 $db->query("SET NAMES utf8");

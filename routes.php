@@ -3,7 +3,7 @@
 // Home
 $router->map('GET', '/', 'HomeController::index');
 $router->map('GET', '/home/feedback', 'HomeController::feedback');
-$router->map('GET|POST', '/home/send-feedback', 'HomeController::sendFeedback');
+$router->map('POST', '/home/send-feedback', 'HomeController::sendFeedback');
 $router->map('POST', '/search', 'HomeController::search');
 $router->map('POST', '/search-widget', 'HomeController::searchWidget');
 
@@ -58,3 +58,4 @@ $router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminCont
 $router->map('GET', '/' . CRONKEY . '/reset-attempts/[a:type]', 'Helpers::resetAttemts');
 $router->map('GET', '/' . CRONKEY . '/reset-attempts', 'Helpers::resetAttemts');
 $router->map('POST', '/helpers/friendly-url', 'HelpersController::friendlyUrl');
+$router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');

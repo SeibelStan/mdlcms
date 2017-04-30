@@ -9,6 +9,6 @@ define('ATTEMPTS', true);
 define('EMAIL_CONTACT', 'info@' . SITE_HOST);
 
 $db = new mysqli('localhost', 'prod_root', 'prod_pass');
-$db->select_db('mdlcms');
+$db->select_db('mdlcms' . $dbPostfix);
 $db->query("SET NAMES utf8");
 //ini_set('session.save_path', '/path/to/save');

@@ -52,7 +52,7 @@ class Feedback extends A_BaseModel {
         foreach($data as $name => $value) {
             $mailText .= '<p>' . $this->getFieldTitle($name) . ': ' . nl2br($value);
         }
-        mail(CONTACT_EMAIL, 'Отзыв от ' . $data['name'], $mailText, $mailHeaders);
+        mail(EMAIL_CONTACT, 'Отзыв от ' . $data['name'], $mailText, $mailHeaders);
 
         $this->saveUnit(0, $data, true);
   

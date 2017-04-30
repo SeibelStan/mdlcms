@@ -18,6 +18,9 @@ class Slider extends A_BaseModel {
         'dots'      => 'int(1)',
         'active'    => 'int(1)::1'
     ];
+    public $inputTypes = [
+        'id' => 'hidden'
+    ];
     public $noEmpty = ['speed', 'height', 'toshow', 'toscroll', 'date', 'dateup'];
     public $titles = [
         'title'     => 'Название',

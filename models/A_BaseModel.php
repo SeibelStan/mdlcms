@@ -3,10 +3,9 @@
 class A_BaseModel {
 
     public function checkNoEmptyFill($fieldName, $value) {
-        if(!isset($this->noEmpty)) {
-            return true;
-        }
-        if(!(in_array($fieldName, $this->noEmpty))) {
+        $this->noEmpty = isset($this->noEmpty) ? $this->noEmpty : [];
+        $noEmptyMerged = array_merge($this->noEmpty, ['id']);
+        if(!(in_array($fieldName, $noEmptyMerged))) {
             return true;
         }
         return $value !== ''
@@ -116,10 +115,20 @@ class A_BaseModel {
     }
 
     public function getByField($fieldName, $value, $condition = false) {
-        if(!$this->getTable()) {
-            return false;
+        $parseName = explode('|', $fieldName);
+        $fieldName = $parseName[0];
+        $arg = isset($parseName[1]) ? $parseName[1] : '';
+
+        switch($arg) {
+            case 'like': {
+                $sql = "select * from $this->table where $fieldName like '%$value%'";
+                break;
+            }
+            default: {
+                $sql = "select * from $this->table where $fieldName = '$value'";
+            }
         }
-        $sql = "select * from $this->table where $fieldName = '$value'";
+
         if($condition) {
             $sql .= " " . $condition;
         }

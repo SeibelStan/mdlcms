@@ -12,4 +12,9 @@ class HelpersController extends BaseController {
         die(friendlyUrl(request('url')));
     }
 
+    public static function setLang($lang) {
+        session('lang', $lang);
+        back();
+    }
+
 }

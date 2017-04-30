@@ -43,7 +43,8 @@ function redirect($path) {
 }
 
 function back() {
-    redirect($_SERVER['HTTP_REFERER']);
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : ROOT;
+    redirect($referer);
 }
 
 function abort($err) {
@@ -201,4 +202,8 @@ function assetTime() {
 
 function jsLog($data) {
     echo '<script>console.log("' . $data . '");</script>';
+}
+
+function getLang() {
+    return session('lang');
 }
