@@ -59,3 +59,4 @@ $router->map('GET', '/' . CRONKEY . '/reset-attempts/[a:type]', 'Helpers::resetA
 $router->map('GET', '/' . CRONKEY . '/reset-attempts', 'Helpers::resetAttemts');
 $router->map('POST', '/helpers/friendly-url', 'HelpersController::friendlyUrl');
 $router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');
+$router->map('POST', '/helpers/markdown-parse', 'HelpersController::markdownParse');
