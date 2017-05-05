@@ -191,7 +191,7 @@ function translit($data) {
 
 function friendlyUrl($data) {
     $data = mb_strtolower($data);
-    $data = preg_replace('/[:",.<>() ]/i', '-', $data);
+    $data = preg_replace('/[!?:;\'",.<>() ]/i', '-', $data);
     $data = preg_replace('/-+/', '-', $data);
     return translit($data);
 }
