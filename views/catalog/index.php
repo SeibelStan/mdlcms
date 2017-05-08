@@ -11,8 +11,12 @@
 </div>
 
 <main class="container">
-    <?php if($directUnit && !$directUnit->iscatalog) : ?>
-        <?php include(view($model->getName() . '/direct-unit')) ?>
+    <?php if($directUnit) : ?>
+        <?php if($directUnit->iscatalog) : ?>
+            <?php include(view($model->getName() . '/direct-catalog')) ?>
+        <?php else : ?>
+            <?php include(view($model->getName() . '/direct-unit')) ?>
+        <?php endif; ?>
     <?php endif; ?>
 
     <?php include(view('includes/pagination')) ?>

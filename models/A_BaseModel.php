@@ -168,7 +168,7 @@ class A_BaseModel {
 
         if($page > 1) {
             array_unshift($result, (object)[
-                'link' => ROOT . $this->getName() . '/page/' . ($iPage - 1),
+                'link' => ROOT . $this->getName() . '/page/' . 1,
                 'title' => '&laquo;',
                 'active' => false,
                 'helper' => 'prev'
@@ -177,7 +177,7 @@ class A_BaseModel {
 
         if($page < $iPage - 1) {
             array_push($result, (object)[
-                'link' => ROOT . $this->getName() . '/page/' . ($iPage + 1),
+                'link' => ROOT . $this->getName() . '/page/' . ($iPage - 1),
                 'title' => '&raquo;',
                 'active' => false,
                 'helper' => 'next'

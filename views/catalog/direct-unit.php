@@ -1,27 +1,34 @@
-<div class="row">
-    <div class="col-lg-6 col-sm-12">
-        <?php if($directUnit->image) : ?>
-            <p>
-                <a href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
-                    <img class="img-fluid" src="<?= $directUnit->image ?>">
-                </a>
-        <?php endif; ?>
-        <?php if($directUnit->images) : ?>
-            <div class="row">
-                <?php foreach(textRows($directUnit->images) as $image) : ?>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <a href="<?= $image ?>"
-                            data-toggle="lightbox"
-                            data-gallery="lightbox"
-                            class="card-img-top-cover height-card-image-half"
-                            style="background-image: url('<?= $image ?>')"
-                        ></a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-    </div>
-    <div class="col-lg-6 col-sm-12">
+<?php
+    $hasPhotos = $directUnit->image || $directUnit->images;
+?>
+
+<div class="row mb-5">
+    <?php if($hasPhotos) : ?>
+        <div class="col-lg-6 col-sm-12">
+            <?php if($directUnit->image) : ?>
+                <p>
+                    <a href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
+                        <img class="img-fluid" src="<?= $directUnit->image ?>">
+                    </a>
+            <?php endif; ?>
+            <?php if($directUnit->images) : ?>
+                <div class="row">
+                    <?php foreach(textRows($directUnit->images) as $image) : ?>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <a href="<?= $image ?>"
+                                data-toggle="lightbox"
+                                data-gallery="lightbox"
+                                class="card-img-top-cover height-card-image-half"
+                                style="background-image: url('<?= $image ?>')"
+                            ></a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="<?= $hasPhotos ? 'col-lg-6' : '' ?> col-sm-12">
         <h1><?= $directUnit->title ?></h1>
 
         <p class="text-success">
@@ -39,11 +46,13 @@
             <input type="hidden" name="model" value="<?= $model->getName() ?>">
         </form>
         
-        <hr>
+        <?php if($directUnit->content) : ?>
+            <hr>
 
-        <article>
-            <?= $directUnit->content ?>
-        </article>
+            <article>
+                <?= $directUnit->content ?>
+            </article>
+        <?php endif; ?>
     </div>
 </div>
 

@@ -21,12 +21,12 @@ class CatalogController extends BaseController {
             $directUnit = $model->getByField($urlType, urldecode($url), "and active");
         }
         
-        $parentUnit = $directUnit ? $model->getByField('id', $directUnit->connect, "or url = '$directUnit->connect' and active") : false;
+        $parentUnit = $directUnit && $directUnit->connect ? $model->getByField('id', $directUnit->connect, "or url = '$directUnit->connect' and active") : false;
         $connectId = $directUnit ? $directUnit->id : 0;
         $connectUrl = $directUnit ? $directUnit->url : '';
 
         $sql = "active and connect in('$connectId', '$connectUrl')";
-        $units = $model->getUnits($sql, "title asc", $limit);
+        $units = $model->getUnits($sql, "title asc", $limit, $page);
         $pagination = $model->paginate($sql, $limit, $page);
         include(view('catalog/index'));
     }
