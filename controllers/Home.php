@@ -19,7 +19,7 @@ class HomeController extends BaseController {
     public static function sendFeedback() {
         $model = new Feedback();
         $result = $model->send($_REQUEST);
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
     public static function search() {
@@ -29,7 +29,7 @@ class HomeController extends BaseController {
 
     public static function searchWidget() {
         $result = A_BaseModel::search(request('searchQuery'), 5);
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
 }

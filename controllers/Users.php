@@ -18,7 +18,7 @@ class UsersController extends BaseController {
 
     public static function doLogin($login = '', $password = '') {
         $result = Users::login($_REQUEST);
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
     public static function register() {
@@ -31,7 +31,7 @@ class UsersController extends BaseController {
         if(isset($result['user'])) {
             $model->login($_REQUEST);
         }
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
     public static function logout() {
@@ -42,11 +42,10 @@ class UsersController extends BaseController {
     public static function save() {
         $model = new Users();
         $model->saveUnit(USERID, $_REQUEST, true);
-        die(json_encode([
+        echo json_encode([
             'message' => 'Сохранено',
             'type' => 'success'
-        ]));
-        back();
+        ]);
     }
 
 }

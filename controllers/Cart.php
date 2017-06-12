@@ -5,13 +5,13 @@ class CartController extends BaseController {
     public static function get() {
         $model = new Cart();
         $result = $model->get();
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
     public static function add() {
         $model = new Cart();
         $result = $model->add($_REQUEST);
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
     public static function remove() {
@@ -20,7 +20,7 @@ class CartController extends BaseController {
         $result = [
             'callback' => 'getCart()'
         ];
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
 }

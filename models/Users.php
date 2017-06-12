@@ -15,7 +15,7 @@ class Users extends A_BaseModel {
         'password'   => 'varchar(128)',
         'address'    => 'varchar(255)',
         'about'      => 'varchar(1000)',
-        'roles'    => 'varchar(50)',
+        'roles'      => 'varchar(50)',
         'active'     => 'int(1)::1',
         'hash'       => 'varchar(64)',
         'login_date' => 'datetime',
@@ -26,7 +26,8 @@ class Users extends A_BaseModel {
     public $required = ['full_name', 'email'];
     public $pattern = [
         'login' => ['[А-яA-z_0-9]{3,50}', 'Длиннее трёх символов, может содержать буквы, цифры и _'],
-        'full_name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел']
+        'full_name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
+        'password' => ['[А-яA-z_0-9]{3,50}', 'Длиннее шести символов']
     ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
@@ -77,7 +78,7 @@ class Users extends A_BaseModel {
         session('user_id', $user->id);
         dbu("update users set login_date = '" . dateNowFull() . "' where id = '$user->id'");
         return [
-            'message' => 'Неверный логин или пароль',
+            'message' => 'Успешно',
             'type' => 'success',
             'callback' => 'location.href = "' . ROOT . (Helpers::checkRoles($user->roles, 'admin') ? 'admin/edit-models' : 'users') . '";'
         ];

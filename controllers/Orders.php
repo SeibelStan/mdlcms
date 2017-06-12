@@ -14,14 +14,15 @@ class OrdersController extends BaseController {
 
     public static function create() {
         if(!Helpers::getUser()) {
-            die(json_encode([
+            echo json_encode([
                 'message' => 'Войдите или зарегистрируйтесь и заполните контактные данные',
                 'callback' => '$(".user-dropdown").click();'
-            ]));
+            ]);
+            exit();
         }
         $model = new Orders();
         $result = $model->create($_REQUEST);
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
 }

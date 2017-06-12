@@ -36,7 +36,7 @@ class AdminController extends BaseController {
         if(!$id) {
             $result['callback'] = 'location.href = "' . ROOT . 'admin/edit-models/' . $modelName . '";';
         }
-        die(json_encode($result));
+        echo json_encode($result);
     }
 
     public static function deleteUnit($modelName, $id = 0) {

@@ -29,7 +29,7 @@ class HelpersController extends BaseController {
             CURLOPT_RETURNTRANSFER => 1
         ]);
         $result = curl_exec($ch);
-        die(json_decode($result));
+        echo json_decode($result);
     }
 
 }

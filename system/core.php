@@ -207,3 +207,7 @@ function jsLog($data) {
 function getLang() {
     return session('lang');
 }
+
+function isSequre() {
+    return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on';
+}

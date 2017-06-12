@@ -30,6 +30,7 @@ class Helpers extends A_BaseModel {
     }
 
     public static function getUser($id = USERID) {
+        $id = USERID ?: session('user_id');
         $authUser = new Users;
         return $authUser->getByField('id', $id);
     }

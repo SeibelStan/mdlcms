@@ -258,7 +258,7 @@ class A_BaseModel {
             $sql .= ")";
         }
 
-        $db->query($sql);
+        return $db->query($sql);
         echo $db->error;
     }
 
