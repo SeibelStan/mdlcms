@@ -9,6 +9,6 @@ define('ATTEMPTS', false);
 define('EMAIL_CONTACT', 'seibel.stan@ya.ru');
 
 $db = new mysqli('localhost', 'root', 'sss');
-$db->select_db('mdlcms' . $dbPostfix);
+$db->select_db('mdlcms');
 $db->query("SET NAMES utf8");
-ini_set('session.save_path', '/var/www/html/mdlcms/sessions');
+ini_set('session.save_path', '/var/www/html' . ROOT . 'sessions');
