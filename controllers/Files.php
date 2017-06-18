@@ -29,7 +29,7 @@ class FilesController extends BaseController {
     public static function remove() {
         guardRoles('admin');
         $model = new Files(request('dir'));
-        echo $model->remove(request('files'));
+        echo $model->remove(request('files'), request('inUploadPath'));
     }
 
     public static function rename() {

@@ -78,7 +78,8 @@ var FM = {
         $.post(
             baseURL + 'files/remove',
             {
-                files: files
+                files: files,
+                inUploadPath: true
             },
             function () {
                 FM.filesGet();

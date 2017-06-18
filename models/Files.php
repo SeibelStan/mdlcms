@@ -87,8 +87,12 @@ class Files extends A_BaseModel {
         return json_encode($returnFiles);
     }
 
-    public function remove($files) {
-        foreach($files as $path) {
+    public function remove($files, $inUploadPath = true) {
+        $uploadRootPrepared = preg_replace('/\//', '\/', $this->uploadRoot);
+        foreach($files as &$path) {
+            if($inUploadPath) {
+                $path = $this->uploadPath . preg_replace('/' . $uploadRootPrepared . '/', '', $path);
+            }
             $this->removeDirectory($path);
         }
         return 1;
@@ -111,7 +115,7 @@ class Files extends A_BaseModel {
         if(!is_dir($path)) {
             return unlink($path) ? 1 : 0;
         }
-        $files = delDots(scandir($files));
+        $files = delDots(scandir($path));
         foreach ($files as $file) {
             is_dir($path . '/' . $file) ? delTree($path . '/' . $file) : unlink($path . '/' . $file);
         }
