@@ -13,7 +13,7 @@
 * Автогенерируемая админка
 * Множество полезных функций
 * Разделяемые окружения (local, prod)
-* Markdown-разметка via [helloacm.com](https://helloacm.com/markdown/)
+* Markdown-разметка via [GitHub API](https://developer.github.com/v3/markdown/)
 
 ## Как начать
 1. Создать базу.

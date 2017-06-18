@@ -2,7 +2,7 @@
 
 class HelpersController extends BaseController {
 
-    public static function resetAttemts($type = '') {
+    public static function resetAttempts($type = '') {
         $where = $type ? "where type = '$type'" : '';
         echo dbu("delete from attempts $where");
         back();
@@ -19,17 +19,20 @@ class HelpersController extends BaseController {
 
     public static function markdownParse() {
         $postData = [
-            's' => request('data')
+            'text' => request('data'),
+            'mode' => 'markdown'
         ];
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => 'https://helloacm.com/api/markdown/',
+            CURLOPT_USERAGENT => $_SERVER['HTTP_USER_AGENT'],
+            CURLOPT_URL => 'https://api.github.com/markdown',
             CURLOPT_POST => 1,
-            CURLOPT_POSTFIELDS => http_build_query($postData),
+            CURLOPT_POSTFIELDS => json_encode($postData),
+            CURLOPT_HTTPHEADER => ['Content-Type:application/json'],
             CURLOPT_RETURNTRANSFER => 1
         ]);
         $result = curl_exec($ch);
-        echo json_decode($result);
+        echo $result;
     }
 
 }
