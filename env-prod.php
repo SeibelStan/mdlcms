@@ -11,4 +11,4 @@ define('EMAIL_CONTACT', 'info@' . SITE_HOST);
 $db = new mysqli('localhost', 'root', 'sss');
 $db->select_db('mdlcms');
 $db->query("SET NAMES utf8");
-//ini_set('session.save_path', '/path/to/save');
+ini_set('session.save_path', 'data/sessions');

@@ -26,4 +26,8 @@
 8. Изменять сущности в models. Админка строится по сущностям и их свойствам.
 9. Писать логику в controllers.
 10. Маршруты в routes.php.
-11. С вопросами обращаться [ко мне](https://seibelstan.github.io).
+11. Если возникает ошибка с записью сессии, попробуйте
+```
+sudo chown -R www-data:www-data /var/www/html/mdlcms/data/sessions/
+```
+12. С вопросами обращаться [ко мне](https://seibelstan.github.io).

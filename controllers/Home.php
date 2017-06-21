@@ -23,12 +23,14 @@ class HomeController extends BaseController {
     }
 
     public static function search() {
-        $result = A_BaseModel::search(request('searchQuery'), 12);
+        $model = new A_BaseModel();
+        $result = $model->search(request('searchQuery'), 12);
         include(view('home/search'));
     }
 
     public static function searchWidget() {
-        $result = A_BaseModel::search(request('searchQuery'), 5);
+        $model = new A_BaseModel();
+        $result = $model->search(request('searchQuery'), 5);
         echo json_encode($result);
     }
 

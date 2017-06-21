@@ -269,8 +269,8 @@ class A_BaseModel {
         return dbu($sql);
     }
 
-    public static function search($query, $limit = 12) {
-        $modelsList = Admin::getModelsList();
+    public function search($query, $limit = 12) {
+        $modelsList = $this->getName() == 'a_basemodel' ? Admin::getModelsList() : [$this->getName()];
         $results = [];
         foreach($modelsList as $modelName) {
             $model = new $modelName();
