@@ -217,7 +217,7 @@ class A_BaseModel {
         return $units;
     }
 
-    public function saveUnit($id, $data, $fillable = false) {
+    public function save($id, $data, $fillable = false) {
         global $db;
         $fields = $this->getFields($id, $fillable);
 
@@ -262,7 +262,7 @@ class A_BaseModel {
         echo $db->error;
     }
 
-    public function deleteUnit($field, $value = 0, $condition = false) {
+    public function delete($field, $value = 0, $condition = false) {
         $where = "where $field = '$value'";
         $where .= $condition ? " and " . $condition : '';
         $sql = "delete from " . $this->getTable() . " $where";

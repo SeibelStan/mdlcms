@@ -25,10 +25,10 @@ class AdminController extends BaseController {
         include(view('admin/edit-model'));
     }
 
-    public static function saveUnit($modelName, $id = 0) {
+    public static function save($modelName, $id = 0) {
         guardRoles('admin');
         $model = new $modelName();
-        $model->saveUnit($id, $data = $_REQUEST);
+        $model->save($id, $data = $_REQUEST);
         $result = [
             'message' => 'Сохранено',
             'type' => 'success'
@@ -39,10 +39,10 @@ class AdminController extends BaseController {
         echo json_encode($result);
     }
 
-    public static function deleteUnit($modelName, $id = 0) {
+    public static function delete($modelName, $id = 0) {
         guardRoles('admin');
         $model = new $modelName();
-        $model->deleteUnit('id', $id);
+        $model->delete('id', $id);
         redirect(ROOT . 'admin/edit-models/' . $modelName);
     }
 

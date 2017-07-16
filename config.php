@@ -8,6 +8,7 @@ define('EMAIL_ADMIN', 'admin@' . SITE_HOST);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 define('CURRENCY', 'KZT');
 define('CRONKEY', 'cron-key');
+define('JQUERY_VERSION', '3.2.1');
 
 if($_SERVER['HTTP_USER_AGENT'] && $_SERVER['HTTP_USER_AGENT'] != 'CURL') {
 	ini_set('session.gc_maxlifetime', 604800);

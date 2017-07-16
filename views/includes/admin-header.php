@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
-    <script src="<?= ROOT ?>vendor/jquery-3.1.1.min.js"></script>
+    <script src="<?= ROOT ?>vendor/jquery-<?= JQUERY_VERSION ?>.min.js"></script>
     <meta name="theme-color" content="#ffffff">
     <script>
         var baseURL = '<?= ROOT ?>';

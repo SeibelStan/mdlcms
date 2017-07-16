@@ -54,7 +54,7 @@ class Feedback extends A_BaseModel {
         }
         mail(EMAIL_CONTACT, 'Отзыв от ' . $data['name'], $mailText, $mailHeaders);
 
-        $this->saveUnit(0, $data, true);
+        $this->save(0, $data, true);
   
         return [
             'message' => 'Сообщение отправлено',

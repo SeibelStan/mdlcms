@@ -16,7 +16,7 @@ class CartController extends BaseController {
 
     public static function remove() {
         $model = new Cart();
-        $model->deleteUnit('id', request('id'), "user_id = '" . USERID . "' or session = '" . session_id() . "'");
+        $model->delete('id', request('id'), "user_id = '" . USERID . "' or session = '" . session_id() . "'");
         $result = [
             'callback' => 'getCart()'
         ];

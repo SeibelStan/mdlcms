@@ -86,12 +86,12 @@ class Cart extends A_BaseModel {
             $data = $item;
             $data['count'] += $count;
             $data['count'] = $data['count'] >= 1 ? $data['count'] : 1;
-            $this->saveUnit($item['id'], $data);
+            $this->save($item['id'], $data);
             $message = 'Количество обновлено';
         }
         else {
             $data['count'] = $data['count'] >= 1 ? $data['count'] : 1;
-            $this->saveUnit(0, $data);
+            $this->save(0, $data);
             $message = 'Предмет добавлен в корзину';
         }
 

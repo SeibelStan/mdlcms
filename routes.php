@@ -50,9 +50,9 @@ $router->map('GET', '/admin', 'AdminController::index');
 $router->map('GET', '/admin/edit-models', 'AdminController::editModels');
 $router->map('GET', '/admin/edit-models/[a:modelName]', 'AdminController::editUnit');
 $router->map('GET', '/admin/edit-models/[a:modelName]/[i:id]', 'AdminController::editUnit');
-$router->map('GET|POST', '/admin/save-models/[a:modelName]/[i:id]', 'AdminController::saveUnit');
-$router->map('GET|POST', '/admin/save-models/[a:modelName]', 'AdminController::saveUnit');
-$router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminController::deleteUnit');
+$router->map('GET|POST', '/admin/save-models/[a:modelName]/[i:id]', 'AdminController::save');
+$router->map('GET|POST', '/admin/save-models/[a:modelName]', 'AdminController::save');
+$router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminController::delete');
 
 // Helpers
 $router->map('GET', '/' . CRONKEY . '/reset-attempts/[a:type]', 'HelpersController::resetAttempts');
