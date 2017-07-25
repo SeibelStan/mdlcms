@@ -19,16 +19,15 @@ function request($name) {
 function clearRequest($name, $length = 0) {
     return clear(request($name), $length);
 }
-
-function textRows($data) {
-    return explode("\n", trim($data));
-}
-
 function session($name, $value = null) {
     if(isset($value)) {
         $_SESSION[$name] = $value;
     }
     return isset($_SESSION[$name]) ? $_SESSION[$name] : '';
+}
+
+function textRows($data) {
+    return explode("\n", trim($data));
 }
 
 function redirect($path) {
