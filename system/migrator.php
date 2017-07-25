@@ -29,7 +29,7 @@ foreach($models as $modelName) {
     $sql = "CREATE TABLE `" . $table . "` (\n";
     foreach($prepfields as $i => $field) {
         $sql .= "`" . $field->name . "` "
-            . $field->type . " NOT NULL"
+            . $field->type
             . ($field->def ? " DEFAULT " . $field->def : "")
             . ($i < count($prepfields) - 1 ? ',' : '')
             . "\n";

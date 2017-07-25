@@ -142,11 +142,14 @@ class A_BaseModel {
         return $result;
     }
 
-    public function paginate($condition = false, $limit = 1, $page = 1) {
+    public function paginate($condition = false, $sort = false, $limit = 1, $page = 1) {
         global $db;
         $sql = "select count(id) as count from " . $this->getTable();
         if($condition) {
             $sql .= " where " . $condition;
+        }
+        if($sort) {
+            $sql .= " order by " . $sort;
         }
         $units = dbs($sql);
 
@@ -159,7 +162,7 @@ class A_BaseModel {
         $iPage = 1;
         for($i = 1; $i <= $count; $i += $limit) {
             array_push($result, (object)[
-                'link' => ROOT . $this->getName() . '/page/' . $iPage,
+                'link' => ROOT . $this->getName() . '?page=' . $iPage,
                 'title' => $iPage,
                 'active' => $iPage == $page,
             ]);
@@ -168,7 +171,7 @@ class A_BaseModel {
 
         if($page > 1) {
             array_unshift($result, (object)[
-                'link' => ROOT . $this->getName() . '/page/' . 1,
+                'link' => ROOT . $this->getName() . '?page=' . 1,
                 'title' => '&laquo;',
                 'active' => false,
                 'helper' => 'prev'
@@ -177,7 +180,7 @@ class A_BaseModel {
 
         if($page < $iPage - 1) {
             array_push($result, (object)[
-                'link' => ROOT . $this->getName() . '/page/' . ($iPage - 1),
+                'link' => ROOT . $this->getName() . '?page=' . ($iPage - 1),
                 'title' => '&raquo;',
                 'active' => false,
                 'helper' => 'next'

@@ -23,9 +23,14 @@ else {
 }
 require('env-' . ENV . '.php');
 
-session_start();
-define('USERID', session('user_id'));
-
 if(ATTEMPTS && dbs("select * from banned_ip where ip = '" . USER_IP . "'")) {
     abort(402);
 }
+
+session_start();
+define('USERID', session('user_id'));
+
+if(!getLang()) {
+    session('lang', 'ru');
+}
+require('data/i18n/' . getLang() . '.php');

@@ -1,18 +1,20 @@
 <?php
 
-class NewsController extends BaseController {
+class InfoController extends BaseController {
 
     public static function index($arg = '') {
         global $router;
-        $limit = 12;
+        $limit = max(clearRequest('limit'), 12);
+        $page = max(clearRequest('page'), 1);
+        $sort = clearRequest('sort') ?: "date desc";
 
         $routeName = $router->match()['name'];
         $pageCond = !preg_match('/Url/', $routeName);
 
         $url = $pageCond ? '' : $arg;
-        $page = $pageCond ? max($arg, 1) : 1;
+        $page = $pageCond ? $page : 1;
 
-        $model = new News();
+        $model = new Info();
         $directUnit = false;
         $pagination = false;
 
@@ -32,10 +34,10 @@ class NewsController extends BaseController {
             }
         }
         else {
-            $units = $model->getUnits($sql, "date desc", $limit, $page);
-            $pagination = $model->paginate($sql, $limit, $page);
+            $units = $model->getUnits($sql, $sort, $limit, $page);
+            $pagination = $model->paginate($sql, $sort, $limit, $page);
         }
-        include(view('news/index'));
+        include(view('info/index'));
     }
 
 }

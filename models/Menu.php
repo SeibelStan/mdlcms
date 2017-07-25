@@ -15,6 +15,11 @@ class Menu extends A_BaseModel {
         'params'    => 'varchar(255)',
         'sort'      => 'varchar(10)'
     ];
+    public $inputTypes = [
+        'id' => 'hidden',
+        'link' => 'text',
+        'params' => 'text'
+    ];
     public $titles = [
         'namespace' => 'Пространство',
         'title'     => 'Название',

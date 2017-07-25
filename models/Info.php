@@ -1,9 +1,9 @@
 <?php
 
-class News extends A_BaseModel {
+class Info extends A_BaseModel {
 
-    public $table = 'news';
-    public $title = 'Новости';
+    public $table = 'info';
+    public $title = 'Инфо';
     public $addable = true;
     public $removable = true;
     public $fields = [

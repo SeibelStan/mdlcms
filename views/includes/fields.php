@@ -2,7 +2,10 @@
     <div class="autolabel">
         <div class="form-group">
             <?php if($field->control != 'hidden') : ?>
-                <label><?= $field->title ?> <?= $field->required ? '*' : '' ?></label>
+                <label>
+                    <?= i18n($field->name, false) && !checkAdminZone() ? i18n($field->name, false) : $field->title ?>
+                    <?= $field->required ? '*' : '' ?>
+                </label>
             <?php endif; ?>
             <?php if($field->control == 'wysiwyg') : ?>
                 <textarea name="<?= $field->name ?>" class="ckeditor"><?= $field->value ?></textarea>

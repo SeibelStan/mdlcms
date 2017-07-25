@@ -25,7 +25,6 @@ class Slider extends A_BaseModel {
     public $titles = [
         'title'     => 'Название',
         'name'      => 'Имя',
-        'images'    => 'Изображения (одно в строку)',
         'height'    => 'Высота в px',
         'toshow'    => 'Показывать слайдов',
         'toscroll'  => 'Прокручивать по',

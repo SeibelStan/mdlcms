@@ -1,10 +1,10 @@
 <?php
 
-function view($page) {
-    return 'views/' . $page . '.php';
+function view($view) {
+    return 'views/' . $view . '.php';
 }
 
-function clear($data, $length) {
+function clear($data, $length = 0) {
     $data = strip_tags($data);
     $data = trim($data);
     if($length) {
@@ -13,21 +13,15 @@ function clear($data, $length) {
     $data = htmlspecialchars($data);
     return $data;
 }
-
-function dbEscape($data) {
-    global $db;
-    return $db->real_escape_string($data);
+function request($name) {
+    return isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
+}
+function clearRequest($name, $length = 0) {
+    return clear(request($name), $length);
 }
 
 function textRows($data) {
     return explode("\n", trim($data));
-}
-
-function request($name) {
-    return isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
-}
-function clearRequest($name, $length) {
-    return clear(request($name), $length);
 }
 
 function session($name, $value = null) {
@@ -70,6 +64,11 @@ function checkAdminZone() {
         $result = true;
     }
     return $result;
+}
+
+function dbEscape($data) {
+    global $db;
+    return $db->real_escape_string($data);
 }
 
 function dbs($sql, $single = false) {
@@ -206,6 +205,22 @@ function jsLog($data) {
 
 function getLang() {
     return session('lang');
+}
+function i18n($data, $fallback = true) {
+    global $i18n;
+    if(isset($i18n->$data)) {
+        return $i18n->$data;
+    }
+    elseif($fallback) {
+        require('data/i18n/en.php');
+        if(isset($i18n->$data)) {
+            return $i18n->$data;
+        }
+        return false;
+    }
+    else {
+        return false;
+    }
 }
 
 function isSequre() {

@@ -4,13 +4,15 @@ class CatalogController extends BaseController {
 
     public static function index($arg = '') {
         global $router;
-        $limit = 16;
+        $limit = max(request('limit'), 12);
+        $page = max(request('page'), 1);
+        $sort = request('sort') ?: "date desc";
 
         $routeName = $router->match()['name'];
         $pageCond = !preg_match('/Url/', $routeName);
         
         $url = $pageCond ? '' : $arg;
-        $page = $pageCond ? max($arg, 1) : 1;
+        $page = $pageCond ? $page : 1;
 
         $model = new Catalog();
         $directUnit = false;

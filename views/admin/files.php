@@ -2,6 +2,7 @@
 
 <?php if(!$filesInModal) : ?>
     <?php include(view('includes/admin-header')) ?>
+    <main class="container-fluid">
 <?php endif; ?>
 
 <div class="filemanager" data-inmodal="<?= $filesInModal ?>">
@@ -33,5 +34,6 @@
 <script src="<?= ROOT ?>assets/js/files.js"></script>
 
 <?php if(!$filesInModal) : ?>
+    </main>
     <?php include(view('includes/admin-footer')) ?>
 <?php endif; ?>

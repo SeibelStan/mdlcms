@@ -17,18 +17,6 @@ class Helpers extends A_BaseModel {
         return $model->getUnits();
     }
 
-    public static function getStateText($state) {
-        switch($state) {
-            case -2 : return 'Возврат';
-            case -1 : return 'Отменён';
-            case  0 : return 'В обработке';
-            case  1 : return 'Принят';
-            case  2 : return 'Передан доставке';
-            case  3 : return 'Доставлен';
-            case  5 : return 'Завершен';
-        }
-    }
-
     public static function getUser($id = USERID) {
         $id = USERID ?: session('user_id');
         $authUser = new Users;

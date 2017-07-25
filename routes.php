@@ -8,14 +8,12 @@ $router->map('GET|POST', '/search', 'HomeController::search');
 $router->map('POST', '/search-widget', 'HomeController::searchWidget');
 
 // Catalog
-$router->map('GET|POST', '/catalog/page/[i:num]', 'CatalogController::index');
 $router->map('GET|POST', '/catalog/[**:url]', 'CatalogController::index', 'catalogUrl');
 $router->map('GET|POST', '/catalog', 'CatalogController::index');
 
-// News
-$router->map('GET|POST', '/news/page/[i:num]', 'NewsController::index');
-$router->map('GET|POST', '/news/[**:url]', 'NewsController::index', 'newsUrl');
-$router->map('GET|POST', '/news', 'NewsController::index');
+// Info
+$router->map('GET|POST', '/info/[**:url]', 'InfoController::index', 'infoUrl');
+$router->map('GET|POST', '/info', 'InfoController::index');
 
 // Users
 $router->map('GET', '/users/login', 'UsersController::login');

@@ -1,4 +1,3 @@
-    <script src="<?= ROOT ?>vendor/jquery-3.1.1.min.js"></script>
     <script src="<?= ROOT ?>vendor/tether.min.js"></script>
     <script src="<?= ROOT ?>vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?= ROOT ?>vendor/jquery.form.js"></script>

@@ -2,7 +2,7 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h1 class="display-3">MDLCMS</h1>
+        <h1 class="display-3"><?= SITE_NAME ?></h1>
     </div>
 </div>
 
