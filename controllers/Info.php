@@ -32,6 +32,7 @@ class InfoController extends BaseController {
                 $prevNew = false;
                 $nextNew = false;
             }
+            $pageTitle = $directUnit->title;
         }
         else {
             $units = $model->getUnits($sql, $sort, $limit, $page);

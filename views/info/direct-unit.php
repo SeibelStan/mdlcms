@@ -4,7 +4,9 @@
 
 <h1><?= $directUnit->title ?></h1>
 
-<p class="text-muted"><?= dateReformat($directUnit->date) ?>
+<?php if(!$directUnit->static) : ?>
+    <p class="text-muted"><?= dateReformat($directUnit->date) ?>
+<?php endif; ?>
 
 <article>
     <?= $directUnit->content ?>

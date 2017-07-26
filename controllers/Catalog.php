@@ -21,6 +21,7 @@ class CatalogController extends BaseController {
         if($url) {
             $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
             $directUnit = $model->getByField($urlType, urldecode($url), "and active");
+            $pageTitle = $directUnit->title;
         }
         
         $parentUnit = $directUnit && $directUnit->connect ? $model->getByField('id', $directUnit->connect, "or url = '$directUnit->connect' and active") : false;
