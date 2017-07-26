@@ -21,6 +21,9 @@ class InfoController extends BaseController {
         if($url) {
             $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
             $directUnit = $model->getByField($urlType, urldecode($url), "and active");
+            if(!$directUnit) {
+                abort(404);
+            }
         }
 
         $sql = "active and static = 0";

@@ -21,6 +21,9 @@ class CatalogController extends BaseController {
         if($url) {
             $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
             $directUnit = $model->getByField($urlType, urldecode($url), "and active");
+            if(!$directUnit) {
+                abort(404);
+            }
             $pageTitle = $directUnit->title;
         }
         
