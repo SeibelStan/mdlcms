@@ -1,6 +1,8 @@
 <?php
 
 class Files extends A_BaseModel {
+    
+    public $title = 'Файлы';
 
     public $uploadRoot = 'data/files/';
     public $uploadPath = '';

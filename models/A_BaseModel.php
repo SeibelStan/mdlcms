@@ -27,7 +27,7 @@ class A_BaseModel {
     }
 
     public function getTitle() {
-        return isset($this->title) && $this->title ? $this->title : $this->table;
+        return isset($this->title) && $this->title ? $this->title : (isset($this->table) ? $this->table : '');
     }
 
     public function getFillable() {
