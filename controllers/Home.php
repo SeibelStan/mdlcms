@@ -13,6 +13,7 @@ class HomeController extends BaseController {
     public static function feedback() {
         $model = new Feedback();
         $fields = $model->getFields(0, true);
+        $pageTitle = $model->getTitle();
         include(view('home/feedback'));
     }
 
@@ -25,6 +26,7 @@ class HomeController extends BaseController {
     public static function search() {
         $model = new A_BaseModel();
         $result = $model->search(request('searchQuery'), 12);
+        $pageTitle = $model->getTitle();
         include(view('home/search'));
     }
 

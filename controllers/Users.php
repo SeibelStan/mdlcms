@@ -6,6 +6,7 @@ class UsersController extends BaseController {
         guardAuth();
         $model = new Users();
         $fields = $model->getFields(USERID, true);
+        $pageTitle = Helpers::getUser()->login;
         include(view('users/index'));
     }
 
@@ -13,6 +14,7 @@ class UsersController extends BaseController {
         if(USERID) {
             redirect(ROOT . 'users');
         }
+        $pageTitle = 'Вход';
         include(view('users/login'));
     }
 
@@ -22,6 +24,7 @@ class UsersController extends BaseController {
     }
 
     public static function register() {
+        $pageTitle = 'Регистрация';
         include(view('users/register'));
     }
 

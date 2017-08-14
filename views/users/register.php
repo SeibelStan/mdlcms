@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             <label>Пароль</label>
-            <input class="form-control" type="text" name="password" required>
+            <input class="form-control" type="password" name="password" required>
         </div>
         <button class="btn btn-primary" type="submit">Создать</button>
     </form>

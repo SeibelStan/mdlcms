@@ -31,6 +31,5 @@ session_start();
 define('USERID', session('user_id'));
 
 if(!getLang()) {
-    session('lang', 'ru');
+    session('lang', getBrowserLang('ru'));
 }
-require('data/i18n/' . getLang() . '.php');

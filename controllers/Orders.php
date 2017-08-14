@@ -9,6 +9,7 @@ class OrdersController extends BaseController {
         foreach($orders as $order) {
             $order->items = $cartModel->getItems($order->items);
         }
+        $pageTitle = $model->getTitle();
         include(view('users/orders'));
     }
 

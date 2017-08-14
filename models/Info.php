@@ -16,7 +16,7 @@ class Info extends A_BaseModel {
         'static'    => 'int(1)',
         'active'    => 'int(1)::1',
         'date'      => 'timestamp::CURRENT_TIMESTAMP',
-        'dateup'    => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
+        'dateup'    => 'timestamp'
     ];
     public $inputTypes = [
         'id' => 'hidden',

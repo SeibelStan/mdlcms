@@ -4,6 +4,7 @@ class AdminController extends BaseController {
 
     public static function index() {
         guardRoles('admin');
+        $pageTitle = 'Управление';
         include(view('admin/index'));
     }
 
@@ -14,6 +15,7 @@ class AdminController extends BaseController {
         foreach($modelsList as $modelName) {
             array_push($modelListExemps, new $modelName());
         }
+        $pageTitle = 'Модели';
         include(view('admin/edit-models'));
     }
 
@@ -22,6 +24,7 @@ class AdminController extends BaseController {
         $model = new $modelName();
         $fields = $model->getFields($id);
         $units = $model->getUnits(false, "id desc");
+        $pageTitle = $model->getTitle();
         include(view('admin/edit-model'));
     }
 

@@ -20,7 +20,7 @@ class Users extends A_BaseModel {
         'hash'       => 'varchar(64)',
         'login_date' => 'datetime',
         'register'   => 'timestamp::CURRENT_TIMESTAMP',
-        'dateup'     => 'timestamp::CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
+        'dateup'     => 'timestamp'
     ];
     public $fillable = ['full_name', 'tel', 'email', 'address', 'about'];
     public $required = ['full_name', 'email'];

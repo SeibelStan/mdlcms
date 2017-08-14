@@ -222,6 +222,7 @@ class A_BaseModel {
 
     public function save($id, $data, $fillable = false) {
         global $db;
+        $data['dateup'] = date('Y-m-d H:i:s');
         $fields = $this->getFields($id, $fillable);
 
         foreach($fields as $field) {

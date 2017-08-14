@@ -6,7 +6,7 @@ class CatalogController extends BaseController {
         global $router;
         $limit = max(request('limit'), 12);
         $page = max(request('page'), 1);
-        $sort = request('sort') ?: "date desc";
+        $sort = request('sort') ?: "title asc";
 
         $routeName = $router->match()['name'];
         $pageCond = !preg_match('/Url/', $routeName);
@@ -18,6 +18,7 @@ class CatalogController extends BaseController {
         $directUnit = false;
         $pagination = false;
 
+        $pageTitle = $model->getTitle();
         if($url) {
             $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
             $directUnit = $model->getByField($urlType, urldecode($url), "and active");
@@ -32,8 +33,8 @@ class CatalogController extends BaseController {
         $connectUrl = $directUnit ? $directUnit->url : '';
 
         $sql = "active and connect in('$connectId', '$connectUrl')";
-        $units = $model->getUnits($sql, "title asc", $limit, $page);
-        $pagination = $model->paginate($sql, $limit, $page);
+        $units = $model->getUnits($sql, $sort, $limit, $page);
+        $pagination = $model->paginate($sql, $sort, $limit, $page);
         include(view('catalog/index'));
     }
 

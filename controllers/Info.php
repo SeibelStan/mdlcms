@@ -40,6 +40,7 @@ class InfoController extends BaseController {
         else {
             $units = $model->getUnits($sql, $sort, $limit, $page);
             $pagination = $model->paginate($sql, $sort, $limit, $page);
+            $pageTitle = $model->getTitle();
         }
         include(view('info/index'));
     }

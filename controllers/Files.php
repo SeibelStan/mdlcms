@@ -5,6 +5,7 @@ class FilesController extends BaseController {
     public static function index() {
         guardRoles('admin');
         $filesInModal = false;
+        $pageTitle = $model->getTitle();
         include(view('admin/files'));
     }
 
