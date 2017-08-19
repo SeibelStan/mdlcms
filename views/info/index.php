@@ -1,19 +1,10 @@
 <?php include(view('includes/header')) ?>
 
-<?php if(!$directUnit || !$directUnit->static) : ?>
-    <div class="nav">
-        <li class="nav-item"><a href="<?= ROOT ?><?= $model->getName() ?>" class="nav-link"><?= i18n('info') ?></a>
-        <?php if($directUnit) : ?>
-            <li class="nav-item"><span class="nav-link"><?= $directUnit->title ?></span>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
+<ul class="nav">
+    <li class="nav-item"><a href="<?= ROOT ?><?= $model->getName() ?>" class="nav-link"><?= $model->getTitle() ?></a>
+</ul>
 
 <main class="container">
-    <?php if($directUnit) : ?>
-        <?php include(view($model->getName() . '/direct-unit')) ?>
-    <?php endif; ?>
-
     <?php include(view('includes/pagination')) ?>
 
     <?php if($units) : ?>

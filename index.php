@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require('system/core.php');
-require('config.php');
+require('app/config.php');
 require('system/autoloader.php');
 if(DEBUG) {
     require('system/migrator.php');

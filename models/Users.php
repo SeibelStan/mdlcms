@@ -48,11 +48,11 @@ class Users extends A_BaseModel {
 
     public static function login($data) {
         if(ATTEMPTS) {
-            dbi("insert into attempts (type, data, ip) values ('login', '" . json_encode($data) . "', '" . USER_IP . "')");
-            $attempts = dbs("select * from attempts where type = 'login' and ip = '" . USER_IP . "'");
+            dbi("into attempts (type, data, ip) values ('login', '" . json_encode($data) . "', '" . USER_IP . "')");
+            $attempts = dbs("* from attempts where type = 'login' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
             if($count_att >= 10) {
-                dbi("insert into banned_ip (ip) values ('" . USER_IP . "')");
+                dbi("into banned_ip (ip) values ('" . USER_IP . "')");
                 return [
                     'message' => 'Заблокированы за перебор паролей',
                     'callback' => 'location.href = "' . ROOT . '";'
@@ -65,9 +65,9 @@ class Users extends A_BaseModel {
             }
         }
 
-        $user = dbs("select * from users
+        $user = arrayFirst(dbs("* from users
             where login = '" . $data['login'] . "' and password = '" . $data['password'] . "'
-            and active = 1 limit 1", true);
+            and active = 1 limit 1"));
 
         if(!$user) {
             return [
@@ -76,7 +76,7 @@ class Users extends A_BaseModel {
         }
 
         session('user_id', $user->id);
-        dbu("update users set login_date = '" . dateNowFull() . "' where id = '$user->id'");
+        dbu("users set login_date = '" . dateNowFull() . "' where id = '$user->id'");
         return [
             'message' => 'Успешно',
             'type' => 'success',
@@ -87,17 +87,17 @@ class Users extends A_BaseModel {
     public function register($data) {
         global $db;
         if(ATTEMPTS) {
-            $attempts = dbs("select * from attempts where type = 'register' and ip = '" . USER_IP . "'");
+            $attempts = dbs("* from attempts where type = 'register' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
             if($count_att >= 5) {
                 return [
                     'message' => 'Попробуйте позже'
                 ];
             }
-            dbi("insert into attempts (type, data, ip) values ('register', '" . json_encode($data) . "', '" . USER_IP . "')");
+            dbi("into attempts (type, data, ip) values ('register', '" . json_encode($data) . "', '" . USER_IP . "')");
         }
 
-        $user = dbs("select * from users WHERE login = '" . $data['login'] . "' and active = 1");
+        $user = dbs("* from users WHERE login = '" . $data['login'] . "' and active = 1");
 
         if($user) {
             return [

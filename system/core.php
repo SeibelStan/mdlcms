@@ -70,9 +70,9 @@ function dbEscape($data) {
     return $db->real_escape_string($data);
 }
 
-function dbs($sql, $single = false) {
+function dbs($sql) {
     global $db;
-    $result = $db->query($sql);
+    $result = $db->query("select " . $sql);
     $data = [];
     if($result->num_rows) {
         while($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -80,17 +80,23 @@ function dbs($sql, $single = false) {
         }
     }
     echo $db->error;
-    return $single ? (isset($data[0]) ? $data[0] : []) : $data;
+    return $data;
 }
 function dbi($sql) {
     global $db;
-    $db->query($sql);
+    $db->query("insert " . $sql);
     echo $db->error;
     return $db->insert_id;
 }
 function dbu($sql) {
     global $db;
-    $db->query($sql);
+    $db->query("update " . $sql);
+    echo $db->error;
+    return $db->affected_rows;
+}
+function dbd($sql) {
+    global $db;
+    $db->query("delete " . $sql);
     echo $db->error;
     return $db->affected_rows;
 }

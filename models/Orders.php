@@ -12,7 +12,7 @@ class Orders extends A_BaseModel {
         'links'   => 'text',
         'tel'     => 'varchar(50)',
         'address' => 'varchar(255)',
-        'state'   => 'int(11)',
+        'state'   => 'int(2)::0',
         'date'    => 'timestamp::CURRENT_TIMESTAMP',
         'items'   => 'varchar(20)',
         'session' => 'varchar(32)'
@@ -50,7 +50,7 @@ class Orders extends A_BaseModel {
         $lid = $db->insert_id;
 
         foreach($cartItems as $cartItem) {
-            dbu("update " . $model->getTable() . " set order_id = '$lid' where id = '$cartItem->cart_id'");
+            dbu($model->getTable() . " set order_id = '$lid' where id = '$cartItem->cart_id'");
         }
 
         return [

@@ -12,7 +12,7 @@ $router->map('GET|POST', '/catalog/[**:url]', 'CatalogController::index', 'catal
 $router->map('GET|POST', '/catalog', 'CatalogController::index');
 
 // Info
-$router->map('GET|POST', '/info/[**:url]', 'InfoController::index', 'infoUrl');
+$router->map('GET|POST', '/info/[**:url]', 'InfoController::direct');
 $router->map('GET|POST', '/info', 'InfoController::index');
 
 // Users

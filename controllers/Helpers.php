@@ -4,7 +4,7 @@ class HelpersController extends BaseController {
 
     public static function resetAttempts($type = '') {
         $where = $type ? "where type = '$type'" : '';
-        echo dbu("delete from attempts $where");
+        echo dbd("from attempts $where");
         back();
     }
 

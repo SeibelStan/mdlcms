@@ -121,11 +121,11 @@ class A_BaseModel {
 
         switch($arg) {
             case 'like': {
-                $sql = "select * from $this->table where $fieldName like '%$value%'";
+                $sql = "* from $this->table where $fieldName like '%$value%'";
                 break;
             }
             default: {
-                $sql = "select * from $this->table where $fieldName = '$value'";
+                $sql = "* from $this->table where $fieldName = '$value'";
             }
         }
 
@@ -144,7 +144,7 @@ class A_BaseModel {
 
     public function paginate($condition = false, $sort = false, $limit = 1, $page = 1) {
         global $db;
-        $sql = "select count(id) as count from " . $this->getTable();
+        $sql = "count(id) as count from " . $this->getTable();
         if($condition) {
             $sql .= " where " . $condition;
         }
@@ -192,7 +192,7 @@ class A_BaseModel {
 
     public function getUnits($condition = false, $sort = false, $limit = false, $page = false) {
         global $db;
-        $sql = "select * from " . $this->getTable();
+        $sql = "* from " . $this->getTable();
         
         if($condition) {
             $sql .= " where " . $condition;
@@ -279,7 +279,7 @@ class A_BaseModel {
         foreach($modelsList as $modelName) {
             $model = new $modelName();
             if($searchable = $model->getSearchable()) {
-                $sql = "select * from " . $model->getTable() . " where";
+                $sql = "* from " . $model->getTable() . " where";
                 foreach($searchable as $field) {
                     $sql .= " $field like '%$query%' or";
                 }

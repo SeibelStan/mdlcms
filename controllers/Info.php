@@ -2,47 +2,30 @@
 
 class InfoController extends BaseController {
 
-    public static function index($arg = '') {
+    public static function index() {
         global $router;
         $limit = max(clearRequest('limit'), 12);
         $page = max(clearRequest('page'), 1);
         $sort = clearRequest('sort') ?: "date desc";
 
-        $routeName = $router->match()['name'];
-        $pageCond = !preg_match('/Url/', $routeName);
-
-        $url = $pageCond ? '' : $arg;
-        $page = $pageCond ? $page : 1;
-
         $model = new Info();
-        $directUnit = false;
-        $pagination = false;
-
-        if($url) {
-            $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
-            $directUnit = $model->getByField($urlType, urldecode($url), "and active");
-            if(!$directUnit) {
-                abort(404);
-            }
-        }
-
-        $sql = "active and static = 0";
-        if($directUnit) {
-            $units = false;
-            $prevNew = arrayFirst($model->getUnits($sql . " and id < " . $directUnit->id, "id desc"));
-            $nextNew = arrayFirst($model->getUnits($sql . " and id > " . $directUnit->id, "id asc"));
-            if($directUnit->static) {
-                $prevNew = false;
-                $nextNew = false;
-            }
-            $pageTitle = $directUnit->title;
-        }
-        else {
-            $units = $model->getUnits($sql, $sort, $limit, $page);
-            $pagination = $model->paginate($sql, $sort, $limit, $page);
-            $pageTitle = $model->getTitle();
-        }
+        $sql = "active";
+        $units = $model->getUnits($sql, $sort, $limit, $page);
+        $pagination = $model->paginate($sql, $sort, $limit, $page);
+        $pageTitle = $model->getTitle();
         include(view('info/index'));
+    }
+
+    public static function direct($url = '') {
+        $model = new Info();
+        $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
+        $directUnit = $model->getByField($urlType, urldecode($url), "and active");
+        if(!$directUnit) {
+            abort(404);
+        }
+        $pageTitle = $directUnit->title;
+
+        include(view('info/direct'));
     }
 
 }

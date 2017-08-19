@@ -13,7 +13,7 @@ class Cart extends A_BaseModel {
         'model'    => 'varchar(20)',
         'item_id'  => 'int(11)',
         'count'    => 'int(11)::1',
-        'order_id' => 'int(11)',
+        'order_id' => 'int(11)::0',
         'date'     => 'timestamp::CURRENT_TIMESTAMP',
     ];
     public $inputTypes = [
@@ -30,17 +30,17 @@ class Cart extends A_BaseModel {
         'date'     => 'Дата добавления'
     ];
 
-    public $cartable = ['Catalog'];
+    public $cartable = ['catalog'];
 
     public function get() {
         $result = [];
-        $cartItems = dbs("select * from " . $this->getTable() . "
+        $cartItems = dbs("* from " . $this->getTable() . "
             where (user_id = '" . USERID . "' or session = '" . session_id() . "')
             and order_id = 0 order by date desc");
 
         foreach($cartItems as $cartItem) {
             $model = new $cartItem->model();
-            $item = dbs("select * from " . $model->getTable() . " where id = '$cartItem->item_id'", true);
+            $item = arrayFirst(dbs("* from " . $model->getTable() . " where id = '$cartItem->item_id'"));
             $item->count = $cartItem->count;
             $item->cart_id = $cartItem->id;
             $item->model = $cartItem->model;
@@ -71,9 +71,9 @@ class Cart extends A_BaseModel {
 
     public function add($data) {
         global $db;
-        if(!in_array($data['model'], $this->cartable)) {
+        if(!in_array(strtolower($data['model']), $this->cartable)) {
             return [
-                'message' => 'Не правильный тип предмета',
+                'message' => 'Неправильный тип предмета',
             ];
         }
         $data['user_id'] = USERID;

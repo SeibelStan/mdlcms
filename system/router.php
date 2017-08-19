@@ -7,7 +7,7 @@ if(isSequre() && $_SERVER['SERVER_PORT'] == 80) {
 $router = new AltoRouter();
 $router->setBasePath(preg_replace('/^\//', '', ROOT));
 
-require('routes.php');
+require('app/routes.php');
 
 $match = $router->match();
 

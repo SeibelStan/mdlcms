@@ -21,9 +21,9 @@ if(preg_match('/\./', SITE_HOST)) {
 else {
     define('ENV', 'local');
 }
-require('env-' . ENV . '.php');
+require('app/env-' . ENV . '.php');
 
-if(ATTEMPTS && dbs("select * from banned_ip where ip = '" . USER_IP . "'")) {
+if(ATTEMPTS && dbs("* from banned_ip where ip = '" . USER_IP . "'")) {
     abort(402);
 }
 
