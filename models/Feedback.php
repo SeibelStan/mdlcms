@@ -50,7 +50,9 @@ class Feedback extends A_BaseModel {
 
         $mailText = '';
         foreach($data as $name => $value) {
-            $mailText .= '<p>' . $this->getFieldTitle($name) . ': ' . nl2br($value);
+            if($this->isFillable($name)) {
+                $mailText .= '<p>' . $this->getFieldTitle($name) . ': ' . nl2br(strip_tags($value));
+            }
         }
         mail(EMAIL_CONTACT, 'Отзыв от ' . $data['name'], $mailText, $mailHeaders);
 
