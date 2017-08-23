@@ -3,7 +3,7 @@
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 define('SITE_NAME', 'MDLCMS');
 define('SITE_HOST', $_SERVER['HTTP_HOST']);
-define('SITE_DOMAIN', (isSequre() ? 'http' : 'https') . '://' . SITE_HOST);
+define('SITE_DOMAIN', (isSequre() ? 'https' : 'http') . '://' . SITE_HOST);
 define('EMAIL_ADMIN', 'admin@' . SITE_HOST);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 define('CURRENCY', 'KZT');
