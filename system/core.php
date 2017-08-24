@@ -270,3 +270,30 @@ function exportToCsv($table, $fields, $filename = 'export.csv') {
     fpassthru($f);
     exit;
 }
+
+function arrayMultiSort($array, $args = []) {
+    usort(
+        $array, function($a, $b) use ($args) {
+            $res = 0;
+
+            $a = (object)$a;
+            $b = (object)$b;
+
+            foreach($args as $k => $v) {
+                if($a->$k == $b->$k) {
+                    continue;
+                }
+
+                $res = ($a->$k < $b->$k) ? -1 : 1;
+                if($v == 'desc') {
+                    $res = -$res;
+                }
+                break;
+            }
+
+            return $res;
+        }
+    );
+
+    return $array;
+}

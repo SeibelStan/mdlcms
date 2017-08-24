@@ -18,9 +18,9 @@ class Users extends A_BaseModel {
         'roles'      => 'varchar(50)',
         'active'     => 'int(1)::1',
         'hash'       => 'varchar(64)',
-        'login_date' => 'datetime',
-        'register'   => 'timestamp::CURRENT_TIMESTAMP',
-        'dateup'     => 'timestamp'
+        'login_date' => 'timestamp::NOW()',
+        'register'   => 'timestamp::NOW()',
+        'dateup'     => 'timestamp::NOW()'
     ];
     public $fillable = ['full_name', 'tel', 'email', 'address', 'about'];
     public $required = ['full_name', 'email'];

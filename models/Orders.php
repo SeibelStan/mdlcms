@@ -13,9 +13,10 @@ class Orders extends A_BaseModel {
         'tel'     => 'varchar(50)',
         'address' => 'varchar(255)',
         'state'   => 'int(2)::0',
-        'date'    => 'timestamp::CURRENT_TIMESTAMP',
         'items'   => 'varchar(20)',
-        'session' => 'varchar(32)'
+        'session' => 'varchar(32)',
+        'date'    => 'timestamp::NOW()',
+        'dateup'  => 'timestamp::NOW()'
     ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
@@ -25,9 +26,10 @@ class Orders extends A_BaseModel {
         'tel'     => 'Телефон',
         'address' => 'Адрес',
         'state'   => 'Статус',
-        'date'    => 'Дата добавления',
         'items'   => 'Предметы',
-        'session' => 'Сессия'
+        'session' => 'Сессия',
+        'date'    => 'Дата добавления',
+        'date'    => 'Дата обновления'
     ];
 
     public function create($data) {

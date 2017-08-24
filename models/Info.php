@@ -15,8 +15,8 @@ class Info extends A_BaseModel {
         'image'     => 'varchar(199)',
         'static'    => 'int(1)',
         'active'    => 'int(1)::1',
-        'date'      => 'timestamp::CURRENT_TIMESTAMP',
-        'dateup'    => 'timestamp'
+        'date'      => 'timestamp::NOW()',
+        'dateup'    => 'timestamp::NOW()'
     ];
     public $inputTypes = [
         'id' => 'hidden',

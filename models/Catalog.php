@@ -18,8 +18,8 @@ class Catalog extends A_BaseModel {
         'connect'   => 'varchar(50)',
         'active'    => 'int(1)::1',
         'iscatalog' => 'int(1)',
-        'date'      => 'timestamp::CURRENT_TIMESTAMP',
-        'dateup'    => 'timestamp'
+        'date'      => 'timestamp::NOW()',
+        'dateup'    => 'timestamp::NOW()'
     ];
     public $inputTypes = [
         'id' => 'hidden',
