@@ -13,8 +13,8 @@ class Helpers extends A_BaseModel {
     }
 
     public static function getCodeparts($namespace = false) {
-        $model = new Codeparts($namespace ? "namespace = '$namespace'" : '');
-        return $model->getUnits();
+        $model = new Codeparts();
+        return $model->getUnits($namespace ? "namespace = '$namespace'" : '');
     }
 
     public static function getUser($id = USERID) {
