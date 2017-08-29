@@ -30,7 +30,7 @@ foreach($models as $modelName) {
     foreach($prepfields as $i => $field) {
         $sql .= "`" . $field->name . "` "
             . $field->type
-            . ($field->def ? " DEFAULT " . $field->def : "")
+            . ($field->def ? " DEFAULT " . (preg_match('/id$/', $field->name) ? "NOT NULL" : '') . $field->def : "")
             . ($i < count($prepfields) - 1 ? ',' : '')
             . "\n";
     }

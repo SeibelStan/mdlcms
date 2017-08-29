@@ -7,7 +7,6 @@
 <main class="container">
     <?php include(view('includes/pagination')) ?>
 
-    <?php if($units) : ?>
     <div class="row">
         <?php foreach($units as $unit) : ?>
             <div class="col-lg-3 col-md-6 col-sm-12">
@@ -18,7 +17,7 @@
                     ></a>
                     <div class="card-header"><a href="<?= ROOT ?><?= $model->getName() ?>/<?= $unit->url ?>"><?= $unit->title ?></a></div>
                     <div class="card-block">
-                        <p class="card-text"><?= stripWord($unit->content, 100) ?></p>
+                        <p class="card-text"><?= stripWord($unit->content, 100, '...') ?></p>
                         <p class="card-text small text-muted">
                             <?php if($unit->dateup > $unit->date) : ?>
                                 Обновлено <span data-timeago="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
@@ -31,7 +30,6 @@
             </div>
         <?php endforeach; ?>
     </div>
-    <?php endif; ?>
 
     <?php include(view('includes/pagination')) ?>
 </main>
