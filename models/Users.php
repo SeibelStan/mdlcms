@@ -27,7 +27,7 @@ class Users extends A_BaseModel {
     public $pattern = [
         'login' => ['[А-яA-z_0-9]{3,50}', 'Длиннее трёх символов, может содержать буквы, цифры и _'],
         'full_name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
-        'password' => ['[А-яA-z_0-9]{3,50}', 'Длиннее шести символов']
+        'password' => ['.{6,128}', 'Длиннее шести символов']
     ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [
@@ -104,7 +104,10 @@ class Users extends A_BaseModel {
                 'message' => 'Пользователь существует'
             ];
         }
-        if(!preg_match('/^[A-z_]{3,50}$/', $data['login']) || strlen($data['password']) < 6) {
+
+        $loginCorrect = preg_match('/^' . $pattern['login'] . '$/', $data['login']);
+        $passwordCorrect = preg_match('/^' . $pattern['password'] . '$/', $data['password']);
+        if(!$loginCorrect || !$passwordCorrect) {
             return [
                 'message' => 'Проверьте данные'
             ];

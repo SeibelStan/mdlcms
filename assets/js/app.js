@@ -1,8 +1,7 @@
-function showAlert(message, type, time = 3000) {
-    type = type ? type : 'danger';
+function showAlert(message, type = 'danger', time = 3000) {
     $('main').prepend('<div class="alert alert-' + type + ' alert-sticky">' + message + '</div>');
     $('body .alert:first-child')
-        .animate({top: '10px'}, 500)
+        .animate({top: '10px'}, 300)
         .animate({clear: 'none'}, time)
         .fadeOut(500, function () {
             $(this).remove();
