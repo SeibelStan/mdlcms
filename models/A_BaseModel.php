@@ -262,7 +262,8 @@ class A_BaseModel {
             $sql .= ")";
         }
 
-        return $db->query($sql);
+        $db->query($sql);
+        return $db->insert_id;
         echo $db->error;
     }
 

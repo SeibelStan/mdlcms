@@ -115,7 +115,8 @@ class Users extends A_BaseModel {
 
         $data['hash'] = newHash();
         $data['active'] = 'on';
-        $this->save(0, $data);
+        $id = $this->save(0, $data);
+        session('user_id', $id);
         return [
             'message' => 'Получилось!',
             'type' => 'success',
