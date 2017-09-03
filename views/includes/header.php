@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>vendor/slick/slick-theme.css">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/ekko-lightbox/ekko-lightbox.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
+    <link rel="stylesheet" href="<?= ROOT ?>assets/css/site.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
     <script src="<?= ROOT ?>vendor/jquery-<?= JQUERY_VERSION ?>.min.js"></script>
     <meta name="theme-color" content="#ffffff">

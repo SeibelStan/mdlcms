@@ -4,6 +4,7 @@ setlocale(LC_ALL, 'ru_RU.UTF-8');
 define('SITE_NAME', 'MDLCMS');
 define('SITE_HOST', $_SERVER['HTTP_HOST']);
 define('SITE_DOMAIN', (isSequre() ? 'https' : 'http') . '://' . SITE_HOST);
+define('SITE_DOMAIN_SSL', 'https://' . SITE_HOST);
 define('EMAIL_ADMIN', 'admin@' . SITE_HOST);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 define('CURRENCY', 'KZT');
@@ -12,8 +13,8 @@ define('YANDEXKEY', 'trnsl.1.1.20170623T123335Z.781b890cb1136c8f.63af157d7ddb58d
 define('JQUERY_VERSION', '3.2.1');
 
 if($_SERVER['HTTP_USER_AGENT'] && $_SERVER['HTTP_USER_AGENT'] != 'CURL') {
-	ini_set('session.gc_maxlifetime', 604800);
-	ini_set('session.cookie_lifetime', 604800);
+    ini_set('session.gc_maxlifetime', 604800);
+    ini_set('session.cookie_lifetime', 604800);
 }
 
 if(preg_match('/\./', SITE_HOST)) {

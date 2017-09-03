@@ -17,6 +17,7 @@ class Users extends A_BaseModel {
         'about'      => 'varchar(1000)',
         'roles'      => 'varchar(50)',
         'active'     => 'int(1)::1',
+        'referal'    => 'varchar(100)',       
         'hash'       => 'varchar(64)',
         'login_date' => 'timestamp::NOW()',
         'register'   => 'timestamp::NOW()',
@@ -41,6 +42,7 @@ class Users extends A_BaseModel {
         'roles'      => 'Роли',
         'active'     => 'Активный',
         'login_date' => 'Последний вход',
+        'referal'    => 'Реферал',        
         'hash'       => 'Хэш',
         'register'   => 'Дата регистрации',
         'dateup'     => 'Дата обновления'

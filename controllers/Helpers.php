@@ -12,6 +12,11 @@ class HelpersController extends BaseController {
         die(friendlyUrl(request('url')));
     }
 
+    public static function setReferal($referal) {
+        session('referal', $referal);
+        redirect('/');
+    }
+
     public static function setLang($lang) {
         session('lang', $lang);
         back();

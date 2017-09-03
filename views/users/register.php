@@ -10,6 +10,7 @@
             <label>Пароль</label>
             <input class="form-control" type="password" name="password" required>
         </div>
+        <input class="form-control" type="hidden" name="referal" value="<?= session('referal') ?>">
         <button class="btn btn-primary" type="submit">Создать</button>
     </form>
 </main>

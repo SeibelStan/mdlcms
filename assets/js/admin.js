@@ -18,6 +18,27 @@ function imagesFieldFill() {
 
 $(function () {
 
+    $('.select-links').change(function () {
+        location.href = $(this).val();
+    });
+
+    $('[data-filter').keyup(function () {
+        var collection = $(this).data('filter');
+        var filterVal = $(this).val();
+        var regStr = '';
+        for(i in filterVal) {
+            regStr += filterVal[i] + '.*';
+        }
+        var reg = new RegExp(regStr, 'i');
+        $(collection + ' > *').hide();
+        $(collection + ' > *').each(function () {
+            var dataId = [] + $(this).data('id');
+            if($(this).html().match(reg) || dataId.match(reg)) {
+                $(this).show();
+            }
+        });
+    });
+
     $('.last-focused-top').click(function () {
         lastFocused = $(this).parent().prev().find('input, textarea');
     });

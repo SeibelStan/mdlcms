@@ -1,7 +1,7 @@
 <?php
 
-if(isSequre() && $_SERVER['SERVER_PORT'] == 80) {
-    redirect(SITE_DOMAIN . $_SERVER['REQUESR_URI']);
+if(SITE_DOMAIN_SSL && ENV == 'prod' && $_SERVER['SERVER_PORT'] == 80) {
+    redirect(SITE_DOMAIN_SSL . $_SERVER['REQUESR_URI']);
 }
 
 $router = new AltoRouter();

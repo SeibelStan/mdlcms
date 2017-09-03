@@ -3,7 +3,7 @@
 ini_set('date.timezone', 'Asia/Almaty');
 
 define('ROOT', '/mdlcms/');
-define('DB_TIME_DELTA', 6 * 60 * 60);
+define('DB_TIME_DELTA', 0);
 define('DEBUG', false);
 define('ATTEMPTS', true);
 define('EMAIL_CONTACT', 'info@' . SITE_HOST);

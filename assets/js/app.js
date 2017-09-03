@@ -8,6 +8,32 @@ function showAlert(message, type = 'danger', time = 3000) {
         })
 }
 
+function attachForms() {
+    $('.form-ajax').on('submit', function () {
+        if(typeof CKEDITOR != 'undefined' && typeof CKEDITOR.instances.content != 'undefined') {
+            CKEDITOR.instances.content.updateElement();
+        }
+    });
+
+    $('.form-ajax').ajaxForm({
+        success: function (data) {
+            $('.form-resetable *').each(function () {
+                if($(this).attr('type') != 'hidden') {
+                    $(this).val('');
+                }
+            });
+
+            data = JSON.parse(data);
+            if(data.message) {
+                showAlert(data.message, data.type);
+            }
+            if(data.callback) {
+                eval(data.callback);
+            }
+        }
+    });
+}
+
 function getCart() {
     $.get(
         baseURL + 'cart/get',
@@ -43,32 +69,6 @@ function getCart() {
             }
         }
     );
-}
-
-function attachForms() {
-    $('.form-ajax').on('submit', function () {
-        if(typeof CKEDITOR != 'undefined' && typeof CKEDITOR.instances.content != 'undefined') {
-            CKEDITOR.instances.content.updateElement();
-        }
-    });
-
-    $('.form-ajax').ajaxForm({
-        success: function (data) {
-            $('.form-resetable *').each(function () {
-                if($(this).attr('type') != 'hidden') {
-                    $(this).val('');
-                }
-            });
-
-            data = JSON.parse(data);
-            if(data.message) {
-                showAlert(data.message, data.type);
-            }
-            if(data.callback) {
-                eval(data.callback);
-            }
-        }
-    });
 }
 
 function timeAgo() {
@@ -121,27 +121,6 @@ $(function () {
             $(this).attr('for', label);
             $(this).next().attr('id', label);
         }
-    });
-
-    $('.select-links').change(function () {
-        location.href = $(this).val();
-    });
-
-    $('[data-filter').keyup(function () {
-        var collection = $(this).data('filter');
-        var filterVal = $(this).val();
-        var regStr = '';
-        for(i in filterVal) {
-            regStr += filterVal[i] + '.*';
-        }
-        var reg = new RegExp(regStr, 'i');
-        $(collection + ' > *').hide();
-        $(collection + ' > *').each(function () {
-            var dataId = [] + $(this).data('id');
-            if($(this).html().match(reg) || dataId.match(reg)) {
-                $(this).show();
-            }
-        });
     });
 
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {

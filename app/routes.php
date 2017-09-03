@@ -58,3 +58,4 @@ $router->map('GET', '/' . CRONKEY . '/reset-attempts', 'HelpersController::reset
 $router->map('POST', '/helpers/friendly-url', 'HelpersController::friendlyUrl');
 $router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');
 $router->map('POST', '/helpers/markdown-parse', 'HelpersController::markdownParse');
+$router->map('GET', '/r/[a:referal]', 'HelpersController::setReferal');

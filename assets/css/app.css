@@ -93,9 +93,6 @@ a {
     border: none;
 }
 
-#search-form {
-    position: relative;
-}
 .card-text:empty {
     display: none;
 }
