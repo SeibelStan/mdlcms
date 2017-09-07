@@ -107,8 +107,8 @@ class Users extends A_BaseModel {
             ];
         }
 
-        $loginCorrect = preg_match('/^' . $pattern['login'][0] . '$/', $data['login']);
-        $passwordCorrect = preg_match('/^' . $pattern['password'][0] . '$/', $data['password']);
+        $loginCorrect = preg_match('/^' . $this->pattern['login'][0] . '$/', $data['login']);
+        $passwordCorrect = preg_match('/^' . $this->pattern['password'][0] . '$/', $data['password']);
         if(!$loginCorrect || !$passwordCorrect) {
             return [
                 'message' => 'Проверьте данные'
