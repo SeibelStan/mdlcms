@@ -270,8 +270,8 @@ class A_BaseModel {
     public function delete($field, $value = 0, $condition = false) {
         $where = "where $field = '$value'";
         $where .= $condition ? " and " . $condition : '';
-        $sql = "delete from " . $this->getTable() . " $where";
-        return dbu($sql);
+        $sql = "from " . $this->getTable() . " $where";
+        return dbd($sql);
     }
 
     public function search($query, $limit = 12) {
