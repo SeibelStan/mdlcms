@@ -8,6 +8,21 @@ class AdminController extends BaseController {
         include(view('admin/index'));
     }
 
+    public static function table($modelName) {
+        guardRoles('admin');
+
+        $limit = max(clearRequest('limit'), 100);
+        $page = max(clearRequest('page'), 1);
+        $sort = clearRequest('sort') ?: "id desc";
+
+        $model = new $modelName();
+        $units = $model->getUnits(false, $sort, $limit, $page);
+        $pagination = $model->paginate(false, $sort, $limit, $page);
+
+        $pageTitle = $model->getTitle();
+        include(view('admin/table'));
+    }
+
     public static function editModels() {
         guardRoles('admin');
         $modelsList = Admin::getModelsList();

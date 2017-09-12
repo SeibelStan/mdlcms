@@ -51,6 +51,7 @@ $router->map('GET', '/admin/edit-models/[a:modelName]/[i:id]', 'AdminController:
 $router->map('GET|POST', '/admin/save-models/[a:modelName]/[i:id]', 'AdminController::save');
 $router->map('GET|POST', '/admin/save-models/[a:modelName]', 'AdminController::save');
 $router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminController::delete');
+$router->map('GET', '/admin/table/[a:modelName]', 'AdminController::table');
 
 // Helpers
 $router->map('GET', '/' . CRONKEY . '/reset-attempts/[a:type]', 'HelpersController::resetAttempts');
