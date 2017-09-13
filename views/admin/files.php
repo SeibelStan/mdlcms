@@ -19,7 +19,7 @@
             <input type="checkbox" id="fm_outerlink" title="Внешние ссылки" style="display: none;">
             <a id="fm_outerlink_toggle" class="nav-link">Ссылки: внут.</a>
     </div>
-    <div class="fm_panes <?= $filesInModal ? 'row' : 'container-fluid' ?>">
+    <div class="fm_panes row <?= $filesInModal ? '' : 'container-fluid' ?>">
         <div class="fm_left col-lg-8 col-sm-12">
             <div class="fm_crumbs nav nav-pills"></div>
             <div class="fm_files row"></div>

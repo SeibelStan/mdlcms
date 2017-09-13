@@ -25,10 +25,6 @@ else {
 }
 require('app/env-' . ENV . '.php');
 
-if(ATTEMPTS && dbs("* from banned_ip where ip = '" . USER_IP . "'")) {
-    abort(402);
-}
-
 session_start();
 define('USERID', session('user_id'));
 

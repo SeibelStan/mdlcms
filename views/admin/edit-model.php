@@ -20,7 +20,7 @@
         <?php endif; ?>
 
         <?php if($id || $model->isAddable()) : ?>
-            <button class="btn btn-primary" type="submit">Сохранить</button>
+            <button class="btn btn-primary" onclick="$('form').submit();">Сохранить</button>
         <?php endif; ?>
     </div>
 
@@ -36,9 +36,6 @@
         </div>
     </form>
 </main>
-
-<script src="<?= ROOT ?>vendor/ckeditor/ckeditor.js?v=<?= time() ?>"></script>
-<script src="<?= ROOT ?>vendor/ckeditor/adapters/jquery.js"></script>
 
 <div class="modal fade" id="filesModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

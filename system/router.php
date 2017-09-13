@@ -1,5 +1,10 @@
 <?php
 
+if(ATTEMPTS && Bans::check()) {
+    include(view('errors/402'));
+    die();
+}
+
 if(SITE_DOMAIN_SSL && ENV == 'prod' && $_SERVER['SERVER_PORT'] == 80) {
     redirect(SITE_DOMAIN_SSL . $_SERVER['REQUESR_URI']);
 }

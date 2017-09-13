@@ -54,7 +54,7 @@ class Users extends A_BaseModel {
             $attempts = dbs("* from attempts where type = 'login' and ip = '" . USER_IP . "'");
             $count_att = count($attempts);
             if($count_att >= 10) {
-                dbi("into banned_ip (ip) values ('" . USER_IP . "')");
+                Bans::add();
                 return [
                     'message' => 'Заблокированы за перебор паролей',
                     'callback' => 'location.href = "' . ROOT . '";'

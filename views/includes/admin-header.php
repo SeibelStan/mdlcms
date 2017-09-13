@@ -15,7 +15,7 @@
         var baseURL = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
     </script>
-    <?php $codeparts = Helpers::getCodeparts(); ?>
+    <?php $codeparts = Helpers::getCodeparts('admin'); ?>
     <?php include(view('includes/codeparts')) ?>
 </head>
 <body>
