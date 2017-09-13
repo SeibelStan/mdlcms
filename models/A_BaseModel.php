@@ -155,7 +155,7 @@ class A_BaseModel {
 
         $count = $units[0]->count;
         if($count <= $limit) {
-            return false;
+            return [];
         }
 
         $result = [];

@@ -23,8 +23,11 @@ class Users extends A_BaseModel {
         'register'   => 'timestamp::NOW()',
         'dateup'     => 'timestamp::NOW()'
     ];
-    public $fillable = ['full_name', 'tel', 'email', 'address', 'about'];
+    public $fillable = ['full_name', 'tel', 'email', 'address', 'about', 'password'];
     public $required = ['full_name', 'email'];
+    public $inputTypes = [
+        'password' => 'password'
+    ];
     public $pattern = [
         'login' => ['[А-яA-z_0-9]{3,50}', 'Длиннее трёх символов, может содержать буквы, цифры и _'],
         'full_name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
