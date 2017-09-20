@@ -3,6 +3,7 @@
 ini_set('date.timezone', 'Asia/Almaty');
 
 define('ROOT', '/mdlcms/');
+define('SSL_ENABLED', false);
 define('DB_TIME_DELTA', 0);
 define('DEBUG', false);
 define('ATTEMPTS', true);

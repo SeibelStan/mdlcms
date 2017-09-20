@@ -238,10 +238,6 @@ function i18n($data, $fallback = true) {
     }
 }
 
-function isSequre() {
-    return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on';
-}
-
 function exportToCsv($table, $fields, $filename = 'export.csv') {
     global $db;
     $sql_query = "SELECT {$fields} FROM {$table}";

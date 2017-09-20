@@ -5,8 +5,8 @@ if(ATTEMPTS && Bans::check()) {
     die();
 }
 
-if(SITE_DOMAIN_SSL && ENV == 'prod' && $_SERVER['SERVER_PORT'] == 80) {
-    redirect(SITE_DOMAIN_SSL . $_SERVER['REQUESR_URI']);
+if(SSL_ENABLED && $_SERVER['SERVER_PORT'] == 80) {
+    redirect(SITE_DOMAIN . $_SERVER['REQUESR_URI']);
 }
 
 $router = new AltoRouter();

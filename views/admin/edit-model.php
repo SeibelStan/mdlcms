@@ -20,11 +20,11 @@
         <?php endif; ?>
 
         <?php if($id || $model->isAddable()) : ?>
-            <button class="btn btn-primary" onclick="$('form').submit();">Сохранить</button>
+            <button class="btn btn-primary" onclick="$('.main-form').submit();">Сохранить</button>
         <?php endif; ?>
     </div>
 
-    <form class="form-ajax" action="<?= ROOT ?>admin/save-models/<?= $modelName ?><?= $id ? '/' . $id : '' ?>" method="post">
+    <form class="main-form form-ajax" action="<?= ROOT ?>admin/save-models/<?= $modelName ?><?= $id ? '/' . $id : '' ?>" method="post">
         <?php include(view('includes/fields')) ?>
         <div class="form-group">
             <?php if($id || $model->isAddable()) : ?>
