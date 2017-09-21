@@ -70,7 +70,7 @@ class Users extends A_BaseModel {
             }
         }
 
-        $user = arrayFirst(dbs("* from users
+        $user = arrayFirst(dbs("* from " . $this->getTable() . "
             where login = '" . $data['login'] . "' and password = '" . $data['password'] . "'
             and active = 1 limit 1"));
 
@@ -102,7 +102,7 @@ class Users extends A_BaseModel {
             dbi("into attempts (type, data, ip) values ('register', '" . json_encode($data) . "', '" . USER_IP . "')");
         }
 
-        $user = dbs("* from users WHERE login = '" . $data['login'] . "' and active = 1");
+        $user = dbs("* from " . $this->getTable() . " WHERE login = '" . $data['login'] . "' and active = 1");
 
         if($user) {
             return [
@@ -118,16 +118,74 @@ class Users extends A_BaseModel {
             ];
         }
 
-        $data['hash'] = newHash();
+        $data['hash'] = hashGen();
         $data['active'] = 'on';
         $id = $this->save(0, $data);
         session('user_id', $id);
+
+        $mailText = sprintf(
+            file_get_contents('views/mail/register.html')
+        );
+        smail('Благодарим Вас за регистрацию на нашем сайте!', $mailText, $data['email']);
+
         return [
             'message' => 'Получилось!',
             'type' => 'success',
             'callback' => 'location.href = "' . ROOT . 'users";',
             'user' => Helpers::getUser($db->insert_id)
         ];
+    }
+
+    public function remind($data) {
+        if(ATTEMPTS) {
+            dbi("into attempts (type, data, ip) values ('remind', '" . json_encode($data) . "', '" . USER_IP . "')");
+            $attempts = dbs("* from attempts where type = 'remind' and ip = '" . USER_IP . "'");
+            $count_att = count($attempts);
+            if($count_att >= 2) {
+                return [
+                    'message' => 'Попробуйте позже',
+                    'callback' => '$(".modal__close").click();'                    
+                ];
+            }
+        }
+
+        $user = arrayFirst(dbs("* from " . $this->getTable() . "
+            where (login = '" . $data['login'] . "' or email = '" . $data['login'] . "')
+            and active = 1"));
+
+        if($user) {
+            $mailText = sprintf(
+                file_get_contents('views/mail/remind.html'),
+                passGen(8),
+                $user->hash
+            );
+            smail('Восстановление пароля для пользователя ' . $user->login, $mailText, $user->email);
+
+            return [
+                'message' => 'Письмо с паролем выслано на почту',
+                'type' => 'success'
+            ];
+        }
+        else {
+            return [
+                'message' => 'Пользователя не существует'
+            ];
+        }
+    }
+
+    public function restore($data) {
+        $user = $this->getByField('hash', $data['hash']);
+
+        if($user) {
+            session('user_id', $user->id);
+
+            $this->save($user->id, [
+                'hash' => hashGen(),
+                'password' => $data['pass']
+            ]);
+            return 1;
+        }
+        return 0;
     }
 
 }

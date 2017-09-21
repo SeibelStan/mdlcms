@@ -24,6 +24,8 @@ $router->map('GET|POST', '/users/logout', 'UsersController::logout');
 $router->map('POST', '/users/save', 'UsersController::save');
 $router->map('GET', '/users', 'UsersController::index');
 $router->map('GET', '/users/[i:id]', 'UsersController::index');
+$router->map('POST', '/users/remind', 'UsersController::remind');
+$router->map('GET', '/users/restore', 'UsersController::restore');
 
 // Cart
 $router->map('GET', '/cart/get', 'CartController::get');

@@ -51,4 +51,22 @@ class UsersController extends BaseController {
         ]);
     }
 
+    public static function remind() {
+        $model = new Users();
+        $result = $model->remind([
+            'login' => clearRequest('login')
+        ]);
+        echo json_encode($result);
+    }
+
+    public static function restore() {
+        $model = new Users();
+        $model->restore([
+            'hash' => clearRequest('hash'),
+            'pass' => clearRequest('pass'),
+        ]);
+
+        redirect('/');
+    }
+
 }

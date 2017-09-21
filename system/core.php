@@ -149,7 +149,7 @@ function passGen($length = 16) {
     }
     return $pass;
 }
-function newHash() {
+function hashGen() {
     return passGen(64);
 }
 
@@ -292,4 +292,15 @@ function arrayMultiSort($array, $args = []) {
     );
 
     return $array;
+}
+
+function smail($title, $text, $to, $from = 'admin') {
+    $from .= '@' . SITE_HOST;
+    if(!preg_match('/@/', $to)) {
+        $to .= '@' . SITE_HOST;        
+    }
+
+    $headers  = "Content-type: text/html; charset=utf-8 \r\n";
+    $headers .= "From: <" . $from . ">\r\n";
+    return mail($to, $title, $text, $headers);
 }
