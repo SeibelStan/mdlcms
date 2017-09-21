@@ -29,10 +29,9 @@ class UsersController extends BaseController {
     }
 
     public static function doRegister() {
-        $model = new Users();
-        $result = $model->register($_REQUEST);
+        $result = Users::register($_REQUEST);
         if(isset($result['user'])) {
-            $model->login($_REQUEST);
+            Users::login($_REQUEST);
         }
         echo json_encode($result);
     }
@@ -52,16 +51,14 @@ class UsersController extends BaseController {
     }
 
     public static function remind() {
-        $model = new Users();
-        $result = $model->remind([
+        $result = Users::remind([
             'login' => clearRequest('login')
         ]);
         echo json_encode($result);
     }
 
     public static function restore() {
-        $model = new Users();
-        $model->restore([
+        Users::restore([
             'hash' => clearRequest('hash'),
             'pass' => clearRequest('pass'),
         ]);

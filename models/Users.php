@@ -70,7 +70,7 @@ class Users extends A_BaseModel {
             }
         }
 
-        $user = arrayFirst(dbs("* from " . $this->getTable() . "
+        $user = arrayFirst(dbs("* from users
             where login = '" . $data['login'] . "' and password = '" . $data['password'] . "'
             and active = 1 limit 1"));
 
@@ -89,7 +89,7 @@ class Users extends A_BaseModel {
         ];
     }
 
-    public function register($data) {
+    public static function register($data) {
         global $db;
         if(ATTEMPTS) {
             $attempts = dbs("* from attempts where type = 'register' and ip = '" . USER_IP . "'");
@@ -102,7 +102,7 @@ class Users extends A_BaseModel {
             dbi("into attempts (type, data, ip) values ('register', '" . json_encode($data) . "', '" . USER_IP . "')");
         }
 
-        $user = dbs("* from " . $this->getTable() . " WHERE login = '" . $data['login'] . "' and active = 1");
+        $user = dbs("* from users WHERE login = '" . $data['login'] . "' and active = 1");
 
         if($user) {
             return [
@@ -136,7 +136,7 @@ class Users extends A_BaseModel {
         ];
     }
 
-    public function remind($data) {
+    public static function remind($data) {
         if(ATTEMPTS) {
             dbi("into attempts (type, data, ip) values ('remind', '" . json_encode($data) . "', '" . USER_IP . "')");
             $attempts = dbs("* from attempts where type = 'remind' and ip = '" . USER_IP . "'");
@@ -149,7 +149,7 @@ class Users extends A_BaseModel {
             }
         }
 
-        $user = arrayFirst(dbs("* from " . $this->getTable() . "
+        $user = arrayFirst(dbs("* from users
             where (login = '" . $data['login'] . "' or email = '" . $data['login'] . "')
             and active = 1"));
 
@@ -173,7 +173,7 @@ class Users extends A_BaseModel {
         }
     }
 
-    public function restore($data) {
+    public static function restore($data) {
         $user = $this->getByField('hash', $data['hash']);
 
         if($user) {
