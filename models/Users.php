@@ -119,7 +119,12 @@ class Users extends A_BaseModel {
         }
 
         $data['hash'] = hashGen();
-        $data['active'] = 'on';
+        $data['active'] = 1;
+
+        foreach($data as $row) {
+            $row = clear($row);
+        }
+
         $id = $this->save(0, $data);
         session('user_id', $id);
 

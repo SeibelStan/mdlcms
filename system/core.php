@@ -109,7 +109,7 @@ function stripWord($str, $length, $addon = '...') {
     if(mb_strlen($str) > $length) {
         $str = mb_substr($str, 0, $length);
         $str = preg_replace('/\S+$/', '', $str);
-        $str = preg_replace('/[ !?:.,–-]+$/', '', trim($str));
+        $str = preg_replace('/[ !?:.,–-]+$/u', '', trim($str));
         $str .= $addon;
     }
     return $str;
