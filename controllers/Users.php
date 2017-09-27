@@ -29,7 +29,8 @@ class UsersController extends BaseController {
     }
 
     public static function doRegister() {
-        $result = Users::register($_REQUEST);
+        $model = new Users();
+        $result = $model->register($_REQUEST);
         if(isset($result['user'])) {
             Users::login($_REQUEST);
         }
