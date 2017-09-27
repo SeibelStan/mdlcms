@@ -89,7 +89,7 @@ class Users extends A_BaseModel {
         ];
     }
 
-    public static function register($data) {
+    public function register($data) {
         global $db;
         if(ATTEMPTS) {
             $attempts = dbs("* from attempts where type = 'register' and ip = '" . USER_IP . "'");
