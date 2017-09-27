@@ -8,6 +8,8 @@
         <?php endif; ?>
     </h1>
 
+    <?php include(view('includes/pagination')) ?>
+
     <table class="table">
         <thead>
         <tr>
@@ -27,6 +29,8 @@
             <?php endif; ?>
         <?php endforeach; ?>
     </table>
+
+    <?php include(view('includes/pagination')) ?>
 </main>
 
 <script src="<?= ROOT ?>vendor/ckeditor/adapters/jquery.js"></script>
