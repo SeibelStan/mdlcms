@@ -17,7 +17,8 @@ class Codeparts extends A_BaseModel {
         'params'    => 'varchar(255)'
     ];
     public $inputTypes = [
-        'id' => 'hidden'
+        'id' => 'hidden',
+        'content' => 'textarea'        
     ];
     public $fillable = ['name', 'content'];
     public $titles = [

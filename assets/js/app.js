@@ -161,4 +161,8 @@ $(function () {
         pagination.fadeTo('fast', 1);
     });
 
+    $('[name="password"]').on('dblclick', function () {
+        $(this).attr('type', $(this).attr('type') == 'text' ? 'password' : 'text');
+    });
+
 });
