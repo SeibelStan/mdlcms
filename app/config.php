@@ -28,6 +28,6 @@ define('SITE_DOMAIN', (SSL_ENABLED ? 'https' : 'http') . '://' . SITE_HOST);
 session_start();
 define('USERID', session('user_id'));
 
-if(!getLang()) {
+if(getLang() == '') {
     session('lang', getBrowserLang('ru'));
 }

@@ -84,7 +84,7 @@ class A_BaseModel {
             if(isset($this->inputTypes) && isset($this->inputTypes[$name])) {
                 $control = $this->inputTypes[$name];
             }
-            elseif(preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || $type == 'text') {
+            elseif(preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || preg_match('/text/', $type)) {
                 $control = 'textarea';
             }
             elseif(preg_match('/int\(1\)/', $type)) {
