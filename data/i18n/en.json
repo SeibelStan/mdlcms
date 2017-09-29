@@ -1,0 +1,9 @@
+{
+    "orderstatus_-2" : "Return",
+    "orderstatus_-1" : "Cancel",
+    "orderstatus_0"  : "In queue",
+    "orderstatus_1"  : "Accepted",
+    "orderstatus_2"  : "Transferred the delivery",
+    "orderstatus_3"  : "Delivered",
+    "orderstatus_5"  : "Completed"
+}

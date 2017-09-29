@@ -1,0 +1,51 @@
+.fm_tools {
+    margin-bottom: 10px;
+    align-items: center;
+    height: 56px;
+}
+.fm_right {
+    overflow: auto;
+}
+.fm_item_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+.fm_item.checked .card {
+    background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d;
+}
+.fm_item_icon {
+    cursor: pointer;
+    background-size: contain;
+    background-position: center center;
+    height: 128px;
+    width: 128px;
+    max-width: 100%;
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+}
+.fm_item_title {
+    text-align: center;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: none;
+    border-bottom: 2px solid transparent;
+    outline: none;
+    background: transparent;
+}
+.fm_item_title:focus {
+    border-color: #31708f;
+ }
+.fm_links {
+    word-wrap: break-word;
+    line-height: 1.2;
+    margin-left: 10px;
+}
+.fm_crumbs {
+    margin-bottom: 20px;
+}
