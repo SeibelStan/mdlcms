@@ -46,8 +46,10 @@ class Feedback extends A_BaseModel {
         }
         $this->save(0, $data, true);
   
-        smail('Отзыв от ' . $data['name'], $mailText, EMAIL_CONTACT);
-        
+        if(MAILS) {
+            smail('Отзыв от ' . $data['name'], $mailText, EMAIL_CONTACT);
+        }
+
         return [
             'message' => 'Сообщение отправлено',
             'type' => 'success',

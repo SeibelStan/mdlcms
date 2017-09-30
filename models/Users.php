@@ -115,7 +115,9 @@ class Users extends A_BaseModel {
         $mailText = sprintf(
             file_get_contents('views/mail/register.html')
         );
-        smail('Благодарим Вас за регистрацию на нашем сайте!', $mailText, $data['email']);
+        if(MAILS) {
+            smail('Благодарим Вас за регистрацию на нашем сайте!', $mailText, $data['email']);            
+        }
 
         return [
             'message' => 'Получилось!',
@@ -132,8 +134,7 @@ class Users extends A_BaseModel {
         }
 
         $user = $this->getByField('login', $data['login'],
-            "or email = '" . $data['login'] . "'
-            and password = '" . $data['password'] . "' and active");       
+            "or email = '" . $data['login'] . "' and active");       
 
         if($user) {
             $mailText = sprintf(
@@ -141,7 +142,10 @@ class Users extends A_BaseModel {
                 passGen(8),
                 $user->hash
             );
-            smail('Восстановление пароля для пользователя ' . $user->login, $mailText, $user->email);
+
+            if(MAILS) {
+                smail('Восстановление пароля для пользователя ' . $user->login, $mailText, $user->email);
+            }
 
             return [
                 'message' => 'Письмо с паролем выслано на почту',

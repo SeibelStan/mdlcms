@@ -7,6 +7,7 @@ define('SSL_ENABLED', false);
 define('DB_TIME_DELTA', 0);
 define('DEBUG', true);
 define('ATTEMPTS', false);
+define('MAILS', false);
 define('EMAIL_CONTACT', 'seibel.stan@ya.ru');
 
 $db = new mysqli('localhost', 'root', 'sss');

@@ -20,7 +20,8 @@
 * Markdown-разметка via [GitHub API](https://developer.github.com/v3/markdown/).
 * Интернационализация интерфейса.
 * Реферальные ссылки.
-* Bootstrap 4 Beta
+* Bootstrap 4 Beta.
+* Восстановление паролей
 
 ## Как начать
 1. Создать папку ```data/sessions``` с правами ```755```
