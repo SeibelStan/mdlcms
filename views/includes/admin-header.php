@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
-    <script src="<?= ROOT ?>vendor/jquery-<?= JQUERY_VERSION ?>.min.js"></script>
+    <script src="<?= ROOT ?>vendor/jquery-3.2.1.min.js"></script>
     <meta name="theme-color" content="#ffffff">
     <script>
         var baseURL = '<?= ROOT ?>';
@@ -21,8 +21,8 @@
 <body>
 
 <header>
-<nav class="navbar navbar-toggleable-md bg-inverse navbar-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="<?= ROOT ?>admin">Управление</a>
@@ -41,7 +41,7 @@
          
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <?= Helpers::getUser()->login ?>
                 </a>
                 <span class="caret"></span>

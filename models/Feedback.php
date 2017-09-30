@@ -33,20 +33,10 @@ class Feedback extends A_BaseModel {
     ];
 
     public function send($data) {
-        if(ATTEMPTS) {
-            $attempts = dbs("* from attempts where type = 'feedback' and ip = '" . USER_IP . "'");
-            $count_att = count($attempts);
-            if($count_att >= 5) {
-                return [
-                    'message' => 'Попробуйте позже',
-                    'error' => true
-                ];
-            }
-            dbi("into attempts (type, data, ip) values ('feedback', '" . json_encode($data) . "', '" . USER_IP . "')");
+        $attempt = Attempts::add('feedback', $data);
+        if($attempt->action) {
+            return $attempt;
         }
-
-        $mailHeaders = "Content-type: text/html; charset=utf-8 \r\n";
-        $mailHeaders .= "From: " . SITE_NAME . "<" . EMAIL_ADMIN . ">\r\n";
 
         $mailText = '';
         foreach($data as $name => $value) {
@@ -54,10 +44,10 @@ class Feedback extends A_BaseModel {
                 $mailText .= '<p>' . $this->getFieldTitle($name) . ': ' . nl2br(strip_tags($value));
             }
         }
-        mail(EMAIL_CONTACT, 'Отзыв от ' . $data['name'], $mailText, $mailHeaders);
-
         $this->save(0, $data, true);
   
+        smail('Отзыв от ' . $data['name'], $mailText, EMAIL_CONTACT);
+        
         return [
             'message' => 'Сообщение отправлено',
             'type' => 'success',

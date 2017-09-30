@@ -19,7 +19,8 @@ class UsersController extends BaseController {
     }
 
     public static function doLogin($login = '', $password = '') {
-        $result = Users::login($_REQUEST);
+        $model = new Users();
+        $result = $model->login($_REQUEST);
         echo json_encode($result);
     }
 
@@ -32,7 +33,7 @@ class UsersController extends BaseController {
         $model = new Users();
         $result = $model->register($_REQUEST);
         if(isset($result['user'])) {
-            Users::login($_REQUEST);
+            $model->login($_REQUEST);
         }
         echo json_encode($result);
     }
@@ -52,14 +53,16 @@ class UsersController extends BaseController {
     }
 
     public static function remind() {
-        $result = Users::remind([
+        $model = new Users();
+        $result = $model->remind([
             'login' => clearRequest('login')
         ]);
         echo json_encode($result);
     }
 
     public static function restore() {
-        Users::restore([
+        $model = new Users();
+        $this->restore([
             'hash' => clearRequest('hash'),
             'pass' => clearRequest('pass'),
         ]);

@@ -1,4 +1,4 @@
-    <script src="<?= ROOT ?>vendor/tether.min.js"></script>
+    <script src="<?= ROOT ?>vendor/popper.min.js"></script>
     <script src="<?= ROOT ?>vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?= ROOT ?>vendor/jquery.form.js"></script>
     <script src="<?= ROOT ?>vendor/slick/slick.min.js"></script>

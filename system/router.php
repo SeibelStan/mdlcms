@@ -1,7 +1,12 @@
 <?php
 
+$attempt = Attempts::add('view');
+if($attempt->action) {
+    echo json_encode($attempt);
+}
+
 if(ATTEMPTS && Bans::check()) {
-    include(view('errors/402'));
+    include(view('errors/403'));
     die();
 }
 

@@ -56,8 +56,8 @@ $router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminCont
 $router->map('GET', '/admin/table/[a:modelName]', 'AdminController::table');
 
 // Helpers
-$router->map('GET', '/' . CRONKEY . '/reset-attempts/[a:type]', 'HelpersController::resetAttempts');
-$router->map('GET', '/' . CRONKEY . '/reset-attempts', 'HelpersController::resetAttempts');
+$router->map('GET', '/' . CRONKEY . '/attempts/reset/[a:type]', 'HelpersController::resetAttempts');
+$router->map('GET', '/' . CRONKEY . '/attempts/reset', 'HelpersController::resetAttempts');
 $router->map('POST', '/helpers/friendly-url', 'HelpersController::friendlyUrl');
 $router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');
 $router->map('POST', '/helpers/markdown-parse', 'HelpersController::markdownParse');

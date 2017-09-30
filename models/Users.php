@@ -26,7 +26,8 @@ class Users extends A_BaseModel {
     public $fillable = ['full_name', 'tel', 'email', 'address', 'about', 'password'];
     public $required = ['full_name', 'email'];
     public $inputTypes = [
-        'password' => 'password'
+        'password' => 'password',
+        'hash'     => 'hidden'
     ];
     public $pattern = [
         'login' => ['[А-яA-z_0-9]{3,50}', 'Длиннее трёх символов, может содержать буквы, цифры и _'],
@@ -51,28 +52,13 @@ class Users extends A_BaseModel {
         'dateup'     => 'Дата обновления'
     ];
 
-    public static function login($data) {
-        if(ATTEMPTS) {
-            dbi("into attempts (type, data, ip) values ('login', '" . json_encode($data) . "', '" . USER_IP . "')");
-            $attempts = dbs("* from attempts where type = 'login' and ip = '" . USER_IP . "'");
-            $count_att = count($attempts);
-            if($count_att >= 10) {
-                Bans::add();
-                return [
-                    'message' => 'Заблокированы за перебор паролей',
-                    'callback' => 'location.href = "' . ROOT . '";'
-                ];
-            }
-            if($count_att >= 5) {
-                return [
-                    'message' => 'Попробуйте позже или восстановите пароль. Не продолжайте вводить неподходящие данные!'
-                ];
-            }
+    public function login($data) {
+        $attempt = Attempts::add('login', $data);
+        if($attempt->action) {
+            return $attempt;
         }
 
-        $user = arrayFirst(dbs("* from users
-            where login = '" . $data['login'] . "' and password = '" . $data['password'] . "'
-            and active = 1 limit 1"));
+        $user = $this->getByField('login', $data['login'], "and password = '" . $data['password'] . "' and active");
 
         if(!$user) {
             return [
@@ -81,7 +67,11 @@ class Users extends A_BaseModel {
         }
 
         session('user_id', $user->id);
-        dbu("users set login_date = '" . dateNowFull() . "' where id = '$user->id'");
+
+        $this->save($user->id, [
+            'login_date' => dateNowFull()
+        ]);
+
         return [
             'message' => 'Успешно',
             'type' => 'success',
@@ -91,19 +81,13 @@ class Users extends A_BaseModel {
 
     public function register($data) {
         global $db;
-        if(ATTEMPTS) {
-            $attempts = dbs("* from attempts where type = 'register' and ip = '" . USER_IP . "'");
-            $count_att = count($attempts);
-            if($count_att >= 5) {
-                return [
-                    'message' => 'Попробуйте позже'
-                ];
-            }
-            dbi("into attempts (type, data, ip) values ('register', '" . json_encode($data) . "', '" . USER_IP . "')");
+        $attempt = Attempts::add('register', $data);
+        if($attempt->action) {
+            return $attempt;
         }
 
-        $user = dbs("* from users WHERE login = '" . $data['login'] . "' and active = 1");
-
+        $user = $this->getByField('login', $data['login'], "and active");
+        
         if($user) {
             return [
                 'message' => 'Пользователь существует'
@@ -141,22 +125,15 @@ class Users extends A_BaseModel {
         ];
     }
 
-    public static function remind($data) {
-        if(ATTEMPTS) {
-            dbi("into attempts (type, data, ip) values ('remind', '" . json_encode($data) . "', '" . USER_IP . "')");
-            $attempts = dbs("* from attempts where type = 'remind' and ip = '" . USER_IP . "'");
-            $count_att = count($attempts);
-            if($count_att >= 2) {
-                return [
-                    'message' => 'Попробуйте позже',
-                    'callback' => '$(".modal__close").click();'                    
-                ];
-            }
+    public function remind($data) {
+        $attempt = Attempts::add('remind', $data);
+        if($attempt->action) {
+            return $attempt;
         }
 
-        $user = arrayFirst(dbs("* from users
-            where (login = '" . $data['login'] . "' or email = '" . $data['login'] . "')
-            and active = 1"));
+        $user = $this->getByField('login', $data['login'],
+            "or email = '" . $data['login'] . "'
+            and password = '" . $data['password'] . "' and active");       
 
         if($user) {
             $mailText = sprintf(
@@ -178,7 +155,7 @@ class Users extends A_BaseModel {
         }
     }
 
-    public static function restore($data) {
+    public function restore($data) {
         $user = $this->getByField('hash', $data['hash']);
 
         if($user) {
