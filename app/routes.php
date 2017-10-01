@@ -59,7 +59,7 @@ $router->map('GET', '/admin/table/[a:modelName]', 'AdminController::table');
 $router->map('POST', '/helpers/friendly-url', 'HelpersController::friendlyUrl');
 $router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');
 $router->map('POST', '/helpers/markdown-parse', 'HelpersController::markdownParse');
-$router->map('GET', '/r/[a:referal]', 'HelpersController::setReferal');
+$router->map('GET', '/r/[a:referrer]', 'HelpersController::setReferrer');
 
 // Attempts
 $router->map('GET', '/' . CRONKEY . '/attempts/reset', 'Attempts::reset');

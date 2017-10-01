@@ -6,8 +6,8 @@ class HelpersController extends BaseController {
         die(friendlyUrl(request('url')));
     }
 
-    public static function setReferal($referal) {
-        session('referal', $referal);
+    public static function setReferrer($referrer) {
+        session('referrer', $referrer);
         redirect('/');
     }
 
