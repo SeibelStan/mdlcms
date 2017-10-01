@@ -280,6 +280,12 @@ class A_BaseModel {
         return dbd($sql);
     }
 
+    public function clear($condition = false) {
+        $where = $condition ? "where $condition" : "";
+        $sql = "from " . $this->getTable() . " $where";
+        return dbd($sql);
+    }
+
     public function search($query, $limit = 12) {
         $modelsList = $this->getName() == 'a_basemodel' ? Admin::getModelsList() : [$this->getName()];
         $results = [];

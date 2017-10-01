@@ -84,4 +84,10 @@ class Attempts extends A_BaseModel {
         ];
     }
 
+    public static function reset() {
+        $model = new Attempts();
+        echo $model->clear();
+        back();
+    }
+
 }

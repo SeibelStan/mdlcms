@@ -2,12 +2,6 @@
 
 class HelpersController extends BaseController {
 
-    public static function resetAttempts($type = '') {
-        $where = $type ? "where type = '$type'" : '';
-        echo dbd("from attempts $where");
-        back();
-    }
-
     public static function friendlyUrl() {
         die(friendlyUrl(request('url')));
     }

@@ -40,9 +40,12 @@ function back() {
     redirect($referer);
 }
 
-function abort($err) {
+function abort($code) {
+    if($code == 404) {
+        header('HTTP/1.0 404 Not Found');
+    }
     session('uri', $_SERVER['REQUEST_URI']);
-    include(view('errors/' . $err));
+    include(view('errors/' . $code));
     die();
 }
 
