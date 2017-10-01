@@ -80,9 +80,15 @@ class A_BaseModel {
 
             $pvalue = explode(':', $value);
             $type = $pvalue[0];
-
+            
             if(isset($this->inputTypes) && isset($this->inputTypes[$name])) {
-                $control = $this->inputTypes[$name];
+                $tareaClass = $exemp ? preg_match('/class=/', $exemp->$name) : false;                
+                if($tareaClass) {
+                    $control = 'textarea';
+                }
+                else {
+                    $control = $this->inputTypes[$name];
+                }
             }
             elseif(preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || preg_match('/text/', $type)) {
                 $control = 'textarea';

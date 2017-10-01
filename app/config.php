@@ -28,5 +28,5 @@ session_start();
 define('USERID', session('user_id'));
 
 if(getLang() == '') {
-    session('lang', getBrowserLang('ru'));
+    session('lang', 'ru');
 }
