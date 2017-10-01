@@ -208,6 +208,17 @@ function jsLog($data) {
     echo '<script>console.log("' . $data . '");</script>';
 }
 
+function getBrowserLang($fallback = 'ru') {
+    preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/', strtolower($_SERVER["HTTP_ACCEPT_LANGUAGE"]), $matches);
+    $langs = array_combine($matches[1], $matches[2]);
+    foreach ($langs as $n => $v) {
+        $langs[$n] = $v ? $v : 1;
+    }
+    arsort($langs);
+    $lang = key($langs);
+    $lang = preg_replace('/-.+/', '', $lang);
+    return file_exists('data/i18n/' . $lang . '.json') ? $lang : $fallback;
+}
 function getLang() {
     return session('lang');
 }
