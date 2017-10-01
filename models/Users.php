@@ -17,13 +17,14 @@ class Users extends A_BaseModel {
         'about'      => 'varchar(1000)',
         'roles'      => 'varchar(50)',
         'active'     => 'int(1)::1',
-        'referrer'   => 'varchar(100)',       
+        'referrer'   => 'varchar(100)',
+        'reflink'    => 'varchar(100)',
         'hash'       => 'varchar(64)',
         'login_date' => 'timestamp::NOW()',
         'register'   => 'timestamp::NOW()',
         'dateup'     => 'timestamp::NOW()'
     ];
-    public $fillable = ['full_name', 'tel', 'email', 'address', 'about', 'password'];
+    public $fillable = ['full_name', 'tel', 'email', 'address', 'about', 'password', 'reflink'];
     public $required = ['full_name', 'email'];
     public $inputTypes = [
         'password' => 'password',
@@ -46,7 +47,8 @@ class Users extends A_BaseModel {
         'roles'      => 'Роли',
         'active'     => 'Активный',
         'login_date' => 'Последний вход',
-        'referrer'    => 'Пригласивший',        
+        'referrer'   => 'Пригласивший',
+        'reflink'    => 'Ссылка для приглашения',
         'hash'       => 'Хэш',
         'register'   => 'Дата регистрации',
         'dateup'     => 'Дата обновления'
@@ -104,6 +106,13 @@ class Users extends A_BaseModel {
 
         $data['hash'] = hashGen();
         $data['active'] = 1;
+
+        if($data['reflink']) {
+            $referrer = $this->getByField('reflink', $data['reflink']);
+            if($referrer) {
+                $data['referrer'] = $referrer->login;
+            }
+        }
 
         foreach($data as $row) {
             $row = clear($row);
@@ -172,6 +181,11 @@ class Users extends A_BaseModel {
             return 1;
         }
         return 0;
+    }      
+
+    public function getReferrals($referrer) {
+        $model = new Users();
+        return $model->getUnits('login', $referrer);
     }
 
 }
