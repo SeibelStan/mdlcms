@@ -188,4 +188,19 @@ class Users extends A_BaseModel {
         return $model->getUnits('login', $referrer);
     }
 
+    public function saveProfile($data) {
+        $result = $this->save(USERID, $data, true);
+        if($result) {
+            return [
+                'message' => 'Сохранено',
+                'type' => 'success'
+            ];
+        }
+        else {
+            return [
+                'message' => 'Не изменено'
+            ];
+        }
+    }
+
 }

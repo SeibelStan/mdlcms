@@ -17,11 +17,7 @@ function attachForms() {
 
     $('.form-ajax').ajaxForm({
         success: function (data) {
-            $('.form-resetable *').each(function () {
-                if($(this).attr('type') != 'hidden') {
-                    $(this).val('');
-                }
-            });
+            $('.form-resetable').resetForm();
 
             data = JSON.parse(data);
             if(data.message) {

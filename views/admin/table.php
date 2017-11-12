@@ -22,7 +22,15 @@
         <tr>
         <?php foreach($model->getFields($unit->id) as $field) : ?>
             <?php if($field->control != 'hidden') : ?>
-                <td><?= $field->value ?>
+                <td>
+                    <?php if($field->name == 'user_id') : ?>
+                        <?php $user = Helpers::getUser($field->value); ?>
+                        <a class="d-flex align-items-center" href="<?= ROOT ?>admin/edit-models/users/<?= $user->id ?>">
+                            <?= $user->full_name ?>
+                        </a>
+                    <?php else : ?>
+                        <?= $field->value ?>
+                    <?php endif; ?>
             <?php endif; ?>
         <?php endforeach; ?>
         <td><a href="<?= ROOT ?>admin/edit-models/<?= $model->getName() ?>/<?= $unit->id ?>">Изм.</a>
@@ -32,7 +40,5 @@
     <?php endforeach; ?>
     </table>
 </main>
-
-<script src="<?= ROOT ?>vendor/ckeditor/adapters/jquery.js"></script>
 
 <?php include(view('includes/admin-footer')) ?>

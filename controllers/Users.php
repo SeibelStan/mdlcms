@@ -45,11 +45,8 @@ class UsersController extends BaseController {
 
     public static function save() {
         $model = new Users();
-        $model->save(USERID, $_REQUEST, true);
-        echo json_encode([
-            'message' => 'Сохранено',
-            'type' => 'success'
-        ]);
+        $result = $model->saveProfile($_REQUEST);
+        echo json_encode($result);
     }
 
     public static function remind() {

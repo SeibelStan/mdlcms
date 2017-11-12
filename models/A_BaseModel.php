@@ -247,6 +247,8 @@ class A_BaseModel {
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= " where id = '$id'";
+            $db->query($sql);
+            return $db->affected_rows;            
         }
         else {
             $sql = "insert into " . $this->getTable() . " (";
@@ -266,11 +268,9 @@ class A_BaseModel {
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";
+            $db->query($sql);
+            return $db->insert_id;
         }
-
-        $db->query($sql);
-        return $db->insert_id;
-        echo $db->error;
     }
 
     public function delete($field, $value = 0, $condition = false) {
