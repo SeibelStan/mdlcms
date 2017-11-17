@@ -4,7 +4,7 @@
 
 <div class="row mb-5">
     <?php if($hasPhotos) : ?>
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-4 col-md-6 col-sm-12">
             <?php if($directUnit->image) : ?>
                 <p>
                     <a href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
@@ -28,7 +28,7 @@
         </div>
     <?php endif; ?>
 
-    <div class="<?= $hasPhotos ? 'col-lg-6' : '' ?> col-sm-12">
+    <div class="<?= $hasPhotos ? 'col-lg-4 col-md-6' : '' ?> col-sm-12">
         <h1><?= $directUnit->title ?></h1>
 
         <p class="text-success">

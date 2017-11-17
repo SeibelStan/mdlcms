@@ -35,6 +35,8 @@ class CatalogController extends BaseController {
         $sql = "active and connect in('$connectId', '$connectUrl')";
         $units = $model->getUnits($sql, $sort, $limit, $page);
         $pagination = $model->paginate($sql, $sort, $limit, $page);
+
+        $units = noimagize($units, 'image');
         include(view('catalog/index'));
     }
 

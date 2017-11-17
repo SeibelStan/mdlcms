@@ -87,7 +87,7 @@ function dbs($sql) {
 }
 function dbi($sql) {
     global $db;
-    $db->query("insert " . $sql);
+    $db->query("insert into " . $sql);
     echo $db->error;
     return $db->insert_id;
 }
@@ -307,4 +307,18 @@ function smail($title, $text, $to, $from = 'admin') {
     $headers  = "Content-type: text/html; charset=utf-8 \r\n";
     $headers .= "From: <" . $from . ">\r\n";
     return mail($to, $title, $text, $headers);
+}
+
+function noimagize($data, $prop = 'image') {
+    $noImg = ROOT . 'assets/img/noimage.jpg';
+
+    if(gettype($data) == 'array') {
+        foreach($data as &$unit) {
+            $unit->$prop = $unit->$prop ?: $noImg;
+        }
+    }
+    else {
+        $data->$prop = $data->$prop ?: $noImg;
+    }
+    return $data;
 }

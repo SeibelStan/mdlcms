@@ -12,6 +12,8 @@ class InfoController extends BaseController {
         $sql = "active";
         $units = $model->getUnits($sql, $sort, $limit, $page);
         $pagination = $model->paginate($sql, $sort, $limit, $page);
+
+        $units = noimagize($units, 'image');
         $pageTitle = $model->getTitle();
         include(view('info/index'));
     }

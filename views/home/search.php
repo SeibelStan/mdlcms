@@ -11,7 +11,7 @@
                     style="background-image: url('<?= $unit->image ?>')"
                 ></a>
                 <div class="card-header"><a href="<?= $unit->link ?>"><?= $unit->title ?></a></div>
-                <div class="card-block">
+                <div class="card-body">
                     <?php if($unit->content) : ?>
                         <p class="card-text"><?= stripWord($unit->content, 100) ?></p>
                     <?php endif; ?>
