@@ -16,12 +16,6 @@ class FilesController extends BaseController {
         echo $model->upload($_FILES);
     }
 
-    public static function uploadCkeditor() {
-        guardRoles('admin');
-        $model = new Files(request('dir'));
-        echo $model->uploadCkeditor($_FILES);
-    }
-
     public static function get() {
         guardRoles('admin');
         $model = new Files(request('dir'));

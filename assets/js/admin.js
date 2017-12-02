@@ -1,4 +1,5 @@
 var lastFocused;
+let wysiwyg;
 
 function imagesFieldFill() {
     $('.fm_links li').each(function () {
@@ -42,19 +43,7 @@ $(function () {
     $('.last-focused-top').click(function () {
         lastFocused = $(this).parent().prev().find('input, textarea');
     });
-
-    $('.friendly-url-fill').click(function() {
-        $.post(
-            baseURL + 'helpers/friendly-url',
-            {
-                url: $('[name="title"]').val()
-            },
-            function (data) {
-                $('[name="url"]').val(data);
-            }
-        );
-    });
-
+    
     var markdown = $('[name="markdown"]');
     var content = $('[name="content"]');
     if(markdown.length && content.length) {
@@ -91,9 +80,9 @@ $(function () {
                     data: markdown.val()
                 },
                 function (data) {
-                    if(typeof CKEDITOR != 'undefined' && typeof CKEDITOR.instances.content != 'undefined') {
-                        CKEDITOR.instances.content.setData(data); 
-                        CKEDITOR.instances.content.updateElement();
+                    if(typeof wysiwyg != 'undefined') {
+                        wysiwyg.setData(data); 
+                        wysiwyg.content.updateElement();
                     }
                     else {
                         content.val(data);
@@ -102,5 +91,21 @@ $(function () {
             );
         });
     }
+
+    $('[name="title"]')
+        .generateUrl({
+            urlField: '[name="url"]',
+            bindType: 'keyup',
+            emptyOnly: false,
+        })
+
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then( editor => {
+            wysiwyg = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
 });

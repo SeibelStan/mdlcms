@@ -28,23 +28,6 @@ class Files extends A_BaseModel {
         return $i;
     }
 
-    public function uploadCkeditor($data) {
-        $file = $data['upload'];
-        $fileName = $file['name'];
-        $filePath = $this->uploadPath . $fileName;
-
-        $callback = request('CKEditorFuncNum');
-        $error = '';
-
-        if($_FILES['upload']) {
-            move_uploaded_file($_FILES['upload']['tmp_name'], $filePath);
-            chmod($filePath, 0777);
-            Files::resize();
-        }
-
-        return '<script>window.parent.CKEDITOR.tools.callFunction(' . $callback . ', "' . ROOT . $filePath . '", "' . $error . '" );</script>';
-    }
-
     public function get() {
         $files = delDots(scandir($this->uploadPath));
         $iconBase = ROOT . 'assets/img/';

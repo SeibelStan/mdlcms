@@ -196,13 +196,6 @@ function translit($data) {
     return strtr($data, $rules);
 }
 
-function friendlyUrl($data) {
-    $data = mb_strtolower($data);
-    $data = preg_replace('/[!?:;\'",.<>() ]/i', '-', $data);
-    $data = preg_replace('/-+/', '-', $data);
-    return translit($data);
-}
-
 function assetTime() {
     return '?v=' . (DEBUG ? time() : date('Y-m-d'));
 }

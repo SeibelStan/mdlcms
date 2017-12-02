@@ -1,3 +1,6 @@
 textarea {
-    min-height: 244px;
+    min-height: 250px;
+}
+.ck-editor__editable {
+    height: 201px;
 }

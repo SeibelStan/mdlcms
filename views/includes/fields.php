@@ -8,7 +8,7 @@
                 </label>
             <?php endif; ?>
             <?php if($field->control == 'wysiwyg') : ?>
-                <textarea name="<?= $field->name ?>" class="ckeditor"><?= $field->value ?></textarea>
+                <textarea name="<?= $field->name ?>" id="editor"><?= $field->value ?></textarea>
             <?php elseif($field->control == 'datetime-local') : ?>
                 <?php
                     $ttime = strtotime($field->value);
@@ -34,12 +34,7 @@
     </div>
     <?php if(in_array($field->name, ['images', 'image'])) : ?>
         <div class="form-group">
-            <a class="btn btn-secondary last-focused-top" data-toggle="modal" data-target="#filesModal">Выбрать</a>
-        </div>
-    <?php endif; ?>
-    <?php if($field->name == 'url') : ?>
-        <div class="form-group">
-            <a class="btn btn-secondary friendly-url-fill">Генерировать</a>
+            <div class="btn btn-secondary last-focused-top" data-toggle="modal" data-target="#filesModal">Выбрать</div>
         </div>
     <?php endif; ?>
 <?php endforeach; ?>

@@ -39,7 +39,6 @@ $router->map('POST', '/orders/create', 'OrdersController::create');
 // Files
 $router->map('GET|POST', '/admin/files', 'FilesController::index');
 $router->map('POST', '/files/upload', 'FilesController::upload');
-$router->map('POST', '/files/upload-ckeditor', 'FilesController::uploadCkeditor');
 $router->map('GET|POST', '/files/get', 'FilesController::get');
 $router->map('GET|POST', '/files/remove', 'FilesController::remove');
 $router->map('GET|POST', '/files/rename', 'FilesController::rename');
@@ -56,7 +55,6 @@ $router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminCont
 $router->map('GET', '/admin/table/[a:modelName]', 'AdminController::table');
 
 // Helpers
-$router->map('POST', '/helpers/friendly-url', 'HelpersController::friendlyUrl');
 $router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');
 $router->map('POST', '/helpers/markdown-parse', 'HelpersController::markdownParse');
 $router->map('GET', '/r/[a:reflink]', 'HelpersController::setReflink');

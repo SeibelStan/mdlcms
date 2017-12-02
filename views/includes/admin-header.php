@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= isset($pageTitle) ? $pageTitle . ' - ' : '' ?><?= SITE_NAME ?></title>
     <link rel="icon" type="image/png" href="<?= ROOT ?>assets/img/favicon.png">
-    <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
-    <script src="<?= ROOT ?>vendor/jquery-3.2.1.min.js"></script>
-    <meta name="theme-color" content="#ffffff">
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
         var baseURL = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';

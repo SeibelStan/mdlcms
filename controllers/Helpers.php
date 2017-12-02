@@ -2,10 +2,6 @@
 
 class HelpersController extends BaseController {
 
-    public static function friendlyUrl() {
-        die(friendlyUrl(request('url')));
-    }
-
     public static function setReflink($reflink) {
         session('reflink', $reflink);
         redirect('/');

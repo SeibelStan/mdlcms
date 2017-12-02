@@ -10,8 +10,8 @@ function showAlert(message, type = 'danger', time = 3000) {
 
 function attachForms() {
     $('.form-ajax').on('submit', function () {
-        if(typeof CKEDITOR != 'undefined' && typeof CKEDITOR.instances.content != 'undefined') {
-            CKEDITOR.instances.content.updateElement();
+        if(typeof ClassicEditor != 'undefined' && typeof ClassicEditor.instances.content != 'undefined') {
+            ClassicEditor.instances.content.updateElement();
         }
     });
 
@@ -67,19 +67,10 @@ function getCart() {
     );
 }
 
-function timeAgo() {
-    $('[data-timeago]:not(.parsed)').each(function () {
-        var time = $(this).data('timeago') * 1000;
-        $(this).html(new Date(time).toTwitterRelativeTime('ru'));
-        $(this).addClass('parsed');
-    });
-}
-
 $(function () {
 
     attachForms();
     getCart();
-    timeAgo();
 
     $('.search-widget-trigger').keyup(function () {
         var query = $(this).val();
@@ -115,7 +106,10 @@ $(function () {
         var label = 'autolabel-' + Math.random();
         if(!$(this).attr('for')) {
             $(this).attr('for', label);
-            $(this).next().attr('id', label);
+            var input = $(this).next();
+            if(!input.attr('id')) {
+                input.attr('id', label);
+            }
         }
     });
 

@@ -26,7 +26,7 @@ class Attempts extends A_BaseModel {
 
     public static function add($type, $data = '', $ip = '') {
         if(!ATTEMPTS) {
-            return (object) [
+            return (object)[
                 'action' => ''
             ];
         }
@@ -75,7 +75,7 @@ class Attempts extends A_BaseModel {
             $message = isset($guardMessages[$type]) ? $guardMessages[$type][1] : 'Заблокированы за подозрительную активность';
         }
 
-        return (object) [
+        return (object)[
             'type'    => $type,
             'action'  => $action,
             'count'   => $count,

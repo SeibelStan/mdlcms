@@ -175,24 +175,6 @@ class A_BaseModel {
             $iPage++;
         }
 
-        if($page > 1) {
-            array_unshift($result, (object)[
-                'link' => ROOT . $this->getName() . '?page=' . 1,
-                'title' => '&laquo;',
-                'active' => false,
-                'helper' => 'prev'
-            ]);
-        }
-
-        if($page < $iPage - 1) {
-            array_push($result, (object)[
-                'link' => ROOT . $this->getName() . '?page=' . ($iPage - 1),
-                'title' => '&raquo;',
-                'active' => false,
-                'helper' => 'next'
-            ]);
-        }
-
         return $result;
     }
 
