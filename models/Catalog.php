@@ -7,7 +7,7 @@ class Catalog extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'        => 'int(11):key_ai',
+        'id'        => 'int(11)::key_ai',
         'title'     => 'varchar(100)',
         'url'       => 'varchar(100)',
         'price'     => 'int(11)',
@@ -16,10 +16,10 @@ class Catalog extends A_BaseModel {
         'image'     => 'varchar(199)',
         'images'    => 'text',
         'connect'   => 'varchar(50)',
-        'active'    => 'int(1)::1',
+        'active'    => 'int(1):1',
         'iscatalog' => 'int(1)',
-        'date'      => 'timestamp::NOW()',
-        'dateup'    => 'timestamp::NOW()'
+        'date'      => 'timestamp:NOW()',
+        'dateup'    => 'timestamp:NOW()'
     ];
     public $inputTypes = [
         'id' => 'hidden',

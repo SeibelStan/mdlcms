@@ -7,16 +7,16 @@ class Info extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'        => 'int(11):key_ai',
+        'id'        => 'int(11)::key_ai',
         'title'     => 'varchar(100)',
         'url'       => 'varchar(100)',
         'content'   => 'text',
         'markdown'  => 'text',
         'image'     => 'varchar(199)',
         'static'    => 'int(1)',
-        'active'    => 'int(1)::1',
-        'date'      => 'timestamp::NOW()',
-        'dateup'    => 'timestamp::NOW()'
+        'active'    => 'int(1):1',
+        'date'      => 'timestamp:NOW()',
+        'dateup'    => 'timestamp:NOW()'
     ];
     public $inputTypes = [
         'id' => 'hidden',

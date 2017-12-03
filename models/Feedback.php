@@ -7,12 +7,12 @@ class Feedback extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'      => 'int(11):key_ai',
+        'id'      => 'int(11)::key_ai',
         'name'    => 'varchar(100)',
         'tel'     => 'varchar(50)',
         'email'   => 'varchar(100)',
         'content' => 'text',
-        'date'    => 'timestamp::CURRENT_TIMESTAMP',
+        'date'    => 'timestamp:NOW()',
     ];
     public $inputTypes = [
         'id' => 'hidden'

@@ -7,11 +7,11 @@ class Attempts extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'   => 'int(11):key_ai',
+        'id'   => 'int(11)::key_ai',
         'type' => 'varchar(20)',
         'ip'   => 'varchar(20)',
         'data' => 'varchar(255)',
-        'date' => 'timestamp::NOW()',
+        'date' => 'timestamp:NOW()',
     ];
 
     public $inputTypes = [

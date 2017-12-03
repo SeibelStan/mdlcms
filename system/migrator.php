@@ -13,14 +13,14 @@ foreach($models as $modelName) {
     $prepfields = [];
     foreach($fields as $name => $value) {
         $pvalue = explode(':', $value);
-        $adds = isset($pvalue[1]) ? $pvalue[1] : false;
+        $adds = isset($pvalue[2]) ? $pvalue[2] : false;
 
         $field = (object)[
             'name' => $name,
             'type' => $pvalue[0],
             'key' => preg_match('/key/', $adds),
             'ai' => preg_match('/ai/', $adds),
-            'def' => isset($pvalue[2]) ? $pvalue[2] : ''
+            'def' => isset($pvalue[1]) ? $pvalue[1] : ''
         ];
 
         array_push($prepfields, $field);

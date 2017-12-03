@@ -7,7 +7,7 @@ class Codeparts extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'        => 'int(11):key_ai',
+        'id'        => 'int(11)::key_ai',
         'namespace' => 'varchar(20)',
         'title'     => 'varchar(50)',
         'type'      => 'varchar(20)',

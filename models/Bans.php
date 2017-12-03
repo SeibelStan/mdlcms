@@ -7,9 +7,9 @@ class Bans extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'   => 'int(11):key_ai',
+        'id'   => 'int(11)::key_ai',
         'ip'   => 'varchar(20)',
-        'date' => 'timestamp::NOW()',
+        'date' => 'timestamp:NOW()',
     ];
     public $inputTypes = [
         'id' => 'hidden'

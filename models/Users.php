@@ -7,7 +7,7 @@ class Users extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'         => 'int(11):key_ai',
+        'id'         => 'int(11)::key_ai',
         'login'      => 'varchar(100)',
         'full_name'  => 'varchar(100)',
         'tel'        => 'varchar(50)',
@@ -16,13 +16,13 @@ class Users extends A_BaseModel {
         'address'    => 'varchar(255)',
         'about'      => 'varchar(1000)',
         'roles'      => 'varchar(50)',
-        'active'     => 'int(1)::1',
+        'active'     => 'int(1):1',
         'referrer'   => 'varchar(100)',
         'reflink'    => 'varchar(100)',
         'hash'       => 'varchar(64)',
-        'login_date' => 'timestamp::NOW()',
-        'register'   => 'timestamp::NOW()',
-        'dateup'     => 'timestamp::NOW()'
+        'login_date' => 'timestamp:NOW()',
+        'register'   => 'timestamp:NOW()',
+        'dateup'     => 'timestamp:NOW()'
     ];
     public $fillable = ['full_name', 'tel', 'email', 'address', 'about', 'password', 'reflink'];
     public $required = ['full_name', 'email'];

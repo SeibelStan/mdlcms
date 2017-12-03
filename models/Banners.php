@@ -7,14 +7,14 @@ class Banners extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'       => 'int(11):key_ai',
+        'id'       => 'int(11)::key_ai',
         'connect'  => 'varchar(20)',
         'title'    => 'varchar(100)',
         'content'  => 'text',
         'image'    => 'varchar(199)',
         'link'     => 'varchar(255)',
         'external' => 'int(1)',
-        'active'   => 'int(1)::1',
+        'active'   => 'int(1):1',
     ];
     public $inputTypes = [
         'id' => 'hidden'

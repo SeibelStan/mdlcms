@@ -7,16 +7,16 @@ class Orders extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'      => 'int(11):key_ai',
+        'id'      => 'int(11)::key_ai',
         'user_id' => 'varchar(64)',
         'links'   => 'text',
         'tel'     => 'varchar(50)',
         'address' => 'varchar(255)',
-        'state'   => 'int(2)::0',
+        'state'   => 'int(2):0',
         'items'   => 'varchar(20)',
         'session' => 'varchar(32)',
-        'date'    => 'timestamp::NOW()',
-        'dateup'  => 'timestamp::NOW()'
+        'date'    => 'timestamp:NOW()',
+        'dateup'  => 'timestamp:NOW()'
     ];
     public $noEmpty = ['date', 'dateup'];
     public $titles = [

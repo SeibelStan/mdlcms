@@ -7,14 +7,14 @@ class Cart extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'       => 'int(11):key_ai',
+        'id'       => 'int(11)::key_ai',
         'user_id'  => 'varchar(64)',
         'session'  => 'varchar(32)',
         'model'    => 'varchar(20)',
         'item_id'  => 'int(11)',
-        'count'    => 'int(11)::1',
-        'order_id' => 'int(11)::0',
-        'date'     => 'timestamp::CURRENT_TIMESTAMP',
+        'count'    => 'int(11):1',
+        'order_id' => 'int(11):0',
+        'date'     => 'timestamp:NOW()',
     ];
     public $inputTypes = [
         'id' => 'hidden'
