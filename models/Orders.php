@@ -48,7 +48,7 @@ class Orders extends A_BaseModel {
         $data['session'] = session_id();
         $data['tel'] = Helpers::getUser()->tel;
         $data['address'] = Helpers::getUser()->address;
-        $this->save(0, $data);
+        $this->save($data);
         $lid = $db->insert_id;
 
         foreach($cartItems as $cartItem) {

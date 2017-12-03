@@ -22,7 +22,7 @@ class Bans extends A_BaseModel {
     public static function add($ip = '') {
         $ip = $ip ?: USER_IP;
         $model = new Bans();
-        $model->save(0, [
+        $model->save([
             'ip' => $ip
         ]);
     }

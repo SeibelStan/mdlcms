@@ -208,7 +208,7 @@ class A_BaseModel {
         return $units;
     }
 
-    public function save($id, $data, $fillable = false) {
+    public function save($data, $id = 0, $fillable = false) {
         global $db;
         $data['dateup'] = date('Y-m-d H:i:s');
         $fields = $this->getFields($id, $fillable);

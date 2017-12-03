@@ -70,9 +70,9 @@ class Users extends A_BaseModel {
 
         session('user_id', $user->id);
 
-        $this->save($user->id, [
+        $this->save([
             'login_date' => dateNowFull()
-        ]);
+        ], $user->id);
 
         return [
             'message' => 'Успешно',
@@ -118,7 +118,7 @@ class Users extends A_BaseModel {
             $row = clear($row);
         }
 
-        $id = $this->save(0, $data);
+        $id = $this->save($data);
         session('user_id', $id);
 
         $mailText = sprintf(
@@ -174,10 +174,10 @@ class Users extends A_BaseModel {
         if($user) {
             session('user_id', $user->id);
 
-            $this->save($user->id, [
+            $this->save([
                 'hash' => hashGen(),
                 'password' => $data['pass']
-            ]);
+            ], $user->id);
             return 1;
         }
         return 0;
@@ -189,7 +189,7 @@ class Users extends A_BaseModel {
     }
 
     public function saveProfile($data) {
-        $result = $this->save(USERID, $data, true);
+        $result = $this->save($data, USERID, true);
         if($result) {
             return [
                 'message' => 'Сохранено',

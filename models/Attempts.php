@@ -32,7 +32,7 @@ class Attempts extends A_BaseModel {
         }
         $ip = $ip ?: USER_IP;
         $model = new Attempts();
-        $model->save(0, [
+        $model->save([
             'type' => $type,
             'ip'   => $ip,
             'data' => json_encode($data)

@@ -44,7 +44,7 @@ class Feedback extends A_BaseModel {
                 $mailText .= '<p>' . $this->getFieldTitle($name) . ': ' . nl2br(strip_tags($value));
             }
         }
-        $this->save(0, $data, true);
+        $this->save($data, 0, true);
   
         if(MAILS) {
             smail('Отзыв от ' . $data['name'], $mailText, EMAIL_CONTACT);

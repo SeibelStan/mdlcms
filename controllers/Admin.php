@@ -46,7 +46,7 @@ class AdminController extends BaseController {
     public static function save($modelName, $id = 0) {
         guardRoles('admin');
         $model = new $modelName();
-        $model->save($id, $data = $_REQUEST);
+        $model->save($data = $_REQUEST, $id);
         $result = [
             'message' => 'Сохранено',
             'type' => 'success'
