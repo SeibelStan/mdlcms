@@ -102,7 +102,7 @@ class Files extends A_BaseModel {
         }
         $files = delDots(scandir($path));
         foreach ($files as $file) {
-            is_dir($path . '/' . $file) ? delTree($path . '/' . $file) : unlink($path . '/' . $file);
+            is_dir($path . '/' . $file) ? removeDirectory($path . '/' . $file) : unlink($path . '/' . $file);
         }
         return rmdir($path) ? 1 : 0;
     }
