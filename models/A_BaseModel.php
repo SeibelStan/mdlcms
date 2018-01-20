@@ -106,7 +106,7 @@ class A_BaseModel {
                 $control = 'text';
             }
 
-            $field = (object)[
+            $field = (object) [
                 'name' => $name,
                 'title' => $this->getFieldTitle($name),
                 'type' => $type,
@@ -167,7 +167,7 @@ class A_BaseModel {
         $result = [];
         $iPage = 1;
         for($i = 1; $i <= $count; $i += $limit) {
-            array_push($result, (object)[
+            array_push($result, (object) [
                 'link' => ROOT . $this->getName() . '?page=' . $iPage,
                 'title' => $iPage,
                 'active' => $iPage == $page,

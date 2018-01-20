@@ -15,7 +15,7 @@ foreach($models as $modelName) {
         $pvalue = explode(':', $value);
         $adds = isset($pvalue[2]) ? $pvalue[2] : false;
 
-        $field = (object)[
+        $field = (object) [
             'name' => $name,
             'type' => $pvalue[0],
             'key' => preg_match('/key/', $adds),
