@@ -75,7 +75,7 @@ $(function () {
 
         markdown.change(function () {
             $.post(
-                baseURL + 'helpers/markdown-parse',
+                ROOT + 'helpers/markdown-parse',
                 {
                     data: markdown.val()
                 },
@@ -92,14 +92,16 @@ $(function () {
         });
     }
 
-    $('[name="title"]')
-        .generateUrl({
+    $('[name="title"]').each(function () {
+        $(this).generateUrl({
             urlField: '[name="url"]',
             bindType: 'keyup',
             emptyOnly: false,
-        })
-
-    ClassicEditor
+        });
+    });
+        
+    if($('#editor').length) {
+        ClassicEditor
         .create(document.querySelector('#editor'))
         .then( editor => {
             wysiwyg = editor;
@@ -107,5 +109,6 @@ $(function () {
         .catch(error => {
             console.error(error);
         });
+    }
 
 });

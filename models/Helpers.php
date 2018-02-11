@@ -24,11 +24,11 @@ class Helpers extends A_BaseModel {
     }
 
     public static function checkRoles($data) {
-        if(!Helpers::getUser()) {
+        if(!user()) {
             return false;
         }
         return array_intersect(
-            explode(',', Helpers::getUser()->roles),
+            explode(',', user()->roles),
             explode(',', $data)
         );
     }

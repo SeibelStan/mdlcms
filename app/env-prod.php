@@ -2,12 +2,12 @@
 
 ini_set('date.timezone', 'Asia/Almaty');
 
-define('ROOT', '/mdlcms/');
-define('SSL_ENABLED', false);
+define('ROOT', '/');
+define('SSL_ENABLED', 0);
 define('DB_TIME_DELTA', 0);
-define('DEBUG', false);
-define('ATTEMPTS', true);
-define('MAILS', true);
+define('DEBUG', 0);
+define('ATTEMPTS', 1);
+define('MAILS', 1);
 define('EMAIL_CONTACT', 'info@' . SITE_HOST);
 
 $db = new mysqli('localhost', 'root', 'sss');

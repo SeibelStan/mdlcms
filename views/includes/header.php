@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
-        var baseURL = '<?= ROOT ?>';
+        var ROOT = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
     </script>
     <?php $codeparts = Helpers::getCodeparts('site'); ?>
@@ -69,7 +69,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
                     <?php if(USERID) : ?>
-                        <?= Helpers::getUser()->login ?>
+                        <?= user()->login ?>
                     <?php else : ?>
                         Вход / Регистрация
                     <?php endif; ?>

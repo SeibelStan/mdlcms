@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
-        var baseURL = '<?= ROOT ?>';
+        var ROOT = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
     </script>
     <?php $codeparts = Helpers::getCodeparts('admin'); ?>
@@ -41,7 +41,7 @@
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <?= Helpers::getUser()->login ?>
+                    <?= user()->login ?>
                 </a>
                 <span class="caret"></span>
                 <ul class="dropdown-menu">

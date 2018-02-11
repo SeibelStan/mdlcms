@@ -14,7 +14,7 @@ class OrdersController extends BaseController {
     }
 
     public static function create() {
-        if(!Helpers::getUser()) {
+        if(!user()) {
             echo json_encode([
                 'message' => 'Войдите или зарегистрируйтесь и заполните контактные данные',
                 'callback' => '$(".user-dropdown").click();'

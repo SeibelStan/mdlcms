@@ -31,12 +31,13 @@ class Users extends A_BaseModel {
         'hash'     => 'hidden'
     ];
     public $pattern = [
-        'login' => ['[А-яA-z_0-9]{3,50}', 'Длиннее трёх символов, может содержать буквы, цифры и _'],
-        'full_name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
-        'password' => ['.{6,128}', 'Длиннее шести символов']
+        'login' => ['[А-яA-z_0-9]{3,50}', '3+ символов, может содержать буквы, цифры и _'],
+        'full_name' => ['[А-яA-z ]{3,50}', '3+ символов, может содержать буквы и пробел'],
+        'password' => ['.{6,128}', '6+ символов']
     ];
-    public $noEmpty = ['date', 'dateup'];
+    public $noEmpty = ['dateup'];
     public $titles = [
+        'id'         => 'ID',
         'login'      => 'Логин',
         'full_name'  => 'Имя',
         'tel'        => 'Телефон',
@@ -77,7 +78,7 @@ class Users extends A_BaseModel {
         return [
             'message' => 'Успешно',
             'type' => 'success',
-            'callback' => 'location.href = "' . ROOT . (Helpers::checkRoles($user->roles, 'admin') ? 'admin/edit-models' : 'users') . '";'
+            'callback' => 'location.href = "' . $_SERVER['HTTP_REFERER'] . '";'
         ];
     }
 
@@ -121,8 +122,10 @@ class Users extends A_BaseModel {
         $id = $this->save($data);
         session('user_id', $id);
 
-        $mailText = sprintf(
-            file_get_contents('views/mail/register.html')
+	$mailText = sprintf(
+            file_get_contents('views/mail/register.html'),
+            SITE_DOMAIN,
+            SITE_NAME
         );
         if(MAILS) {
             smail('Благодарим Вас за регистрацию на нашем сайте!', $mailText, $data['email']);            
@@ -132,7 +135,7 @@ class Users extends A_BaseModel {
             'message' => 'Получилось!',
             'type' => 'success',
             'callback' => 'location.href = "' . ROOT . 'users";',
-            'user' => Helpers::getUser($db->insert_id)
+            'user' => user($db->insert_id)
         ];
     }
 
@@ -198,7 +201,8 @@ class Users extends A_BaseModel {
         }
         else {
             return [
-                'message' => 'Не изменено'
+                'message' => 'Не изменено',
+                'type' => 'warning'
             ];
         }
     }

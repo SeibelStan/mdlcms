@@ -99,7 +99,7 @@ function dbu($sql) {
 }
 function dbd($sql) {
     global $db;
-    $db->query("delete " . $sql);
+    $db->query("delete from " . $sql);
     echo $db->error;
     return $db->affected_rows;
 }
@@ -357,4 +357,8 @@ function curlGetSeq($urls) {
 
     curl_close($ch);
     return $result;
+}
+
+function user($id = USERID) {
+    return Helpers::getUser($id);
 }

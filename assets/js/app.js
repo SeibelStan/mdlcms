@@ -32,7 +32,7 @@ function attachForms() {
 
 function getCart() {
     $.get(
-        baseURL + 'cart/get',
+        ROOT + 'cart/get',
         function (data) {
             data = JSON.parse(data);
             $('#cart-widget li:not(.noremove)').remove();
@@ -42,10 +42,10 @@ function getCart() {
                 sum += item.count * item.price;
                 $('#cart-widget').prepend('\
                     <li class="dropdown-item">\
-                        <a href="' + baseURL + item.model + '/' + item.id + '" style="display: flex;">'
+                        <a href="' + ROOT + item.model + '/' + item.id + '" style="display: flex;">'
                             + item.title + ' (' + item.count + ') - '
                             + item.count * item.price + ' ' + $('#currency').val() + '\
-                            <form class="form-ajax" action="' + baseURL + 'cart/remove" method="post">\
+                            <form class="form-ajax" action="' + ROOT + 'cart/remove" method="post">\
                                 <button class="btn btn-link btn-text pull-right" type="submit">&times;</button>\
                                 <input type="hidden" name="id" value="' + item.cart_id + '">\
                             </form>\
@@ -75,7 +75,7 @@ $(function () {
     $('.search-widget-trigger').keyup(function () {
         var query = $(this).val();
         $.post(
-            baseURL + 'search-widget',
+            ROOT + 'search-widget',
             {
                 searchQuery: query
             },

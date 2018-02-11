@@ -258,13 +258,13 @@ class A_BaseModel {
     public function delete($field, $value = 0, $condition = false) {
         $where = "where $field = '$value'";
         $where .= $condition ? " and " . $condition : '';
-        $sql = "from " . $this->getTable() . " $where";
+        $sql = $this->getTable() . " $where";
         return dbd($sql);
     }
 
     public function clear($condition = false) {
         $where = $condition ? "where $condition" : "";
-        $sql = "from " . $this->getTable() . " $where";
+        $sql = $this->getTable() . " $where";
         return dbd($sql);
     }
 

@@ -24,7 +24,7 @@
             <?php if($field->control != 'hidden') : ?>
                 <td>
                     <?php if($field->name == 'user_id') : ?>
-                        <?php $user = Helpers::getUser($field->value); ?>
+                        <?php $user = user($field->value); ?>
                         <a class="d-flex align-items-center" href="<?= ROOT ?>admin/edit-models/users/<?= $user->id ?>">
                             <?= $user->full_name ?>
                         </a>

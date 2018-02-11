@@ -41,7 +41,7 @@ var FM = {
 
         $('.fm_files').empty();
         $.post(
-            baseURL + 'files/get',
+            ROOT + 'files/get',
             {
                 dir: FM.dir
             },
@@ -76,7 +76,7 @@ var FM = {
         });
 
         $.post(
-            baseURL + 'files/remove',
+            ROOT + 'files/remove',
             {
                 files: files,
                 inUploadPath: true
@@ -89,7 +89,7 @@ var FM = {
 
     fileRename: function(oldName, newName) {
         $.post(
-            baseURL + 'files/rename',
+            ROOT + 'files/rename',
             {
                 oldName: oldName,
                 newName: newName
@@ -106,14 +106,14 @@ var FM = {
         $('.fm_item.checked').each(function () {
             $('.fm_links').append('<li>' +
                 (FM.outerLink ? domainURL : '') +
-                baseURL + $(this).data('fullname') +
+                ROOT + $(this).data('fullname') +
             '</li>');
         });
     },
 
     dirCreate: function() {
         $.post(
-            baseURL + 'files/create-dir',
+            ROOT + 'files/create-dir',
             {
                 dir: FM.dir
             },

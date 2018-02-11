@@ -46,8 +46,8 @@ class Orders extends A_BaseModel {
         $data['links'] = implode("\n", $data['links']);
         $data['user_id'] = USERID;
         $data['session'] = session_id();
-        $data['tel'] = Helpers::getUser()->tel;
-        $data['address'] = Helpers::getUser()->address;
+        $data['tel'] = user()->tel;
+        $data['address'] = user()->address;
         $this->save($data);
         $lid = $db->insert_id;
 

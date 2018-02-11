@@ -6,7 +6,7 @@ class UsersController extends BaseController {
         guardAuth();
         $model = new Users();
         $fields = $model->getFields(USERID, true);
-        $pageTitle = Helpers::getUser()->login;
+        $pageTitle = user()->login;
         include(view('users/index'));
     }
 
