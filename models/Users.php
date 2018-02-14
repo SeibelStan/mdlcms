@@ -89,6 +89,10 @@ class Users extends A_BaseModel {
             return $attempt;
         }
 
+        foreach($data as $row) {
+            $row = clear($row);
+        }
+
         $user = $this->getByField('login', $data['login'], "and active");
         
         if($user) {
@@ -97,8 +101,8 @@ class Users extends A_BaseModel {
             ];
         }
 
-        $loginCorrect = preg_match('/^' . $this->pattern['login'][0] . '$/', $data['login']);
-        $passwordCorrect = preg_match('/^' . $this->pattern['password'][0] . '$/', $data['password']);
+        $loginCorrect = $this->checkPattern('login', $data['login']);
+        $passwordCorrect = $this->checkPattern('password', $data['password']);
         if(!$loginCorrect || !$passwordCorrect) {
             return [
                 'message' => 'Проверьте данные'
@@ -192,6 +196,21 @@ class Users extends A_BaseModel {
     }
 
     public function saveProfile($data) {
+        if(
+            isset($data['password_confirm']) &&
+            $data['password'] != $data['password_confirm']
+        ) {
+            return [
+                'message' => 'Пароли не совпадают'
+            ];
+        }
+        unset($data['password_confirm']);
+
+        $passwordCorrect = $this->checkPattern('password', $data['password']);
+        if(!$passwordCorrect) {
+            unset($data['password']);
+        }
+
         $result = $this->save($data, USERID, true);
         if($result) {
             return [

@@ -120,6 +120,10 @@ class A_BaseModel {
         return $prepfields;
     }
 
+    public function checkPattern($pattern, $data) {
+        return preg_match('/^' . $this->pattern[$pattern][0] . '$/', $data);
+    }
+
     public function getByField($fieldName, $value, $condition = false) {
         $parseName = explode('|', $fieldName);
         $fieldName = $parseName[0];
