@@ -273,6 +273,7 @@ class A_BaseModel {
     }
 
     public function search($query, $limit = 12) {
+        $query = clear($query);
         $modelsList = $this->getName() == 'a_basemodel' ? Admin::getModelsList() : [$this->getName()];
         $results = [];
         foreach($modelsList as $modelName) {

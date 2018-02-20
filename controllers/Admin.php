@@ -10,7 +10,6 @@ class AdminController extends BaseController {
 
     public static function table($modelName) {
         guardRoles('admin');
-
         $limit = max(clearRequest('limit'), 50);
         $page = max(clearRequest('page'), 1);
         $sort = clearRequest('sort') ?: "id desc";

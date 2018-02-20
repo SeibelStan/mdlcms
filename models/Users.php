@@ -89,7 +89,7 @@ class Users extends A_BaseModel {
             return $attempt;
         }
 
-        foreach($data as $row) {
+        foreach($data as &$row) {
             $row = clear($row);
         }
 
@@ -119,7 +119,7 @@ class Users extends A_BaseModel {
             }
         }
 
-        foreach($data as $row) {
+        foreach($data as &$row) {
             $row = clear($row);
         }
 
@@ -196,20 +196,28 @@ class Users extends A_BaseModel {
     }
 
     public function saveProfile($data) {
-        if(
-            isset($data['password_confirm']) &&
-            $data['password'] != $data['password_confirm']
-        ) {
-            return [
-                'message' => 'Пароли не совпадают'
-            ];
+        foreach($data as $k => &$row) {
+            if(!preg_match('/password/', $k)) {
+                $row = clear($row);
+            }
         }
-        unset($data['password_confirm']);
 
-        $passwordCorrect = $this->checkPattern('password', $data['password']);
-        if(!$passwordCorrect) {
-            unset($data['password']);
-        }
+        if(isset($data['password'])) {
+		if(
+		    isset($data['password_confirm']) &&
+		    $data['password'] != $data['password_confirm']
+		) {
+		    return [
+		        'message' => 'Пароли не совпадают'
+		    ];
+		}
+		unset($data['password_confirm']);
+
+		$passwordCorrect = $this->checkPattern('password', $data['password']);
+		if(!$passwordCorrect) {
+		    unset($data['password']);
+		}
+	}
 
         $result = $this->save($data, USERID, true);
         if($result) {

@@ -40,7 +40,7 @@ class UsersController extends BaseController {
 
     public static function logout() {
         session_unset();
-        redirect(ROOT . 'users/login');
+        back();
     }
 
     public static function save() {
@@ -63,8 +63,7 @@ class UsersController extends BaseController {
             'hash' => clearRequest('hash'),
             'pass' => clearRequest('pass'),
         ]);
-
-        redirect('/');
+        redirect(ROOT);
     }
 
 }
