@@ -12,6 +12,11 @@ class HelpersController extends BaseController {
         back();
     }
 
+    public static function setJS($lang) {
+        session('js', $lang);
+        back();
+    }
+
     public static function markdownParse() {
         $postData = [
             'text' => request('data'),

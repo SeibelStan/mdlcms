@@ -103,9 +103,6 @@ function dbd($sql) {
     echo $db->error;
     return $db->affected_rows;
 }
-function arrayFirst($data) {
-    return isset($data[0]) ? $data[0] : false;
-}
 
 function stripWord($str, $length, $addon = '...') {
     $str = strip_tags($str);
@@ -196,14 +193,6 @@ function translit($data) {
     return strtr($data, $rules);
 }
 
-function assetTime() {
-    return '?v=' . (DEBUG ? time() : date('Y-m-d'));
-}
-
-function jsLog($data) {
-    echo '<script>console.log("' . $data . '");</script>';
-}
-
 function getBrowserLang($fallback = 'ru') {
     preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/', strtolower($_SERVER["HTTP_ACCEPT_LANGUAGE"]), $matches);
     $langs = array_combine($matches[1], $matches[2]);
@@ -215,24 +204,19 @@ function getBrowserLang($fallback = 'ru') {
     $lang = preg_replace('/-.+/', '', $lang);
     return file_exists('data/i18n/' . $lang . '.json') ? $lang : $fallback;
 }
-function getLang() {
-    return session('lang');
-}
+
 function i18n($data, $fallback = true) {
-    $i18n = json_decode(file_get_contents('data/i18n/' . getLang() . '.json'));
+    $i18n = pipeArr(file_get_contents('data/i18n/' . getLang() . '.txt'));
     if(isset($i18n->$data)) {
         return $i18n->$data;
     }
     elseif($fallback) {
-        $i18n = json_decode(file_get_contents('data/i18n/en.json'));
+        $i18n = pipeArr(file_get_contents('data/i18n/en.txt'));
         if(isset($i18n->$data)) {
             return $i18n->$data;
         }
-        return false;
     }
-    else {
-        return false;
-    }
+    return $data;
 }
 
 function exportToCsv($table, $fields, $filename = 'export.csv') {
@@ -262,6 +246,21 @@ function exportToCsv($table, $fields, $filename = 'export.csv') {
     header("Content-Disposition: attachment; filename=$filename");
     fpassthru($f);
     exit;
+}
+
+function arrayFirst($data) {
+    return isset($data[0]) ? $data[0] : false;
+}
+
+function pipeArr($data) {
+    $result = (object)[];
+    foreach(explode("\n", trim($data)) as $row) {
+        $cells = explode('|', $row);
+        $k = trim($cells[0]);
+        $v = trim($cells[1]);
+        $result->$k = $v;
+    }
+    return $result;    
 }
 
 function arrayMultiSort($array, $args = []) {
@@ -361,4 +360,19 @@ function curlGetSeq($urls) {
 
 function user($id = USERID) {
     return Helpers::getUser($id);
+}
+
+function assetTime() {
+    return '?v=' . (DEBUG ? time() : date('Y-m-d'));
+}
+
+function jsLog($data) {
+    echo '<script>console.log("' . $data . '");</script>';
+}
+
+function getLang() {
+    return session('lang');
+}
+function getJS() {
+    return session('js');
 }

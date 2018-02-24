@@ -56,6 +56,7 @@ $router->map('GET', '/admin/table/[a:modelName]', 'AdminController::table');
 
 // Helpers
 $router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');
+$router->map('GET', '/js/[a:state]', 'HelpersController::setJS');
 $router->map('POST', '/helpers/markdown-parse', 'HelpersController::markdownParse');
 $router->map('GET', '/r/[a:reflink]', 'HelpersController::setReflink');
 
