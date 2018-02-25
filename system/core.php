@@ -205,7 +205,7 @@ function getBrowserLang($fallback = 'ru') {
     return file_exists('data/i18n/' . $lang . '.json') ? $lang : $fallback;
 }
 
-function i18n($data, $fallback = true) {
+function tr($data, $fallback = true) {
     $i18n = pipeArr(file_get_contents('data/i18n/' . getLang() . '.txt'));
     if(isset($i18n->$data)) {
         return $i18n->$data;

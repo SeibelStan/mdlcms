@@ -25,7 +25,7 @@
             </table>
         <td><?= $sum ?> <?= CURRENCY ?>
         <td><?= dateReformat($order->date) ?>
-        <td><?= i18n('orderstatus_' . $order->state) ?>
+        <td><?= tr('orderstatus_' . $order->state) ?>
     <?php endforeach; ?>
     </table>
 </main>
