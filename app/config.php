@@ -25,7 +25,7 @@ require('app/env-' . ENV . '.php');
 define('SITE_DOMAIN', (SSL_ENABLED ? 'https' : 'http') . '://' . SITE_HOST);
 
 session_start();
-define('USERID', session('user_id'));
+define('USERID', session('user_id') ?: 0);
 
 if(getLang() == '') {
     session('lang', getBrowserLang('ru'));

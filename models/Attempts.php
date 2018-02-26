@@ -7,42 +7,52 @@ class Attempts extends A_BaseModel {
     public $addable = true;
     public $removable = true;
     public $fields = [
-        'id'   => 'int(11)::key_ai',
-        'type' => 'varchar(20)',
-        'ip'   => 'varchar(20)',
-        'data' => 'varchar(255)',
-        'date' => 'timestamp:NOW()',
+        'id'      => 'int(11)::key_ai',
+        'type'    => 'varchar(20)',
+        'ip'      => 'varchar(20)',
+        'user_id' => 'int(11)',
+        'data'    => 'varchar(255)',
+        'date'    => 'timestamp:NOW()',
     ];
 
     public $inputTypes = [
         'id' => 'hidden'
     ];
     public $titles = [
-        'type' => 'Тип',
-        'ip'   => 'IP-адрес',
-        'date' => 'Данные',
-        'date' => 'Дата добавления'
+        'type'    => 'Тип',
+        'ip'      => 'IP-адрес',
+        'user_id' => 'ID пользователя',
+        'date'    => 'Данные',
+        'date'    => 'Дата добавления'
     ];
 
-    public static function add($type, $data = '', $ip = '') {
+    public static function add($type, $data = []) {
         if(!ATTEMPTS) {
             return (object) [
                 'action' => ''
             ];
         }
-        $ip = $ip ?: USER_IP;
+
+        $data = (object)$data;
+        $data->ip = isset($data->ip) ? $data->ip : USER_IP;
+        $data->user_id = isset($data->user_id) ? $data->login : USERID;
+
         $model = new Attempts();
         $model->save([
-            'type' => $type,
-            'ip'   => $ip,
-            'data' => json_encode($data)
+            'type'    => $type,
+            'ip'      => $data->ip,
+            'user_id' => $data->user_id,
+            'data'    => json_encode($data)
         ]);
         
         return Attempts::check($type);
     }
 
-    public static function check($type, $ip = '') {
-        $ip = $ip ?: USER_IP;
+    public static function check($type, $data = []) {
+        $data = (object)$data;
+        $data->ip = isset($data->ip) ? $data->ip : USER_IP;
+        $data->user_id = isset($data->user_id) ? $data->login : USERID;
+
         $guardCounts = [
             'view'     => [500, 600],
             'login'    => [5, 10],
@@ -58,7 +68,7 @@ class Attempts extends A_BaseModel {
         ];
 
         $model = new Attempts();
-        $units = $model->getUnits("ip = '$ip' and type = '$type'");
+        $units = $model->getUnits("(ip = '$data->ip' or user_id = '$data->user_id') and type = '$type'");
 
         $count = count($units);
         $action = '';
