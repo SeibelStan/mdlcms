@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 
 require('system/core.php');
 require('app/config.php');
+require('system/sessions_gc.php');
 require('system/autoloader.php');
 if(DEBUG) {
     require('system/migrator.php');

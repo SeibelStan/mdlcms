@@ -13,4 +13,6 @@ define('EMAIL_CONTACT', 'info@' . SITE_HOST);
 $db = new mysqli('localhost', 'root', 'sss');
 $db->select_db('mdlcms');
 $db->query("SET NAMES utf8");
-ini_set('session.save_path', 'data/sessions');
+
+define('SESSION_PATH', 'data/sessions');
+define('SESSION_TIME', 3*24*60*60);
