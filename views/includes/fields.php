@@ -3,7 +3,13 @@
         <div class="form-group">
             <?php if($field->control != 'hidden') : ?>
                 <label>
-                    <?= tr($field->name, false) && !checkAdminZone() ? tr($field->name, false) : $field->title ?>
+                    <?php
+                        $fieldTitle = tr($field->name, false);
+                        if(checkAdminZone() || $fieldTitle == $field->name) {
+                            $fieldTitle = $field->title;
+                        }
+                    ?>
+                    <?= $fieldTitle ?>
                     <?= $field->required ? '*' : '' ?>
                 </label>
             <?php endif; ?>
