@@ -30,7 +30,6 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="<?= ROOT ?>assets/css/files.css"></script>
 <script src="<?= ROOT ?>assets/js/files.js"></script>
 
 <?php if(!$filesInModal) : ?>
