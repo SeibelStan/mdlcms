@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="<?= ROOT ?>vendor/jquery-3.2.1.min.js"></script>
     <script>
         var ROOT = '<?= ROOT ?>';
         var domainURL = '<?= SITE_DOMAIN ?>';
