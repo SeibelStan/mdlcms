@@ -1,4 +1,4 @@
-<?php include(view('includes/admin-header')) ?>
+<?php include(view('includes/admin/header')) ?>
 
 <main class="container">
     <ul class="nav flex-column">
@@ -8,4 +8,4 @@
     </ul>
 </main>
 
-<?php include(view('includes/admin-footer')) ?>
+<?php include(view('includes/admin/footer')) ?>

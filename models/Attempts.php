@@ -68,7 +68,7 @@ class Attempts extends A_BaseModel {
         ];
 
         $model = new Attempts();
-        $units = $model->getUnits("(ip = '$data->ip' or user_id = '$data->user_id') and type = '$type'");
+        $units = $model->getUnits("(ip = '$data->ip' or (user_id <> 0 and user_id = '$data->user_id')) and type = '$type'");
 
         $count = count($units);
         $action = '';

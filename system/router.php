@@ -1,12 +1,12 @@
 <?php
 
 $attempt = Attempts::add('view');
-if($attempt->action) {
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $attempt->action) {
     echo json_encode($attempt);
 }
 
 if(ATTEMPTS && Bans::check()) {
-    include(view('errors/403'));
+    include(view('errors/401'));
     die();
 }
 

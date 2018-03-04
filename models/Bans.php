@@ -39,7 +39,7 @@ class Bans extends A_BaseModel {
         $data->user_id = isset($data->user_id) ? $data->login : USERID;
     
         $model = new Bans();
-        return $model->getUnits("ip = '$data->ip' or user_id = '$data->user_id'");
+        return $model->getUnits("ip = '$data->ip' or (user_id <> 0 and user_id = '$data->user_id')");
     }
 
 }

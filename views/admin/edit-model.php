@@ -1,4 +1,4 @@
-<?php include(view('includes/admin-header')) ?>
+<?php include(view('includes/admin/header')) ?>
 
 <main class="container">
     <h1><?= $model->getTitle() ?></h1>
@@ -56,4 +56,4 @@
     </div>
 </div>
 
-<?php include(view('includes/admin-footer')) ?>
+<?php include(view('includes/admin/footer')) ?>

@@ -1,4 +1,4 @@
-<?php include(view('includes/admin-header')) ?>
+<?php include(view('includes/admin/header')) ?>
 
 <main class="container">
 
@@ -26,4 +26,4 @@
 
 </main>
 
-<?php include(view('includes/admin-footer')) ?>
+<?php include(view('includes/admin/footer')) ?>

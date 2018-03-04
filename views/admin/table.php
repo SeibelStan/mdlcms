@@ -1,4 +1,4 @@
-<?php include(view('includes/admin-header')) ?>
+<?php include(view('includes/admin/header')) ?>
 
 <main class="container-fluid">
    <h1 class="d-flex justify-content-between">
@@ -41,4 +41,4 @@
     </table>
 </main>
 
-<?php include(view('includes/admin-footer')) ?>
+<?php include(view('includes/admin/footer')) ?>
