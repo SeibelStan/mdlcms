@@ -23,7 +23,13 @@ class OrdersController extends BaseController {
         }
         $model = new Orders();
         $result = $model->create($_REQUEST);
-        echo json_encode($result);
+        
+        if(getJS()) {
+            echo json_encode($result);
+        }
+        else {
+            back();
+        }
     }
 
 }

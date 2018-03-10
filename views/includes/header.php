@@ -13,11 +13,13 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/site.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
-    <script src="<?= ROOT ?>vendor/jquery-3.2.1.min.js"></script>
-    <script>
-        var ROOT = '<?= ROOT ?>';
-        var domainURL = '<?= SITE_DOMAIN ?>';
-    </script>
+    <?php if(getJS()) : ?>
+        <script src="<?= ROOT ?>vendor/jquery-3.2.1.min.js"></script>
+        <script>
+            var ROOT = '<?= ROOT ?>';
+            var domainURL = '<?= SITE_DOMAIN ?>';
+        </script>
+    <?php endif; ?>
     <?php $codeparts = Helpers::getCodeparts('site'); ?>
     <?php include(view('includes/codeparts')) ?>
 </head>

@@ -9,7 +9,7 @@ class HelpersController extends BaseController {
 
     public static function setLang($lang) {
         session('lang', $lang);
-        back();
+        redirect(preg_replace('/-(en|ru)/', '-' . $lang, $_SERVER['HTTP_REFERER']));
     }
 
     public static function setJS($lang) {

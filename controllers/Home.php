@@ -33,7 +33,13 @@ class HomeController extends BaseController {
     public static function searchWidget() {
         $model = new A_BaseModel();
         $result = $model->search(request('searchQuery'), 5);
-        echo json_encode($result);
+
+        if(getJS()) {
+            echo json_encode($result);
+        }
+        else {
+            include(view('home/search'));
+        }
     }
 
 }

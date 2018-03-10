@@ -1,5 +1,5 @@
 <?php foreach($codeparts as $codepart) : ?>
-    <?php if($codepart->type == 'script') : ?>
+    <?php if($codepart->type == 'script' && getJS()) : ?>
         <script <?= $codepart->params ?> <?= $codepart->link ? 'src="' . $codepart->link . '"' : '' ?>><?= $codepart->content ?></script>
     <?php elseif($codepart->type == 'style') : ?>
         <style <?= $codepart->params ?>><?= $codepart->content ?></style>

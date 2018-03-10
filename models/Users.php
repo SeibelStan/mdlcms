@@ -126,7 +126,7 @@ class Users extends A_BaseModel {
         $id = $this->save($data);
         session('user_id', $id);
 
-	$mailText = sprintf(
+        $mailText = sprintf(
             file_get_contents('views/mail/register.html'),
             SITE_DOMAIN,
             SITE_NAME

@@ -25,6 +25,7 @@ class CatalogController extends BaseController {
             if(!$directUnit) {
                 abort(404);
             }
+            $directUnit = noimagize($directUnit);
             $pageTitle = $directUnit->title;
         }
         

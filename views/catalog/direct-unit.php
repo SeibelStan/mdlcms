@@ -5,12 +5,11 @@
 <div class="row mb-5">
     <?php if($hasPhotos) : ?>
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <?php if($directUnit->image) : ?>
-                <p>
-                    <a href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
-                        <img class="img-fluid" src="<?= $directUnit->image ?>">
-                    </a>
-            <?php endif; ?>
+            <p>
+                <a class="card" href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
+                    <img class="img-fluid" src="<?= $directUnit->image ?>">
+                </a>
+            </p>
             <?php if($directUnit->images) : ?>
                 <div class="row">
                     <?php foreach(textRows($directUnit->images) as $image) : ?>

@@ -6,7 +6,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $attempt->action) {
 }
 
 if(ATTEMPTS && Bans::check()) {
-    include(view('errors/401'));
+    include(view('errors/403'));
     die();
 }
 

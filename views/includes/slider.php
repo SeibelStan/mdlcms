@@ -1,4 +1,4 @@
-<?php if($slider && $slider->active && $slides) : ?>
+<?php if(getJS() && $slider && $slider->active && $slides) : ?>
 
 <div class="slider-<?= $slider->id ?>">
     <?php foreach($slides as $slide) : ?>

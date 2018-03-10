@@ -1,9 +1,8 @@
 <?php include(view('includes/header')) ?>
+<meta http-equiv="refresh" content="1;URL=<?= ROOT ?>users/login" />
 
 <main class="container">
-    <h1>Заблокированы</h1>
-    <p>Ваш IP: <strong><?= USER_IP ?></strong>
-    <p>Обратитесь к администратору: <?= EMAIL_CONTACT ?>
+    <h1>Авторизуйтесь</h1>
 </main>
 
 <?php include(view('includes/footer')) ?>

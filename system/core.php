@@ -306,11 +306,15 @@ function noimagize($data, $prop = 'image') {
 
     if(gettype($data) == 'array') {
         foreach($data as &$unit) {
-            $unit->$prop = $unit->$prop ?: $noImg;
+            if(!($unit->$prop && file_exists($unit->$prop))) {
+                $unit->$prop = $noImg;
+            }
         }
     }
     else {
-        $data->$prop = $data->$prop ?: $noImg;
+        if(!($data->$prop && file_exists($data->$prop))) {
+            $data->$prop = $noImg;
+        }
     }
     return $data;
 }

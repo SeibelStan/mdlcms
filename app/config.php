@@ -19,7 +19,7 @@ require('app/env-' . ENV . '.php');
 
 define('SITE_DOMAIN', (SSL_ENABLED ? 'https' : 'http') . '://' . SITE_HOST);
 
-if($_SERVER['HTTP_USER_AGENT'] && preg_match('/curl/', $_SERVER['HTTP_USER_AGENT'])) {
+if(@$_SERVER['HTTP_USER_AGENT'] && preg_match('/curl/', $_SERVER['HTTP_USER_AGENT'])) {
     ini_set('session.gc_maxlifetime', SESSION_TIME);
     ini_set('session.cookie_lifetime', SESSION_TIME);
 }
@@ -28,5 +28,5 @@ session_start();
 
 define('USERID', session('user_id') ?: 0);
 
-session('lang', getLang() ?: getBrowserLang('ru'));
-session('js', getJS());
+session('lang', getLang() == '' ? getLang() : getBrowserLang('ru'));
+session('js', getJS() == '' ? 1 : getJS());

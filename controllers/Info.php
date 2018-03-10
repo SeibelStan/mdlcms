@@ -26,7 +26,6 @@ class InfoController extends BaseController {
             abort(404);
         }
         $pageTitle = $directUnit->title;
-
         include(view('info/direct'));
     }
 
