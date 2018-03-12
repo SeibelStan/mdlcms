@@ -12,5 +12,5 @@ if(DEBUG) {
 }
 require('vendor/AltoRouter.php');
 require('system/router.php');
-session('message', '');
-session('message-type', '');
+session('alert-message', '');
+session('alert-type', '');
