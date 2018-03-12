@@ -28,6 +28,7 @@ class OrdersController extends BaseController {
             echo json_encode($result);
         }
         else {
+            setResAlert($result);
             back();
         }
     }

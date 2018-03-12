@@ -380,3 +380,14 @@ function getLang() {
 function getJS() {
     return session('js');
 }
+
+function setAlert($message, $type = '') {
+    session('alert-message', $message);
+    session('alert-type', $type);
+}
+
+function setResAlert($data) {
+    if(@$data['message']) {
+        setAlert($data['message'], $data['type']);
+    }
+}

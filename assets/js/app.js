@@ -10,7 +10,7 @@ function showAlert(message, type = 'danger', time = 3000) {
 
 function attachForms() {
     $('.form-ajax').on('submit', function () {
-        if(typeof ClassicEditor != 'undefined' && typeof ClassicEditor.instances.content != 'undefined') {
+        if(typeof ClassicEditor != 'undefined' && typeof ClassicEditor.instances != 'undefined') {
             ClassicEditor.instances.content.updateElement();
         }
     });
@@ -98,8 +98,8 @@ $(function () {
         $(this).remove();
     });
 
-    if($('#smes-val').val()) {
-        showAlert($('#smes-val').val(), $('#smes-type').val());
+    if($('#alert-message').val()) {
+        showAlert($('#alert-message').val(), $('#alert-type').val());
     }
 
     $('.autolabel label').each(function (i) {

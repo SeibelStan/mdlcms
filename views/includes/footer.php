@@ -5,8 +5,8 @@
     <script src="<?= ROOT ?>vendor/ekko-lightbox/ekko-lightbox.js"></script>
     <script src="<?= ROOT ?>assets/js/app.js<?= assetTime() ?>"></script>
     <input type="hidden" id="currency" value="<?= CURRENCY ?>">
-    <input type="hidden" id="smes-val" value="<?= session('message') ?>">
-    <input type="hidden" id="smes-type" value="<?= session('message-type') ?>">
+    <input type="hidden" id="alert-message" value="<?= session('alert-message') ?>">
+    <input type="hidden" id="alert-type" value="<?= session('alert-type') ?>">
 <?php endif; ?>
 
 </body>

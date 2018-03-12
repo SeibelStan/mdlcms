@@ -28,5 +28,5 @@ session_start();
 
 define('USERID', session('user_id') ?: 0);
 
-session('lang', getLang() == '' ? getLang() : getBrowserLang('ru'));
+session('lang', getLang() != '' ? getLang() : getBrowserLang('ru'));
 session('js', getJS() == '' ? 1 : getJS());

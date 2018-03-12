@@ -95,3 +95,7 @@
     </div>
 </nav>
 </header>
+
+<?php if(session('alert-message')) : ?>
+    <div class="alert alert-<?= session('alert-type') ?> alert-sticky nojs"><?= session('alert-message') ?></div>
+<?php endif; ?>

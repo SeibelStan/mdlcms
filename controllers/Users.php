@@ -26,6 +26,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
+            setResAlert($result);
             back();
         }
     }
@@ -46,6 +47,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
+            setResAlert($result);
             redirect(ROOT . 'users');
         }
     }
@@ -63,6 +65,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
+            setResAlert($result);
             back();
         }
     }
@@ -73,7 +76,13 @@ class UsersController extends BaseController {
             'login' => clearRequest('login')
         ]);
         
-        echo json_encode($result);
+        if(getJS()) {
+            echo json_encode($result);
+        }
+        else {
+            setResAlert($result);
+            back();
+        }
     }
 
     public static function restore() {

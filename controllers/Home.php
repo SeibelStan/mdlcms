@@ -20,7 +20,14 @@ class HomeController extends BaseController {
     public static function sendFeedback() {
         $model = new Feedback();
         $result = $model->send($_REQUEST);
-        echo json_encode($result);
+        
+        if(getJS()) {
+            echo json_encode($result);
+        }
+        else {
+            setResAlert($result);
+            back();
+        }
     }
 
     public static function search() {
@@ -38,6 +45,7 @@ class HomeController extends BaseController {
             echo json_encode($result);
         }
         else {
+            setResAlert($result);
             include(view('home/search'));
         }
     }

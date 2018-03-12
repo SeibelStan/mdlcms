@@ -5,6 +5,10 @@ textarea {
     height: 201px;
 }
 
+.custom-select.select-links {
+    width: auto;
+}
+
 .fm_tools {
     margin-bottom: 10px;
     align-items: center;
