@@ -61,7 +61,9 @@ class Users extends A_BaseModel {
             return $attempt;
         }
 
-        $user = $this->getByField('login', $data['login'], "and password = '" . $data['password'] . "' and active");
+        $lowerLogin = mb_strtolower($data['login']);
+        $user = arrayFirst($this->getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
+            and password = '" . $data['password'] . "' and active"));
 
         if(!$user) {
             return [
@@ -93,7 +95,7 @@ class Users extends A_BaseModel {
             $row = clear($row);
         }
 
-        $user = $this->getByField('login', $data['login'], "and active");
+        $user = $this->getByField('lower(login)', mb_strtolower($data['login']), "and active");
         
         if($user) {
             return [
@@ -132,7 +134,7 @@ class Users extends A_BaseModel {
             SITE_NAME
         );
         if(MAILS) {
-            smail('Благодарим Вас за регистрацию на нашем сайте!', $mailText, $data['email']);            
+            smail('Благодарим Вас за регистрацию на нашем сайте!', $mailText, $data['email']);
         }
 
         return [
@@ -149,10 +151,10 @@ class Users extends A_BaseModel {
             return $attempt;
         }
 
-        $user = $this->getByField('login', $data['login'],
-            "or email = '" . $data['login'] . "' and active");       
+        $user = arrayFirst($this->getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
+            and active"));
 
-        if($user) {
+        if($user && $user->email) {
             $mailText = sprintf(
                 file_get_contents('views/mail/remind.html'),
                 passGen(8),
@@ -170,7 +172,7 @@ class Users extends A_BaseModel {
         }
         else {
             return [
-                'message' => 'Пользователя не существует'
+                'message' => 'Пользователя не существует или не указана почта'
             ];
         }
     }
@@ -203,21 +205,21 @@ class Users extends A_BaseModel {
         }
 
         if(isset($data['password'])) {
-		if(
-		    isset($data['password_confirm']) &&
-		    $data['password'] != $data['password_confirm']
-		) {
-		    return [
-		        'message' => 'Пароли не совпадают'
-		    ];
-		}
-		unset($data['password_confirm']);
+            if(
+                isset($data['password_confirm']) &&
+                $data['password'] != $data['password_confirm']
+            ) {
+                return [
+                    'message' => 'Пароли не совпадают'
+                ];
+            }
+            unset($data['password_confirm']);
 
-		$passwordCorrect = $this->checkPattern('password', $data['password']);
-		if(!$passwordCorrect) {
-		    unset($data['password']);
-		}
-	}
+            $passwordCorrect = $this->checkPattern('password', $data['password']);
+            if(!$passwordCorrect) {
+                unset($data['password']);
+            }
+        }
 
         $result = $this->save($data, USERID, true);
         if($result) {

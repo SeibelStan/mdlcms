@@ -53,7 +53,7 @@ class Cart extends A_BaseModel {
         $items = explode(',', $items);
         $result = [];
         foreach($items as $itemId) {
-            $cartItem = $this->getByField('id', $itemId);     
+            $cartItem = $this->getByField('id', $itemId);
             if(!$cartItem) {
                 continue;
             }

@@ -260,7 +260,7 @@ function pipeArr($data) {
         $v = trim($cells[1]);
         $result->$k = $v;
     }
-    return $result;    
+    return $result;
 }
 
 function arrayMultiSort($array, $args = []) {
@@ -293,7 +293,7 @@ function arrayMultiSort($array, $args = []) {
 function smail($title, $text, $to, $from = 'admin') {
     $from .= '@' . SITE_HOST;
     if(!preg_match('/@/', $to)) {
-        $to .= '@' . SITE_HOST;        
+        $to .= '@' . SITE_HOST;
     }
 
     $headers  = "Content-type: text/html; charset=utf-8 \r\n";

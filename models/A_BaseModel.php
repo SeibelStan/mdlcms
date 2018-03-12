@@ -82,7 +82,7 @@ class A_BaseModel {
             $type = $pvalue[0];
             
             if(isset($this->inputTypes) && isset($this->inputTypes[$name])) {
-                $tareaClass = $exemp ? preg_match('/class=/', $exemp->$name) : false;                
+                $tareaClass = $exemp ? preg_match('/class=/', $exemp->$name) : false;
                 if($tareaClass) {
                     $control = 'textarea';
                 }
@@ -234,7 +234,7 @@ class A_BaseModel {
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= " where id = '$id'";
             $db->query($sql);
-            return $db->affected_rows;            
+            return $db->affected_rows;
         }
         else {
             $sql = "insert into " . $this->getTable() . " (";
