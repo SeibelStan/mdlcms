@@ -3,11 +3,17 @@
 foreach($models as $modelName) {
 
     $model = new $modelName();
-    if(!isset($model->table) || tableExists($model->table)) {
+
+    $table = isset($model->table) ? $model->table : false;;
+
+    if($table && isset($model->drop)) {
+        $db->query("drop table $model->table");
+    }
+
+    if(!$table || tableExists($model->table)) {
         continue;
     }
-    
-    $table = $model->table;
+
     $fields = $model->fields;
 
     $prepfields = [];
@@ -66,7 +72,7 @@ foreach($sql_files as $file) {
     }
     $migrated = true;
 }
-echo $db->error;
+
 if($migrated) {
     redirect(ROOT);
 }

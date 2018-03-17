@@ -87,7 +87,7 @@ class UsersController extends BaseController {
 
     public static function restore() {
         $model = new Users();
-        $this->restore([
+        $model->restore([
             'hash' => clearRequest('hash'),
             'pass' => clearRequest('pass'),
         ]);

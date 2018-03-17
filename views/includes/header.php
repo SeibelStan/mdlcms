@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= isset($pageTitle) ? $pageTitle . ' - ' : '' ?><?= SITE_NAME ?></title>
     <link rel="icon" type="image/png" href="<?= ROOT ?>assets/img/favicon.png">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/bootstrap.min.css">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/site.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
     <?php if(getJS()) : ?>
-        <script src="<?= ROOT ?>vendor/jquery-3.2.1.min.js"></script>
+        <script src="<?= ROOT ?>vendor/jquery-3.3.1.min.js"></script>
         <script>
             var ROOT = '<?= ROOT ?>';
             var domainURL = '<?= SITE_DOMAIN ?>';

@@ -122,8 +122,8 @@ function doubleDig($i) {
 function delDotsFilter($name) {
     return !preg_match('/^\.{1,2}$/', $name);
 }
-function delDots($arr) {
-    return array_filter($arr, 'delDotsFilter');
+function delDots($data) {
+    return array_filter($data, 'delDotsFilter');
 }
 
 function dateStrafe($period, $date = false) {
@@ -206,12 +206,12 @@ function getBrowserLang($fallback = 'ru') {
 }
 
 function tr($data, $fallback = true) {
-    $i18n = pipeArr(file_get_contents('data/i18n/' . getLang() . '.txt'));
+    $i18n = pipeObj(file_get_contents('data/i18n/' . getLang() . '.txt'));
     if(isset($i18n->$data)) {
         return $i18n->$data;
     }
     elseif($fallback) {
-        $i18n = pipeArr(file_get_contents('data/i18n/en.txt'));
+        $i18n = pipeObj(file_get_contents('data/i18n/en.txt'));
         if(isset($i18n->$data)) {
             return $i18n->$data;
         }
@@ -252,13 +252,22 @@ function arrayFirst($data) {
     return isset($data[0]) ? $data[0] : false;
 }
 
-function pipeArr($data) {
+function pipeObj($data, $delimiter = '|') {
     $result = (object)[];
     foreach(explode("\n", trim($data)) as $row) {
-        $cells = explode('|', $row);
+        $cells = explode($delimiter, $row);
         $k = trim($cells[0]);
         $v = trim($cells[1]);
         $result->$k = $v;
+    }
+    return $result;
+}
+
+function pipeArr($data, $delimiter = '|') {
+    $result = [];
+    foreach(explode("\n", trim($data)) as $row) {
+        $cells = explode($delimiter, $row);
+        $result[] = $cells;
     }
     return $result;
 }

@@ -230,8 +230,7 @@ class Users extends A_BaseModel {
         }
         else {
             return [
-                'message' => 'Не изменено',
-                'type' => 'warning'
+                'message' => 'Не изменено'
             ];
         }
     }
