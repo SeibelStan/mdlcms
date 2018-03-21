@@ -1,6 +1,6 @@
 <?php
 
-$freq = rand(1, 100) == 100;
+$freq = rand(1, 50) == 50;
 
 if($freq) {
     $sessions = scandir(SESSION_PATH);

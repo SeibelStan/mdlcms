@@ -13,11 +13,14 @@ class Files extends A_BaseModel {
 
     public function upload($data) {
         $files = $data['files'];
+        $uploaded = [];
         for($i = 0; $i < count($files['name']); $i++) {
             $fileName = $files['name'][$i];
             $filePath = $this->uploadPath . $fileName;
-            move_uploaded_file($files['tmp_name'][$i], $filePath);
-            chmod($filePath, 0777);
+            if(move_uploaded_file($files['tmp_name'][$i], $filePath)) {
+                $uploaded[] = $filePath;
+            }
+            @chmod($filePath, 0777);
 
             $postfix = false;
             $matches = [];
@@ -25,7 +28,28 @@ class Files extends A_BaseModel {
                 Files::resize($filePath, $matches[1]);
             }
         }
-        return $i;
+        return $uploaded;
+    }
+
+    public function uploadSingles($files, $names = []) {
+        $uploaded = [];
+        foreach($files as $k => $file) {
+            echo $names[$k];
+
+            $fileName = @$names[$k] ?: $file['name'];
+            $filePath = $this->uploadPath . $fileName;
+            if(move_uploaded_file($file['tmp_name'], $filePath)) {
+                $uploaded[] = $filePath;
+            }
+            @chmod($filePath, 0777);
+
+            $postfix = false;
+            $matches = [];
+            if(preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
+                Files::resize($filePath, $matches[1]);
+            }
+        }
+        return $uploaded;
     }
 
     public function get() {

@@ -257,7 +257,7 @@ function pipeObj($data, $delimiter = '|') {
     foreach(explode("\n", trim($data)) as $row) {
         $cells = explode($delimiter, $row);
         $k = trim($cells[0]);
-        $v = trim($cells[1]);
+        $v = trim(@$cells[1]);
         $result->$k = $v;
     }
     return $result;
