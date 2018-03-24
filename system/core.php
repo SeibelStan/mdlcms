@@ -397,6 +397,6 @@ function setAlert($message, $type = '') {
 
 function setResAlert($data) {
     if(@$data['message']) {
-        setAlert($data['message'], $data['type']);
+        setAlert($data['message'], @$data['type']);
     }
 }

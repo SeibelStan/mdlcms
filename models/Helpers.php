@@ -19,11 +19,13 @@ class Helpers extends A_BaseModel {
 
     public static function getUser($id = USERID) {
         $id = $id ?: session('user_id');
-        $authUser = new Users;
-        if(preg_match('/\D/', $id)) {
-            return $authUser->getByField('login', $id);
+        $model = new Users;
+
+        $user = $model->getByField('id', $id);
+        if(!$user) {
+            $user = $model->getByField('login', $id);
         }
-        return $authUser->getByField('id', $id);
+        return $user;
     }
 
     public static function checkRoles($data) {
