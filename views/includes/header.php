@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/site.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
     <?php if(getJS()) : ?>
-        <script src="<?= ROOT ?>vendor/jquery-3.3.1.min.js"></script>
         <script>
             var ROOT = '<?= ROOT ?>';
             var domainURL = '<?= SITE_DOMAIN ?>';

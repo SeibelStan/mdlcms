@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<script src="<?= ROOT ?>assets/js/files.js"></script>
+<script defer src="<?= ROOT ?>assets/js/files.js"></script>
 
 <?php if(!$filesInModal) : ?>
     </main>

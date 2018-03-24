@@ -72,6 +72,10 @@ $(function () {
     attachForms();
     getCart();
 
+    $('[data-slider]').each(function () {
+        window['slider' + $(this).data('slider')]();
+    });
+
     $('.search-widget-trigger').keyup(function () {
         var query = $(this).val();
         $.post(

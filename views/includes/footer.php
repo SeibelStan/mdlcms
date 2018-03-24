@@ -1,4 +1,5 @@
 <?php if(getJS()) : ?>
+    <script src="<?= ROOT ?>vendor/jquery-3.3.1.min.js"></script>
     <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
     <script src="<?= ROOT ?>vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="<?= ROOT ?>vendor/jquery.form.js"></script>

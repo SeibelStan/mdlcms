@@ -1,6 +1,6 @@
 <?php if(getJS() && $slider && $slider->active && $slides) : ?>
 
-<div class="slider-<?= $slider->id ?>">
+<div class="slider" data-slider="<?= $slider->id ?>">
     <?php foreach($slides as $slide) : ?>
         <a class="slider-item"
             <?php if($slide->link) : ?>
@@ -20,8 +20,8 @@
 </div>
 
 <script>
-$(function () {
-    $('.slider-<?= $slider->id ?>').slick({
+function slider<?= $slider->id ?>() {
+    $('.slider[data-slider="<?= $slider->id ?>"]').slick({
         infinite: true,
         lazyLoad: 'ondemand',
         dots: <?= $slider->dots ? 'true' : 'false' ?>,
@@ -30,7 +30,7 @@ $(function () {
         slidesToShow: <?= $slider->toshow ?>,
         slidesToScroll: <?= $slider->toscroll ?>,
     });
-});
+}
 </script>
 
 <?php endif; ?>

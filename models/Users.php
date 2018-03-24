@@ -104,10 +104,16 @@ class Users extends A_BaseModel {
         }
 
         $loginCorrect = $this->checkPattern('login', $data['login']);
-        $passwordCorrect = $this->checkPattern('password', $data['password']);
-        if(!$loginCorrect || !$passwordCorrect) {
+        if(!$loginCorrect) {
             return [
-                'message' => 'Проверьте данные'
+                'message' => $this->pattern['login'][1]
+            ];
+        }
+
+        $passwordCorrect = $this->checkPattern('password', $data['password']);
+        if(!$passwordCorrect) {
+            return [
+                'message' => $this->pattern['password'][1]
             ];
         }
 
