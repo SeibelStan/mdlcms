@@ -9,9 +9,9 @@ function showAlert(message, type = 'danger', time = 3000) {
 }
 
 function attachForms() {
-    $('.form-ajax').on('submit', function () {
-        if(typeof ClassicEditor != 'undefined' && typeof ClassicEditor.instances != 'undefined') {
-            ClassicEditor.instances.content.updateElement();
+    $('form').on('submit', function () {
+        if(typeof wysiwyg != 'undefined') {
+            editor.value = wysiwyg.getData();
         }
     });
 

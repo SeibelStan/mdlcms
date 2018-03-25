@@ -21,7 +21,7 @@
 
 <script>
 function slider<?= $slider->id ?>() {
-    $('.slider[data-slider="<?= $slider->id ?>"]').slick({
+    $('[data-slider="<?= $slider->id ?>"]').slick({
         infinite: true,
         lazyLoad: 'ondemand',
         dots: <?= $slider->dots ? 'true' : 'false' ?>,

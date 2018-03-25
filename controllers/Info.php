@@ -21,11 +21,18 @@ class InfoController extends BaseController {
     public static function direct($url = '') {
         $model = new Info();
         $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
-        $directUnit = $model->getByField($urlType, urldecode($url), "and active");
+        $directUnit = $model->getByField($urlType, urldecode($url));
+        
+        if(!$directUnit) {
+            $directUnit = $model->getByField($urlType, urldecode($url) . '-' . getLang());
+        }
+
         if(!$directUnit) {
             abort(404);
         }
+
         $pageTitle = $directUnit->title;
+
         include(view('info/direct'));
     }
 
