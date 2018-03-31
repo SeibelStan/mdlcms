@@ -24,6 +24,12 @@ $(function () {
     });
 
     var filterMode = 'client';
+    if($('.select-links').length) {
+        if($('.select-links option').length > 200) {
+            filterMode = 'server';
+        }
+    }
+
     if(filterMode == 'client') {
         $('[data-filter').keyup(function () {
             var collection = $(this).data('filter');
