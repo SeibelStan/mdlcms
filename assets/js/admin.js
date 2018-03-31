@@ -23,22 +23,42 @@ $(function () {
         location.href = $(this).val();
     });
 
-    $('[data-filter').keyup(function () {
-        var collection = $(this).data('filter');
-        var filterVal = $(this).val();
-        var regStr = '';
-        for(i in filterVal) {
-            regStr += filterVal[i] + '.*';
-        }
-        var reg = new RegExp(regStr, 'i');
-        $(collection + ' > *').hide();
-        $(collection + ' > *').each(function () {
-            var dataId = [] + $(this).data('id');
-            if($(this).html().match(reg) || dataId.match(reg)) {
-                $(this).show();
+    var filterMode = 'client';
+    if(filterMode == 'client') {
+        $('[data-filter').keyup(function () {
+            var collection = $(this).data('filter');
+            var filterVal = $(this).val();
+            var regStr = '';
+            for(i in filterVal) {
+                regStr += filterVal[i] + '.*';
             }
+            var reg = new RegExp(regStr, 'i');
+            $(collection + ' > *').hide();
+            $(collection + ' > *').each(function () {
+                var dataId = [] + $(this).data('id');
+                if($(this).html().match(reg) || dataId.match(reg)) {
+                    $(this).show();
+                }
+            });
         });
-    });
+    }
+    else {
+        $('[data-filter').change(function (e) {
+            var collection = $(this).data('filter');
+            var filterVal = $(this).val();
+
+            var result = '';
+            $.post(
+                baseURL + 'admin/' + $('[name="model"]').val() + '/filter',
+                {
+                    query: filterVal
+                },
+                function (data) {
+                    $(collection).html(data);
+                }
+            );
+        });
+    }
 
     $('.last-focused-top').click(function () {
         lastFocused = $(this).parent().prev().find('input, textarea');

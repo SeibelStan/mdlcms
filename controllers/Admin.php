@@ -70,4 +70,15 @@ class AdminController extends BaseController {
         redirect(ROOT . 'admin/edit-models/' . $modelName);
     }
 
+    public static function filter($modelName) {
+        $query = request('query');
+        $model = new $modelName();
+        $result = $model->search($query);
+        $options = '';
+        foreach($result as $unit) {
+            $options .= '<option data-id="' . $unit->id . '">' . $unit->display_name . '</option>';
+        }
+        echo $options;
+    }
+
 }

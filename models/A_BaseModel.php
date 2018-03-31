@@ -287,6 +287,11 @@ class A_BaseModel {
                 $sql .= " order by id desc limit $limit";
                 $result = dbs($sql);
                 foreach($result as $unit) {
+                    foreach(['id', 'login', 'full_name', 'name', 'title'] as $tryName) {
+                        if(isset($unit->$tryName) && $unit->$tryName) {
+                            $unit->display_name = $unit->$tryName;
+                        }
+                    }
                     $unit->url = isset($unit->url) && $unit->url ? $unit->url : $unit->id;
                     $unit->link = ROOT . strtolower($model->getName()) . '/' . $unit->url;
                     $unit->content = isset($unit->content) ? $unit->content : false;
