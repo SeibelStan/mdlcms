@@ -35,3 +35,7 @@ a {
 p {
     margin-bottom: .5em;
 }
+
+.select-links {
+    width: auto;
+}

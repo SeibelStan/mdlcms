@@ -258,6 +258,9 @@ function pipeObj($data, $delimiter = '|') {
         $cells = explode($delimiter, $row);
         $k = trim($cells[0]);
         $v = trim(@$cells[1]);
+        if(!$k) {
+            continue;
+        }
         $result->$k = $v;
     }
     return $result;

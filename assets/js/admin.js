@@ -108,7 +108,7 @@ $(function () {
                 function (data) {
                     if(typeof wysiwyg != 'undefined') {
                         wysiwyg.setData(data); 
-                        wysiwyg.content.updateElement();
+                        editor.value = wysiwyg.getData();
                     }
                     else {
                         content.val(data);
