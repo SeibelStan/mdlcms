@@ -114,8 +114,9 @@ $(function () {
                     if(typeof wysiwyg != 'undefined') {
                         wysiwyg.setData(data); 
                         editor.value = wysiwyg.getData();
-                        showAlert('Markdown скомпилирован', 'success');
-                        markForm.find('[type="submit"]').attr('disabled', false);
+                        markForm.find('[type="submit"]')
+                            .attr('disabled', false)
+                            .click();
                     }
                     else {
                         content.val(data);
