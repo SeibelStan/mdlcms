@@ -1,3 +1,5 @@
+var changespy = false;
+
 function showAlert(message, type = 'danger', time = 3000) {
     $('main').prepend('<div class="alert alert-' + type + ' alert-sticky">' + message + '</div>');
     $('body .alert:first-child')
@@ -11,7 +13,7 @@ function showAlert(message, type = 'danger', time = 3000) {
 function attachForms() {
     $('form').on('submit', function () {
         if(typeof wysiwyg != 'undefined') {
-            editor.value = wysiwyg.getData();
+            $('.ck-editor').prev().val(wysiwyg.getData());
         }
     });
 
@@ -27,6 +29,14 @@ function attachForms() {
                 eval(data.callback);
             }
         }
+    });
+
+    $('.form-instsub *').change(function () {
+        $(this).closest('form').submit();
+    });
+
+    $('.form-changespy *').on('change keyup', function () {
+        changespy = true;
     });
 }
 
@@ -71,6 +81,12 @@ $(function () {
 
     attachForms();
     getCart();
+
+    window.onbeforeunload = function() {
+        if(changespy) {
+            return 'Are you sure you want to leave?';
+        }
+    };
 
     $('[data-slider]').each(function () {
         window['slider' + $(this).data('slider')]();

@@ -16,11 +16,11 @@
         <input type="text" class="form-control col-sm-4" placeholder="Фильтр" data-filter="#model-units">
 
         <?php if($id) : ?>
-            <a class="btn btn-success" href="<?= ROOT ?>admin/edit-models/<?= $modelName ?>">Новый</a>
+            <button class="btn btn-primary" onclick="$('.main-form').submit();">Сохранить</button>
         <?php endif; ?>
 
-        <?php if($id || $model->isAddable()) : ?>
-            <button class="btn btn-primary" onclick="$('.main-form').submit();">Сохранить</button>
+        <?php if($id && $model->isAddable()) : ?>
+            <a class="btn btn-success" href="<?= ROOT ?>admin/edit-models/<?= $modelName ?>">Новый</a>
         <?php endif; ?>
     </div>
 

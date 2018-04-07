@@ -226,7 +226,7 @@ class A_BaseModel {
         if($id) {
             $sql = "update " . $this->getTable() . " set ";
             foreach($fields as $field) {
-                if($field->name == 'dateup' || !isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
+                if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
                 $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
