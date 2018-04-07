@@ -71,6 +71,7 @@ $(function () {
     });
     
     var markdown = $('[name="markdown"]');
+    var markForm = markdown.closest('form');
     var content = $('[name="content"]');
     if(markdown.length && content.length) {
         markdownLabel = markdown.prev();
@@ -79,12 +80,12 @@ $(function () {
         var contentName = content.attr('name');
         markdown.after('\
             <ul class="nav nav-tabs" id="content-tabs" role="tablist">\
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-' + contentName + '">' + contentLabel.html() + '</a>\
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-' + markdownName + '">' + markdownLabel.html() + '</a>\
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-' + markdownName + '">' + markdownLabel.html() + '</a>\
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-' + contentName + '">' + contentLabel.html() + '</a>\
             </ul>\
             <div class="tab-content">\
-                <div class="tab-pane active" id="tab-' + contentName + '"></div>\
-                <div class="tab-pane" id="tab-' + markdownName + '"></div>\
+                <div class="tab-pane active" id="tab-' + markdownName + '"></div>\
+                <div class="tab-pane" id="tab-' + contentName + '"></div>\
             </div>\
         ');
 
@@ -99,6 +100,10 @@ $(function () {
         markdownLabel.remove();
         contentLabel.remove();
 
+        markdown.keyup(function () {
+            markForm.find('[type="submit"]').attr('disabled', 'true');
+        });
+
         markdown.change(function () {
             $.post(
                 ROOT + 'helpers/markdown-parse',
@@ -109,6 +114,8 @@ $(function () {
                     if(typeof wysiwyg != 'undefined') {
                         wysiwyg.setData(data); 
                         editor.value = wysiwyg.getData();
+                        showAlert('Markdown скомпилирован', 'success');
+                        markForm.find('[type="submit"]').attr('disabled', false);
                     }
                     else {
                         content.val(data);
