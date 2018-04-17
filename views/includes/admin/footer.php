@@ -1,3 +1,10 @@
+<script>
+    var ajaxButtons = document.querySelector('.form-ajax button');
+    [].forEach.call(ajaxButtons, function (el) {
+        el.setAttribute('disabled', true);
+    });
+</script>
+
 <script src="<?= ROOT ?>vendor/jquery-3.3.1.min.js"></script>
 <script src="//cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
 <script src="<?= ROOT ?>vendor/jquery.generate-url.js"></script>

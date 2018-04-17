@@ -31,6 +31,8 @@ function attachForms() {
         }
     });
 
+    $('.form-ajax button').attr('disabled', false);
+
     $('.form-instsub *').change(function () {
         $(this).closest('form').submit();
     });

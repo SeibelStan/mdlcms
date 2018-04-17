@@ -272,8 +272,11 @@ class A_BaseModel {
         return dbd($sql);
     }
 
-    public function search($query, $limit = 12) {
+    public function search($query, $sort = false, $limit = false) {
         $query = clear($query);
+        $sort = $sort ?: 'id desc';
+        $limit = $limit ?: 12;
+
         $modelsList = $this->getName() == 'a_basemodel' ? Admin::getModelsList() : [$this->getName()];
         $results = [];
         foreach($modelsList as $modelName) {
@@ -283,15 +286,10 @@ class A_BaseModel {
                 foreach($searchable as $field) {
                     $sql .= " $field like '%$query%' or";
                 }
-                $sql = preg_replace('/or$/', '', $sql);
-                $sql .= " order by id desc limit $limit";
+                $sql = preg_replace('/or$/', '', $sql);               
+                $sql .= " order by $sort limit $limit";
                 $result = dbs($sql);
                 foreach($result as $unit) {
-                    foreach(['id', 'login', 'full_name', 'name', 'title'] as $tryName) {
-                        if(isset($unit->$tryName) && $unit->$tryName) {
-                            $unit->display_name = $unit->$tryName;
-                        }
-                    }
                     $unit->url = isset($unit->url) && $unit->url ? $unit->url : $unit->id;
                     $unit->link = ROOT . strtolower($model->getName()) . '/' . $unit->url;
                     $unit->content = isset($unit->content) ? $unit->content : false;
