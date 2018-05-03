@@ -63,3 +63,7 @@ $router->map('GET', '/r/[a:reflink]', 'HelpersController::setReflink');
 
 // Attempts
 $router->map('GET', '/' . CRONKEY . '/attempts/reset', 'Attempts::reset');
+
+// Bot
+$router->map('GET|POST', '/bot', 'BotController::index');
+$router->map('GET', '/bot/init', 'BotController::init');

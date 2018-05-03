@@ -10,7 +10,7 @@ define('ATTEMPTS', 0);
 define('MAILS', 0);
 define('EMAIL_CONTACT', 'seibel.stan@ya.ru');
 
-$db = new mysqli('localhost', 'root', 'sss');
+$db = new mysqli('localhost', 'debian-sys-maint', 'KtmZa3EizMfP4zVR');
 $db->select_db('mdlcms');
 $db->query("SET NAMES utf8");
 

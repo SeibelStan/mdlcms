@@ -2,12 +2,19 @@
 
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 define('SITE_NAME', 'MDLCMS');
+define('CURRENCY', 'KZT');
+
 define('SITE_HOST', $_SERVER['HTTP_HOST']);
 define('EMAIL_ADMIN', 'admin@' . SITE_HOST);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
-define('CURRENCY', 'KZT');
+
 define('CRONKEY', 'cron-key');
 define('YANDEXKEY', 'trnsl.1.1.20170623T123335Z.781b890cb1136c8f.63af157d7ddb58d288c4378d40999ddabaa54c12');
+
+define('BOTTOKEN', '118729506:AAE5MraZTlJJjPjbUlAH68PyxFWzjTel4Fg');
+define('BOTAPI', 'https://api.telegram.org/bot' . BOTTOKEN . '/');
+define('BOTMYID', 53540040);
+$BOT = new Telegram(BOTTOKEN);
 
 if(preg_match('/\./', SITE_HOST)) {
     define('ENV', 'prod');
