@@ -8,17 +8,16 @@ class AdminController extends BaseController {
         include(view('admin/index'));
     }
 
-    public static function table($modelName) {
+    public static function table($model) {
         guardRoles('admin');
         $limit = max(clearRequest('limit'), 50);
         $page = max(clearRequest('page'), 1);
         $sort = clearRequest('sort') ?: "id desc";
 
-        $model = new $modelName();
-        $units = $model->getUnits(false, $sort, $limit, $page);
-        $pagination = $model->paginate(false, $sort, $limit, $page);
+        $units = $model::getUnits(false, $sort, $limit, $page);
+        $pagination = $model::paginate(false, $sort, $limit, $page);
 
-        $pageTitle = $model->getTitle();
+        $pageTitle = $model::getTitle();
         include(view('admin/table'));
     }
 
@@ -26,32 +25,30 @@ class AdminController extends BaseController {
         guardRoles('admin');
         $modelsList = Admin::getModelsList();
         $modelListExemps = [];
-        foreach($modelsList as $modelName) {
-            array_push($modelListExemps, new $modelName());
+        foreach($modelsList as $model) {
+            array_push($modelListExemps, $model);
         }
         $pageTitle = 'Модели';
         include(view('admin/edit-models'));
     }
 
-    public static function editUnit($modelName, $id = 0) {
+    public static function editUnit($model, $id = 0) {
         guardRoles('admin');
-        $model = new $modelName();
-        $fields = $model->getFields($id);
-        $units = $model->getUnits(false, "id desc");
-        $pageTitle = $model->getTitle();
+        $fields = $model::getFields($id);
+        $units = $model::getUnits(false, "id desc");
+        $pageTitle = $model::getTitle();
         include(view('admin/edit-model'));
     }
 
-    public static function save($modelName, $id = 0) {
+    public static function save($model, $id = 0) {
         guardRoles('admin');
-        $model = new $modelName();
-        $model->save($data = $_REQUEST, $id);
+        $model::save($data = $_REQUEST, $id);
         $result = [
             'message' => 'Сохранено',
             'type' => 'success'
         ];
         if(!$id) {
-            $result['callback'] = 'location.href = "' . ROOT . 'admin/edit-models/' . $modelName . '";';
+            $result['callback'] = 'location.href = "' . ROOT . 'admin/edit-models/' . $model . '";';
         }
 
         if(getJS()) {
@@ -63,17 +60,15 @@ class AdminController extends BaseController {
         }
     }
 
-    public static function delete($modelName, $id = 0) {
+    public static function delete($model, $id = 0) {
         guardRoles('admin');
-        $model = new $modelName();
-        $model->delete('id', $id);
-        redirect(ROOT . 'admin/edit-models/' . $modelName);
+        $model::delete('id', $id);
+        redirect(ROOT . 'admin/edit-models/' . $model);
     }
 
-    public static function filter($modelName) {
+    public static function filter($model) {
         $query = request('query');
-        $model = new $modelName();
-        $result = $model->search($query);
+        $result = $model::search($query);
         $options = '';
         foreach($result as $unit) {
             $options .= '<option data-id="' . $unit->id . '">' . $unit->display_name . '</option>';

@@ -2,11 +2,11 @@
 
 class Info extends A_BaseModel {
 
-    public $table = 'info';
-    public $title = 'Инфо';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'info';
+    public static $title = 'Инфо';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'        => 'int(11)::key_ai',
         'title'     => 'varchar(100)',
         'url'       => 'varchar(100)',
@@ -18,14 +18,14 @@ class Info extends A_BaseModel {
         'date'      => 'timestamp:NOW()',
         'dateup'    => 'timestamp:NOW()'
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden',
         'dateup' => 'hidden',
         'content' => 'wysiwyg'
     ];
-    public $noEmpty = ['date', 'dateup'];
-    public $searchable = ['title', 'url', 'content'];
-    public $titles = [
+    public static $noEmpty = ['date', 'dateup'];
+    public static $searchable = ['title', 'url', 'content'];
+    public static $titles = [
         'title'     => 'Название',
         'url'       => 'Ссылка ЧПУ',
         'content'   => 'Описание',

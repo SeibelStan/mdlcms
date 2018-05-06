@@ -222,7 +222,7 @@ function tr($data, $fallback = true) {
 function exportToCsv($table, $fields, $filename = 'export.csv') {
     global $db;
     $sql_query = "SELECT {$fields} FROM {$table}";
- 
+
     $result = $db->query($sql_query);
 
     $f = fopen('php://temp', 'wt');
@@ -302,14 +302,14 @@ function arrayMultiSort($array, $args = []) {
     return $array;
 }
 
-function smail($title, $text, $to, $from = 'admin') {
+function smail($title, $text, $to, $from = 'info', $name = SITE_NAME) {
     $from .= '@' . SITE_HOST;
     if(!preg_match('/@/', $to)) {
         $to .= '@' . SITE_HOST;
     }
 
     $headers  = "Content-type: text/html; charset=utf-8 \r\n";
-    $headers .= "From: <" . $from . ">\r\n";
+    $headers .= "From: $name<" . $from . ">\r\n";
     return mail($to, $title, $text, $headers);
 }
 

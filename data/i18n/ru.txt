@@ -5,3 +5,10 @@ orderstatus_1  | Принят
 orderstatus_2  | Передан доставке
 orderstatus_3  | Доставлен
 orderstatus_5  | Завершен
+
+login | Логин
+log_in | Вход
+sign_up | Регистрация
+login_or_email | Логин или почта
+password | Пароль
+forgot_password | Напомнить пароль

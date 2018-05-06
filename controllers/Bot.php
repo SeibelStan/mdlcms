@@ -27,8 +27,6 @@ class BotController extends BaseController {
         $method = preg_replace('/\//', '', $attrs[0]);
         $attrs = array_splice($attrs, 1);
 
-        $mdlUsers = new Users();
-
         $response = preg_replace('/^\s+/m', '', $response);
 
         if($test) {

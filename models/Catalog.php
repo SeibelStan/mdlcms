@@ -2,11 +2,11 @@
 
 class Catalog extends A_BaseModel {
 
-    public $table = 'catalog';
-    public $title = 'Каталог';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'catalog';
+    public static $title = 'Каталог';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'        => 'int(11)::key_ai',
         'title'     => 'varchar(100)',
         'url'       => 'varchar(100)',
@@ -21,15 +21,15 @@ class Catalog extends A_BaseModel {
         'date'      => 'timestamp:NOW()',
         'dateup'    => 'timestamp:NOW()'
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden',
         'date' => 'hidden',
         'dateup' => 'hidden',
         'content' => 'wysiwyg'
     ];
-    public $noEmpty = ['date', 'dateup'];
-    public $searchable = ['title', 'url', 'content'];
-    public $titles = [
+    public static $noEmpty = ['date', 'dateup'];
+    public static $searchable = ['title', 'url', 'content'];
+    public static $titles = [
         'title'     => 'Название',
         'url'       => 'Ссылка ЧПУ',
         'price'     => 'Цена',

@@ -1,20 +1,18 @@
 <?php
 
-foreach($models as $modelName) {
+foreach($models as $model) {
 
-    $model = new $modelName();
+    $table = isset($model::$table) ? $model::$table : false;;
 
-    $table = isset($model->table) ? $model->table : false;;
-
-    if($table && isset($model->drop)) {
-        $db->query("drop table $model->table");
+    if($table && isset($model::$drop)) {
+        $db->query("drop table $model::$table");
     }
 
-    if(!$table || tableExists($model->table)) {
+    if(!$table || tableExists($model::$table)) {
         continue;
     }
 
-    $fields = $model->fields;
+    $fields = $model::$fields;
 
     $prepfields = [];
     foreach($fields as $name => $value) {
@@ -43,7 +41,7 @@ foreach($models as $modelName) {
     $sql .= ") ENGINE=InnoDB DEFAULT CHARSET=utf16;\n\n";
     $db->query($sql);
     echo $sql . "<br>";
-    
+
     foreach($prepfields as $field) {
         if($field->key) {
             $sql = "ALTER TABLE `" . $table . "` ADD PRIMARY KEY (`" . $field->name . "`);\n\n";
@@ -58,9 +56,9 @@ foreach($models as $modelName) {
 
 $migrated = false;
 $migrDir = 'data/migrations/';
-$sql_files = scandir($migrDir);
-$sql_files = delDots($sql_files);
-foreach($sql_files as $file) {
+$sqlFiles = scandir($migrDir);
+$sqlFiles = delDots($sqlFiles);
+foreach($sqlFiles as $file) {
     $table = preg_replace('/\.\w+$/', '', $file);
     if(tableExists($table)) {
         continue;

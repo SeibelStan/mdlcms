@@ -2,11 +2,11 @@
 
 class Menu extends A_BaseModel {
 
-    public $table = 'menu';
-    public $title = 'Меню';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'menu';
+    public static $title = 'Меню';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'        => 'int(11)::key_ai',
         'namespace' => 'varchar(20)',
         'title'     => 'varchar(100)',
@@ -15,12 +15,12 @@ class Menu extends A_BaseModel {
         'params'    => 'varchar(255)',
         'sort'      => 'varchar(10)'
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden',
         'link' => 'text',
         'params' => 'text'
     ];
-    public $titles = [
+    public static $titles = [
         'namespace' => 'Пространство',
         'title'     => 'Название',
         'link'      => 'Ссылка',

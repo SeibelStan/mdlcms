@@ -2,20 +2,20 @@
 
 class Bans extends A_BaseModel {
 
-    public $table = 'bans';
-    public $title = 'Баны';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'bans';
+    public static $title = 'Баны';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'      => 'int(11)::key_ai',
         'ip'      => 'varchar(20)',
         'user_id' => 'int(11)',
         'date'    => 'timestamp:NOW()',
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden'
     ];
-    public $titles = [
+    public static $titles = [
         'ip'      => 'IP-адрес',
         'user_id' => 'ID пользователя',
         'date'    => 'Дата добавления'
@@ -26,8 +26,7 @@ class Bans extends A_BaseModel {
         $data->ip = isset($data->ip) ? $data->ip : USER_IP;
         $data->user_id = isset($data->user_id) ? $data->login : USERID;
 
-        $model = new Bans();
-        $model->save([
+        Bans::save([
             'ip'      => $data->ip,
             'user_id' => $data->user_id,
         ]);
@@ -37,9 +36,8 @@ class Bans extends A_BaseModel {
         $data = (object)$data;
         $data->ip = isset($data->ip) ? $data->ip : USER_IP;
         $data->user_id = isset($data->user_id) ? $data->login : USERID;
-    
-        $model = new Bans();
-        return $model->getUnits("ip = '$data->ip' or (user_id <> 0 and user_id = '$data->user_id')");
+
+        return Bans::getUnits("ip = '$data->ip' or (user_id <> 0 and user_id = '$data->user_id')");
     }
 
 }

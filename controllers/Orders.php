@@ -3,13 +3,11 @@
 class OrdersController extends BaseController {
 
     public static function index() {
-        $model = new Orders();
-        $cartModel = new Cart();
-        $orders = $model->getUnits("user_id = '" . USERID . "' or session = '" . session_id() . "'", "date desc");
+        $orders = Orders::getUnits("user_id = '" . USERID . "' or session = '" . session_id() . "'", "date desc");
         foreach($orders as $order) {
-            $order->items = $cartModel->getItems($order->items);
+            $order->items = Cart::getItems($order->items);
         }
-        $pageTitle = $model->getTitle();
+        $pageTitle = Orders::getTitle();
         include(view('users/orders'));
     }
 
@@ -21,9 +19,8 @@ class OrdersController extends BaseController {
             ]);
             exit();
         }
-        $model = new Orders();
-        $result = $model->create($_REQUEST);
-        
+        $result = Orders::create($_REQUEST);
+
         if(getJS()) {
             echo json_encode($result);
         }

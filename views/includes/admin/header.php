@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
     <script>
         var ROOT = '<?= ROOT ?>';
-        var domainURL = '<?= SITE_DOMAIN ?>';
+        var domainURL = '<?= FULLHOST ?>';
     </script>
     <?php $codeparts = Helpers::getCodeparts('admin'); ?>
     <?php include(view('includes/codeparts')) ?>
@@ -36,7 +36,7 @@
                 </li>
             <?php endforeach; ?>
         </ul>
-         
+
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">

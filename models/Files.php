@@ -1,7 +1,7 @@
 <?php
 
 class Files extends A_BaseModel {
-    
+
     public $title = 'Файлы';
 
     public $uploadRoot = 'data/files/';
@@ -106,7 +106,7 @@ class Files extends A_BaseModel {
         }
         return 1;
     }
-    
+
     public function rename($oldName, $newName) {
         print_r(scandir($oldName));
         print_r(scandir($newName));

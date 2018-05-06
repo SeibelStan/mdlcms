@@ -2,11 +2,11 @@
 
 class Users extends A_BaseModel {
 
-    public $table = 'users';
-    public $title = 'Пользователи';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'users';
+    public static $title = 'Пользователи';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'         => 'int(11)::key_ai',
         'login'      => 'varchar(100)',
         'full_name'  => 'varchar(100)',
@@ -24,19 +24,19 @@ class Users extends A_BaseModel {
         'register'   => 'timestamp:NOW()',
         'dateup'     => 'timestamp:NOW()'
     ];
-    public $fillable = ['full_name', 'tel', 'email', 'address', 'about', 'password', 'reflink'];
-    public $required = ['full_name', 'email'];
-    public $inputTypes = [
+    public static $fillable = ['full_name', 'tel', 'email', 'address', 'about', 'password', 'reflink'];
+    public static $required = ['full_name', 'email'];
+    public static $inputTypes = [
         'password' => 'password',
         'hash'     => 'hidden'
     ];
-    public $pattern = [
+    public static $pattern = [
         'login' => ['[A-z][A-z_0-9]{2,50}', '3+ символов, может содержать буквы, цифры и _'],
         'full_name' => ['[А-яA-z ]{3,50}', '3+ символов, может содержать буквы и пробел'],
         'password' => ['.{6,128}', '6+ символов']
     ];
-    public $noEmpty = ['dateup'];
-    public $titles = [
+    public static $noEmpty = ['dateup'];
+    public static $titles = [
         'id'         => 'ID',
         'login'      => 'Логин',
         'full_name'  => 'Имя',
@@ -96,7 +96,7 @@ class Users extends A_BaseModel {
         }
 
         $user = $this->getByField('lower(login)', mb_strtolower($data['login']), "and active");
-        
+
         if($user) {
             return [
                 'message' => 'Пользователь существует'
@@ -136,7 +136,7 @@ class Users extends A_BaseModel {
 
         $mailText = sprintf(
             file_get_contents('views/mail/register.html'),
-            SITE_DOMAIN,
+            FULLHOST,
             SITE_NAME
         );
         if(MAILS) {
@@ -157,6 +157,7 @@ class Users extends A_BaseModel {
             return $attempt;
         }
 
+        $lowerLogin = mb_strtolower($data['login']);
         $user = arrayFirst($this->getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
             and active"));
 
@@ -164,7 +165,8 @@ class Users extends A_BaseModel {
             $mailText = sprintf(
                 file_get_contents('views/mail/remind.html'),
                 passGen(8),
-                $user->hash
+                $user->hash,
+                FULLHOST
             );
 
             if(MAILS) {
@@ -196,11 +198,10 @@ class Users extends A_BaseModel {
             return 1;
         }
         return 0;
-    }      
+    }
 
     public function getReferrals($referrer) {
-        $model = new Users();
-        return $model->getUnits('login', $referrer);
+        return Users::getUnits('login', $referrer);
     }
 
     public function saveProfile($data) {

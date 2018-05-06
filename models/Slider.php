@@ -2,11 +2,11 @@
 
 class Slider extends A_BaseModel {
 
-    public $table = 'slider';
-    public $title = 'Слайдер';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'slider';
+    public static $title = 'Слайдер';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'        => 'int(11)::key_ai',
         'title'     => 'varchar(100)',
         'name'      => 'varchar(20)',
@@ -18,11 +18,11 @@ class Slider extends A_BaseModel {
         'dots'      => 'int(1)',
         'active'    => 'int(1):1'
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden'
     ];
-    public $noEmpty = ['speed', 'height', 'toshow', 'toscroll', 'date', 'dateup'];
-    public $titles = [
+    public static $noEmpty = ['speed', 'height', 'toshow', 'toscroll', 'date', 'dateup'];
+    public static $titles = [
         'title'     => 'Название',
         'name'      => 'Имя',
         'height'    => 'Высота в px',

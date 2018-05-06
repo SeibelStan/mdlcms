@@ -2,11 +2,11 @@
 
 class Banners extends A_BaseModel {
 
-    public $table = 'banners';
-    public $title = 'Баннеры / слайды';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'banners';
+    public static $title = 'Баннеры / слайды';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'       => 'int(11)::key_ai',
         'connect'  => 'varchar(20)',
         'title'    => 'varchar(100)',
@@ -16,10 +16,10 @@ class Banners extends A_BaseModel {
         'external' => 'int(1)',
         'active'   => 'int(1):1',
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden'
     ];
-    public $titles = [
+    public static $titles = [
         'connect'  => 'Привязан к',
         'title'    => 'Название',
         'content'  => 'Содержимое',

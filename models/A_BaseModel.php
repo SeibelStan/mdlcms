@@ -2,92 +2,36 @@
 
 class A_BaseModel {
 
-    public function checkNoEmptyFill($fieldName, $value) {
-        $this->noEmpty = isset($this->noEmpty) ? $this->noEmpty : [];
-        $noEmptyMerged = array_merge($this->noEmpty, ['id']);
-        if(!(in_array($fieldName, $noEmptyMerged))) {
-            return true;
-        }
-        return $value !== ''
-            && !preg_match('/0000-00-00/', $value)
-            && !preg_match('/1970-01-01/', $value);
-    }
-
-    public function isRemovable() {
-        return isset($this->removable) && $this->removable;
-    }
-
-    public function isAddable() {
-        return isset($this->addable) && $this->addable;
-    }
-
-    public function getName($lowercase = true) {
-        $name = get_called_class();
-        return $lowercase ? strtolower($name) : $name;
-    }
-
-    public function getTitle() {
-        return isset($this->title) && $this->title ? $this->title : (isset($this->table) ? $this->table : '');
-    }
-
-    public function getFillable() {
-        return isset($this->fillable) && $this->fillable ? $this->fillable : [];
-    }
-
-    public function isFillable($fieldName) {
-        return in_array($fieldName, $this->getFillable());
-    }
-
-    public function getRequired() {
-        return isset($this->required) && $this->required ? $this->required : [];
-    }
-
-    public function isRequired($fieldName) {
-        return in_array($fieldName, $this->getRequired());
-    }
-
-    public function getPattern($fieldName) {
-        return isset($this->pattern) && isset($this->pattern[$fieldName]) ? $this->pattern[$fieldName] : false;
-    }
-
-    public function getTable() {
-        return isset($this->table) && $this->table ? $this->table : false;
-    }
-
-    public function getSearchable() {
-        return isset($this->searchable) && $this->searchable ? $this->searchable : false;
-    }
-
-    public function getFieldTitle($fieldName) {
-        foreach($this->fields as $field) {
-            if(isset($this->titles) && in_array($fieldName, array_keys($this->titles))) {
-                return $this->titles[$fieldName];
+    public static function getFieldTitle($fieldName) {
+        foreach(static::$fields as $field) {
+            if(isset(static::$titles) && in_array($fieldName, array_keys(static::$titles))) {
+                return static::$titles[$fieldName];
             }
             else {
                 return $fieldName;
             }
-        }        
+        }
     }
 
-    public function getFields($id = 0, $fillable = false) {
-        $exemp = $this->getByField('id', $id);
-        $fields = $this->fields;
+    public static function getFields($id = 0, $fillable = false) {
+        $exemp = static::getByField('id', $id);
+        $fields = static::$fields;
         $prepfields = [];
         foreach($fields as $name => $value) {
-            if($fillable && !$this->isFillable($name)) {
+            if($fillable && !static::isFillable($name)) {
                 continue;
             }
 
             $pvalue = explode(':', $value);
             $type = $pvalue[0];
-            
-            if(isset($this->inputTypes) && isset($this->inputTypes[$name])) {
+
+            if(isset(static::$inputTypes) && isset(static::$inputTypes[$name])) {
                 $tareaClass = $exemp ? preg_match('/class=/', $exemp->$name) : false;
                 if($tareaClass) {
                     $control = 'textarea';
                 }
                 else {
-                    $control = $this->inputTypes[$name];
+                    $control = static::$inputTypes[$name];
                 }
             }
             elseif(preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || preg_match('/text/', $type)) {
@@ -108,10 +52,10 @@ class A_BaseModel {
 
             $field = (object) [
                 'name' => $name,
-                'title' => $this->getFieldTitle($name),
+                'title' => static::getFieldTitle($name),
                 'type' => $type,
                 'control' => $control,
-                'required' => $this->isRequired($name),
+                'required' => static::isRequired($name),
                 'value' => $exemp ? $exemp->$name : ''
             ];
 
@@ -120,22 +64,22 @@ class A_BaseModel {
         return $prepfields;
     }
 
-    public function checkPattern($pattern, $data) {
-        return preg_match('/^' . $this->pattern[$pattern][0] . '$/', $data);
+    public static function checkPattern($pattern, $data) {
+        return preg_match('/^' . static::pattern[$pattern][0] . '$/', $data);
     }
 
-    public function getByField($fieldName, $value, $condition = false) {
+    public static function getByField($fieldName, $value, $condition = false) {
         $parseName = explode('|', $fieldName);
         $fieldName = $parseName[0];
         $arg = isset($parseName[1]) ? $parseName[1] : '';
 
         switch($arg) {
             case 'like': {
-                $sql = "* from $this->table where $fieldName like '%$value%'";
+                $sql = "* from " . static::$table . " where $fieldName like '%$value%'";
                 break;
             }
             default: {
-                $sql = "* from $this->table where $fieldName = '$value'";
+                $sql = "* from " . static::$table . " where $fieldName = '$value'";
             }
         }
 
@@ -152,9 +96,9 @@ class A_BaseModel {
         return $result;
     }
 
-    public function paginate($condition = false, $sort = false, $limit = 1, $page = 1) {
+    public static function paginate($condition = false, $sort = false, $limit = 1, $page = 1) {
         global $db;
-        $sql = "count(id) as count from " . $this->getTable();
+        $sql = "count(id) as count from " . static::getTable();
         if($condition) {
             $sql .= " where " . $condition;
         }
@@ -172,7 +116,7 @@ class A_BaseModel {
         $iPage = 1;
         for($i = 1; $i <= $count; $i += $limit) {
             array_push($result, (object) [
-                'link' => ROOT . $this->getName() . '?page=' . $iPage,
+                'link' => ROOT . static::getName() . '?page=' . $iPage,
                 'title' => $iPage,
                 'active' => $iPage == $page,
             ]);
@@ -182,10 +126,10 @@ class A_BaseModel {
         return $result;
     }
 
-    public function getUnits($condition = false, $sort = false, $limit = false, $page = false) {
+    public static function getUnits($condition = false, $sort = false, $limit = false, $page = false) {
         global $db;
-        $sql = "* from " . $this->getTable();
-        
+        $sql = "* from " . static::getTable();
+
         if($condition) {
             $sql .= " where " . $condition;
         }
@@ -212,10 +156,10 @@ class A_BaseModel {
         return $units;
     }
 
-    public function save($data, $id = 0, $fillable = false) {
+    public static function save($data, $id = 0, $fillable = false) {
         global $db;
         $data['dateup'] = date('Y-m-d H:i:s');
-        $fields = $this->getFields($id, $fillable);
+        $fields = static::getFields($id, $fillable);
 
         foreach($fields as $field) {
             if($field->control == 'checkbox' && (isset($data[$field->name]) || isset($data['id']))) {
@@ -224,9 +168,9 @@ class A_BaseModel {
         }
 
         if($id) {
-            $sql = "update " . $this->getTable() . " set ";
+            $sql = "update " . static::getTable() . " set ";
             foreach($fields as $field) {
-                if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
+                if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
                 $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
@@ -237,9 +181,9 @@ class A_BaseModel {
             return $db->affected_rows;
         }
         else {
-            $sql = "insert into " . $this->getTable() . " (";
+            $sql = "insert into " . static::getTable() . " (";
             foreach($fields as $field) {
-                if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
+                if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
                 $sql .= $field->name . ", ";
@@ -247,7 +191,7 @@ class A_BaseModel {
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ") VALUES (";
             foreach($fields as $field) {
-                if(!isset($data[$field->name]) || !$this->checkNoEmptyFill($field->name, $data[$field->name])) {
+                if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
                 $sql .= "'" . $db->real_escape_string($data[$field->name]) . "', ";
@@ -259,39 +203,38 @@ class A_BaseModel {
         }
     }
 
-    public function delete($field, $value = 0, $condition = false) {
+    public static function delete($field, $value = 0, $condition = false) {
         $where = "where $field = '$value'";
         $where .= $condition ? " and " . $condition : '';
-        $sql = $this->getTable() . " $where";
+        $sql = static::getTable() . " $where";
         return dbd($sql);
     }
 
-    public function clear($condition = false) {
+    public static function clear($condition = false) {
         $where = $condition ? "where $condition" : "";
-        $sql = $this->getTable() . " $where";
+        $sql = static::getTable() . " $where";
         return dbd($sql);
     }
 
-    public function search($query, $sort = false, $limit = false) {
+    public static function search($query, $sort = false, $limit = false) {
         $query = clear($query);
         $sort = $sort ?: 'id desc';
         $limit = $limit ?: 12;
 
-        $modelsList = $this->getName() == 'a_basemodel' ? Admin::getModelsList() : [$this->getName()];
+        $modelsList = static::getName() == 'a_basemodel' ? Admin::getModelsList() : [static::getName()];
         $results = [];
-        foreach($modelsList as $modelName) {
-            $model = new $modelName();
-            if($searchable = $model->getSearchable()) {
-                $sql = "* from " . $model->getTable() . " where";
+        foreach($modelsList as $model) {
+            if($searchable = $model::getSearchable()) {
+                $sql = "* from " . $model::getTable() . " where";
                 foreach($searchable as $field) {
                     $sql .= " $field like '%$query%' or";
                 }
-                $sql = preg_replace('/or$/', '', $sql);               
+                $sql = preg_replace('/or$/', '', $sql);
                 $sql .= " order by $sort limit $limit";
                 $result = dbs($sql);
                 foreach($result as $unit) {
                     $unit->url = isset($unit->url) && $unit->url ? $unit->url : $unit->id;
-                    $unit->link = ROOT . strtolower($model->getName()) . '/' . $unit->url;
+                    $unit->link = ROOT . strtolower($model::getName()) . '/' . $unit->url;
                     $unit->content = isset($unit->content) ? $unit->content : false;
                     $unit->date = isset($unit->date) ? $unit->date : false;
                     if(isset($unit->image)) {
@@ -307,6 +250,62 @@ class A_BaseModel {
             }
         }
         return $results;
+    }
+
+    public static function checkNoEmptyFill($fieldName, $value) {
+        static::$noEmpty = isset(static::$noEmpty) ? static::$noEmpty : [];
+        $noEmptyMerged = array_merge(static::$noEmpty, ['id']);
+        if(!(in_array($fieldName, $noEmptyMerged))) {
+            return true;
+        }
+        return $value !== ''
+            && !preg_match('/0000-00-00/', $value)
+            && !preg_match('/1970-01-01/', $value);
+    }
+
+    public static function isRemovable() {
+        return isset(static::$removable) && static::$removable;
+    }
+
+    public static function isAddable() {
+        return isset(static::$addable) && static::$addable;
+    }
+
+    public static function getName($lowercase = true) {
+        $name = get_called_class();
+        return $lowercase ? strtolower($name) : $name;
+    }
+
+    public static function getTitle() {
+        return isset(static::$title) && static::$title ? static::$title : (isset(static::$table) ? static::$table : '');
+    }
+
+    public static function getFillable() {
+        return isset(static::$fillable) && static::$fillable ? static::$fillable : [];
+    }
+
+    public static function isFillable($fieldName) {
+        return in_array($fieldName, static::getFillable());
+    }
+
+    public static function getRequired() {
+        return isset(static::$required) && static::$required ? static::$required : [];
+    }
+
+    public static function isRequired($fieldName) {
+        return in_array($fieldName, static::getRequired());
+    }
+
+    public static function getPattern($fieldName) {
+        return isset(static::$pattern) && isset(static::$pattern[$fieldName]) ? static::$pattern[$fieldName] : false;
+    }
+
+    public static function getTable() {
+        return isset(static::$table) && static::$table ? static::$table : false;
+    }
+
+    public static function getSearchable() {
+        return isset(static::$searchable) && static::$searchable ? static::$searchable : false;
     }
 
 }

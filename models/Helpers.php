@@ -3,8 +3,7 @@
 class Helpers extends A_BaseModel {
 
     public static function getMenu($namespace) {
-        $model = new Menu();
-        $items = $model->getUnits("namespace = '$namespace'", "sort asc, title asc");
+        $items = Menu::getUnits("namespace = '$namespace'", "sort asc, title asc");
         foreach($items as $item) {
             $linkPreg = preg_replace('/\//', '\/', ROOT . $item->link);
             $item->active = preg_match('/' . $linkPreg . '/', $_SERVER['REQUEST_URI']);
@@ -13,17 +12,15 @@ class Helpers extends A_BaseModel {
     }
 
     public static function getCodeparts($namespace = false) {
-        $model = new Codeparts();
-        return $model->getUnits($namespace ? "namespace = '$namespace'" : '');
+        return Codeparts::getUnits($namespace ? "namespace = '$namespace'" : '');
     }
 
     public static function getUser($id = USERID) {
         $id = $id ?: session('user_id');
-        $model = new Users;
 
-        $user = $model->getByField('id', $id);
+        $user = Users::getByField('id', $id);
         if(!$user) {
-            $user = $model->getByField('login', $id);
+            $user = Users::getByField('login', $id);
         }
         return $user;
     }

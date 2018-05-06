@@ -2,7 +2,7 @@
 
 <?php if(!$directUnit->static) : ?>
     <ul class="nav">
-        <li class="nav-item"><a href="<?= ROOT ?><?= $model->getName() ?>" class="nav-link"><?= $model->getTitle() ?></a>
+        <li class="nav-item"><a href="<?= ROOT ?><?= $model::getName() ?>" class="nav-link"><?= $model::getTitle() ?></a>
         <li class="nav-item"><span class="nav-link"><?= $directUnit->title ?></span>
     </ul>
 <?php endif; ?>

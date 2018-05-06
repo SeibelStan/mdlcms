@@ -3,8 +3,7 @@
 class CartController extends BaseController {
 
     public static function get() {
-        $model = new Cart();
-        $result = $model->get();
+        $result = Cart::get();
 
         if(getJS()) {
             echo json_encode($result);
@@ -15,8 +14,7 @@ class CartController extends BaseController {
     }
 
     public static function add() {
-        $model = new Cart();
-        $result = $model->add($_REQUEST);
+        $result = Cart::add($_REQUEST);
 
         if(getJS()) {
             echo json_encode($result);
@@ -28,8 +26,7 @@ class CartController extends BaseController {
     }
 
     public static function remove() {
-        $model = new Cart();
-        $model->delete('id', request('id'), "user_id = '" . USERID . "' or session = '" . session_id() . "'");
+        Cart::delete('id', request('id'), "user_id = '" . USERID . "' or session = '" . session_id() . "'");
         $result = [
             'callback' => 'getCart()'
         ];

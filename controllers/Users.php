@@ -4,8 +4,7 @@ class UsersController extends BaseController {
 
     public static function index() {
         guardAuth();
-        $model = new Users();
-        $fields = $model->getFields(USERID, true);
+        $fields = Users::getFields(USERID, true);
         $pageTitle = user()->login;
         include(view('users/index'));
     }
@@ -14,13 +13,12 @@ class UsersController extends BaseController {
         if(USERID) {
             redirect(ROOT . 'users');
         }
-        $pageTitle = 'Вход';
+        $pageTitle = tr('log_in');
         include(view('users/login'));
     }
 
     public static function doLogin($login = '', $password = '') {
-        $model = new Users();
-        $result = $model->login($_REQUEST);
+        $result = Users::login($_REQUEST);
 
         if(getJS()) {
             echo json_encode($result);
@@ -32,15 +30,14 @@ class UsersController extends BaseController {
     }
 
     public static function register() {
-        $pageTitle = 'Регистрация';
+        $pageTitle = tr('sign_up');
         include(view('users/register'));
     }
 
     public static function doRegister() {
-        $model = new Users();
-        $result = $model->register($_REQUEST);
+        $result = Users::register($_REQUEST);
         if(isset($result['user'])) {
-            $model->login($_REQUEST);
+            Users::login($_REQUEST);
         }
 
         if(getJS()) {
@@ -58,8 +55,7 @@ class UsersController extends BaseController {
     }
 
     public static function save() {
-        $model = new Users();
-        $result = $model->saveProfile($_REQUEST);
+        $result = Users::saveProfile($_REQUEST);
 
         if(getJS()) {
             echo json_encode($result);
@@ -71,11 +67,10 @@ class UsersController extends BaseController {
     }
 
     public static function remind() {
-        $model = new Users();
-        $result = $model->remind([
+        $result = Users::remind([
             'login' => clearRequest('login')
         ]);
-        
+
         if(getJS()) {
             echo json_encode($result);
         }
@@ -86,8 +81,7 @@ class UsersController extends BaseController {
     }
 
     public static function restore() {
-        $model = new Users();
-        $model->restore([
+        Users::restore([
             'hash' => clearRequest('hash'),
             'pass' => clearRequest('pass'),
         ]);

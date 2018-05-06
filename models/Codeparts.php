@@ -2,11 +2,11 @@
 
 class Codeparts extends A_BaseModel {
 
-    public $table = 'codeparts';
-    public $title = 'Части кода';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'codeparts';
+    public static $title = 'Части кода';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'        => 'int(11)::key_ai',
         'namespace' => 'varchar(20)',
         'title'     => 'varchar(50)',
@@ -16,11 +16,11 @@ class Codeparts extends A_BaseModel {
         'content'   => 'text',
         'params'    => 'varchar(255)'
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden'
     ];
-    public $fillable = ['name', 'content'];
-    public $titles = [
+    public static $fillable = ['name', 'content'];
+    public static $titles = [
         'namespace' => 'Пространство',
         'title'     => 'Название',
         'type'      => 'Тип (script, stylesheet, style, meta)',

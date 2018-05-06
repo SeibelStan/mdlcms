@@ -2,11 +2,11 @@
 
 class Attempts extends A_BaseModel {
 
-    public $table = 'attempts';
-    public $title = 'Попытки';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'attempts';
+    public static $title = 'Попытки';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'      => 'int(11)::key_ai',
         'type'    => 'varchar(20)',
         'ip'      => 'varchar(20)',
@@ -15,10 +15,10 @@ class Attempts extends A_BaseModel {
         'date'    => 'timestamp:NOW()',
     ];
 
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden'
     ];
-    public $titles = [
+    public static $titles = [
         'type'    => 'Тип',
         'ip'      => 'IP-адрес',
         'user_id' => 'ID пользователя',
@@ -37,14 +37,13 @@ class Attempts extends A_BaseModel {
         $data->ip = isset($data->ip) ? $data->ip : USER_IP;
         $data->user_id = isset($data->user_id) ? $data->login : USERID;
 
-        $model = new Attempts();
-        $model->save([
+        Attempts::save([
             'type'    => $type,
             'ip'      => $data->ip,
             'user_id' => $data->user_id,
             'data'    => json_encode($data)
         ]);
-        
+
         return Attempts::check($type);
     }
 
@@ -67,8 +66,7 @@ class Attempts extends A_BaseModel {
             ]
         ];
 
-        $model = new Attempts();
-        $units = $model->getUnits("(ip = '$data->ip' or (user_id <> 0 and user_id = '$data->user_id')) and type = '$type'");
+        $units = Attempts::getUnits("(ip = '$data->ip' or (user_id <> 0 and user_id = '$data->user_id')) and type = '$type'");
 
         $count = count($units);
         $action = '';
@@ -95,8 +93,7 @@ class Attempts extends A_BaseModel {
     }
 
     public static function reset() {
-        $model = new Attempts();
-        echo $model->clear();
+        echo Attempts::clear();
         back();
     }
 

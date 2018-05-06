@@ -2,11 +2,11 @@
 
 class Orders extends A_BaseModel {
 
-    public $table = 'orders';
-    public $title = 'Заказы';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'orders';
+    public static $title = 'Заказы';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'      => 'int(11)::key_ai',
         'user_id' => 'varchar(64)',
         'links'   => 'text',
@@ -18,8 +18,8 @@ class Orders extends A_BaseModel {
         'date'    => 'timestamp:NOW()',
         'dateup'  => 'timestamp:NOW()'
     ];
-    public $noEmpty = ['date', 'dateup'];
-    public $titles = [
+    public static $noEmpty = ['date', 'dateup'];
+    public static $titles = [
         'id'      => '№ заказа',
         'user_id' => 'Пользователь',
         'links'   => 'Ссылки',
@@ -29,18 +29,17 @@ class Orders extends A_BaseModel {
         'items'   => 'Предметы',
         'session' => 'Сессия',
         'date'    => 'Дата добавления',
-        'date'    => 'Дата обновления'
+        'dateup'  => 'Дата обновления'
     ];
 
-    public function create($data) {
+    public static function create($data) {
         global $db;
-        $model = new Cart();
-        $cartItems = $model->get();
+        $cartItems = Cart::get();
         $data['items'] = [];
         $data['links'] = [];
         foreach($cartItems as $cartItem) {
             array_push($data['items'], $cartItem->cart_id);
-            array_push($data['links'], SITE_DOMAIN . ROOT . $cartItem->model . '/' . $cartItem->id);
+            array_push($data['links'], FULLHOST . ROOT . $cartItem->model . '/' . $cartItem->id);
         }
         $data['items'] = implode(',', $data['items']);
         $data['links'] = implode("\n", $data['links']);
@@ -48,11 +47,12 @@ class Orders extends A_BaseModel {
         $data['session'] = session_id();
         $data['tel'] = user()->tel;
         $data['address'] = user()->address;
-        $this->save($data);
+
+        static::save($data);
         $lid = $db->insert_id;
 
         foreach($cartItems as $cartItem) {
-            dbu($model->getTable() . " set order_id = '$lid' where id = '$cartItem->cart_id'");
+            dbu(Cart::getTable() . " set order_id = '$lid' where id = '$cartItem->cart_id'");
         }
 
         return [

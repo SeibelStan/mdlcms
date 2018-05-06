@@ -42,9 +42,9 @@
                 <button type="submit" class="btn btn-success">В корзину</button>
             </div>
             <input type="hidden" name="item_id" value="<?= $directUnit->id ?>">
-            <input type="hidden" name="model" value="<?= $model->getName() ?>">
+            <input type="hidden" name="model" value="<?= $model::getName() ?>">
         </form>
-        
+
         <?php if($directUnit->content) : ?>
             <hr>
 

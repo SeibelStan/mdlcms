@@ -5,7 +5,7 @@ define('SITE_NAME', 'MDLCMS');
 define('CURRENCY', 'KZT');
 
 define('SITE_HOST', $_SERVER['HTTP_HOST']);
-define('EMAIL_ADMIN', 'admin@' . SITE_HOST);
+define('EMAIL_INFO', 'info@' . SITE_HOST);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 
 define('CRONKEY', 'cron-key');
@@ -24,7 +24,7 @@ else {
 }
 require('app/env-' . ENV . '.php');
 
-define('SITE_DOMAIN', (SSL_ENABLED ? 'https' : 'http') . '://' . SITE_HOST);
+define('FULLHOST', (SSL_ENABLED ? 'https' : 'http') . '://' . SITE_HOST);
 
 if(@$_SERVER['HTTP_USER_AGENT'] && preg_match('/curl/i', $_SERVER['HTTP_USER_AGENT'])) {
     ini_set('session.gc_maxlifetime', SESSION_TIME);

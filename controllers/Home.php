@@ -3,24 +3,21 @@
 class HomeController extends BaseController {
 
     public static function index() {
-        $modelSlider = new Slider();
-        $slider = $modelSlider->getByField('name', 'home');
-        $modelSlides = new Banners();
-        $slides = $modelSlides->getUnits("connect = 'home' and active", "rand()");
+        $slider = Slider::getByField('name', 'home');
+        $slides = Banners::getUnits("connect = 'home' and active", "rand()");
         include(view('home/index'));
     }
 
     public static function feedback() {
-        $model = new Feedback();
-        $fields = $model->getFields(0, true);
-        $pageTitle = $model->getTitle();
+        $model = 'feedback';
+        $fields = Feedback::getFields(0, true);
+        $pageTitle = Feedback::getTitle();
         include(view('home/feedback'));
     }
 
     public static function sendFeedback() {
-        $model = new Feedback();
-        $result = $model->send($_REQUEST);
-        
+        $result = Feedback::send($_REQUEST);
+
         if(getJS()) {
             echo json_encode($result);
         }
@@ -31,15 +28,15 @@ class HomeController extends BaseController {
     }
 
     public static function search() {
-        $model = new A_BaseModel();
-        $result = $model->search(request('searchQuery'), '', 12);
-        $pageTitle = $model->getTitle();
+        $query = request('searchQuery');
+        $result = A_BaseModel::search($query, '', 12);
+        $pageTitle = $query;
         include(view('home/search'));
     }
 
     public static function searchWidget() {
-        $model = new A_BaseModel();
-        $result = $model->search(request('searchQuery'), '', 5);
+        $query = request('searchQuery');
+        $result = A_BaseModel::search($query, '', 5);
 
         if(getJS()) {
             echo json_encode($result);

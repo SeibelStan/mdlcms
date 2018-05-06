@@ -2,11 +2,11 @@
 
 class Feedback extends A_BaseModel {
 
-    public $table = 'feedback';
-    public $title = 'Обратная связь';
-    public $addable = true;
-    public $removable = true;
-    public $fields = [
+    public static $table = 'feedback';
+    public static $title = 'Обратная связь';
+    public static $addable = true;
+    public static $removable = true;
+    public static $fields = [
         'id'      => 'int(11)::key_ai',
         'name'    => 'varchar(100)',
         'tel'     => 'varchar(50)',
@@ -14,17 +14,17 @@ class Feedback extends A_BaseModel {
         'content' => 'text',
         'date'    => 'timestamp:NOW()',
     ];
-    public $inputTypes = [
+    public static $inputTypes = [
         'id' => 'hidden'
     ];
-    public $fillable = ['name', 'tel', 'email', 'content'];
-    public $required = ['name', 'content'];
-    public $pattern = [
+    public static $fillable = ['name', 'tel', 'email', 'content'];
+    public static $required = ['name', 'content'];
+    public static $pattern = [
         'name' => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
         'email' => ['.+?@.+?\.[A-z]+', '']
     ];
-    public $noEmpty = ['date'];
-    public $titles = [
+    public static $noEmpty = ['date'];
+    public static $titles = [
         'name'    => 'Имя',
         'tel'     => 'Телефон',
         'email'   => 'Емаил',
@@ -45,7 +45,7 @@ class Feedback extends A_BaseModel {
             }
         }
         $this->save($data, 0, true);
-  
+
         if(MAILS) {
             smail('Отзыв от ' . $data['name'], $mailText, EMAIL_CONTACT);
         }

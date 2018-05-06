@@ -45,9 +45,9 @@ var Lightbox = (function ($) {
 			key: 'Default',
 
 			/**
-    
+
       Class properties:
-    
+
     _$element: null -> the <a> element currently being displayed
     _$modal: The bootstrap modal generated
        _$modalDialog: The .modal-dialog
@@ -579,7 +579,7 @@ var Lightbox = (function ($) {
 				if (!this._isBootstrap3) {
 					// v4 method is mistakenly protected
 					var modal = this._$modal.data('bs.modal');
-					if (modal) modal._handleUpdate();
+					if (modal) modal.handleUpdate();
 				} else {
 					var modal = this._$modal.data('bs.modal');
 					if (modal) modal.handleUpdate();
