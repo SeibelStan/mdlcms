@@ -25,7 +25,7 @@ session('alert-message', '');
 session('alert-type', '');
 
 if(!DEBUG && MAILS && $ERRORS) {
-    $logFile = 'errors.txt';
+    $logFile = 'data/errors.txt';
     if($ERRORS != file_get_contents($logFile)) {
         $headers = "Content-type: text/html; charset=utf-8\r\n";
         $headers .= "From: " . SITE_NAME . "<" . NOTIFY_EMAIL . ">\r\n";
