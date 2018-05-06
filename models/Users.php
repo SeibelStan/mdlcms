@@ -173,8 +173,10 @@ class Users extends A_BaseModel {
                 smail('Восстановление пароля для пользователя ' . $user->login, $mailText, $user->email);
             }
 
+           $maskEmail = preg_replace('/^(.).+?(.)@/', '$1***$2@', $user->email);
+
             return [
-                'message' => 'Письмо с паролем выслано на почту',
+                'message' => 'Письмо с паролем выслано на почту ' . $maskEmail,
                 'type' => 'success'
             ];
         }

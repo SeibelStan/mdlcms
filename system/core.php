@@ -403,3 +403,8 @@ function setResAlert($data) {
         setAlert($data['message'], @$data['type']);
     }
 }
+
+function errorHandler($num, $type, $file, $line, $context = null) {
+    global $ERRORS;
+    $ERRORS .= "$type $file #$line<br>";
+}
