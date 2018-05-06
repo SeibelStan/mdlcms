@@ -4,13 +4,18 @@ ini_set('date.timezone', 'Asia/Almaty');
 
 define('ROOT', '/');
 define('SSL_ENABLED', 0);
-define('DB_TIME_DELTA', 0);
 define('DEBUG', 0);
 define('ATTEMPTS', 1);
+
 define('MAILS', 1);
 define('EMAIL_CONTACT', 'info@' . SITE_HOST);
 
-$db = new mysqli('localhost', 'root', 'sss');
+define('BOT', 0);
+define('BOTMYID', 53540040);
+
+define('DB_TIME_DELTA', 0);
+
+$db = new mysqli('localhost', 'root', $KEYS->db_prod_pass);
 $db->select_db('mdlcms');
 $db->query("SET NAMES utf8");
 
