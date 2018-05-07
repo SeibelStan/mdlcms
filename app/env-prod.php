@@ -8,7 +8,7 @@ define('DEBUG', 0);
 define('ATTEMPTS', 1);
 
 define('MAILS', 1);
-define('EMAIL_CONTACT', 'info@' . SITE_HOST);
+define('EMAIL_CONTACT', 'info@' . DOMAIN);
 
 define('BOT', 0);
 define('BOTMYID', 53540040);

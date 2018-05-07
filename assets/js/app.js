@@ -177,8 +177,4 @@ $(function () {
         $(this).attr('type', $(this).attr('type') == 'text' ? 'password' : 'text');
     });
 
-    $('.form-login [name="login"').on('keyup, change', function () {
-        $('.form-remind [name="login"]').val($(this).val());
-    });
-
 });

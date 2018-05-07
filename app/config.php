@@ -4,8 +4,8 @@ setlocale(LC_ALL, 'ru_RU.UTF-8');
 define('SITE_NAME', 'MDLCMS');
 define('CURRENCY', 'KZT');
 
-define('SITE_HOST', $_SERVER['HTTP_HOST']);
-define('EMAIL_INFO', 'info@' . SITE_HOST);
+define('DOMAIN', $_SERVER['HTTP_HOST']);
+define('EMAIL_INFO', 'info@' . DOMAIN);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 
 $KEYS = pipeObj(file_get_contents('app/keys.txt'), '=');
@@ -17,7 +17,7 @@ define('BOTTOKEN', $KEYS->telegram);
 define('BOTAPI', 'https://api.telegram.org/bot' . BOTTOKEN . '/');
 $BOT = new Telegram(BOTTOKEN);
 
-if(preg_match('/\./', SITE_HOST)) {
+if(preg_match('/\./', DOMAIN)) {
     define('ENV', 'prod');
 }
 else {
@@ -25,7 +25,7 @@ else {
 }
 require('app/env-' . ENV . '.php');
 
-define('FULLHOST', (SSL_ENABLED ? 'https' : 'http') . '://' . SITE_HOST);
+define('FULLHOST', (SSL_ENABLED ? 'https' : 'http') . '://' . DOMAIN);
 
 if(@$_SERVER['HTTP_USER_AGENT'] && preg_match('/curl/i', $_SERVER['HTTP_USER_AGENT'])) {
     ini_set('session.gc_maxlifetime', SESSION_TIME);

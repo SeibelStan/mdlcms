@@ -303,9 +303,9 @@ function arrayMultiSort($array, $args = []) {
 }
 
 function smail($title, $text, $to, $from = 'info', $name = SITE_NAME) {
-    $from .= '@' . SITE_HOST;
+    $from .= '@' . DOMAIN;
     if(!preg_match('/@/', $to)) {
-        $to .= '@' . SITE_HOST;
+        $to .= '@' . DOMAIN;
     }
 
     $headers  = "Content-type: text/html; charset=utf-8 \r\n";
@@ -406,5 +406,5 @@ function setResAlert($data) {
 
 function errorHandler($num, $type, $file, $line, $context = null) {
     global $ERRORS;
-    $ERRORS .= "$type $file #$line<br>";
+    $ERRORS .= $_SERVER['REQUEST_URI'] . ", " . USERID . "<br>$type $file #$line<br><br>";
 }

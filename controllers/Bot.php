@@ -43,7 +43,7 @@ class BotController extends BaseController {
     }
 
     public static function init() {
-        $link = BOTAPI . 'setWebhook?url=https://' . SITE_HOST . '/bot';
+        $link = BOTAPI . 'setWebhook?url=https://' . DOMAIN . '/bot';
         file_get_contents($link);
         echo $link . '<br>ok';
     }
