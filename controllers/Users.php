@@ -49,24 +49,12 @@ class UsersController extends BaseController {
         }
     }
 
-    public static function logout() {
-        session_unset();
-        back();
-    }
-
-    public static function save() {
-        $result = Users::saveProfile($_REQUEST);
-
-        if(getJS()) {
-            echo json_encode($result);
-        }
-        else {
-            setResAlert($result);
-            back();
-        }
-    }
-
     public static function remind() {
+        $pageTitle = tr('pass_remind');
+        include(view('users/remind'));
+    }
+
+    public static function doRemind() {
         $result = Users::remind([
             'login' => clearRequest('login')
         ]);
@@ -86,6 +74,23 @@ class UsersController extends BaseController {
             'pass' => clearRequest('pass'),
         ]);
         redirect(ROOT);
+    }
+
+    public static function logout() {
+        session_unset();
+        back();
+    }
+
+    public static function save() {
+        $result = Users::saveProfile($_REQUEST);
+
+        if(getJS()) {
+            echo json_encode($result);
+        }
+        else {
+            setResAlert($result);
+            back();
+        }
     }
 
 }

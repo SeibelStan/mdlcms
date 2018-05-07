@@ -13,10 +13,7 @@
             </div>
             <button class="btn btn-primary" type="submit"><?= tr('log_in') ?></button>
         </form>
-        <form class="form-ajax form-remind mt-3" action="<?= ROOT ?>users/remind" method="post">
-            <input type="hidden" name="login" required>
-            <button class="btn btn-link" type="submit"><?= tr('forgot_password') ?></button>
-        </form>
+        <p class="mt-4"><a href="<?= ROOT ?>users/remind"><?= tr('pass_remind') ?></a></p>
     </div>
 </main>
 

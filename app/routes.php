@@ -20,12 +20,13 @@ $router->map('GET', '/users/login', 'UsersController::login');
 $router->map('GET|POST', '/users/do-login', 'UsersController::doLogin');
 $router->map('GET', '/users/register', 'UsersController::register');
 $router->map('GET|POST', '/users/do-register', 'UsersController::doRegister');
+$router->map('GET', '/users/remind', 'UsersController::remind');
+$router->map('POST', '/users/do-remind', 'UsersController::doRemind');
+$router->map('GET', '/users/restore', 'UsersController::restore');
 $router->map('GET|POST', '/users/logout', 'UsersController::logout');
 $router->map('POST', '/users/save', 'UsersController::save');
 $router->map('GET', '/users', 'UsersController::index');
 $router->map('GET', '/users/[i:id]', 'UsersController::index');
-$router->map('POST', '/users/remind', 'UsersController::remind');
-$router->map('GET', '/users/restore', 'UsersController::restore');
 
 // Cart
 $router->map('GET', '/cart/get', 'CartController::get');

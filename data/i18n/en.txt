@@ -11,4 +11,4 @@ log_in | Log in
 sign_up | Sign up
 login_or_email | Login or email
 password | Password
-forgot_password | Remind password
+pass_remind | Remind password

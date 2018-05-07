@@ -11,4 +11,4 @@ log_in | Вход
 sign_up | Регистрация
 login_or_email | Логин или почта
 password | Пароль
-forgot_password | Напомнить пароль
+pass_remind | Напомнить пароль

@@ -55,14 +55,14 @@ class Users extends A_BaseModel {
         'dateup'     => 'Дата обновления'
     ];
 
-    public function login($data) {
+    public static function login($data) {
         $attempt = Attempts::add('login', $data);
         if($attempt->action) {
             return $attempt;
         }
 
         $lowerLogin = mb_strtolower($data['login']);
-        $user = arrayFirst($this->getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
+        $user = arrayFirst(static::getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
             and password = '" . $data['password'] . "' and active"));
 
         if(!$user) {
@@ -73,7 +73,7 @@ class Users extends A_BaseModel {
 
         session('user_id', $user->id);
 
-        $this->save([
+        static::save([
             'login_date' => dateNowFull()
         ], $user->id);
 
@@ -84,7 +84,7 @@ class Users extends A_BaseModel {
         ];
     }
 
-    public function register($data) {
+    public static function register($data) {
         global $db;
         $attempt = Attempts::add('register', $data);
         if($attempt->action) {
@@ -95,7 +95,7 @@ class Users extends A_BaseModel {
             $row = clear($row);
         }
 
-        $user = $this->getByField('lower(login)', mb_strtolower($data['login']), "and active");
+        $user = static::getByField('lower(login)', mb_strtolower($data['login']), "and active");
 
         if($user) {
             return [
@@ -103,17 +103,17 @@ class Users extends A_BaseModel {
             ];
         }
 
-        $loginCorrect = $this->checkPattern('login', $data['login']);
+        $loginCorrect = static::checkPattern('login', $data['login']);
         if(!$loginCorrect) {
             return [
-                'message' => $this->pattern['login'][1]
+                'message' => static::$pattern['login'][1]
             ];
         }
 
-        $passwordCorrect = $this->checkPattern('password', $data['password']);
+        $passwordCorrect = static::checkPattern('password', $data['password']);
         if(!$passwordCorrect) {
             return [
-                'message' => $this->pattern['password'][1]
+                'message' => static::$pattern['password'][1]
             ];
         }
 
@@ -121,7 +121,7 @@ class Users extends A_BaseModel {
         $data['active'] = 1;
 
         if($data['reflink']) {
-            $referrer = $this->getByField('reflink', $data['reflink']);
+            $referrer = static::getByField('reflink', $data['reflink']);
             if($referrer) {
                 $data['referrer'] = $referrer->login;
             }
@@ -131,7 +131,7 @@ class Users extends A_BaseModel {
             $row = clear($row);
         }
 
-        $id = $this->save($data);
+        $id = static::save($data);
         session('user_id', $id);
 
         $mailText = sprintf(
@@ -151,14 +151,14 @@ class Users extends A_BaseModel {
         ];
     }
 
-    public function remind($data) {
+    public static function remind($data) {
         $attempt = Attempts::add('remind', $data);
         if($attempt->action) {
             return $attempt;
         }
 
         $lowerLogin = mb_strtolower($data['login']);
-        $user = arrayFirst($this->getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
+        $user = arrayFirst(static::getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
             and active"));
 
         if($user && $user->email) {
@@ -187,13 +187,13 @@ class Users extends A_BaseModel {
         }
     }
 
-    public function restore($data) {
-        $user = $this->getByField('hash', $data['hash']);
+    public static function restore($data) {
+        $user = static::getByField('hash', $data['hash']);
 
         if($user) {
             session('user_id', $user->id);
 
-            $this->save([
+            static::save([
                 'hash' => hashGen(),
                 'password' => $data['pass']
             ], $user->id);
@@ -202,11 +202,11 @@ class Users extends A_BaseModel {
         return 0;
     }
 
-    public function getReferrals($referrer) {
+    public static function getReferrals($referrer) {
         return Users::getUnits('login', $referrer);
     }
 
-    public function saveProfile($data) {
+    public static function saveProfile($data) {
         foreach($data as $k => &$row) {
             if(!preg_match('/password/', $k)) {
                 $row = clear($row);
@@ -224,13 +224,13 @@ class Users extends A_BaseModel {
             }
             unset($data['password_confirm']);
 
-            $passwordCorrect = $this->checkPattern('password', $data['password']);
+            $passwordCorrect = static::checkPattern('password', $data['password']);
             if(!$passwordCorrect) {
                 unset($data['password']);
             }
         }
 
-        $result = $this->save($data, USERID, true);
+        $result = static::save($data, USERID, true);
         if($result) {
             return [
                 'message' => 'Сохранено',

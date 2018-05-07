@@ -32,7 +32,7 @@ class Feedback extends A_BaseModel {
         'date'    => 'Дата добавления'
     ];
 
-    public function send($data) {
+    public static function send($data) {
         $attempt = Attempts::add('feedback', $data);
         if($attempt->action) {
             return $attempt;
@@ -40,11 +40,11 @@ class Feedback extends A_BaseModel {
 
         $mailText = '';
         foreach($data as $name => $value) {
-            if($this->isFillable($name)) {
-                $mailText .= '<p>' . $this->getFieldTitle($name) . ': ' . nl2br(strip_tags($value));
+            if(static::isFillable($name)) {
+                $mailText .= '<p>' . static::getFieldTitle($name) . ': ' . nl2br(strip_tags($value));
             }
         }
-        $this->save($data, 0, true);
+        static::save($data, 0, true);
 
         if(MAILS) {
             smail('Отзыв от ' . $data['name'], $mailText, EMAIL_CONTACT);
