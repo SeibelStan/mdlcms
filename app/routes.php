@@ -41,7 +41,7 @@ $router->map('POST', '/orders/create', 'OrdersController::create');
 $router->map('GET|POST', '/admin/files', 'FilesController::index');
 $router->map('POST', '/files/upload', 'FilesController::upload');
 $router->map('GET|POST', '/files/get', 'FilesController::get');
-$router->map('GET|POST', '/files/remove', 'FilesController::remove');
+$router->map('GET|POST', '/files/delete', 'FilesController::delete');
 $router->map('GET|POST', '/files/rename', 'FilesController::rename');
 $router->map('GET|POST', '/files/create-dir', 'FilesController::createDir');
 

@@ -65,7 +65,7 @@ var FM = {
         );
     },
 
-    filesRemove: function() {
+    filesDelete: function() {
         if(!confirm('Точно?')) {
             return false;
         }
