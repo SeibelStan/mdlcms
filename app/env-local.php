@@ -10,12 +10,14 @@ define('ATTEMPTS', 0);
 define('MAILS', 0);
 define('EMAIL_CONTACT', 'seibel.stan@ya.ru');
 
+/* @BOT
 define('BOT', 0);
 define('BOTMYID', 0);
+*/
 
 define('DB_TIME_DELTA', 0);
 
-$db = new mysqli('localhost', 'debian-sys-maint', $KEYS->db_local_pass);
+$db = new mysqli('localhost', $KEYS->db_local_user, $KEYS->db_local_pass);
 $db->select_db('mdlcms');
 $db->query("SET NAMES utf8");
 

@@ -9,13 +9,14 @@ define('EMAIL_INFO', 'info@' . DOMAIN);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 
 $KEYS = pipeObj(file_get_contents('app/keys.txt'), '=');
-
 define('CRONKEY', $KEYS->cron);
 define('YANDEXKEY', $KEYS->yandex);
 
+/* @BOT
 define('BOTTOKEN', $KEYS->telegram);
 define('BOTAPI', 'https://api.telegram.org/bot' . BOTTOKEN . '/');
 $BOT = new Telegram(BOTTOKEN);
+*/
 
 if(preg_match('/\./', DOMAIN)) {
     define('ENV', 'prod');
@@ -27,14 +28,14 @@ require('app/env-' . ENV . '.php');
 
 define('FULLHOST', (SSL_ENABLED ? 'https' : 'http') . '://' . DOMAIN);
 
-if(@$_SERVER['HTTP_USER_AGENT'] && preg_match('/curl/i', $_SERVER['HTTP_USER_AGENT'])) {
-    ini_set('session.gc_maxlifetime', SESSION_TIME);
-    ini_set('session.cookie_lifetime', SESSION_TIME);
-}
+ini_set('session.gc_maxlifetime', SESSION_TIME);
+ini_set('session.cookie_lifetime', SESSION_TIME);
 ini_set('session.save_path', SESSION_PATH);
 session_start();
 
 define('USERID', session('user_id') ?: 0);
 
+/*
 session('lang', getLang() != '' ? getLang() : getBrowserLang('ru'));
 session('js', getJS() == '' ? 1 : getJS());
+*/

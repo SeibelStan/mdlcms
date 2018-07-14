@@ -5,7 +5,7 @@
                 <label>
                     <?php
                         $fieldTitle = tr($field->name, false);
-                        if(checkAdminZone() || $fieldTitle == $field->name) {
+                        if(Helpers::checkAdminZone() || $fieldTitle == $field->name) {
                             $fieldTitle = $field->title;
                         }
                     ?>

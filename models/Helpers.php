@@ -43,4 +43,12 @@ class Helpers extends A_BaseModel {
         return $result->code == 200 ? $result->text[0] : $data;
     }
 
+    function checkAdminZone() {
+        $result = false;
+        if(preg_match('/admin/', $_SERVER['REQUEST_URI'])) {
+            $result = true;
+        }
+        return $result;
+    }    
+
 }

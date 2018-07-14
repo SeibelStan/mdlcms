@@ -60,14 +60,6 @@ function guardRoles($data) {
     }
 }
 
-function checkAdminZone() {
-    $result = false;
-    if(preg_match('/admin/', $_SERVER['REQUEST_URI'])) {
-        $result = true;
-    }
-    return $result;
-}
-
 function dbEscape($data) {
     global $db;
     return $db->real_escape_string($data);
@@ -142,15 +134,15 @@ function dateReformat($date, $format = 'd.m.y H:i') {
     return date($format, strtotime($date));
 }
 
-function passGen($length = 16) {
-    $pass =  base64_encode(md5(time()));
+function hashGen($length = 64) {
+    $hash = base64_encode(md5(time()));
     if($length) {
-        $pass = substr($pass, 0, $length);
+        $hash = substr($hash, 0, $length);
     }
-    return $pass;
+    return $hash;
 }
-function hashGen() {
-    return passGen(64);
+function passGen($length = 16) {
+    return hashGen($length);
 }
 
 function tableExists($tableName) {
@@ -217,35 +209,6 @@ function tr($data, $fallback = true) {
         }
     }
     return $data;
-}
-
-function exportToCsv($table, $fields, $filename = 'export.csv') {
-    global $db;
-    $sql_query = "SELECT {$fields} FROM {$table}";
-
-    $result = $db->query($sql_query);
-
-    $f = fopen('php://temp', 'wt');
-    $first = true;
-    while($row = $result->fetch_assoc()) {
-        if ($first) {
-            fputcsv($f, array_keys($row));
-            $first = false;
-        }
-        fputcsv($f, $row);
-    }
-
-    $size = ftell($f);
-    rewind($f);
-
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Content-Length: $size");
-    header("Content-type: text/x-csv");
-    header("Content-type: text/csv");
-    header("Content-type: application/csv");
-    header("Content-Disposition: attachment; filename=$filename");
-    fpassthru($f);
-    exit;
 }
 
 function arrayFirst($data) {
