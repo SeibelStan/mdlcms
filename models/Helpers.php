@@ -35,6 +35,17 @@ class Helpers extends A_BaseModel {
         );
     }
 
+    function guardAuth() {
+        if(!USERID) {
+            abort(401);
+        }
+    }
+    function guardRoles($data) {
+        if(!USERID || !Helpers::checkRoles($data)) {
+            abort(401);
+        }
+    }
+
     public static function translate($data, $langFrom = 'ru', $langTo = 'de') {
         //https://tech.yandex.ru/translate/doc/dg/reference/translate-docpage/
         $data = urlencode($data);

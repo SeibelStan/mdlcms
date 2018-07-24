@@ -40,6 +40,9 @@ class A_BaseModel {
             elseif(preg_match('/int\(1\)/', $type)) {
                 $control = 'checkbox';
             }
+            elseif(preg_match('/int/', $type)) {
+                $control = 'number';
+            }
             elseif(in_array($type, ['timestamp', 'datetime'])) {
                 $control = 'datetime-local';
             }

@@ -3,13 +3,13 @@
 class AdminController extends BaseController {
 
     public static function index() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $pageTitle = 'Управление';
         include(view('admin/index'));
     }
 
     public static function table($model) {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $limit = max(clearRequest('limit'), 50);
         $page = max(clearRequest('page'), 1);
         $sort = clearRequest('sort') ?: "id desc";
@@ -22,7 +22,7 @@ class AdminController extends BaseController {
     }
 
     public static function editModels() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $modelsList = Admin::getModelsList();
         $modelListExemps = [];
         foreach($modelsList as $model) {
@@ -33,7 +33,7 @@ class AdminController extends BaseController {
     }
 
     public static function editUnit($model, $id = 0) {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $fields = $model::getFields($id);
         $units = $model::getUnits(false, "id desc");
         $pageTitle = $model::getTitle();
@@ -41,7 +41,7 @@ class AdminController extends BaseController {
     }
 
     public static function save($model, $id = 0) {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $model::save($data = $_REQUEST, $id);
         $result = [
             'message' => 'Сохранено',
@@ -61,12 +61,13 @@ class AdminController extends BaseController {
     }
 
     public static function delete($model, $id = 0) {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $model::delete('id', $id);
         redirect(ROOT . 'admin/edit-models/' . $model);
     }
 
     public static function filter($model) {
+        Helpers::guardRoles('admin');
         $query = request('query');
         $result = $model::search($query);
         $options = '';

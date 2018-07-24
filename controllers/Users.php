@@ -3,7 +3,7 @@
 class UsersController extends BaseController {
 
     public static function index() {
-        guardAuth();
+        Helpers::guardAuth();
         $fields = Users::getFields(USERID, true);
         $pageTitle = user()->login;
         include(view('users/index'));

@@ -16,7 +16,7 @@
     <?php if(getJS()) : ?>
         <script>
             var ROOT = '<?= ROOT ?>';
-            var domainURL = '<?= FULLHOST ?>';
+            var FULLHOST = '<?= FULLHOST ?>';
         </script>
     <?php endif; ?>
     <?php $codeparts = Helpers::getCodeparts('site'); ?>

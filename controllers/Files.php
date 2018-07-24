@@ -3,7 +3,7 @@
 class FilesController extends BaseController {
 
     public static function index() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $filesInModal = false;
         $model = new Files();
         $pageTitle = $model->getTitle();
@@ -11,31 +11,31 @@ class FilesController extends BaseController {
     }
 
     public static function upload() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
-        echo $model->upload($_FILES);
+        echo json_encode($model->upload($_FILES));
     }
 
     public static function get() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
-        echo $model->get($_FILES);
+        echo json_encode($model->get($_FILES));
     }
 
     public static function delete() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
         echo $model->delete(request('files'), request('inUploadPath'));
     }
 
     public static function rename() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
         echo $model->rename(request('oldName'), request('newName'));
     }
 
     public static function createDir() {
-        guardRoles('admin');
+        Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
         echo $model->createDir(request('name'));
     }

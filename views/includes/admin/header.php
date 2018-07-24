@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
     <script>
         var ROOT = '<?= ROOT ?>';
-        var domainURL = '<?= FULLHOST ?>';
+        var FULLHOST = '<?= FULLHOST ?>';
     </script>
     <?php $codeparts = Helpers::getCodeparts('admin'); ?>
     <?php include(view('includes/codeparts')) ?>

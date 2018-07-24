@@ -49,17 +49,6 @@ function abort($code) {
     die();
 }
 
-function guardAuth() {
-    if(!USERID) {
-        abort(401);
-    }
-}
-function guardRoles($data) {
-    if(!USERID || !Helpers::checkRoles($data)) {
-        abort(401);
-    }
-}
-
 function dbEscape($data) {
     global $db;
     return $db->real_escape_string($data);

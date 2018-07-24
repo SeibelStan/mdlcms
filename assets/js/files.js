@@ -101,11 +101,11 @@ var FM = {
     },
 
     fileCheck: function() {
-        FM.outerLink = $('#outer_link').prop('checked');
+        FM.outerLink = $('#fm_outerlink').prop('checked');
         $('.fm_links').empty();
         $('.fm_item.checked').each(function () {
             $('.fm_links').append('<li>' +
-                (FM.outerLink ? domainURL : '') +
+                (FM.outerLink ? FULLHOST : '') +
                 ROOT + $(this).data('fullname') +
             '</li>');
         });
@@ -184,7 +184,7 @@ $(function () {
 
     $('#fm_outerlink_toggle').click(function () {
         $('#fm_outerlink').click();
-        var outerLinkVal = $('#outerlink').prop('checked');
+        var outerLinkVal = $('#fm_outerlink').prop('checked');
         $(this).html('Ссылки: ' + (outerLinkVal ? 'внеш.' : 'внутр.'));
     });
 

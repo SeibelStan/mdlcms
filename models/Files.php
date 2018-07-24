@@ -1,6 +1,6 @@
 <?php
 
-class Files extends A_BaseModel {
+class Files {
 
     public $title = 'Файлы';
 
@@ -93,7 +93,7 @@ class Files extends A_BaseModel {
             return $item1['type'] <=> $item2['type'];
         });
 
-        return json_encode($returnFiles);
+        return $returnFiles;
     }
 
     public function delete($files, $inUploadPath = true) {

@@ -128,7 +128,7 @@ $(function () {
         var label = 'autolabel-' + Math.random();
         if(!$(this).attr('for')) {
             $(this).attr('for', label);
-            var input = $(this).next();
+            var input = $(this).siblings();
             if(!input.attr('id')) {
                 input.attr('id', label);
             }
