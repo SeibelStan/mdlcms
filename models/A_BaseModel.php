@@ -176,11 +176,17 @@ class A_BaseModel {
                 if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
-                $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
+                if(preg_match('/(int|float)/', $field->type)) {
+                    $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
+                }
+                else {
+                    $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
+                }
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= " where id = '$id'";
             $db->query($sql);
+
             return $db->affected_rows;
         }
         else {
@@ -197,11 +203,17 @@ class A_BaseModel {
                 if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
-                $sql .= "'" . $db->real_escape_string($data[$field->name]) . "', ";
+                if(preg_match('/(int|float)/', $field->type)) {
+                    $sql .= ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
+                }
+                else {
+                    $sql .= "'" . $db->real_escape_string($data[$field->name]) . "', ";
+                }
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";
             $db->query($sql);
+
             return $db->insert_id;
         }
     }
