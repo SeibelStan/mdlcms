@@ -26,23 +26,23 @@ function session($name, $value = null) {
     return isset($_SESSION[$name]) ? $_SESSION[$name] : '';
 }
 
-function textRows($data) {
-    return explode("\n", trim($data));
-}
-
 function redirect($path) {
     header('Location: ' . $path);
     die();
 }
-
 function back() {
     $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : ROOT;
     redirect($referer);
 }
-
 function abort($code) {
     if($code == 404) {
         header('HTTP/1.0 404 Not Found');
+    }
+    if($code == 403) {
+        header('HTTP/1.0 403 Forbidden');
+    }
+    if($code == 401) {
+        header('HTTP/1.0 401 Not Authorized');
     }
     session('uri', $_SERVER['REQUEST_URI']);
     include(view('errors/' . $code));
@@ -202,6 +202,10 @@ function tr($data, $fallback = true) {
 
 function arrayFirst($data) {
     return isset($data[0]) ? $data[0] : false;
+}
+
+function textRows($data) {
+    return explode("\n", trim($data));
 }
 
 function pipeObj($data, $delimiter = '|') {

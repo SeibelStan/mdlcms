@@ -3,8 +3,6 @@
 class HomeController extends BaseController {
 
     public static function index() {
-        $slider = Slider::getByField('name', 'home');
-        $slides = Banners::getUnits("connect = 'home' and active", "rand()");
         include(view('home/index'));
     }
 

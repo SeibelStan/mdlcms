@@ -42,17 +42,25 @@ class AdminController extends BaseController {
 
     public static function save($model, $id = 0) {
         Helpers::guardRoles('admin');
-        $model::save($data = $_REQUEST, $id);
-        $result = [
-            'message' => 'Сохранено',
-            'type' => 'success'
-        ];
+        
+        if($result = $model::save($_REQUEST, $id)) {
+            $alert = [
+                'message' => 'Сохранено',
+                'type' => 'success'
+            ];
+        }
+        else {
+            $alert = [
+                'message' => 'Не сохранено',
+            ];
+        }
+
         if(!$id) {
-            $result['callback'] = 'location.href = "' . ROOT . 'admin/edit-models/' . $model . '";';
+            $alert['callback'] = 'location.href = "' . ROOT . 'admin/edit-models/' . $model::getName() . '/' . $result . '";';
         }
 
         if(getJS()) {
-            echo json_encode($result);
+            echo json_encode($alert);
         }
         else {
             setResAlert($result);

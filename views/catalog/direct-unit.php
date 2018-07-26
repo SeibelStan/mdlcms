@@ -6,20 +6,18 @@
     <?php if($hasPhotos) : ?>
         <div class="col-lg-4 col-md-6 col-sm-12">
             <p>
-                <a class="card" href="<?= $directUnit->image ?>" data-toggle="lightbox" data-gallery="lightbox">
+                <div class="card">
                     <img class="img-fluid" src="<?= $directUnit->image ?>">
-                </a>
+                </div>
             </p>
             <?php if($directUnit->images) : ?>
                 <div class="row">
                     <?php foreach(textRows($directUnit->images) as $image) : ?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
-                            <a href="<?= $image ?>"
-                                data-toggle="lightbox"
-                                data-gallery="lightbox"
+                            <div href="<?= $image ?>"
                                 class="card-img-top-cover height-card-image-half"
                                 style="background-image: url('<?= $image ?>')"
-                            ></a>
+                            ></div>
                         </div>
                     <?php endforeach; ?>
                 </div>

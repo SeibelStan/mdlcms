@@ -13,8 +13,6 @@
         var ROOT = '<?= ROOT ?>';
         var FULLHOST = '<?= FULLHOST ?>';
     </script>
-    <?php $codeparts = Helpers::getCodeparts('admin'); ?>
-    <?php include(view('includes/codeparts')) ?>
 </head>
 <body>
 
@@ -27,14 +25,8 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <?php foreach(Helpers::getMenu('admin') as $item) : ?>
-                <li class="nav-item">
-                    <a class="nav-link <?= $item->active ? 'active' : '' ?>"
-                        <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
-                        <?= $item->title ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
+            <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>admin/edit-models">Модели</a>
+            <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>admin/files">Файлы</a>
         </ul>
 
         <ul class="navbar-nav">

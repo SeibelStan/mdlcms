@@ -268,8 +268,8 @@ class A_BaseModel {
     }
 
     public static function checkNoEmptyFill($fieldName, $value) {
-        static::$noEmpty = isset(static::$noEmpty) ? static::$noEmpty : [];
-        $noEmptyMerged = array_merge(static::$noEmpty, ['id']);
+        $noEmpty = isset(static::$noEmpty) ? static::$noEmpty : [];
+        $noEmptyMerged = array_merge($noEmpty, ['id']);
         if(!(in_array($fieldName, $noEmptyMerged))) {
             return true;
         }

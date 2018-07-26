@@ -6,7 +6,7 @@ class FilesController extends BaseController {
         Helpers::guardRoles('admin');
         $filesInModal = false;
         $model = new Files();
-        $pageTitle = $model->getTitle();
+        $pageTitle = 'Файлы';
         include(view('admin/files'));
     }
 
@@ -25,7 +25,7 @@ class FilesController extends BaseController {
     public static function delete() {
         Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
-        echo $model->delete(request('files'), request('inUploadPath'));
+        echo json_encode($model->delete(request('files'), request('inUploadPath')));
     }
 
     public static function rename() {

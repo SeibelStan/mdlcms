@@ -7,8 +7,7 @@
 </div>
 
 <main class="container">
-    <?php $slickSlider = $slider ?>
-    <?php include(view('includes/slider')) ?>
+    
 </main>
 
 <?php include(view('includes/footer')) ?>

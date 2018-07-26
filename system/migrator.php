@@ -32,9 +32,11 @@ foreach($models as $model) {
 
     $sql = "CREATE TABLE `" . $table . "` (\n";
     foreach($prepfields as $i => $field) {
+
         $sql .= "`" . $field->name . "` "
             . $field->type
-            . ($field->def ? " DEFAULT " . (preg_match('/id$/', $field->name) ? "NOT NULL" : '') . $field->def : "")
+            . (preg_match('/id$/', $field->name) ? " NOT NULL " : '')
+            . ($field->def != '' ? " DEFAULT " . $field->def : "")
             . ($i < count($prepfields) - 1 ? ',' : '')
             . "\n";
     }

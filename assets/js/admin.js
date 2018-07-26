@@ -126,13 +126,15 @@ $(function () {
         });
     }
 
-    $('[name="title"]').each(function () {
-        $(this).generateUrl({
-            urlField: '[name="url"]',
-            bindType: 'keyup',
-            emptyOnly: false,
+    if($('[name="url"]').length) {
+        $('[name="title"]').each(function () {
+            $(this).generateUrl({
+                urlField: '[name="url"]',
+                bindType: 'keyup',
+                emptyOnly: false,
+            });
         });
-    });
+    }
         
     if($('#editor').length) {
         ClassicEditor

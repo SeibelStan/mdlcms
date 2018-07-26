@@ -7,9 +7,6 @@
     <title><?= isset($pageTitle) ? $pageTitle . ' - ' : '' ?><?= SITE_NAME ?></title>
     <link rel="icon" type="image/png" href="<?= ROOT ?>assets/img/favicon.png">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
-    <link rel="stylesheet" href="<?= ROOT ?>vendor/ekko-lightbox/ekko-lightbox.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/site.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
@@ -19,8 +16,6 @@
             var FULLHOST = '<?= FULLHOST ?>';
         </script>
     <?php endif; ?>
-    <?php $codeparts = Helpers::getCodeparts('site'); ?>
-    <?php include(view('includes/codeparts')) ?>
 </head>
 <body>
 
@@ -33,14 +28,9 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <?php foreach(Helpers::getMenu('main') as $item) : ?>
-                <li class="nav-item">
-                    <a class="nav-link <?= $item->active ? 'active' : '' ?>"
-                        <?= $item->params ?> href="<?= $item->external ? '' : ROOT ?><?= $item->link ?>">
-                        <?= $item->title ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
+            <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>catalog">Каталог</a>
+            <li class="nav-item"><a class="nav-link" href="http://github.com/Seibelstan/mdlcms">GitHub</a>
+            
         </ul>
 
         <form id="search-form" class="form-inline my-2 my-lg-0 mr-auto dropdown" action="<?= ROOT ?>search" method="post">

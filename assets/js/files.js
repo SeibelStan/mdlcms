@@ -76,7 +76,7 @@ var FM = {
         });
 
         $.post(
-            ROOT + 'files/remove',
+            ROOT + 'files/delete',
             {
                 files: files,
                 inUploadPath: true
@@ -175,7 +175,7 @@ $(function () {
     });
 
     $('.tool_remove').click(function () {
-        FM.filesRemove();
+        FM.filesDelete();
     });
 
     $('.tool_refresh').click(function () {

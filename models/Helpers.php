@@ -2,19 +2,6 @@
 
 class Helpers extends A_BaseModel {
 
-    public static function getMenu($namespace) {
-        $items = Menu::getUnits("namespace = '$namespace'", "sort asc, title asc");
-        foreach($items as $item) {
-            $linkPreg = preg_replace('/\//', '\/', ROOT . $item->link);
-            $item->active = preg_match('/' . $linkPreg . '/', $_SERVER['REQUEST_URI']);
-        }
-        return $items;
-    }
-
-    public static function getCodeparts($namespace = false) {
-        return Codeparts::getUnits($namespace ? "namespace = '$namespace'" : '');
-    }
-
     public static function getUser($id = USERID) {
         $id = $id ?: session('user_id');
 
@@ -35,15 +22,23 @@ class Helpers extends A_BaseModel {
         );
     }
 
-    function guardAuth() {
+    public static function guardAuth() {
         if(!USERID) {
             abort(401);
         }
     }
-    function guardRoles($data) {
+    public static function guardRoles($data) {
         if(!USERID || !Helpers::checkRoles($data)) {
             abort(401);
         }
+    }
+
+    public static function checkAdminZone() {
+        $result = false;
+        if(preg_match('/admin/', $_SERVER['REQUEST_URI'])) {
+            $result = true;
+        }
+        return $result;
     }
 
     public static function translate($data, $langFrom = 'ru', $langTo = 'de') {
@@ -54,12 +49,5 @@ class Helpers extends A_BaseModel {
         return $result->code == 200 ? $result->text[0] : $data;
     }
 
-    function checkAdminZone() {
-        $result = false;
-        if(preg_match('/admin/', $_SERVER['REQUEST_URI'])) {
-            $result = true;
-        }
-        return $result;
-    }    
 
 }

@@ -12,3 +12,8 @@ sign_up | Регистрация
 login_or_email | Логин или почта
 password | Пароль
 pass_remind | Напомнить пароль
+
+not_authorized | Не авторизованы
+not_found | Не найдено
+forbidden | Заблокировано
+contact_us | Свяжитесь с нами

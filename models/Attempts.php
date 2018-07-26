@@ -55,9 +55,9 @@ class Attempts extends A_BaseModel {
         $guardCounts = [
             'view'     => [500, 600],
             'login'    => [5, 10],
-            'register' => [5, 10],
-            'remind'   => [5, 10],
-            'feedback' => [2, 10],
+            'register' => [1, 10],
+            'remind'   => [2, 10],
+            'feedback' => [1, 10],
         ];
         $guardMessages = [
             'login'    => [
