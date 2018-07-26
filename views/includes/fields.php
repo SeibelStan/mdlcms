@@ -27,6 +27,8 @@
                       name="<?= $field->name ?>"><?= $field->value ?></textarea>
             <?php elseif($field->control == 'checkbox') : ?>
                 <input type="<?= $field->control ?>" name="<?= $field->name ?>" <?= $field->value ? 'checked' : '' ?>>
+            <?php elseif($field->control == 'select') : ?>
+                <select name="<?= $field->name ?>"></select>
             <?php else : ?>
                 <input class="form-control"
                     <?= $field->required ? 'required' : '' ?>

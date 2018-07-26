@@ -71,6 +71,10 @@ $(function () {
         }
     });
 
+    $('label + [type="checkbox"]').each(function () {
+        $(this).parent().prepend($(this));
+    });
+
     $('.pagination').each(function () {
         var pagination = $(this);
         var activePage = pagination.find('li.active a').attr('href').match(/(\d+)$/).pop();
