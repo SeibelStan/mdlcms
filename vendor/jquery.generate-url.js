@@ -35,12 +35,12 @@
 				return element instanceof jQuery;
 			},
 
-			bindEvents: function() {
+			bindEvents: function () {
 				var urlField = this.options.urlField;
 
 				if (!this.options.emptyOnly || urlField.val() == '') {
 					var self = this;
-					this.options.source.on(this.options.bindType, function() {
+					this.options.source.on(this.options.bindType, function () {
 						var oldValue = urlField.val();
 						var newValue = self.convert();
 
@@ -55,7 +55,7 @@
 				}
 			},
 
-			convert: function() {
+			convert: function () {
 				var space = this.options.space;
 				var text = this.options.source.val().toLowerCase();
 				var url = '';
@@ -68,7 +68,7 @@
 				};
 
 				for (var i = 0; i < text.length; i++) {
-					if(/[а-яё]/.test(text.charAt(i))) {
+					if (/[а-яё]/.test(text.charAt(i))) {
 						url += replacement[text.charAt(i)];
 					} else if (/[a-z0-9]/.test(text.charAt(i))) {
 						url += text.charAt(i);

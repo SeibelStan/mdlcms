@@ -8,13 +8,13 @@
         <th>Сумма
         <th>Дата
         <th>Статус
-    <?php foreach($orders as $order) : ?>
+    <?php foreach ($orders as $order) : ?>
         <?php $sum = 0; ?>
         <tr>
         <td><?= $order->id ?>
         <td>
             <table class="table-inline">
-            <?php foreach($order->items as $item) : ?>
+            <?php foreach ($order->items as $item) : ?>
                 <tr>
                     <td><a href="<?= ROOT . $item->model ?>/<?= $item->url ?>"><?= $item->title ?></a>
                     <td>x<?= $item->count ?>

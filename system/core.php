@@ -8,7 +8,7 @@ function view($view) {
 function clear($data, $length = 0) {
     $data = strip_tags($data);
     $data = trim($data);
-    if($length) {
+    if ($length) {
         $data = substr($data, 0, $length);
     }
     $data = htmlspecialchars($data);
@@ -34,13 +34,13 @@ function back() {
 }
 
 function abort($code) {
-    if($code == 404) {
+    if ($code == 404) {
         header('HTTP/1.0 404 Not Found');
     }
-    if($code == 403) {
+    if ($code == 403) {
         header('HTTP/1.0 403 Forbidden');
     }
-    if($code == 401) {
+    if ($code == 401) {
         header('HTTP/1.0 401 Not Authorized');
     }
     session('uri', $_SERVER['REQUEST_URI']);
@@ -51,14 +51,14 @@ function abort($code) {
 
 /* @Session */
 function session($name, $value = null) {
-    if(isset($value)) {
+    if (isset($value)) {
         $_SESSION[$name] = $value;
     }
     return isset($_SESSION[$name]) ? $_SESSION[$name] : '';
 }
 
 function alert($data = []) {
-    if($data) {
+    if ($data) {
         $data = (object)$data;
         $result = [
             'message' => @$data->message,
@@ -90,8 +90,8 @@ function dbs($sql) {
     global $db;
     $result = $db->query("select " . $sql);
     $data = [];
-    if($result->num_rows) {
-        while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    if ($result->num_rows) {
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $data[] = (object)$row;
         }
     }
@@ -131,12 +131,12 @@ function textRows($data) {
 }
 
 function pipeObj($data, $delimiter = '|') {
-    $result = (object)[];
-    foreach(explode("\n", trim($data)) as $row) {
+    $result = (object) [];
+    foreach (explode("\n", trim($data)) as $row) {
         $cells = explode($delimiter, $row);
         $k = trim($cells[0]);
         $v = trim(@$cells[1]);
-        if(!$k) {
+        if (!$k) {
             continue;
         }
         $result->$k = $v;
@@ -146,7 +146,7 @@ function pipeObj($data, $delimiter = '|') {
 
 function pipeArr($data, $delimiter = '|') {
     $result = [];
-    foreach(explode("\n", trim($data)) as $row) {
+    foreach (explode("\n", trim($data)) as $row) {
         $cells = explode($delimiter, $row);
         $result[] = $cells;
     }
@@ -161,13 +161,13 @@ function arrayMultiSort($array, $args = []) {
             $a = (object)$a;
             $b = (object)$b;
 
-            foreach($args as $k => $v) {
-                if($a->$k == $b->$k) {
+            foreach ($args as $k => $v) {
+                if ($a->$k == $b->$k) {
                     continue;
                 }
 
                 $res = ($a->$k < $b->$k) ? -1 : 1;
-                if($v == 'desc') {
+                if ($v == 'desc') {
                     $res = -$res;
                 }
                 break;
@@ -184,7 +184,7 @@ function arrayMultiSort($array, $args = []) {
 /* @Mutator */
 function stripWord($str, $length, $addon = '...') {
     $str = strip_tags($str);
-    if(mb_strlen($str) > $length) {
+    if (mb_strlen($str) > $length) {
         $str = mb_substr($str, 0, $length);
         $str = preg_replace('/\S+$/', '', $str);
         $str = preg_replace('/[ !?:.,–-]+$/u', '', trim($str));
@@ -212,15 +212,15 @@ function dateReformat($date, $format = 'd.m.y H:i') {
 function noimagize($data, $prop = 'image') {
     $noImg = ROOT . 'assets/img/noimage.jpg';
 
-    if(gettype($data) == 'array') {
-        foreach($data as &$unit) {
-            if(!($unit->$prop && file_exists($unit->$prop))) {
+    if (gettype($data) == 'array') {
+        foreach ($data as &$unit) {
+            if (!($unit->$prop && file_exists($unit->$prop))) {
                 $unit->$prop = $noImg;
             }
         }
     }
     else {
-        if(!($data->$prop && file_exists($data->$prop))) {
+        if (!($data->$prop && file_exists($data->$prop))) {
             $data->$prop = $noImg;
         }
     }
@@ -231,7 +231,7 @@ function noimagize($data, $prop = 'image') {
 /* @Sender */
 function smail($title, $text, $to, $from = 'info', $name = SITE_NAME) {
     $from .= '@' . DOMAIN;
-    if(!preg_match('/@/', $to)) {
+    if (!preg_match('/@/', $to)) {
         $to .= '@' . DOMAIN;
     }
 
@@ -244,7 +244,7 @@ function curlGetAlong($urls) {
     $mh = curl_multi_init();
     $channels = [];
 
-    foreach($urls as $url) {
+    foreach ($urls as $url) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);
@@ -256,10 +256,10 @@ function curlGetAlong($urls) {
     $active = 0;
     do {
         curl_multi_exec($mh, $active);
-    } while($active > 0);
+    } while ($active > 0);
 
     $result = [];
-    foreach($channels as $channel) {
+    foreach ($channels as $channel) {
         $result[] = curl_multi_getcontent($channel);
         curl_multi_remove_handle($mh, $channel);
     }
@@ -271,7 +271,7 @@ function curlGetAlong($urls) {
 function curlGetSeq($urls) {
     $result = [];
 
-    foreach($urls as $url) {
+    foreach ($urls as $url) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);
@@ -299,12 +299,12 @@ function getBrowserLang($fallback = 'ru') {
 
 function tr($data, $fallback = true) {
     $i18n = pipeObj(file_get_contents('data/i18n/' . getLang() . '.txt'));
-    if(isset($i18n->$data)) {
+    if (isset($i18n->$data)) {
         return $i18n->$data;
     }
-    elseif($fallback) {
+    elseif ($fallback) {
         $i18n = pipeObj(file_get_contents('data/i18n/en.txt'));
-        if(isset($i18n->$data)) {
+        if (isset($i18n->$data)) {
             return $i18n->$data;
         }
     }
@@ -326,7 +326,7 @@ function errorHandler($num, $type, $file, $line, $context = null) {
 /* @Other */
 function hashGen($length = 64) {
     $hash = base64_encode(md5(time()));
-    if($length) {
+    if ($length) {
         $hash = substr($hash, 0, $length);
     }
     return $hash;

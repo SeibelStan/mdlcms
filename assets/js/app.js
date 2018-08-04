@@ -5,7 +5,7 @@ function getCart() {
             data = JSON.parse(data);
             $('#cart-widget li:not(.noremove)').remove();
             var sum = 0;
-            for(var i in data) {
+            for (var i in data) {
                 var item = data[i];
                 sum += item.count * item.price;
                 $('#cart-widget').prepend('\
@@ -21,7 +21,7 @@ function getCart() {
                     </li>\
                 ');
             }
-            if(data.length) {
+            if (data.length) {
                 $('.cart-sum').html(sum);
                 $('#cart-widget-actions').show();
                 $('#cart-widget-noitems').hide();
@@ -49,12 +49,12 @@ $(function () {
             function (data) {
                 data = JSON.parse(data);
                 $('.search-widget').empty();
-                for(var i in data) {
+                for (var i in data) {
                     var item = data[i];
                     $('.search-widget')
                         .append('<li><a class="dropdown-item" href="' + item.link + '">' + item.title + '</a></li>');
                 }
-                if(!data.length) {
+                if (!data.length) {
                     $('.search-widget').append('<li class="dropdown-item text-muted">Ничего не найдено</li>');
                 }
             }

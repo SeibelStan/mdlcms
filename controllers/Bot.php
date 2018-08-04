@@ -8,7 +8,7 @@ class BotController {
         $test = isset($_GET['test']);
         $data = json_decode(file_get_contents('php://input'));
 
-        if($test) {
+        if ($test) {
             $message = (object) [
                 'text' => $_GET['message']
             ];
@@ -29,7 +29,7 @@ class BotController {
 
         $response = preg_replace('/^\s+/m', '', $response);
 
-        if($test) {
+        if ($test) {
             header('Content-type: text/plain');
             print_r($response);
         }

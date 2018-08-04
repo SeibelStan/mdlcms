@@ -45,6 +45,6 @@
 </nav>
 </header>
 
-<?php if(!getJS() && session('alert')) : ?>
+<?php if (!getJS() && session('alert')) : ?>
     <div class="alert alert-<?= alert()->type ?: 'danger' ?> alert-sticky nojs"><?= alert()->message ?></div>
 <?php endif; ?>

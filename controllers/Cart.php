@@ -5,7 +5,7 @@ class CartController {
     public static function get() {
         $result = Cart::get();
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {
@@ -16,7 +16,7 @@ class CartController {
     public static function add() {
         $result = Cart::add($_REQUEST);
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {
@@ -31,7 +31,7 @@ class CartController {
             'callback' => 'getCart()'
         ];
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {

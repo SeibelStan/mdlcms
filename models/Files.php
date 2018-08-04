@@ -14,17 +14,24 @@ class Files {
     public function upload($data) {
         $files = $data['files'];
         $uploaded = [];
-        for($i = 0; $i < count($files['name']); $i++) {
+        for ($i = 0; $i < count($files['name']); $i++) {
             $fileName = $files['name'][$i];
+            
+            $fileExt = mb_strtolower(pathinfo($fileName)['extension']);
+            // Загружаемые расширения
+            if(!in_array($fileExt, ['jpg', 'png', 'pdf'])) {
+                continue;
+            }
+            
             $filePath = $this->uploadPath . $fileName;
-            if(move_uploaded_file($files['tmp_name'][$i], $filePath)) {
+            if (move_uploaded_file($files['tmp_name'][$i], $filePath)) {
                 $uploaded[] = $filePath;
             }
             @chmod($filePath, 0777);
 
             $postfix = false;
             $matches = [];
-            if(preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
+            if (preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
                 Files::resize($filePath, $matches[1]);
             }
         }
@@ -33,19 +40,19 @@ class Files {
 
     public function uploadSingles($files, $names = []) {
         $uploaded = [];
-        foreach($files as $k => $file) {
+        foreach ($files as $k => $file) {
             echo $names[$k];
 
             $fileName = @$names[$k] ?: $file['name'];
             $filePath = $this->uploadPath . $fileName;
-            if(move_uploaded_file($file['tmp_name'], $filePath)) {
+            if (move_uploaded_file($file['tmp_name'], $filePath)) {
                 $uploaded[] = $filePath;
             }
             @chmod($filePath, 0777);
 
             $postfix = false;
             $matches = [];
-            if(preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
+            if (preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
                 Files::resize($filePath, $matches[1]);
             }
         }
@@ -57,26 +64,26 @@ class Files {
         $iconBase = ROOT . 'assets/img/';
 
         $returnFiles = [];
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $fullName = $this->uploadPath . $file;
             $fileName = $file;
             $icon = $iconBase . 'inode_file.png';
             $type = 'file';
             $ext = '';
 
-            if(is_dir($fullName)) {
+            if (is_dir($fullName)) {
                 $type = 'dir';
                 $icon = $iconBase . 'inode_directory.png';
                 $fullName .= '/';
             }
             else {
                 $pathInfo = pathinfo($fullName);
-                if(isset($pathInfo['extension'])) {
+                if (isset($pathInfo['extension'])) {
                     $ext = $pathInfo['extension'];
                 }
             }
 
-            if(in_array(strtolower($ext), ['jpg', 'jpeg', 'svg', 'png', 'gif'])) {
+            if (in_array(strtolower($ext), ['jpg', 'jpeg', 'svg', 'png', 'gif'])) {
                 $icon = ROOT . $fullName;
             }
 
@@ -98,8 +105,8 @@ class Files {
 
     public function delete($files, $inUploadPath = true) {
         $uploadRootPrepared = preg_replace('/\//', '\/', $this->uploadRoot);
-        foreach($files as &$path) {
-            if($inUploadPath) {
+        foreach ($files as &$path) {
+            if ($inUploadPath) {
                 $path = $this->uploadPath . preg_replace('/' . $uploadRootPrepared . '/', '', $path);
             }
             $this->deleteDirectory($path);
@@ -121,7 +128,7 @@ class Files {
     }
 
     public function deleteDirectory($path) {
-        if(!is_dir($path)) {
+        if (!is_dir($path)) {
             return unlink($path) ? 1 : 0;
         }
         $files = delDots(scandir($path));
@@ -132,16 +139,16 @@ class Files {
     }
 
     public static function resizeEngine($src, $dest, $width, $height, $rgb = 0xFFFFFF, $quality = 95) {
-        if(!file_exists($src)) {
+        if (!file_exists($src)) {
             return false;
         }
         $size = getimagesize($src);
-        if($size === false) {
+        if ($size === false) {
             return false;
         }
         $format = strtolower(substr($size['mime'], strpos($size['mime'], '/') + 1));
         $icfunc = "imagecreatefrom" . $format;
-        if(!function_exists($icfunc)) {
+        if (!function_exists($icfunc)) {
             return false;
         }
         $isrc = $icfunc($src);
@@ -156,7 +163,7 @@ class Files {
 
     public static function resize($src, $width = 800) {
         $size = getimagesize($src);
-        if($size[0] > $width or $size[1] > $width) {
+        if ($size[0] > $width or $size[1] > $width) {
             $height = $size[1] * $width / $size[0];
             Files::resizeEngine($src, $src, $width, $height);
         }
@@ -164,8 +171,8 @@ class Files {
     }
 
     public static function download($file, $name) {
-        if(file_exists($file)) {
-            if(ob_get_level()) {
+        if (file_exists($file)) {
+            if (ob_get_level()) {
                 ob_end_clean();
             }
 
@@ -178,8 +185,8 @@ class Files {
             header('Pragma: public');
             header('Content-Length: ' . filesize($file));
 
-            if($fd = fopen($file, 'rb')) {
-                while(!feof($fd)) {
+            if ($fd = fopen($file, 'rb')) {
+                while (!feof($fd)) {
                     print fread($fd, 1024);
                 }
                 fclose($fd);

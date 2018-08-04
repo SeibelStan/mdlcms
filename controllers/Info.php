@@ -24,11 +24,11 @@ class InfoController {
         $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
         $directUnit = $model::getByField($urlType, urldecode($url));
 
-        if(!$directUnit) {
+        if (!$directUnit) {
             $directUnit = $model::getByField($urlType, urldecode($url) . '-' . getLang());
         }
 
-        if(!$directUnit) {
+        if (!$directUnit) {
             abort(404);
         }
 

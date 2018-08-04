@@ -25,7 +25,7 @@ class AdminController {
         Helpers::guardRoles('admin');
         $modelsList = Admin::getModelsList();
         $modelListExemps = [];
-        foreach($modelsList as $model) {
+        foreach ($modelsList as $model) {
             array_push($modelListExemps, $model);
         }
         $pageTitle = 'Модели';
@@ -43,7 +43,7 @@ class AdminController {
     public static function save($model, $id = 0) {
         Helpers::guardRoles('admin');
         
-        if($result = $model::save($_REQUEST, $id)) {
+        if ($result = $model::save($_REQUEST, $id)) {
             $alert = [
                 'message' => 'Сохранено',
                 'type' => 'success'
@@ -55,11 +55,11 @@ class AdminController {
             ];
         }
 
-        if(!$id) {
+        if (!$id) {
             $alert['callback'] = 'location.href = "' . ROOT . 'admin/edit-models/' . $model::getName() . '/' . $result . '";';
         }
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($alert);
         }
         else {
@@ -79,7 +79,7 @@ class AdminController {
         $query = request('query');
         $result = $model::search($query);
         $options = '';
-        foreach($result as $unit) {
+        foreach ($result as $unit) {
             $options .= '<option data-id="' . $unit->id . '">' . $unit->display_name . '</option>';
         }
         echo $options;

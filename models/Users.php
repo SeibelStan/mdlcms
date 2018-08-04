@@ -31,9 +31,9 @@ class Users extends A_BaseModel {
         'hash'     => 'hidden'
     ];
     public static $pattern = [
-        'login' => ['[A-z][A-z_0-9]{2,50}', '3+ символов, может содержать буквы, цифры и _'],
+        'login'     => ['[A-z][A-z_0-9]{2,50}', '3+ символов, может содержать буквы, цифры и _'],
         'full_name' => ['[А-яA-z ]{3,50}', '3+ символов, может содержать буквы и пробел'],
-        'password' => ['.{6,128}', '6+ символов']
+        'password'  => ['.{6,128}', '6+ символов']
     ];
     public static $noEmpty = ['dateup'];
     public static $titles = [
@@ -57,7 +57,7 @@ class Users extends A_BaseModel {
 
     public static function login($data) {
         $attempt = Attempts::add('login', $data);
-        if($attempt->action) {
+        if ($attempt->action) {
             return $attempt;
         }
 
@@ -65,7 +65,7 @@ class Users extends A_BaseModel {
         $user = arrayFirst(static::getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
             and password = '" . $data['password'] . "' and active"));
 
-        if(!$user) {
+        if (!$user) {
             return [
                 'message' => 'Неверный логин или пароль'
             ];
@@ -87,31 +87,31 @@ class Users extends A_BaseModel {
     public static function register($data) {
         global $db;
         $attempt = Attempts::add('register', $data);
-        if($attempt->action) {
+        if ($attempt->action) {
             return $attempt;
         }
 
-        foreach($data as &$row) {
+        foreach ($data as &$row) {
             $row = clear($row);
         }
 
         $user = static::getByField('lower(login)', mb_strtolower($data['login']), "and active");
 
-        if($user) {
+        if ($user) {
             return [
                 'message' => 'Пользователь существует'
             ];
         }
 
         $loginCorrect = static::checkPattern('login', $data['login']);
-        if(!$loginCorrect) {
+        if (!$loginCorrect) {
             return [
                 'message' => static::$pattern['login'][1]
             ];
         }
 
         $passwordCorrect = static::checkPattern('password', $data['password']);
-        if(!$passwordCorrect) {
+        if (!$passwordCorrect) {
             return [
                 'message' => static::$pattern['password'][1]
             ];
@@ -120,14 +120,14 @@ class Users extends A_BaseModel {
         $data['hash'] = hashGen();
         $data['active'] = 1;
 
-        if($data['reflink']) {
+        if ($data['reflink']) {
             $referrer = static::getByField('reflink', $data['reflink']);
-            if($referrer) {
+            if ($referrer) {
                 $data['referrer'] = $referrer->login;
             }
         }
 
-        foreach($data as &$row) {
+        foreach ($data as &$row) {
             $row = clear($row);
         }
 
@@ -139,7 +139,7 @@ class Users extends A_BaseModel {
             FULLHOST,
             SITE_NAME
         );
-        if(MAILS) {
+        if (MAILS) {
             smail('Благодарим Вас за регистрацию на нашем сайте!', $mailText, $data['email']);
         }
 
@@ -153,7 +153,7 @@ class Users extends A_BaseModel {
 
     public static function remind($data) {
         $attempt = Attempts::add('remind', $data);
-        if($attempt->action) {
+        if ($attempt->action) {
             return $attempt;
         }
 
@@ -161,7 +161,7 @@ class Users extends A_BaseModel {
         $user = arrayFirst(static::getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
             and active"));
 
-        if($user && $user->email) {
+        if ($user && $user->email) {
             $mailText = sprintf(
                 file_get_contents('views/mail/remind.html'),
                 hashGen(8),
@@ -169,7 +169,7 @@ class Users extends A_BaseModel {
                 FULLHOST
             );
 
-            if(MAILS) {
+            if (MAILS) {
                 smail('Восстановление пароля для пользователя ' . $user->login, $mailText, $user->email);
             }
 
@@ -190,7 +190,7 @@ class Users extends A_BaseModel {
     public static function restore($data) {
         $user = static::getByField('hash', $data['hash']);
 
-        if($user) {
+        if ($user) {
             session('user_id', $user->id);
 
             static::save([
@@ -207,14 +207,14 @@ class Users extends A_BaseModel {
     }
 
     public static function saveProfile($data) {
-        foreach($data as $k => &$row) {
-            if(!preg_match('/password/', $k)) {
+        foreach ($data as $k => &$row) {
+            if (!preg_match('/password/', $k)) {
                 $row = clear($row);
             }
         }
 
-        if(isset($data['password'])) {
-            if(
+        if (isset($data['password'])) {
+            if (
                 isset($data['password_confirm']) &&
                 $data['password'] != $data['password_confirm']
             ) {
@@ -225,13 +225,13 @@ class Users extends A_BaseModel {
             unset($data['password_confirm']);
 
             $passwordCorrect = static::checkPattern('password', $data['password']);
-            if(!$passwordCorrect) {
+            if (!$passwordCorrect) {
                 unset($data['password']);
             }
         }
 
         $result = static::save($data, USERID, true);
-        if($result) {
+        if ($result) {
             return [
                 'message' => 'Сохранено',
                 'type' => 'success'

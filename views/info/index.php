@@ -8,7 +8,7 @@
     <?php include(view('includes/pagination')) ?>
 
     <div class="row">
-        <?php foreach($units as $unit) : ?>
+        <?php foreach ($units as $unit) : ?>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card mb-4">
                     <a href="<?= ROOT ?><?= $model::getName() ?>/<?= $unit->url ?>"
@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <p class="card-text"><?= stripWord($unit->content, 100, '...') ?></p>
                         <p class="card-text small text-muted">
-                            <?php if($unit->dateup > $unit->date) : ?>
+                            <?php if ($unit->dateup > $unit->date) : ?>
                                 Обновлено <span data-time="<?= strtotime($unit->dateup) ?>"><?= dateReformat($unit->dateup) ?></span>
                             <?php else : ?>
                                 Размещено <span data-time="<?= strtotime($unit->date) ?>"><?= dateReformat($unit->date) ?></span>

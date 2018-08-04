@@ -11,7 +11,7 @@ class UsersController {
     }
 
     public static function login() {
-        if(USERID) {
+        if (USERID) {
             redirect(ROOT . 'users');
         }
         $pageTitle = tr('log_in');
@@ -21,7 +21,7 @@ class UsersController {
     public static function doLogin($login = '', $password = '') {
         $result = Users::login($_REQUEST);
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {
@@ -37,11 +37,11 @@ class UsersController {
 
     public static function doRegister() {
         $result = Users::register($_REQUEST);
-        if(isset($result['user'])) {
+        if (isset($result['user'])) {
             Users::login($_REQUEST);
         }
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {
@@ -60,7 +60,7 @@ class UsersController {
             'login' => clearRequest('login')
         ]);
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {
@@ -85,7 +85,7 @@ class UsersController {
     public static function save() {
         $result = Users::saveProfile($_REQUEST);
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {

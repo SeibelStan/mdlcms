@@ -12,7 +12,7 @@ function showAlert(message, type = 'danger', time = 3000) {
 
 function attachForms() {
     $('form').on('submit', function () {
-        if(typeof wysiwyg != 'undefined') {
+        if (typeof wysiwyg != 'undefined') {
             $('.ck-editor').prev().val(wysiwyg.getData());
         }
     });
@@ -22,10 +22,10 @@ function attachForms() {
             $('.form-resetable').resetForm();
 
             data = JSON.parse(data);
-            if(data.message) {
+            if (data.message) {
                 showAlert(data.message, data.type);
             }
-            if(data.callback) {
+            if (data.callback) {
                 eval(data.callback);
             }
         }
@@ -46,8 +46,8 @@ $(function () {
 
     attachForms();
 
-    window.onbeforeunload = function() {
-        if(changespy) {
+    window.onbeforeunload = function () {
+        if (changespy) {
             return 'Уйти не сохраняя?';
         }
     };
@@ -56,17 +56,17 @@ $(function () {
         $(this).remove();
     });
 
-    if(alert) {
+    if (alert) {
         alert = JSON.parse(alert);
         showAlert(alert.message, alert.type);
     }
 
     $('.autolabel label').each(function (i) {
         var label = 'autolabel-' + Math.random();
-        if(!$(this).attr('for')) {
+        if (!$(this).attr('for')) {
             $(this).attr('for', label);
             var input = $(this).siblings();
-            if(!input.attr('id')) {
+            if (!input.attr('id')) {
                 input.attr('id', label);
             }
         }
@@ -83,17 +83,17 @@ $(function () {
         var steps = pagination.data('steps') || 5;
 
         var showPages = [1];
-        for(var i = 0; i <= steps; i++) {
+        for (var i = 0; i <= steps; i++) {
             showPages.push(activePage - i);
         }
-        for(var i = 0; i <= steps; i++) {
+        for (var i = 0; i <= steps; i++) {
             showPages.push(parseInt(activePage) + i);
         }
         showPages.push(pagesCount);
 
         $('.pagination').find('li:not([data-helper])').each(function () {
             var page = parseInt($(this).find('a').attr('href').match(/(\d+)$/).pop());
-            if(showPages.indexOf(page) == -1) {
+            if (showPages.indexOf(page) == -1) {
                 $(this).after('<li class="page-item dots"><a class="page-link">&bull;</a></li>');
                 $(this).remove();
             }

@@ -27,7 +27,7 @@ class Attempts extends A_BaseModel {
     ];
 
     public static function add($type, $data = []) {
-        if(!ATTEMPTS) {
+        if (!ATTEMPTS) {
             return (object) [
                 'action' => ''
             ];
@@ -71,12 +71,12 @@ class Attempts extends A_BaseModel {
         $count = count($units);
         $action = '';
         $message = '';
-        if($count >= $guardCounts[$type][0]) {
+        if ($count >= $guardCounts[$type][0]) {
             $action = 'restrict';
             $message = isset($guardMessages[$type]) ? $guardMessages[$type][0] : 'Попробуйте позже';
         }
-        if($count >= $guardCounts[$type][0]) {
-            if(!Bans::check()) {
+        if ($count >= $guardCounts[$type][0]) {
+            if (!Bans::check()) {
                 Bans::add();
             }
             $action = 'ban';

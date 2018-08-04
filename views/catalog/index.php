@@ -2,17 +2,17 @@
 
 <div class="nav">
     <li class="nav-item"><a href="<?= ROOT ?><?= $model::getName() ?>" class="nav-link"><?= $model::getTitle() ?></a>
-    <?php if($parentUnit) : ?>
+    <?php if ($parentUnit) : ?>
         <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>catalog/<?= $parentUnit->url ?>"><?= $parentUnit->title ?></a>
     <?php endif; ?>
-    <?php if($directUnit) : ?>
+    <?php if ($directUnit) : ?>
         <li class="nav-item"><span class="nav-link"><?= $directUnit->title ?></span>
     <?php endif; ?>
 </div>
 
 <main class="container">
-    <?php if($directUnit) : ?>
-        <?php if($directUnit->iscatalog) : ?>
+    <?php if ($directUnit) : ?>
+        <?php if ($directUnit->iscatalog) : ?>
             <?php include(view($model::getName() . '/direct-catalog')) ?>
         <?php else : ?>
             <?php include(view($model::getName() . '/direct-unit')) ?>
@@ -21,9 +21,9 @@
 
     <?php include(view('includes/pagination')) ?>
 
-    <?php if($units) : ?>
+    <?php if ($units) : ?>
     <div class="row">
-        <?php foreach($units as $unit) : ?>
+        <?php foreach ($units as $unit) : ?>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card mb-4">
                     <a href="<?= ROOT ?><?= $model::getName() ?>/<?= $unit->url ?>"

@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 /* @Setup */
-if(!in_array('sessions', scandir('data'))) {
+if (!in_array('sessions', scandir('data'))) {
     mkdir('data/sessions');
     mkdir('data/migrations');
     mkdir('data/files');
@@ -23,7 +23,7 @@ require('app/config.php');
 
 /* @ErrorHandler
 $ERRORS = '';
-if(!DEBUG) {
+if (!DEBUG) {
     set_error_handler('errorHandler');
     set_exception_handler('errorHandler');
 }
@@ -31,7 +31,7 @@ if(!DEBUG) {
 
 require('system/sessions_gc.php');
 require('system/autoloader.php');
-if(DEBUG) {
+if (DEBUG) {
     require('system/migrator.php');
 }
 require('system/AltoRouter.php');
@@ -40,9 +40,9 @@ require('system/router.php');
 session('alert', '');
 
 /* @ErrorHandler
-if(!DEBUG && MAILS && $ERRORS) {
+if (!DEBUG && MAILS && $ERRORS) {
     $logFile = 'data/temp/errors.txt';
-    if($ERRORS != file_get_contents($logFile)) {
+    if ($ERRORS != file_get_contents($logFile)) {
         $headers = "Content-type: text/html; charset=utf-8\r\n";
         $headers .= "From: " . SITE_NAME . "<" . NOTIFY_EMAIL . ">\r\n";
         mail(EMAIL_CONTACT, 'Error', $ERRORS, $headers);

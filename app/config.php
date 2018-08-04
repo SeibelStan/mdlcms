@@ -17,7 +17,7 @@ define('BOTAPI', 'https://api.telegram.org/bot' . BOTTOKEN . '/');
 $BOT = new Telegram(BOTTOKEN);
 /* /Bot */
 
-if(preg_match('/\./', DOMAIN)) {
+if (preg_match('/\./', DOMAIN)) {
     define('ENV', 'prod');
 }
 else {

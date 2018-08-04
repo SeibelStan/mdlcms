@@ -35,7 +35,7 @@
         function update() {
             var counter = 0;
 
-            elements.each(function() {
+            elements.each(function () {
                 var $this = $(this);
                 if (settings.skip_invisible && !$this.is(":visible")) {
                     return;
@@ -57,7 +57,7 @@
 
         }
 
-        if(options) {
+        if (options) {
             /* Maintain BC for a couple of versions. */
             if (undefined !== options.failurelimit) {
                 options.failure_limit = options.failurelimit;
@@ -77,12 +77,12 @@
 
         /* Fire one scroll event per scroll. Not one scroll event per image. */
         if (0 === settings.event.indexOf("scroll")) {
-            $container.bind(settings.event, function() {
+            $container.bind(settings.event, function () {
                 return update();
             });
         }
 
-        this.each(function() {
+        this.each(function () {
             var self = this;
             var $self = $(self);
 
@@ -96,14 +96,14 @@
             }
 
             /* When appear is triggered load original image. */
-            $self.one("appear", function() {
+            $self.one("appear", function () {
                 if (!this.loaded) {
                     if (settings.appear) {
                         var elements_left = elements.length;
                         settings.appear.call(self, elements_left, settings);
                     }
                     $("<img />")
-                        .bind("load", function() {
+                        .bind("load", function () {
 
                             var original = $self.attr("data-" + settings.data_attribute);
                             $self.hide();
@@ -134,7 +134,7 @@
             /* When wanted event is triggered load original image */
             /* by triggering appear.                              */
             if (0 !== settings.event.indexOf("scroll")) {
-                $self.bind(settings.event, function() {
+                $self.bind(settings.event, function () {
                     if (!self.loaded) {
                         $self.trigger("appear");
                     }
@@ -143,7 +143,7 @@
         });
 
         /* Check if something appears when window is resized. */
-        $window.bind("resize", function() {
+        $window.bind("resize", function () {
             update();
         });
 
@@ -152,7 +152,7 @@
         if ((/(?:iphone|ipod|ipad).*os 5/gi).test(navigator.appVersion)) {
             $window.bind("pageshow", function(event) {
                 if (event.originalEvent && event.originalEvent.persisted) {
-                    elements.each(function() {
+                    elements.each(function () {
                         $(this).trigger("appear");
                     });
                 }
@@ -160,7 +160,7 @@
         }
 
         /* Force initial check if images should appear. */
-        $(document).ready(function() {
+        $(document).ready(function () {
             update();
         });
 

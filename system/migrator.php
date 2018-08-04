@@ -1,21 +1,21 @@
 <?php
 
-foreach($models as $model) {
+foreach ($models as $model) {
 
     $table = isset($model::$table) ? $model::$table : false;;
 
-    if($table && isset($model::$drop)) {
+    if ($table && isset($model::$drop)) {
         $db->query("drop table $model::$table");
     }
 
-    if(!$table || tableExists($model::$table)) {
+    if (!$table || tableExists($model::$table)) {
         continue;
     }
 
     $fields = $model::$fields;
 
     $prepfields = [];
-    foreach($fields as $name => $value) {
+    foreach ($fields as $name => $value) {
         $pvalue = explode(':', $value);
         $adds = isset($pvalue[2]) ? $pvalue[2] : false;
 
@@ -31,7 +31,7 @@ foreach($models as $model) {
     }
 
     $sql = "CREATE TABLE `" . $table . "` (\n";
-    foreach($prepfields as $i => $field) {
+    foreach ($prepfields as $i => $field) {
 
         $sql .= "`" . $field->name . "` "
             . $field->type
@@ -44,12 +44,12 @@ foreach($models as $model) {
     $db->query($sql);
     echo $sql . "<br>";
 
-    foreach($prepfields as $field) {
-        if($field->key) {
+    foreach ($prepfields as $field) {
+        if ($field->key) {
             $sql = "ALTER TABLE `" . $table . "` ADD PRIMARY KEY (`" . $field->name . "`);\n\n";
             $db->query($sql);
         }
-        if($field->ai) {
+        if ($field->ai) {
             $sql = "ALTER TABLE `" . $table . "` MODIFY `" . $field->name . "` " . $field->type . " NOT NULL AUTO_INCREMENT;\n\n";
             $db->query($sql);
         }
@@ -60,19 +60,19 @@ $migrated = false;
 $migrDir = 'data/migrations/';
 $sqlFiles = scandir($migrDir);
 $sqlFiles = delDots($sqlFiles);
-foreach($sqlFiles as $file) {
+foreach ($sqlFiles as $file) {
     $table = preg_replace('/\.\w+$/', '', $file);
-    if(tableExists($table)) {
+    if (tableExists($table)) {
         continue;
     }
     $sql = file_get_contents($migrDir . $file);
     $db->multi_query($sql);
-    while($db->more_results()) {
+    while ($db->more_results()) {
         $db->next_result();
     }
     $migrated = true;
 }
 
-if($migrated) {
+if ($migrated) {
     redirect(ROOT);
 }

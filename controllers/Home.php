@@ -16,7 +16,7 @@ class HomeController {
     public static function sendFeedback() {
         $result = Feedback::send($_REQUEST);
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {
@@ -36,7 +36,7 @@ class HomeController {
         $query = request('searchQuery');
         $result = A_BaseModel::search($query, '', 5);
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {

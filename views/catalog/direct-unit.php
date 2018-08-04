@@ -3,16 +3,16 @@
 ?>
 
 <div class="row mb-5">
-    <?php if($hasPhotos) : ?>
+    <?php if ($hasPhotos) : ?>
         <div class="col-lg-4 col-md-6 col-sm-12">
             <p>
                 <div class="card">
                     <img class="img-fluid" src="<?= $directUnit->image ?>">
                 </div>
             </p>
-            <?php if($directUnit->images) : ?>
+            <?php if ($directUnit->images) : ?>
                 <div class="row">
-                    <?php foreach(textRows($directUnit->images) as $image) : ?>
+                    <?php foreach (textRows($directUnit->images) as $image) : ?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div href="<?= $image ?>"
                                 class="card-img-top-cover height-card-image-half"
@@ -43,7 +43,7 @@
             <input type="hidden" name="model" value="<?= $model::getName() ?>">
         </form>
 
-        <?php if($directUnit->content) : ?>
+        <?php if ($directUnit->content) : ?>
             <hr>
 
             <article>

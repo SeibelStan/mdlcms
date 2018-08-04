@@ -7,8 +7,8 @@ var FM = {
     outerLink: false,
 
     dirChange: function(path) {
-        if(!path) {
-            if(FM.inModal) {
+        if (!path) {
+            if (FM.inModal) {
                 path = localStorage.getItem('path') ? localStorage.getItem('path') : FM.defaultPath;
             }
             else {
@@ -18,7 +18,7 @@ var FM = {
 
         FM.dir = path;
         FM.segments = FM.dir.replace(/\/$/, '').split('/');
-        if(FM.inModal) {
+        if (FM.inModal) {
             localStorage.setItem('path', FM.dir);
         }
         else {
@@ -28,11 +28,11 @@ var FM = {
         FM.filesGet();
     },
 
-    filesGet: function() {
+    filesGet: function () {
         $('.fm_crumbs').empty();
-        for(var i = 0; i < FM.segments.length; i++) {
+        for (var i = 0; i < FM.segments.length; i++) {
             var tmp = '';
-            for(var j = 0; j <= i; j++) {
+            for (var j = 0; j <= i; j++) {
                 tmp += FM.segments[j] + '/';
             }
             $('.fm_crumbs').append('<li class="nav-item"><a class="nav-link" href="#" data-path="' + tmp + '">' + FM.segments[i] + '</a>');
@@ -65,8 +65,8 @@ var FM = {
         );
     },
 
-    filesDelete: function() {
-        if(!confirm('Точно?')) {
+    filesDelete: function () {
+        if (!confirm('Точно?')) {
             return false;
         }
 
@@ -100,7 +100,7 @@ var FM = {
         );
     },
 
-    fileCheck: function() {
+    fileCheck: function () {
         FM.outerLink = $('#fm_outerlink').prop('checked');
         $('.fm_links').empty();
         $('.fm_item.checked').each(function () {
@@ -111,7 +111,7 @@ var FM = {
         });
     },
 
-    dirCreate: function() {
+    dirCreate: function () {
         $.post(
             ROOT + 'files/create-dir',
             {
@@ -130,7 +130,7 @@ $(function () {
 
     FM.dirChange(FM.dir);
 
-    $(window).on('hashchange', function() {
+    $(window).on('hashchange', function () {
         FM.dirChange('');
     });
 
@@ -148,7 +148,7 @@ $(function () {
     });
 
     $('.filemanager').on('click', '.fm_item', function (e) {
-        if(!$(e.target).hasClass('fm_item_title')) {
+        if (!$(e.target).hasClass('fm_item_title')) {
             $(this).toggleClass('checked');
             FM.fileCheck();
         }

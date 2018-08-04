@@ -1,6 +1,6 @@
 <script>
     let ajaxButtons = document.querySelector('.form-ajax button');
-    if(ajaxButtons) {
+    if (ajaxButtons) {
         [].forEach.call(ajaxButtons, function (el) {
             el.setAttribute('disabled', true);
         });

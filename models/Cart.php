@@ -38,7 +38,7 @@ class Cart extends A_BaseModel {
             where (user_id = '" . USERID . "' or session = '" . session_id() . "')
             and order_id = 0 order by date desc");
 
-        foreach($cartItems as $cartItem) {
+        foreach ($cartItems as $cartItem) {
             $itemModel = $cartItem->model;
             $item = arrayFirst(dbs("* from " . $itemModel::getTable() . " where id = '$cartItem->item_id'"));
             $item->count = $cartItem->count;
@@ -52,9 +52,9 @@ class Cart extends A_BaseModel {
     public static function getItems($items) {
         $items = explode(',', $items);
         $result = [];
-        foreach($items as $itemId) {
+        foreach ($items as $itemId) {
             $cartItem = static::getByField('id', $itemId);
-            if(!$cartItem) {
+            if (!$cartItem) {
                 continue;
             }
             $itemModel = $cartItem->model;
@@ -71,7 +71,7 @@ class Cart extends A_BaseModel {
 
     public static function add($data) {
         global $db;
-        if(!in_array(strtolower($data['model']), static::$cartable)) {
+        if (!in_array(strtolower($data['model']), static::$cartable)) {
             return [
                 'message' => 'Неправильный тип предмета',
             ];
@@ -81,7 +81,7 @@ class Cart extends A_BaseModel {
 
         $itemId = $data['item_id'];
         $item = (array)static::getByField('item_id', $itemId, "and user_id = '" . $data['user_id'] . "' or session = '" . $data['session'] . "'");
-        if($item) {
+        if ($item) {
             $count = $data['count'];
             $data = $item;
             $data['count'] += $count;

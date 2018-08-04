@@ -10,14 +10,14 @@
 <div class="tab-content">
     <div class="tab-pane active" id="forms" role="tabpanel">
         <ul>
-            <?php foreach($modelListExemps as $model) : ?>
+            <?php foreach ($modelListExemps as $model) : ?>
             <li><a href="<?= ROOT ?>admin/edit-models/<?= $model::getName() ?>"><?= $model::getTitle() ?></a>
             <?php endforeach; ?>
         </ul>
     </div>
     <div class="tab-pane" id="table" role="tabpanel">
         <ul>
-            <?php foreach($modelListExemps as $model) : ?>
+            <?php foreach ($modelListExemps as $model) : ?>
             <li><a href="<?= ROOT ?>admin/table/<?= $model::getName() ?>"><?= $model::getTitle() ?></a>
             <?php endforeach; ?>
         </ul>

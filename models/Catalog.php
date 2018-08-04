@@ -22,9 +22,9 @@ class Catalog extends A_BaseModel {
         'dateup'    => 'timestamp:NOW()'
     ];
     public static $inputTypes = [
-        'id' => 'hidden',
-        'date' => 'hidden',
-        'dateup' => 'hidden',
+        'id'      => 'hidden',
+        'date'    => 'hidden',
+        'dateup'  => 'hidden',
         'content' => 'wysiwyg'
     ];
     public static $noEmpty = ['date', 'dateup'];

@@ -37,7 +37,7 @@ class Orders extends A_BaseModel {
         $cartItems = Cart::get();
         $data['items'] = [];
         $data['links'] = [];
-        foreach($cartItems as $cartItem) {
+        foreach ($cartItems as $cartItem) {
             array_push($data['items'], $cartItem->cart_id);
             array_push($data['links'], FULLHOST . ROOT . $cartItem->model . '/' . $cartItem->id);
         }
@@ -51,7 +51,7 @@ class Orders extends A_BaseModel {
         static::save($data);
         $lid = $db->insert_id;
 
-        foreach($cartItems as $cartItem) {
+        foreach ($cartItems as $cartItem) {
             dbu(Cart::getTable() . " set order_id = '$lid' where id = '$cartItem->cart_id'");
         }
 

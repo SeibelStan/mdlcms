@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/site.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/adaptive.css<?= assetTime() ?>">
-    <?php if(getJS()) : ?>
+    <?php if (getJS()) : ?>
         <script>
             var ROOT = '<?= ROOT ?>';
             var FULLHOST = '<?= FULLHOST ?>';
@@ -59,7 +59,7 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
-                    <?php if(USERID) : ?>
+                    <?php if (USERID) : ?>
                         <?= user()->login ?>
                     <?php else : ?>
                         Вход / Регистрация
@@ -67,8 +67,8 @@
                 </a>
                 <span class="caret"></span>
                 <ul class="dropdown-menu">
-                    <?php if(USERID) : ?>
-                        <?php if(Helpers::checkRoles('admin')) : ?>
+                    <?php if (USERID) : ?>
+                        <?php if (Helpers::checkRoles('admin')) : ?>
                             <li><a class="dropdown-item" href="<?= ROOT ?>admin/edit-models">Управление</a>
                         <?php endif; ?>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users">Профиль</a>
@@ -85,6 +85,6 @@
 </nav>
 </header>
 
-<?php if(!getJS() && session('alert')) : ?>
+<?php if (!getJS() && session('alert')) : ?>
     <div class="alert alert-<?= alert()->type ?: 'danger' ?> alert-sticky nojs"><?= alert()->message ?></div>
 <?php endif; ?>

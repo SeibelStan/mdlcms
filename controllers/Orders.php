@@ -4,7 +4,7 @@ class OrdersController {
 
     public static function index() {
         $orders = Orders::getUnits("user_id = '" . USERID . "' or session = '" . session_id() . "'", "date desc");
-        foreach($orders as $order) {
+        foreach ($orders as $order) {
             $order->items = Cart::getItems($order->items);
         }
         $pageTitle = Orders::getTitle();
@@ -12,7 +12,7 @@ class OrdersController {
     }
 
     public static function create() {
-        if(!user()) {
+        if (!user()) {
             echo json_encode([
                 'message' => 'Войдите или зарегистрируйтесь и заполните контактные данные',
                 'callback' => '$(".user-dropdown").click();'
@@ -21,7 +21,7 @@ class OrdersController {
         }
         $result = Orders::create($_REQUEST);
 
-        if(getJS()) {
+        if (getJS()) {
             echo json_encode($result);
         }
         else {

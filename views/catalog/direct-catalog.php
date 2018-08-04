@@ -1,4 +1,4 @@
-<?php if($directUnit->content) : ?>
+<?php if ($directUnit->content) : ?>
 <article class="mb-5">
     <?= $directUnit->content ?>
 </article>

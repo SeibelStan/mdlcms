@@ -19,10 +19,10 @@ class CatalogController {
         $pagination = false;
 
         $pageTitle = $model::getTitle();
-        if($url) {
+        if ($url) {
             $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
             $directUnit = $model::getByField($urlType, urldecode($url), "and active");
-            if(!$directUnit) {
+            if (!$directUnit) {
                 abort(404);
             }
             $directUnit = noimagize($directUnit);

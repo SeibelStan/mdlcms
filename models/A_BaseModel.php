@@ -3,8 +3,8 @@
 class A_BaseModel {
 
     public static function getFieldTitle($fieldName) {
-        foreach(static::$fields as $field) {
-            if(isset(static::$titles) && in_array($fieldName, array_keys(static::$titles))) {
+        foreach (static::$fields as $field) {
+            if (isset(static::$titles) && in_array($fieldName, array_keys(static::$titles))) {
                 return static::$titles[$fieldName];
             }
             else {
@@ -17,36 +17,36 @@ class A_BaseModel {
         $exemp = static::getByField('id', $id);
         $fields = static::$fields;
         $prepfields = [];
-        foreach($fields as $name => $value) {
-            if($fillable && !static::isFillable($name)) {
+        foreach ($fields as $name => $value) {
+            if ($fillable && !static::isFillable($name)) {
                 continue;
             }
 
             $pvalue = explode(':', $value);
             $type = $pvalue[0];
 
-            if(isset(static::$inputTypes) && isset(static::$inputTypes[$name])) {
+            if (isset(static::$inputTypes) && isset(static::$inputTypes[$name])) {
                 $tareaClass = $exemp ? preg_match('/class=/', $exemp->$name) : false;
-                if($tareaClass) {
+                if ($tareaClass) {
                     $control = 'textarea';
                 }
                 else {
                     $control = static::$inputTypes[$name];
                 }
             }
-            elseif(preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || preg_match('/text/', $type)) {
+            elseif (preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || preg_match('/text/', $type)) {
                 $control = 'textarea';
             }
-            elseif(preg_match('/int\(1\)/', $type)) {
+            elseif (preg_match('/int\(1\)/', $type)) {
                 $control = 'checkbox';
             }
-            elseif(preg_match('/int/', $type)) {
+            elseif (preg_match('/int/', $type)) {
                 $control = 'number';
             }
-            elseif(in_array($type, ['timestamp', 'datetime'])) {
+            elseif (in_array($type, ['timestamp', 'datetime'])) {
                 $control = 'datetime-local';
             }
-            elseif(in_array($type, ['date'])) {
+            elseif (in_array($type, ['date'])) {
                 $control = 'date';
             }
             else {
@@ -86,13 +86,13 @@ class A_BaseModel {
             }
         }
 
-        if($condition) {
+        if ($condition) {
             $sql .= " " . $condition;
         }
         $result = dbs($sql);
-        if($result) {
+        if ($result) {
             $result = $result[0];
-            if(isset($result->url) && !$result->url) {
+            if (isset($result->url) && !$result->url) {
                 $result->url = $result->id;
             }
         }
@@ -102,22 +102,22 @@ class A_BaseModel {
     public static function paginate($condition = false, $sort = false, $limit = 1, $page = 1) {
         global $db;
         $sql = "count(id) as count from " . static::getTable();
-        if($condition) {
+        if ($condition) {
             $sql .= " where " . $condition;
         }
-        if($sort) {
+        if ($sort) {
             $sql .= " order by " . $sort;
         }
         $units = dbs($sql);
 
         $count = $units[0]->count;
-        if($count <= $limit) {
+        if ($count <= $limit) {
             return [];
         }
 
         $result = [];
         $iPage = 1;
-        for($i = 1; $i <= $count; $i += $limit) {
+        for ($i = 1; $i <= $count; $i += $limit) {
             array_push($result, (object) [
                 'link' => ROOT . static::getName() . '?page=' . $iPage,
                 'title' => $iPage,
@@ -133,26 +133,26 @@ class A_BaseModel {
         global $db;
         $sql = "* from " . static::getTable();
 
-        if($condition) {
+        if ($condition) {
             $sql .= " where " . $condition;
         }
-        if($sort) {
+        if ($sort) {
             $sql .= " order by " . $sort;
         }
-        if($limit) {
+        if ($limit) {
             $sql .= " limit " . $limit;
         }
-        if($page) {
+        if ($page) {
             $sql .= " offset " . ($page - 1) * $limit;
         }
         $units = dbs($sql);
-        foreach($units as $unit) {
-            foreach(['id', 'login', 'full_name', 'name', 'title'] as $tryName) {
-                if(isset($unit->$tryName) && $unit->$tryName) {
+        foreach ($units as $unit) {
+            foreach (['id', 'login', 'full_name', 'name', 'title'] as $tryName) {
+                if (isset($unit->$tryName) && $unit->$tryName) {
                     $unit->display_name = $unit->$tryName;
                 }
             }
-            if(isset($unit->url) && !$unit->url) {
+            if (isset($unit->url) && !$unit->url) {
                 $unit->url = $unit->id;
             }
         }
@@ -164,19 +164,19 @@ class A_BaseModel {
         $data['dateup'] = date('Y-m-d H:i:s');
         $fields = static::getFields($id, $fillable);
 
-        foreach($fields as $field) {
-            if($field->control == 'checkbox' && (isset($data[$field->name]) || isset($data['id']))) {
+        foreach ($fields as $field) {
+            if ($field->control == 'checkbox' && (isset($data[$field->name]) || isset($data['id']))) {
                 $data[$field->name] = isset($data[$field->name]) && $data[$field->name] ? 1 : 0;
             }
         }
 
-        if($id) {
+        if ($id) {
             $sql = "update " . static::getTable() . " set ";
-            foreach($fields as $field) {
-                if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+            foreach ($fields as $field) {
+                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
-                if(preg_match('/(int)/', $field->type)) {
+                if (preg_match('/(int)/', $field->type)) {
                     $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
                 }
                 else {
@@ -191,19 +191,19 @@ class A_BaseModel {
         }
         else {
             $sql = "insert into " . static::getTable() . " (";
-            foreach($fields as $field) {
-                if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+            foreach ($fields as $field) {
+                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
                 $sql .= $field->name . ", ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ") VALUES (";
-            foreach($fields as $field) {
-                if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+            foreach ($fields as $field) {
+                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
-                if(preg_match('/(int|float)/', $field->type)) {
+                if (preg_match('/(int|float)/', $field->type)) {
                     $sql .= ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
                 }
                 else {
@@ -238,23 +238,23 @@ class A_BaseModel {
 
         $modelsList = static::getName() == 'a_basemodel' ? Admin::getModelsList() : [static::getName()];
         $results = [];
-        foreach($modelsList as $model) {
-            if($searchable = $model::getSearchable()) {
+        foreach ($modelsList as $model) {
+            if ($searchable = $model::getSearchable()) {
                 $sql = "* from " . $model::getTable() . " where";
-                foreach($searchable as $field) {
+                foreach ($searchable as $field) {
                     $sql .= " $field like '%$query%' or";
                 }
                 $sql = preg_replace('/or$/', '', $sql);
                 $sql .= " order by $sort limit $limit";
                 $result = dbs($sql);
-                foreach($result as $unit) {
+                foreach ($result as $unit) {
                     $unit->url = isset($unit->url) && $unit->url ? $unit->url : $unit->id;
                     $unit->link = ROOT . strtolower($model::getName()) . '/' . $unit->url;
                     $unit->content = isset($unit->content) ? $unit->content : false;
                     $unit->date = isset($unit->date) ? $unit->date : false;
-                    if(isset($unit->image)) {
+                    if (isset($unit->image)) {
                     }
-                    elseif(isset($unit->images)) {
+                    elseif (isset($unit->images)) {
                         $unit->image = textRows($unit->images)[0];
                     }
                     else {
@@ -270,7 +270,7 @@ class A_BaseModel {
     public static function checkNoEmptyFill($fieldName, $value) {
         $noEmpty = isset(static::$noEmpty) ? static::$noEmpty : [];
         $noEmptyMerged = array_merge($noEmpty, ['id']);
-        if(!(in_array($fieldName, $noEmptyMerged))) {
+        if (!(in_array($fieldName, $noEmptyMerged))) {
             return true;
         }
         return $value !== ''
