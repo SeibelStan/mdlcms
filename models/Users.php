@@ -74,7 +74,7 @@ class Users extends A_BaseModel {
         session('user_id', $user->id);
 
         static::save([
-            'login_date' => dateNowFull()
+            'login_date' => date('Y-m-d H:i:s')
         ], $user->id);
 
         return [
@@ -164,7 +164,7 @@ class Users extends A_BaseModel {
         if($user && $user->email) {
             $mailText = sprintf(
                 file_get_contents('views/mail/remind.html'),
-                passGen(8),
+                hashGen(8),
                 $user->hash,
                 FULLHOST
             );

@@ -2,7 +2,6 @@
 
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 define('SITE_NAME', 'MDLCMS');
-define('CURRENCY', 'KZT');
 
 define('DOMAIN', $_SERVER['HTTP_HOST']);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
@@ -10,6 +9,8 @@ define('USER_IP', $_SERVER['REMOTE_ADDR']);
 $KEYS = pipeObj(file_get_contents('app/keys.txt'), '=');
 define('CRONKEY', $KEYS->cron);
 define('YANDEXKEY', $KEYS->yandex);
+
+define('CURRENCY', 'KZT');
 
 /* @BOT
 define('BOTTOKEN', $KEYS->telegram);

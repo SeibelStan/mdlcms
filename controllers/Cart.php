@@ -20,7 +20,7 @@ class CartController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             back();
         }
     }
@@ -35,7 +35,7 @@ class CartController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             back();
         }
     }

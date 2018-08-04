@@ -20,7 +20,7 @@ class HomeController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             back();
         }
     }
@@ -40,7 +40,7 @@ class HomeController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             include(view('home/search'));
         }
     }

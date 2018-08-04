@@ -63,7 +63,7 @@ class AdminController extends BaseController {
             echo json_encode($alert);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             back();
         }
     }

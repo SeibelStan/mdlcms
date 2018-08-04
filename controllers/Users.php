@@ -25,7 +25,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             back();
         }
     }
@@ -45,7 +45,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             redirect(ROOT . 'users');
         }
     }
@@ -64,7 +64,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             back();
         }
     }
@@ -89,7 +89,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            setResAlert($result);
+            alertResult($result);
             back();
         }
     }

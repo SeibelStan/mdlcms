@@ -41,13 +41,4 @@ class Helpers extends A_BaseModel {
         return $result;
     }
 
-    public static function translate($data, $langFrom = 'ru', $langTo = 'de') {
-        //https://tech.yandex.ru/translate/doc/dg/reference/translate-docpage/
-        $data = urlencode($data);
-        $result = file_get_contents("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" . YANDEXKEY . "&text={$data}&lang={$langFrom}-{$langTo}");
-        $result = json_decode($result);
-        return $result->code == 200 ? $result->text[0] : $data;
-    }
-
-
 }

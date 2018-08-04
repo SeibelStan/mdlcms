@@ -4,9 +4,8 @@ let wysiwyg;
 function imagesFieldFill() {
     $('.fm_links li').each(function () {
         if(lastFocused.prop('tagName') == 'TEXTAREA') {
-            lastFocused.val(
-                lastFocused.val() + '\n' + $(this).html()
-            );
+            var fieldVal = lastFocused.val() + '\n' + $(this).html()
+            lastFocused.val(fieldVal.trim());
         }
         else {
             lastFocused.val($(this).html());
