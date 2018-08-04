@@ -176,7 +176,7 @@ class A_BaseModel {
                 if(!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
                     continue;
                 }
-                if(preg_match('/(int|float)/', $field->type)) {
+                if(preg_match('/(int)/', $field->type)) {
                     $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
                 }
                 else {

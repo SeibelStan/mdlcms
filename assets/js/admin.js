@@ -5,7 +5,7 @@ function imagesFieldFill() {
     $('.fm_links li').each(function () {
         if(lastFocused.prop('tagName') == 'TEXTAREA') {
             lastFocused.val(
-                lastFocused.val() + $(this).html() + '\n'
+                lastFocused.val() + '\n' + $(this).html()
             );
         }
         else {
@@ -31,7 +31,7 @@ $(function () {
     }
 
     if(filterMode == 'client') {
-        $('[data-filter').keyup(function () {
+        $('[data-filter]').keyup(function () {
             var collection = $(this).data('filter');
             var filterVal = $(this).val();
             var regStr = '';
@@ -49,7 +49,7 @@ $(function () {
         });
     }
     else {
-        $('[data-filter').change(function (e) {
+        $('[data-filter]').change(function (e) {
             var collection = $(this).data('filter');
             var filterVal = $(this).val();
 

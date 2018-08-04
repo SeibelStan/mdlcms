@@ -13,6 +13,7 @@
                     <?= $field->required ? '*' : '' ?>
                 </label>
             <?php endif; ?>
+
             <?php if($field->control == 'wysiwyg') : ?>
                 <textarea name="<?= $field->name ?>" id="editor"><?= $field->value ?></textarea>
             <?php elseif($field->control == 'datetime-local') : ?>
@@ -28,21 +29,25 @@
             <?php elseif($field->control == 'checkbox') : ?>
                 <input type="<?= $field->control ?>" name="<?= $field->name ?>" <?= $field->value ? 'checked' : '' ?>>
             <?php elseif($field->control == 'select') : ?>
-                <select name="<?= $field->name ?>"></select>
+                <select class="form-control" name="<?= $field->name ?>"></select>
             <?php else : ?>
                 <input class="form-control"
                     <?= $field->required ? 'required' : '' ?>
                     <?php $pattern = $model::getPattern($field->name); ?>
                     <?php if($pattern) : ?>
+                        <?= $field->control = 'text' ?>
                         pattern="<?= $pattern[0] ?>" title="<?= $pattern[1] ?>"
                     <?php endif; ?>
-                    type="<?= $field->control ?>" name="<?= $field->name ?>" value="<?= $field->value ?>">
+                    <?= $field->type == 'float' ? 'step="any"' : '' ?>
+                    type="<?= $field->control ?>"
+                    name="<?= $field->name ?>"
+                    value="<?= $field->value ?>">
             <?php endif; ?>
         </div>
+        <?php if(in_array($field->name, ['images', 'image'])) : ?>
+            <div class="form-group">
+                <div class="btn btn-secondary last-focused-top" data-toggle="modal" data-target="#filesModal">Выбрать</div>
+            </div>
+        <?php endif; ?>
     </div>
-    <?php if(in_array($field->name, ['images', 'image'])) : ?>
-        <div class="form-group">
-            <div class="btn btn-secondary last-focused-top" data-toggle="modal" data-target="#filesModal">Выбрать</div>
-        </div>
-    <?php endif; ?>
 <?php endforeach; ?>
