@@ -1,7 +1,7 @@
 var changespy = false;
 
 function showAlert(message, type = 'danger', time = 3000) {
-    $('main').prepend('<div class="alert alert-' + type + ' alert-sticky">' + message + '</div>');
+    $('main').prepend('<div class="alert alert-' + (type ? type : 'danger') + ' alert-sticky">' + message + '</div>');
     $('body .alert:first-child')
         .animate({top: '10px'}, 300)
         .animate({clear: 'none'}, time)
@@ -56,8 +56,8 @@ $(function () {
         $(this).remove();
     });
 
-    if($('#alert-message').val()) {
-        showAlert($('#alert-message').val(), $('#alert-type').val());
+    if(alert) {
+        showAlert(alert.message, alert.type);
     }
 
     $('.autolabel label').each(function (i) {

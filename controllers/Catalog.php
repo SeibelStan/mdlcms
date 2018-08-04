@@ -1,6 +1,6 @@
 <?php
 
-class CatalogController extends BaseController {
+class CatalogController {
 
     public static function index($arg = '') {
         global $router;

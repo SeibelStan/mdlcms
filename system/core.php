@@ -57,15 +57,17 @@ function session($name, $value = null) {
     return isset($_SESSION[$name]) ? $_SESSION[$name] : '';
 }
 
-function alert($message, $type = '') {
-    session('alert-message', $message);
-    session('alert-type', $type);
-}
-
-function alertResult($data) {
-    if(@$data['message']) {
-        alert($data['message'], @$data['type']);
+function alert($data = []) {
+    if($data) {
+        $data = (object)$data;
+        $result = [
+            'message' => @$data->message,
+            'type' => @$data->type
+        ];
+        session('alert', json_encode($result));
     }
+
+    return json_decode(session('alert'));
 }
 
 function getJS() {
@@ -76,12 +78,7 @@ function getJS() {
 /* @DB */
 function tableExists($tableName) {
     global $db;
-    $like = addcslashes($tableName, '%_\\');
-    $result = $db->query(
-        "SHOW TABLES LIKE '" . $db->real_escape_string($like) . "';"
-    );
-    $found = $result->num_rows > 0;
-    return $found;
+    return $db->query("SHOW TABLES LIKE '$tableName'")->num_rows;
 }
 
 function dbEscape($data) {
@@ -124,7 +121,7 @@ function dbd($sql) {
 }
 /* /DB */
 
-/* @Arrays */
+/* @Array */
 function arrayFirst($data) {
     return isset($data[0]) ? $data[0] : false;
 }
@@ -182,7 +179,7 @@ function arrayMultiSort($array, $args = []) {
 
     return $array;
 }
-/* /Arrays */
+/* /Array */
 
 /* @Mutator */
 function stripWord($str, $length, $addon = '...') {
@@ -317,26 +314,7 @@ function tr($data, $fallback = true) {
 function getLang() {
     return session('lang');
 }
-
-function translate($data, $langFrom = 'ru', $langTo = 'en') {
-    //https://tech.yandex.ru/translate/doc/dg/reference/translate-docpage/
-    $data = urlencode($data);
-    $result = file_get_contents("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" . YANDEXKEY . "&text={$data}&lang={$langFrom}-{$langTo}");
-    $result = json_decode($result);
-    return $result->code == 200 ? $result->text[0] : $data;
-}
 /* /i18n */
-
-/* @Loger */
-function jsLog($data) {
-    echo '<script>console.log("' . $data . '");</script>';
-}
-
-function errorHandler($num, $type, $file, $line, $context = null) {
-    global $ERRORS;
-    $ERRORS .= $_SERVER['REQUEST_URI'] . ", " . USERID . "<br>$type $file #$line<br><br>";
-}
-/* /Loger */
 
 /* @Other */
 function hashGen($length = 64) {
@@ -353,4 +331,9 @@ function user($id = USERID) {
 
 function assetTime() {
     return '?v=' . (DEBUG ? time() : date('Y-m-d'));
+}
+
+function errorHandler($num, $type, $file, $line, $context = null) {
+    global $ERRORS;
+    $ERRORS .= $_SERVER['REQUEST_URI'] . ", " . USERID . "<br>$type $file #$line<br><br>";
 }

@@ -14,24 +14,16 @@
         </select>
 
         <input type="text" class="form-control col-sm-4" placeholder="Фильтр" data-filter="#model-units">
-
-        <?php if($id) : ?>
-            <button class="btn btn-primary" onclick="$('.main-form').submit();">Сохранить</button>
-        <?php endif; ?>
-
-        <?php if($id && $model::isAddable()) : ?>
-            <a class="btn btn-success" href="<?= ROOT ?>admin/edit-models/<?= $model ?>">Новый</a>
-        <?php endif; ?>
     </div>
 
     <form class="main-form form-ajax" action="<?= ROOT ?>admin/save-models/<?= $model ?><?= $id ? '/' . $id : '' ?>" method="post">
         <?php include(view('includes/fields')) ?>
-        <div class="form-group">
+        <div class="form-group flow-btns">
             <?php if($id || $model::isAddable()) : ?>
                 <button class="btn btn-primary" type="submit">Сохранить</button>
             <?php endif; ?>
             <?php if($id && $model::isRemovable()) : ?>
-                <a class="btn btn-danger" onclick="if(!confirm('Точно?')) return false;" href="<?= ROOT ?>admin/delete-models/<?= $model ?>/<?= $id ?>">Удалить</a>
+                <a class="btn btn-danger" onclick="if(!confirm('Точно?')) return false;" href="<?= ROOT ?>admin/delete-models/<?= $model ?>/<?= $id ?>">&times;</a>
             <?php endif; ?>
         </div>
     </form>

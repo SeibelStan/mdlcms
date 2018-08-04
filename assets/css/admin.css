@@ -9,6 +9,13 @@ textarea {
     width: auto;
 }
 
+.flow-btns {
+    position: fixed;
+    bottom: .5em;
+    right: .5em;
+    margin: 0;
+}
+
 .fm_tools {
     margin-bottom: 10px;
     align-items: center;

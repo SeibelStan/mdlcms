@@ -1,0 +1,8 @@
+cron=cron-key
+telegram=
+
+db_local_user=
+db_local_pass=
+
+db_prod_user=
+db_prod_pass=

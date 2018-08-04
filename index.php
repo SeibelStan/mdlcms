@@ -3,16 +3,31 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+/* @Setup */
+if(!in_array('sessions', scandir('data'))) {
+    mkdir('data/sessions');
+    mkdir('data/migrations');
+    mkdir('data/files');
+    mkdir('data/temp');
+}
+/* @Setup */
+
 require('system/core.php');
-//require('vendor/telegram/Telegram.php');
-//require('vendor/telegram/TelegramMethods.php');
+
+/* @Bot
+require('vendor/telegram/Telegram.php');
+require('vendor/telegram/TelegramMethods.php');
+/* /Bot */
+
 require('app/config.php');
 
+/* @ErrorHandler
 $ERRORS = '';
 if(!DEBUG) {
     set_error_handler('errorHandler');
     set_exception_handler('errorHandler');
 }
+/* /ErrorHandler */
 
 require('system/sessions_gc.php');
 require('system/autoloader.php');
@@ -21,9 +36,10 @@ if(DEBUG) {
 }
 require('system/AltoRouter.php');
 require('system/router.php');
-session('alert-message', '');
-session('alert-type', '');
 
+session('alert', '');
+
+/* @ErrorHandler
 if(!DEBUG && MAILS && $ERRORS) {
     $logFile = 'data/temp/errors.txt';
     if($ERRORS != file_get_contents($logFile)) {
@@ -33,3 +49,4 @@ if(!DEBUG && MAILS && $ERRORS) {
     }
     file_put_contents($logFile, $ERRORS);
 }
+/* ErrorHandler */

@@ -20,7 +20,7 @@ require('app/routes.php');
 $match = $router->match();
 
 if($match && is_callable($match['target'])) {
-    if(SSL_ENABLED && $_SERVER['SERVER_PORT'] == 80) {
+    if(SSL && $_SERVER['SERVER_PORT'] == 80) {
         redirect(FULLHOST . $_SERVER['REQUESR_URI']);
     }
     call_user_func_array($match['target'], $match['params']);

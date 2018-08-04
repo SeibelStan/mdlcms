@@ -1,6 +1,6 @@
 <?php
 
-class OrdersController extends BaseController {
+class OrdersController {
 
     public static function index() {
         $orders = Orders::getUnits("user_id = '" . USERID . "' or session = '" . session_id() . "'", "date desc");
@@ -25,7 +25,7 @@ class OrdersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }

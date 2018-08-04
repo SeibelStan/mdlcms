@@ -45,6 +45,6 @@
 </nav>
 </header>
 
-<?php if(session('alert-message')) : ?>
-    <div class="alert alert-<?= session('alert-type') ?> alert-sticky nojs"><?= session('alert-message') ?></div>
+<?php if(!getJS() && session('alert')) : ?>
+    <div class="alert alert-<?= alert()->type ?: 'danger' ?> alert-sticky nojs"><?= alert()->message ?></div>
 <?php endif; ?>

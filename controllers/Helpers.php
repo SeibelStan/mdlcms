@@ -1,6 +1,6 @@
 <?php
 
-class HelpersController extends BaseController {
+class HelpersController {
 
     public static function setReflink($reflink) {
         session('reflink', $reflink);

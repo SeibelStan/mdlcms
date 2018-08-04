@@ -1,7 +1,7 @@
 <?php include(view('includes/header')) ?>
 
 <main class="container">
-    <p class="lead"><?= count($result) ?> результатов по запросу &laquo;<?= request('searchQuery') ?>&raquo;</ph1>
+    <p class="lead"><?= count($result) ?> результатов по запросу &laquo;<?= $query ?>&raquo;</ph1>
     <div class="row">
     <?php foreach($result as $unit) : ?>
         <div class="col-lg-3 col-md-6 col-sm-12">

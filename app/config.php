@@ -2,21 +2,20 @@
 
 setlocale(LC_ALL, 'ru_RU.UTF-8');
 define('SITE_NAME', 'MDLCMS');
-
 define('DOMAIN', $_SERVER['HTTP_HOST']);
+
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
+define('USER_AGENT', $_SERVER['HTTP_USER_AGENT']);
 
 $KEYS = pipeObj(file_get_contents('app/keys.txt'), '=');
-define('CRONKEY', $KEYS->cron);
-define('YANDEXKEY', $KEYS->yandex);
 
 define('CURRENCY', 'KZT');
 
-/* @BOT
+/* @Bot
 define('BOTTOKEN', $KEYS->telegram);
 define('BOTAPI', 'https://api.telegram.org/bot' . BOTTOKEN . '/');
 $BOT = new Telegram(BOTTOKEN);
-*/
+/* /Bot */
 
 if(preg_match('/\./', DOMAIN)) {
     define('ENV', 'prod');
@@ -26,7 +25,7 @@ else {
 }
 require('app/env-' . ENV . '.php');
 
-define('FULLHOST', (SSL_ENABLED ? 'https' : 'http') . '://' . DOMAIN);
+define('FULLHOST', (SSL ? 'https' : 'http') . '://' . DOMAIN);
 
 ini_set('session.gc_maxlifetime', SESSION_TIME);
 ini_set('session.cookie_lifetime', SESSION_TIME);

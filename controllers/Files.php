@@ -1,6 +1,6 @@
 <?php
 
-class FilesController extends BaseController {
+class FilesController {
 
     public static function index() {
         Helpers::guardRoles('admin');

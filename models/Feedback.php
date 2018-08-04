@@ -38,22 +38,31 @@ class Feedback extends A_BaseModel {
             return $attempt;
         }
 
-        $mailText = '';
+        $response = '';
         foreach($data as $name => $value) {
             if(static::isFillable($name)) {
-                $mailText .= '<p>' . static::getFieldTitle($name) . ': ' . nl2br(strip_tags($value));
+                $response .= '<p>' . static::getFieldTitle($name) . ': ' . nl2br(strip_tags($value));
             }
         }
         static::save($data, 0, true);
 
         if(MAILS) {
-            smail('Отзыв от ' . $data['name'], $mailText, EMAIL_CONTACT);
+            smail('Сообщение от ' . $data['name'], $response, EMAIL_CONTACT);
         }
+
+        /* @Bot
+        if(BOT) {
+            $bot->sendMessage([
+                'chat_id' => BOTMYID,
+                'text' => $response
+            ]);
+        }
+        /* /Bot */
 
         return [
             'message' => 'Сообщение отправлено',
             'type' => 'success',
-            'mailText' => DEBUG ? $mailText : ''
+            'response' => DEBUG ? $response : ''
         ];
     }
 

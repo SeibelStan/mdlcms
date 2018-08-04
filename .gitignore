@@ -1,6 +1,6 @@
 data/errors.txt
 app/keys.txt
-data/sessions
-data/temp
-data/files
+data/sessions/*
+data/temp/*
+data/files/*
 mdlcms.sql

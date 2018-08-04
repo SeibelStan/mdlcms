@@ -35,7 +35,7 @@
 
         <form id="search-form" class="form-inline my-2 my-lg-0 mr-auto dropdown" action="<?= ROOT ?>search" method="post">
             <input class="form-control mr-sm-2 search-widget-trigger" placeholder="Поиск"
-                required data-toggle="dropdown" type="text" name="query" value="<?= request('searchQuery') ?>">
+                required data-toggle="dropdown" type="text" name="searchQuery" value="<?= request('searchQuery') ?>">
             <button class="btn my-2 my-sm-0" type="submit">Искать</button>
             <ul class="dropdown-menu search-widget">
                 <li class="dropdown-item text-muted">Напишите запрос
@@ -85,6 +85,6 @@
 </nav>
 </header>
 
-<?php if(session('alert-message')) : ?>
-    <div class="alert alert-<?= session('alert-type') ?> alert-sticky nojs"><?= session('alert-message') ?></div>
+<?php if(!getJS() && session('alert')) : ?>
+    <div class="alert alert-<?= alert()->type ?: 'danger' ?> alert-sticky nojs"><?= alert()->message ?></div>
 <?php endif; ?>

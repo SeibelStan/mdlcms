@@ -1,6 +1,6 @@
 <?php
 
-class CartController extends BaseController {
+class CartController {
 
     public static function get() {
         $result = Cart::get();
@@ -20,7 +20,7 @@ class CartController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }
@@ -35,7 +35,7 @@ class CartController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }

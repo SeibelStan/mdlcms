@@ -14,8 +14,7 @@
 <script src="<?= ROOT ?>assets/js/core.js<?= assetTime() ?>"></script>
 <script src="<?= ROOT ?>assets/js/app.js<?= assetTime() ?>"></script>
 <input type="hidden" id="currency" value="<?= CURRENCY ?>">
-<input type="hidden" id="alert-message" value="<?= session('alert-message') ?>">
-<input type="hidden" id="alert-type" value="<?= session('alert-type') ?>">
+<script>var alert = JSON.parse('<?= session('alert') ?>');</script>
 <?php endif; ?>
 
 </body>

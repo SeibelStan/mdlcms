@@ -19,9 +19,6 @@
     word-wrap: break-word;
 }
 
-.dropdown-toggle {
-    min-width: 150px;
-}
 .items-nohover > :hover {
     background-color: transparent;
 }

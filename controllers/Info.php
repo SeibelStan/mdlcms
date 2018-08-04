@@ -1,6 +1,6 @@
 <?php
 
-class InfoController extends BaseController {
+class InfoController {
 
     public static function index() {
         global $router;

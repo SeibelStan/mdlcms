@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController {
+class HomeController {
 
     public static function index() {
         include(view('home/index'));
@@ -20,7 +20,7 @@ class HomeController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }
@@ -40,7 +40,7 @@ class HomeController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             include(view('home/search'));
         }
     }

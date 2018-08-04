@@ -1,8 +1,6 @@
 <?php
 
-/* @BOT
-
-class BotController extends BaseController {
+class BotController {
 
     public static function index() {
         global $bot;
@@ -51,5 +49,3 @@ class BotController extends BaseController {
     }
 
 }
-
-*/

@@ -1,6 +1,6 @@
 <?php
 
-class AdminController extends BaseController {
+class AdminController {
 
     public static function index() {
         Helpers::guardRoles('admin');
@@ -63,7 +63,7 @@ class AdminController extends BaseController {
             echo json_encode($alert);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }

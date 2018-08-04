@@ -1,6 +1,6 @@
 <?php
 
-class UsersController extends BaseController {
+class UsersController {
 
     public static function index() {
         Helpers::guardAuth();
@@ -25,7 +25,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }
@@ -45,7 +45,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             redirect(ROOT . 'users');
         }
     }
@@ -64,7 +64,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }
@@ -89,7 +89,7 @@ class UsersController extends BaseController {
             echo json_encode($result);
         }
         else {
-            alertResult($result);
+            alert($result);
             back();
         }
     }
