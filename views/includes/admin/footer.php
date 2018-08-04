@@ -15,7 +15,7 @@
 <script src="<?= ROOT ?>assets/js/core.js<?= assetTime() ?>"></script>
 <script src="<?= ROOT ?>assets/js/app.js<?= assetTime() ?>"></script>
 <script src="<?= ROOT ?>assets/js/admin.js<?= assetTime() ?>"></script>
-<script>var alert = JSON.parse('<?= session('alert') ?>');</script>
+<script>var alert = '<?= session('alert') ?>';</script>
 
 </body>
 </html>

@@ -57,6 +57,7 @@ $(function () {
     });
 
     if(alert) {
+        alert = JSON.parse(alert);
         showAlert(alert.message, alert.type);
     }
 
