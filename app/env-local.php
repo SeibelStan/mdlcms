@@ -17,8 +17,8 @@ define('BOTMYID', 0);
 
 define('DB_TIME_DELTA', 0);
 
-$db = new mysqli('localhost', $KEYS->db_local_user, $KEYS->db_local_pass);
-$db->select_db('mdlcms');
+$db = new mysqli($KEYS->db_local_host, $KEYS->db_local_user, $KEYS->db_local_pass);
+$db->select_db($KEYS->db_local);
 $db->query("SET NAMES utf8");
 
 define('SESSION_PATH', 'data/sessions');

@@ -1,8 +1,12 @@
 cron=cron-key
 telegram=
 
+db_local=
+db_local_host=
 db_local_user=
 db_local_pass=
 
+db_prod=
+db_prod_host=
 db_prod_user=
 db_prod_pass=

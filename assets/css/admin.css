@@ -11,8 +11,8 @@ textarea {
 
 .flow-btns {
     position: fixed;
-    bottom: .5em;
-    right: .5em;
+    bottom: 1em;
+    right: 1em;
     margin: 0;
 }
 
