@@ -65,8 +65,8 @@ $(function () {
         });
     }
 
-    $('.last-focused-top').click(function () {
-        lastFocused = $(this).parent().prev().find('input, textarea');
+    $('.last-focused-set').click(function () {
+        lastFocused = $(this).parent().find('input, textarea');
     });
     
     var markdown = $('[name="markdown"]');

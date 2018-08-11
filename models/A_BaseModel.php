@@ -164,10 +164,10 @@ class A_BaseModel {
         $data['dateup'] = date('Y-m-d H:i:s');
         $fields = static::getFields($id, $fillable);
 
-        foreach ($fields as $field) {
-            if ($field->control == 'checkbox' && (isset($data[$field->name]) || isset($data['id']))) {
-                $data[$field->name] = isset($data[$field->name]) && $data[$field->name] ? 1 : 0;
-            }
+        foreach($fields as $field) {
+            if($field->control == 'checkbox' && isset($data[$field->name])) {
+                $data[$field->name] = $data[$field->name] ? 1 : 0;
+            } 
         }
 
         if ($id) {

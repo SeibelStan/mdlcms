@@ -19,7 +19,7 @@ class Files {
             
             $fileExt = mb_strtolower(pathinfo($fileName)['extension']);
             // Загружаемые расширения
-            if(!in_array($fileExt, ['jpg', 'png', 'pdf'])) {
+            if (!in_array($fileExt, ['jpg', 'png', 'pdf'])) {
                 continue;
             }
             
@@ -140,34 +140,85 @@ class Files {
 
     public static function resizeEngine($src, $dest, $width, $height, $rgb = 0xFFFFFF, $quality = 95) {
         if (!file_exists($src)) {
-            return false;
-        }
-        $size = getimagesize($src);
+            return 0;
+        }  
+        $imgSizes = getimagesize($src);
         if ($size === false) {
-            return false;
+            return 0;
         }
-        $format = strtolower(substr($size['mime'], strpos($size['mime'], '/') + 1));
-        $icfunc = "imagecreatefrom" . $format;
-        if (!function_exists($icfunc)) {
-            return false;
-        }
-        $isrc = $icfunc($src);
-        $idest = imagecreatetruecolor($width, $height);
-        imagefill($idest, 0, 0, $rgb);
-        imagecopyresampled($idest, $isrc, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-        imagejpeg($idest, $dest, $quality);
-        imagedestroy($isrc);
-        imagedestroy($idest);
-        return 1;
+        $imgFormat = explode('/', $imgSizes['mime'])[1];
+        $icFunc = "imagecreatefrom" . $imgFormat;
+        $image = $icFunc($src);
+        $imgDesc = imagecreatetruecolor($width, $height);
+        imagefill($imgDesc, 0, 0, $rgb);
+        imagecopyresampled($imgDesc, $image, 0, 0, 0, 0, $width, $height, $imgSizes[0], $imgSizes[1]);
+        imagejpeg($imgDesc, $dest, $quality);
+        imagedestroy($image);
+        imagedestroy($imgDesc);
+        return 1; 
     }
 
-    public static function resize($src, $width = 800) {
-        $size = getimagesize($src);
-        if ($size[0] > $width or $size[1] > $width) {
-            $height = $size[1] * $width / $size[0];
-            Files::resizeEngine($src, $src, $width, $height);
+    public static function resize($src, $size = 800) {
+        $imgSizes = getimagesize($src);
+        $result = 0;
+        if ($imgSizes[0] > $size) {
+            $height = $imgSizes[1] * $size / $imgSizes[0];
+            $result = Files::resizeEngine($src, $src, $size, $height) ? 'width' : 0;
         }
-        return $width;
+
+        $imgSizes = getimagesize($src);
+        if ($imgSizes[1] > $size) {
+            $width = $imgSizes[0] * $size / $imgSizes[1];
+            $result = Files::resizeEngine($src, $src, $width, $size) ? 'height' : 0;
+        }
+        return $result;
+    }
+
+    public static function mark($src, $mark, $pos = 3) {
+        if (!file_exists($src) || !file_exists($mark)) {
+            return 0;
+        }
+
+        $imgSizes = getimagesize($src);
+        $wmSizes  = getimagesize($mark);
+
+        $imgFormat = explode('/', $imgSizes['mime'])[1];
+        $icFunc = "imagecreatefrom" . $imgFormat;
+        $image = $icFunc($src);
+        $wm = imagecreatefrompng($mark);
+
+        switch ($pos) {
+            case 1: {
+                $wmPosX = 0;
+                $wmPosY = 0;
+                break;
+            }
+            case 2: {
+                $wmPosX = $imgSizes[0] - $wmSizes[0];
+                $wmPosY = 0;
+                break;
+            }
+            case 3: {
+                $wmPosX = $imgSizes[0] - $wmSizes[0];
+                $wmPosY = $imgSizes[1] - $wmSizes[1];
+                break;
+            }
+            case 4: {
+                $wmPosX = 0;
+                $wmPosY = $imgSizes[1] - $wmSizes[1];
+                break;
+            }
+            default: {
+                $wmPosX = ($imgSizes[0] - $wmSizes[0]) / 2;
+                $wmPosY = ($imgSizes[1] - $wmSizes[1]) / 2;
+                break;
+            }
+        }
+
+        imagecopy($image, $wm, $wmPosX, $wmPosY, 0, 0, $wmSizes[0], $wmSizes[1]);
+        imagejpeg($image, $src, 95);
+        imagedestroy($wm);
+        return 1;
     }
 
     public static function download($file, $name) {

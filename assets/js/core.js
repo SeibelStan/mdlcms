@@ -1,6 +1,9 @@
 var changespy = false;
 
 function showAlert(message, type = 'danger', time = 3000) {
+    if (!message) {
+        return false;
+    }
     $('main').prepend('<div class="alert alert-' + (type ? type : 'danger') + ' alert-sticky">' + message + '</div>');
     $('body .alert:first-child')
         .animate({top: '10px'}, 300)
@@ -62,14 +65,22 @@ $(function () {
     }
 
     $('.autolabel label').each(function (i) {
-        var label = 'autolabel-' + Math.random();
-        if (!$(this).attr('for')) {
+        var label = 'autolabel' + Math.random();
+        if(!$(this).attr('for')) {
             $(this).attr('for', label);
-            var input = $(this).siblings();
-            if (!input.attr('id')) {
-                input.attr('id', label);
-            }
+            $(this).siblings().each(function () {
+                if(!$(this).attr('id') && $(this).attr('type') != 'hidden') {
+                    $(this).attr('id', label);
+                }
+            });
         }
+    });
+
+    $('[type="checkbox"]').change(function () {
+        var name = $(this).attr('name');
+        setTimeout(function () {
+            $('[type="hidden"][name="' + name + '"]').val(0);
+        }, 100);
     });
 
     $('label + [type="checkbox"]').each(function () {

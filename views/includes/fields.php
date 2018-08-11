@@ -27,6 +27,7 @@
                     <?= $field->required ? 'required' : '' ?>
                       name="<?= $field->name ?>"><?= $field->value ?></textarea>
             <?php elseif ($field->control == 'checkbox') : ?>
+                <input type="hidden" name="<?= $field->name ?>" value="0">
                 <input type="<?= $field->control ?>" name="<?= $field->name ?>" <?= $field->value ? 'checked' : '' ?>>
             <?php elseif ($field->control == 'select') : ?>
                 <select class="form-control" name="<?= $field->name ?>"></select>
@@ -43,11 +44,10 @@
                     name="<?= $field->name ?>"
                     value="<?= $field->value ?>">
             <?php endif; ?>
+
+            <?php if (in_array($field->name, ['images', 'image'])) : ?>
+                <div class="mt-2 btn btn-secondary last-focused-set" data-toggle="modal" data-target="#filesModal">Выбрать</div>
+            <?php endif; ?>
         </div>
-        <?php if (in_array($field->name, ['images', 'image'])) : ?>
-            <div class="form-group">
-                <div class="btn btn-secondary last-focused-top" data-toggle="modal" data-target="#filesModal">Выбрать</div>
-            </div>
-        <?php endif; ?>
     </div>
 <?php endforeach; ?>
