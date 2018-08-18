@@ -143,9 +143,6 @@ class Files {
             return 0;
         }  
         $imgSizes = getimagesize($src);
-        if ($size === false) {
-            return 0;
-        }
         $imgFormat = explode('/', $imgSizes['mime'])[1];
         $icFunc = "imagecreatefrom" . $imgFormat;
         $image = $icFunc($src);

@@ -14,7 +14,17 @@ class A_BaseModel {
     }
 
     public static function getFields($id = 0, $fillable = false) {
-        $exemp = static::getByField('id', $id);
+        $exemp = false;
+        if ($id) {
+            if(is_array($id)) {
+                $key = array_keys($id)[0];
+                $exemp = static::getByField($key, $id[$key]);
+            }
+            else {
+                $exemp = static::getByField('id', $id);
+            }
+        }
+
         $fields = static::$fields;
         $prepfields = [];
         foreach ($fields as $name => $value) {
@@ -42,6 +52,9 @@ class A_BaseModel {
             }
             elseif (preg_match('/int/', $type)) {
                 $control = 'number';
+            }
+            elseif(preg_match('/(email)/', $name)) {
+                $control = 'email';
             }
             elseif (in_array($type, ['timestamp', 'datetime'])) {
                 $control = 'datetime-local';
@@ -170,26 +183,30 @@ class A_BaseModel {
             } 
         }
 
-        if ($id) {
-            $sql = "update " . static::getTable() . " set ";
-            foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
-                    continue;
-                }
-                if (preg_match('/(int)/', $field->type)) {
-                    $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
-                }
-                else {
-                    $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
-                }
-            }
-            $sql = preg_replace('/,\s+$/', '', $sql);
-            $sql .= " where id = '$id'";
-            $db->query($sql);
-
-            return $db->affected_rows;
+        $key = 'id';
+        $keyVal = $id;
+        if (is_array($id)) {
+            $key = array_keys($id)[0];
+            $keyVal = $id[$key];
         }
-        else {
+
+        $sql = "update " . static::getTable() . " set ";
+        foreach ($fields as $field) {
+            if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+                continue;
+            }
+            if (preg_match('/(int)/', $field->type)) {
+                $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
+            }
+            else {
+                $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
+            }
+        }
+        $sql = preg_replace('/,\s+$/', '', $sql);
+        $sql .= " where $key = '$keyVal'";
+        $db->query($sql);
+
+        if (!$db->affected_rows) {
             $sql = "insert into " . static::getTable() . " (";
             foreach ($fields as $field) {
                 if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
@@ -213,9 +230,9 @@ class A_BaseModel {
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";
             $db->query($sql);
-
-            return $db->insert_id;
         }
+
+        return $db->insert_id ?: $db->affected_rows;
     }
 
     public static function delete($field, $value = 0, $condition = false) {
