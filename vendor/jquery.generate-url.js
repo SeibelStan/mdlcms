@@ -1,5 +1,5 @@
-(function($) {
-	$.fn.generateUrl = function(options) {
+(function ($) {
+	$.fn.generateUrl = function (options) {
 		var UrlGenerator = {
 			options: {
 				urlField: null,
@@ -7,12 +7,12 @@
 				bindType: 'change'
 			},
 
-			init: function(options) {
+			init: function (options) {
 				this.setOptions(options);
 				this.bindEvents();
 			},
 
-			setOptions: function(options) {
+			setOptions: function (options) {
 				options = $.extend(this.options, options);
 
 				if (!this.isJQuery(options.urlField)) {
@@ -31,7 +31,7 @@
 				this.options = options;
 			},
 
-			isJQuery: function(element) {
+			isJQuery: function (element) {
 				return element instanceof jQuery;
 			},
 
@@ -84,7 +84,7 @@
 				return url;
 			},
 
-			burnEvent: function(data) {
+			burnEvent: function (data) {
 				var event = jQuery.Event(data.type, {
 					sourceField: this.options.source,
 					urlField: this.options.urlField,

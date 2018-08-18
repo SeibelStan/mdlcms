@@ -16,7 +16,7 @@ class A_BaseModel {
     public static function getFields($id = 0, $fillable = false) {
         $exemp = false;
         if ($id) {
-            if(is_array($id)) {
+            if (is_array($id)) {
                 $key = array_keys($id)[0];
                 $exemp = static::getByField($key, $id[$key]);
             }
@@ -53,7 +53,7 @@ class A_BaseModel {
             elseif (preg_match('/int/', $type)) {
                 $control = 'number';
             }
-            elseif(preg_match('/(email)/', $name)) {
+            elseif (preg_match('/(email)/', $name)) {
                 $control = 'email';
             }
             elseif (in_array($type, ['timestamp', 'datetime'])) {
@@ -89,7 +89,7 @@ class A_BaseModel {
         $fieldName = $parseName[0];
         $arg = isset($parseName[1]) ? $parseName[1] : '';
 
-        switch($arg) {
+        switch ($arg) {
             case 'like': {
                 $sql = "* from " . static::$table . " where $fieldName like '%$value%'";
                 break;
@@ -177,8 +177,8 @@ class A_BaseModel {
         $data['dateup'] = date('Y-m-d H:i:s');
         $fields = static::getFields($id, $fillable);
 
-        foreach($fields as $field) {
-            if($field->control == 'checkbox' && isset($data[$field->name])) {
+        foreach ($fields as $field) {
+            if ($field->control == 'checkbox' && isset($data[$field->name])) {
                 $data[$field->name] = $data[$field->name] ? 1 : 0;
             } 
         }

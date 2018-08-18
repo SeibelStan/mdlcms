@@ -6,7 +6,7 @@ var FM = {
     inModal: false,
     outerLink: false,
 
-    dirChange: function(path) {
+    dirChange: function (path) {
         if (!path) {
             if (FM.inModal) {
                 path = localStorage.getItem('path') ? localStorage.getItem('path') : FM.defaultPath;
@@ -87,7 +87,7 @@ var FM = {
         );
     },
 
-    fileRename: function(oldName, newName) {
+    fileRename: function (oldName, newName) {
         $.post(
             ROOT + 'files/rename',
             {

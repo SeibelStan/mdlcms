@@ -155,7 +155,7 @@ function pipeArr($data, $delimiter = '|') {
 
 function arrayMultiSort($array, $args = []) {
     usort(
-        $array, function($a, $b) use ($args) {
+        $array, function ($a, $b) use ($args) {
             $res = 0;
 
             $a = (object)$a;

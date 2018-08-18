@@ -66,10 +66,10 @@ $(function () {
 
     $('.autolabel label').each(function (i) {
         var label = 'autolabel' + Math.random();
-        if(!$(this).attr('for')) {
+        if (!$(this).attr('for')) {
             $(this).attr('for', label);
             $(this).siblings().each(function () {
-                if(!$(this).attr('id') && $(this).attr('type') != 'hidden') {
+                if (!$(this).attr('id') && $(this).attr('type') != 'hidden') {
                     $(this).attr('id', label);
                 }
             });

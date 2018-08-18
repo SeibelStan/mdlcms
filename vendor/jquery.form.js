@@ -22,7 +22,7 @@
     }
 }
 
-(function($) {
+(function ($) {
 "use strict";
 
 /*
@@ -33,7 +33,7 @@
     to bind your own submit handler to the form.  For example,
 
     $(document).ready(function () {
-        $('#myForm').on('submit', function(e) {
+        $('#myForm').on('submit', function (e) {
             e.preventDefault(); // <-- important
             $(this).ajaxSubmit({
                 target: '#output'
@@ -90,7 +90,7 @@ $.fn.attr2 = function () {
  * ajaxSubmit() provides a mechanism for immediately submitting
  * an HTML form using AJAX.
  */
-$.fn.ajaxSubmit = function(options) {
+$.fn.ajaxSubmit = function (options) {
     /*jshint scripturl:true */
 
     // fast fail if nothing selected (http://dev.jquery.com/ticket/2752)
@@ -188,7 +188,7 @@ $.fn.ajaxSubmit = function(options) {
     // perform a load on the target only if dataType is not provided
     if (!options.dataType && options.target) {
         var oldSuccess = options.success || function (){};
-        callbacks.push(function(data) {
+        callbacks.push(function (data) {
             var fn = options.replaceTarget ? 'replaceWith' : 'html';
             $(options.target)[fn](data).each(oldSuccess, arguments);
         });
@@ -197,7 +197,7 @@ $.fn.ajaxSubmit = function(options) {
         callbacks.push(options.success);
     }
 
-    options.success = function(data, status, xhr) { // jQuery 1.4+ passes xhr as 3rd arg
+    options.success = function (data, status, xhr) { // jQuery 1.4+ passes xhr as 3rd arg
         var context = options.context || this ;    // jQuery 1.4+ supports scope context
         for (var i=0, max=callbacks.length; i < max; i++) {
             callbacks[i].apply(context, [data, status, xhr || $form, $form]);
@@ -206,7 +206,7 @@ $.fn.ajaxSubmit = function(options) {
 
     if (options.error) {
         var oldError = options.error;
-        options.error = function(xhr, status, error) {
+        options.error = function (xhr, status, error) {
             var context = options.context || this;
             oldError.apply(context, [xhr, status, error, $form]);
         };
@@ -214,7 +214,7 @@ $.fn.ajaxSubmit = function(options) {
 
      if (options.complete) {
         var oldComplete = options.complete;
-        options.complete = function(xhr, status) {
+        options.complete = function (xhr, status) {
             var context = options.context || this;
             oldComplete.apply(context, [xhr, status, $form]);
         };
@@ -315,7 +315,7 @@ $.fn.ajaxSubmit = function(options) {
             s.xhr = function () {
                 var xhr = $.ajaxSettings.xhr();
                 if (xhr.upload) {
-                    xhr.upload.addEventListener('progress', function(event) {
+                    xhr.upload.addEventListener('progress', function (event) {
                         var percent = 0;
                         var position = event.loaded || event.position; /*event.position is deprecated*/
                         var total = event.total;
@@ -331,7 +331,7 @@ $.fn.ajaxSubmit = function(options) {
 
         s.data = null;
         var beforeSend = s.beforeSend;
-        s.beforeSend = function(xhr, o) {
+        s.beforeSend = function (xhr, o) {
             //Send FormData() provided by user
             if (options.formData) {
                 o.data = options.formData;
@@ -352,7 +352,7 @@ $.fn.ajaxSubmit = function(options) {
         var deferred = $.Deferred();
 
         // #341
-        deferred.abort = function(status) {
+        deferred.abort = function (status) {
             xhr.abort(status);
         };
 
@@ -398,7 +398,7 @@ $.fn.ajaxSubmit = function(options) {
             getAllResponseHeaders: function () {},
             getResponseHeader: function () {},
             setRequestHeader: function () {},
-            abort: function(status) {
+            abort: function (status) {
                 var e = (status === 'timeout' ? 'timeout' : 'aborted');
                 log('aborting upload... ' + e);
                 this.aborted = 1;
@@ -677,7 +677,7 @@ $.fn.ajaxSubmit = function(options) {
                 if (isXml) {
                     s.dataType = 'xml';
                 }
-                xhr.getResponseHeader = function(header){
+                xhr.getResponseHeader = function (header){
                     var headers = {'content-type': s.dataType};
                     return headers[header.toLowerCase()];
                 };
@@ -789,7 +789,7 @@ $.fn.ajaxSubmit = function(options) {
             }, 100);
         }
 
-        var toXml = $.parseXML || function(s, doc) { // use parseXML if available (jQuery 1.5+)
+        var toXml = $.parseXML || function (s, doc) { // use parseXML if available (jQuery 1.5+)
             if (window.ActiveXObject) {
                 doc = new ActiveXObject('Microsoft.XMLDOM');
                 doc.async = 'false';
@@ -800,12 +800,12 @@ $.fn.ajaxSubmit = function(options) {
             }
             return (doc && doc.documentElement && doc.documentElement.nodeName != 'parsererror') ? doc : null;
         };
-        var parseJSON = $.parseJSON || function(s) {
+        var parseJSON = $.parseJSON || function (s) {
             /*jslint evil:true */
             return window['eval']('(' + s + ')');
         };
 
-        var httpData = function( xhr, type, s ) { // mostly lifted from jq1.4.4
+        var httpData = function ( xhr, type, s ) { // mostly lifted from jq1.4.4
 
             var ct = xhr.getResponseHeader('content-type') || '',
                 xml = type === 'xml' || !type && ct.indexOf('xml') >= 0,
@@ -848,9 +848,9 @@ $.fn.ajaxSubmit = function(options) {
  * passes the options argument along after properly binding events for submit elements and
  * the form itself.
  */
-$.fn.ajaxForm = function(options) {
+$.fn.ajaxForm = function (options) {
     options = options || {};
-    options.delegation = options.delegation && $.isFunction($.fn.on);
+    options.delegation = options.delegation && $.isfunction ($.fn.on);
 
     // in jQuery 1.3+ we can fix mistakes with the ready state
     if (!options.delegation && this.length === 0) {
@@ -939,7 +939,7 @@ $.fn.ajaxFormUnbind = function () {
  * It is this array that is passed to pre-submit callback functions provided to the
  * ajaxSubmit() and ajaxForm() methods.
  */
-$.fn.formToArray = function(semantic, elements) {
+$.fn.formToArray = function (semantic, elements) {
     var a = [];
     if (this.length === 0) {
         return a;
@@ -1031,7 +1031,7 @@ $.fn.formToArray = function(semantic, elements) {
  * Serializes form data into a 'submittable' string. This method will return a string
  * in the format: name1=value1&amp;name2=value2
  */
-$.fn.formSerialize = function(semantic) {
+$.fn.formSerialize = function (semantic) {
     //hand off to jQuery.param for proper encoding
     return $.param(this.formToArray(semantic));
 };
@@ -1040,7 +1040,7 @@ $.fn.formSerialize = function(semantic) {
  * Serializes all field elements in the jQuery object into a query string.
  * This method will return a string in the format: name1=value1&amp;name2=value2
  */
-$.fn.fieldSerialize = function(successful) {
+$.fn.fieldSerialize = function (successful) {
     var a = [];
     this.each(function () {
         var n = this.name;
@@ -1099,7 +1099,7 @@ $.fn.fieldSerialize = function(successful) {
  * Note: This method *always* returns an array.  If no valid value can be determined the
  *    array will be empty, otherwise it will contain one or more values.
  */
-$.fn.fieldValue = function(successful) {
+$.fn.fieldValue = function (successful) {
     for (var val=[], i=0, max=this.length; i < max; i++) {
         var el = this[i];
         var v = $.fieldValue(el, successful);
@@ -1119,7 +1119,7 @@ $.fn.fieldValue = function(successful) {
 /**
  * Returns the value of the field element.
  */
-$.fieldValue = function(el, successful) {
+$.fieldValue = function (el, successful) {
     var n = el.name, t = el.type, tag = el.tagName.toLowerCase();
     if (successful === undefined) {
         successful = true;
@@ -1166,7 +1166,7 @@ $.fieldValue = function(el, successful) {
  *  - inputs of type submit, button, reset, and hidden will *not* be effected
  *  - button elements will *not* be effected
  */
-$.fn.clearForm = function(includeHidden) {
+$.fn.clearForm = function (includeHidden) {
     return this.each(function () {
         $('input,select,textarea', this).clearFields(includeHidden);
     });
@@ -1175,7 +1175,7 @@ $.fn.clearForm = function(includeHidden) {
 /**
  * Clears the selected form elements.
  */
-$.fn.clearFields = $.fn.clearInputs = function(includeHidden) {
+$.fn.clearFields = $.fn.clearInputs = function (includeHidden) {
     var re = /^(?:color|date|datetime|email|month|number|password|range|search|tel|text|time|url|week)$/i; // 'hidden' is not in this list
     return this.each(function () {
         var t = this.type, tag = this.tagName.toLowerCase();
@@ -1224,7 +1224,7 @@ $.fn.resetForm = function () {
 /**
  * Enables or disables any matching elements.
  */
-$.fn.enable = function(b) {
+$.fn.enable = function (b) {
     if (b === undefined) {
         b = true;
     }
@@ -1237,7 +1237,7 @@ $.fn.enable = function(b) {
  * Checks/unchecks any matching checkboxes or radio buttons and
  * selects/deselects and matching option elements.
  */
-$.fn.selected = function(select) {
+$.fn.selected = function (select) {
     if (select === undefined) {
         select = true;
     }

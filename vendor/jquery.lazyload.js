@@ -13,10 +13,10 @@
  *
  */
 
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
     var $window = $(window);
 
-    $.fn.lazyload = function(options) {
+    $.fn.lazyload = function (options) {
         var elements = this;
         var $container;
         var settings = {
@@ -117,7 +117,7 @@
                             self.loaded = true;
 
                             /* Remove image from array so it is not looped next time. */
-                            var temp = $.grep(elements, function(element) {
+                            var temp = $.grep(elements, function (element) {
                                 return !element.loaded;
                             });
                             elements = $(temp);
@@ -150,7 +150,7 @@
         /* With IOS5 force loading images when navigating with back button. */
         /* Non optimal workaround. */
         if ((/(?:iphone|ipod|ipad).*os 5/gi).test(navigator.appVersion)) {
-            $window.bind("pageshow", function(event) {
+            $window.bind("pageshow", function (event) {
                 if (event.originalEvent && event.originalEvent.persisted) {
                     elements.each(function () {
                         $(this).trigger("appear");
@@ -170,7 +170,7 @@
     /* Convenience methods in jQuery namespace.           */
     /* Use as  $.belowthefold(element, {threshold : 100, container : window}) */
 
-    $.belowthefold = function(element, settings) {
+    $.belowthefold = function (element, settings) {
         var fold;
 
         if (settings.container === undefined || settings.container === window) {
@@ -182,7 +182,7 @@
         return fold <= $(element).offset().top - settings.threshold;
     };
 
-    $.rightoffold = function(element, settings) {
+    $.rightoffold = function (element, settings) {
         var fold;
 
         if (settings.container === undefined || settings.container === window) {
@@ -194,7 +194,7 @@
         return fold <= $(element).offset().left - settings.threshold;
     };
 
-    $.abovethetop = function(element, settings) {
+    $.abovethetop = function (element, settings) {
         var fold;
 
         if (settings.container === undefined || settings.container === window) {
@@ -206,7 +206,7 @@
         return fold >= $(element).offset().top + settings.threshold  + $(element).height();
     };
 
-    $.leftofbegin = function(element, settings) {
+    $.leftofbegin = function (element, settings) {
         var fold;
 
         if (settings.container === undefined || settings.container === window) {
@@ -218,7 +218,7 @@
         return fold >= $(element).offset().left + settings.threshold + $(element).width();
     };
 
-    $.inviewport = function(element, settings) {
+    $.inviewport = function (element, settings) {
          return !$.rightoffold(element, settings) && !$.leftofbegin(element, settings) &&
                 !$.belowthefold(element, settings) && !$.abovethetop(element, settings);
      };
@@ -228,15 +228,15 @@
     /* $("img").filter(":below-the-fold").something() which is faster */
 
     $.extend($.expr[":"], {
-        "below-the-fold" : function(a) { return $.belowthefold(a, {threshold : 0}); },
-        "above-the-top"  : function(a) { return !$.belowthefold(a, {threshold : 0}); },
-        "right-of-screen": function(a) { return $.rightoffold(a, {threshold : 0}); },
-        "left-of-screen" : function(a) { return !$.rightoffold(a, {threshold : 0}); },
-        "in-viewport"    : function(a) { return $.inviewport(a, {threshold : 0}); },
+        "below-the-fold" : function (a) { return $.belowthefold(a, {threshold : 0}); },
+        "above-the-top"  : function (a) { return !$.belowthefold(a, {threshold : 0}); },
+        "right-of-screen": function (a) { return $.rightoffold(a, {threshold : 0}); },
+        "left-of-screen" : function (a) { return !$.rightoffold(a, {threshold : 0}); },
+        "in-viewport"    : function (a) { return $.inviewport(a, {threshold : 0}); },
         /* Maintain BC for couple of versions. */
-        "above-the-fold" : function(a) { return !$.belowthefold(a, {threshold : 0}); },
-        "right-of-fold"  : function(a) { return $.rightoffold(a, {threshold : 0}); },
-        "left-of-fold"   : function(a) { return !$.rightoffold(a, {threshold : 0}); }
+        "above-the-fold" : function (a) { return !$.belowthefold(a, {threshold : 0}); },
+        "right-of-fold"  : function (a) { return $.rightoffold(a, {threshold : 0}); },
+        "left-of-fold"   : function (a) { return !$.rightoffold(a, {threshold : 0}); }
     });
 
 })(jQuery, window, document);
