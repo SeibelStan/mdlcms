@@ -23,11 +23,14 @@ class Files {
                 continue;
             }
             
+            if (!file_exists($this->uploadPath)) {
+                mkdir($this->uploadPath, 0777, true);
+            }
+
             $filePath = $this->uploadPath . $fileName;
             if (move_uploaded_file($files['tmp_name'][$i], $filePath)) {
                 $uploaded[] = $filePath;
             }
-            @chmod($filePath, 0777);
 
             $postfix = false;
             $matches = [];
@@ -48,7 +51,6 @@ class Files {
             if (move_uploaded_file($file['tmp_name'], $filePath)) {
                 $uploaded[] = $filePath;
             }
-            @chmod($filePath, 0777);
 
             $postfix = false;
             $matches = [];
@@ -122,8 +124,7 @@ class Files {
 
     public function createDir($name = '') {
         $path = $this->uploadPath . ($name ?: 'new_' . uniqid());
-        mkdir($path);
-        chmod($path, 0777);
+        mkdir($path, 0777, true);
         return 1;
     }
 

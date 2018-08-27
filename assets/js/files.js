@@ -39,7 +39,6 @@ var FM = {
         }
         $('.fm_crumbs .nav-item:last-child a').removeAttr('href');
 
-        $('.fm_files').empty();
         $.post(
             ROOT + 'files/get',
             {
@@ -49,8 +48,9 @@ var FM = {
                 data = JSON.parse(data);
                 $('.fm_files').empty();
 
+                var res = '';
                 $.each(data, function (i, el) {
-                    $('.fm_files').append('\
+                    res += '\
                         <div class="col-lg-2 col-md-4 col-sm-6 fm_item mb-3"\
                             data-type="' + el.type + '"\
                             data-fullname="' + el.fullname + '">\
@@ -59,8 +59,9 @@ var FM = {
                                 <input type="text" class="fm_item_title" value="' + el.name + '">\
                             </div>\
                         </div>\
-                    ');
+                    ';
                 });
+                $('.fm_files').html(res);
             }
         );
     },
@@ -69,6 +70,8 @@ var FM = {
         if (!confirm('Точно?')) {
             return false;
         }
+
+        $('.fm_links').empty();
 
         var files = [];
         $('.fm_item.checked').each(function () {

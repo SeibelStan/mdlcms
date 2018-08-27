@@ -17,8 +17,8 @@ class Helpers extends A_BaseModel {
             return false;
         }
         return array_intersect(
-            explode(',', user()->roles),
-            explode(',', $data)
+            explode('|', user()->roles),
+            explode('|', $data)
         );
     }
 

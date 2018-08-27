@@ -206,7 +206,7 @@ class A_BaseModel {
         $sql .= " where $key = '$keyVal'";
         $db->query($sql);
 
-        if (!$db->affected_rows) {
+        if ($db->affected_rows < 1) {
             $sql = "insert into " . static::getTable() . " (";
             foreach ($fields as $field) {
                 if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
@@ -230,9 +230,11 @@ class A_BaseModel {
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";
             $db->query($sql);
+
+            return $db->insert_id;
         }
 
-        return $db->insert_id ?: $db->affected_rows;
+        return $db->affected_rows;
     }
 
     public static function delete($field, $value = 0, $condition = false) {
