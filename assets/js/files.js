@@ -46,7 +46,6 @@ var FM = {
             },
             function (data) {
                 data = JSON.parse(data);
-                $('.fm_files').empty();
 
                 var res = '';
                 $.each(data, function (i, el) {
@@ -55,7 +54,7 @@ var FM = {
                             data-type="' + el.type + '"\
                             data-fullname="' + el.fullname + '">\
                             <div class="fm_item_inner card">\
-                                <div class="fm_item_icon card-img-top" style="background-image: url(\'' + el.icon + '\')"></div>\
+                                <img class="fm_item_icon card-img-top" src="' + el.icon + '">\
                                 <input type="text" class="fm_item_title" value="' + el.name + '">\
                             </div>\
                         </div>\

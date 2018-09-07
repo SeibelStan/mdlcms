@@ -41,26 +41,6 @@ class Files {
         return $uploaded;
     }
 
-    public function uploadSingles($files, $names = []) {
-        $uploaded = [];
-        foreach ($files as $k => $file) {
-            echo $names[$k];
-
-            $fileName = @$names[$k] ?: $file['name'];
-            $filePath = $this->uploadPath . $fileName;
-            if (move_uploaded_file($file['tmp_name'], $filePath)) {
-                $uploaded[] = $filePath;
-            }
-
-            $postfix = false;
-            $matches = [];
-            if (preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
-                Files::resize($filePath, $matches[1]);
-            }
-        }
-        return $uploaded;
-    }
-
     public function get() {
         $files = delDots(scandir($this->uploadPath));
         $iconBase = ROOT . 'assets/img/';
@@ -117,8 +97,6 @@ class Files {
     }
 
     public function rename($oldName, $newName) {
-        print_r(scandir($oldName));
-        print_r(scandir($newName));
         return rename($oldName, $newName) ? 1 : 0;
     }
 

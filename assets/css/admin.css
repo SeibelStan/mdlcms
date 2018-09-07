@@ -19,7 +19,6 @@ textarea {
 .fm_tools {
     margin-bottom: 10px;
     align-items: center;
-    height: 56px;
 }
 .fm_right {
     overflow: auto;
@@ -40,8 +39,7 @@ textarea {
     background-size: contain;
     background-position: center center;
     height: 128px;
-    width: 128px;
-    max-width: 100%;
+    object-fit: cover;
     margin-bottom: 10px;
     background-repeat: no-repeat;
 }
