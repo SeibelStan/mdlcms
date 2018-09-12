@@ -81,7 +81,7 @@ class A_BaseModel {
     }
 
     public static function checkPattern($pattern, $data) {
-        return preg_match('/^' . static::pattern[$pattern][0] . '$/', $data);
+        return preg_match('/^' . static::getPattern($pattern)[0] . '$/', $data);
     }
 
     public static function getByField($fieldName, $value, $condition = false) {

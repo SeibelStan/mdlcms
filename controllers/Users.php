@@ -3,6 +3,10 @@
 class UsersController {
 
     public static function index() {
+        global $model;
+        global $fields;
+        global $pageTitle;
+
         Helpers::guardAuth();
         $model = new Users();
         $fields = $model::getFields(USERID, true);
@@ -11,11 +15,35 @@ class UsersController {
     }
 
     public static function login() {
+        global $pageTitle;
+
         if (USERID) {
             redirect(ROOT . 'users');
         }
         $pageTitle = tr('log_in');
         view('users/login', 'main');
+    }
+
+    public static function register() {
+        global $pageTitle;
+
+        $pageTitle = tr('sign_up');
+        view('users/register', 'main');
+    }
+
+    public static function remind() {
+        global $pageTitle;
+        
+        $pageTitle = tr('pass_remind');
+        view('users/remind', 'main');
+    }
+
+    public static function restore() {
+        Users::restore([
+            'hash' => clearRequest('hash'),
+            'pass' => clearRequest('pass'),
+        ]);
+        redirect(ROOT);
     }
 
     public static function doLogin($login = '', $password = '') {
@@ -28,11 +56,6 @@ class UsersController {
             alert($result);
             back();
         }
-    }
-
-    public static function register() {
-        $pageTitle = tr('sign_up');
-        view('users/register', 'main');
     }
 
     public static function doRegister() {
@@ -50,11 +73,6 @@ class UsersController {
         }
     }
 
-    public static function remind() {
-        $pageTitle = tr('pass_remind');
-        view('users/remind', 'main');
-    }
-
     public static function doRemind() {
         $result = Users::remind([
             'login' => clearRequest('login')
@@ -67,14 +85,6 @@ class UsersController {
             alert($result);
             back();
         }
-    }
-
-    public static function restore() {
-        Users::restore([
-            'hash' => clearRequest('hash'),
-            'pass' => clearRequest('pass'),
-        ]);
-        redirect(ROOT);
     }
 
     public static function logout() {
