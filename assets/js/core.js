@@ -13,6 +13,17 @@ function showAlert(message, type = 'danger', time = 3000) {
         })
 }
 
+function selectVal() {
+    $('select').each(function () {
+        var sel = $(this);
+        sel.find('option').each(function () {
+            if (sel.attr('value') == $(this).val()) {
+                $(this).prop('selected', true);
+            }
+        });
+    });
+}
+
 function attachForms() {
     $('form').on('submit', function () {
         if (typeof wysiwyg != 'undefined') {
@@ -117,5 +128,7 @@ $(function () {
     $('[name="password"]').on('dblclick', function () {
         $(this).attr('type', $(this).attr('type') == 'text' ? 'password' : 'text');
     });
+
+    selectVal();
 
 });

@@ -30,7 +30,7 @@
                 <input type="hidden" name="<?= $field->name ?>" value="0">
                 <input type="<?= $field->control ?>" name="<?= $field->name ?>" <?= $field->value ? 'checked' : '' ?>>
             <?php elseif ($field->control == 'select') : ?>
-                <select class="form-control" name="<?= $field->name ?>"></select>
+                <select class="form-control" name="<?= $field->name ?>" value="<?= $field->value ?>"></select>
             <?php else : ?>
                 <input class="form-control"
                     <?= $field->required ? 'required' : '' ?>
