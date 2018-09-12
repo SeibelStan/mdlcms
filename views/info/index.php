@@ -1,11 +1,14 @@
-<?php include(view('includes/header')) ?>
+<?php
+    global $model;
+    global $units;
+?>
 
 <ul class="nav">
     <li class="nav-item"><a href="<?= ROOT ?><?= $model::getName() ?>" class="nav-link"><?= $model::getTitle() ?></a>
 </ul>
 
 <main class="container">
-    <?php include(view('includes/pagination')) ?>
+    <?php include 'views/includes/pagination.php' ?>
 
     <div class="row">
         <?php foreach ($units as $unit) : ?>
@@ -31,7 +34,5 @@
         <?php endforeach; ?>
     </div>
 
-    <?php include(view('includes/pagination')) ?>
+    <?php include 'views/includes/pagination.php' ?>
 </main>
-
-<?php include(view('includes/footer')) ?>

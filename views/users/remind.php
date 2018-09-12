@@ -1,5 +1,3 @@
-<?php include(view('includes/header')) ?>
-
 <main class="container page-inner">
     <div class="col-lg-4 col-md-6 col-sm-12">
         <form class="form-ajax form-remind mt-3" action="<?= ROOT ?>users/do-remind" method="post">
@@ -11,5 +9,3 @@
         </form>
     </div>
 </main>
-
-<?php include(view('includes/footer')) ?>

@@ -3,12 +3,15 @@
 class OrdersController {
 
     public static function index() {
+        global $orders;
+        global $pageTitle;
+
         $orders = Orders::getUnits("user_id = '" . USERID . "' or session = '" . session_id() . "'", "date desc");
         foreach ($orders as $order) {
             $order->items = Cart::getItems($order->items);
         }
         $pageTitle = Orders::getTitle();
-        include(view('users/orders'));
+        view('users/orders', 'main');
     }
 
     public static function create() {

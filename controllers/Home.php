@@ -3,14 +3,18 @@
 class HomeController {
 
     public static function index() {
-        include(view('home/index'));
+        view('home/index', 'main');
     }
 
     public static function feedback() {
+        global $model;
+        global $fields;
+        global $pageTitle;
+
         $model = 'feedback';
         $fields = Feedback::getFields(0, true);
         $pageTitle = Feedback::getTitle();
-        include(view('home/feedback'));
+        view('home/feedback', 'main');
     }
 
     public static function sendFeedback() {
@@ -26,23 +30,19 @@ class HomeController {
     }
 
     public static function search() {
+        global $result;
+        global $pageTitle;
+
         $query = request('searchQuery');
-        $result = A_BaseModel::search($query, '', 12);
+        $units = A_BaseModel::search($query, '', 12);
         $pageTitle = $query;
-        include(view('home/search'));
+        view('home/search', 'main');
     }
 
     public static function searchWidget() {
         $query = request('searchQuery');
         $result = A_BaseModel::search($query, '', 5);
-
-        if (getJS()) {
-            echo json_encode($result);
-        }
-        else {
-            alert($result);
-            include(view('home/search'));
-        }
+        echo json_encode($result);
     }
 
 }

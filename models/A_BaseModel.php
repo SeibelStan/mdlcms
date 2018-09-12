@@ -26,7 +26,7 @@ class A_BaseModel {
         }
 
         $fields = static::$fields;
-        $prepfields = [];
+        $prepfields = (object) [];
         foreach ($fields as $name => $value) {
             if ($fillable && !static::isFillable($name)) {
                 continue;
@@ -75,7 +75,7 @@ class A_BaseModel {
                 'value' => $exemp ? $exemp->$name : ''
             ];
 
-            array_push($prepfields, $field);
+            $prepfields->$name = $field;
         }
         return $prepfields;
     }

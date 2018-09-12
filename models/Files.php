@@ -85,36 +85,36 @@ class Files {
         return $returnFiles;
     }
 
+    public function rename($oldName, $newName) {
+        return rename($oldName, $newName) ? 1 : 0;
+    }
+
     public function delete($files, $inUploadPath = true) {
         $uploadRootPrepared = preg_replace('/\//', '\/', $this->uploadRoot);
         foreach ($files as &$path) {
             if ($inUploadPath) {
                 $path = $this->uploadPath . preg_replace('/' . $uploadRootPrepared . '/', '', $path);
             }
-            $this->deleteDirectory($path);
+            $this->dirDelete($path);
         }
         return 1;
     }
 
-    public function rename($oldName, $newName) {
-        return rename($oldName, $newName) ? 1 : 0;
-    }
-
-    public function createDir($name = '') {
-        $path = $this->uploadPath . ($name ?: 'new_' . uniqid());
-        mkdir($path, 0777, true);
-        return 1;
-    }
-
-    public function deleteDirectory($path) {
+    public function dirDelete($path) {
         if (!is_dir($path)) {
             return unlink($path) ? 1 : 0;
         }
         $files = delDots(scandir($path));
         foreach ($files as $file) {
-            is_dir($path . '/' . $file) ? deleteDirectory($path . '/' . $file) : unlink($path . '/' . $file);
+            is_dir($path . '/' . $file) ? dirDelete($path . '/' . $file) : unlink($path . '/' . $file);
         }
         return rmdir($path) ? 1 : 0;
+    }
+
+    public function dirCreate($name = '') {
+        $path = $this->uploadPath . ($name ?: 'new_' . uniqid());
+        mkdir($path, 0777, true);
+        return 1;
     }
 
     public static function resizeEngine($src, $dest, $width, $height, $rgb = 0xFFFFFF, $quality = 95) {

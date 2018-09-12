@@ -1,8 +1,17 @@
 <?php
 
 /* @Request */
-function view($view) {
-    return 'views/' . $view . '.php';
+function view($view, $layout = false) {
+    ob_start();
+    require "views/$view.php";
+    $viewContent = ob_get_contents();
+    ob_clean();
+    if ($layout) {
+        require "views/layouts/$layout.php";
+    }
+    else {
+        echo $viewContent;
+    }
 }
 
 function clear($data, $length = 0) {
@@ -44,7 +53,7 @@ function abort($code) {
         header('HTTP/1.0 401 Not Authorized');
     }
     session('uri', $_SERVER['REQUEST_URI']);
-    include(view('errors/' . $code));
+    view('errors/' . $code, 'main');
     die();
 }
 /* /Request */

@@ -7,7 +7,7 @@ class UsersController {
         $model = new Users();
         $fields = $model::getFields(USERID, true);
         $pageTitle = user()->login;
-        include(view('users/index'));
+        view('users/index', 'main');
     }
 
     public static function login() {
@@ -15,7 +15,7 @@ class UsersController {
             redirect(ROOT . 'users');
         }
         $pageTitle = tr('log_in');
-        include(view('users/login'));
+        view('users/login', 'main');
     }
 
     public static function doLogin($login = '', $password = '') {
@@ -32,7 +32,7 @@ class UsersController {
 
     public static function register() {
         $pageTitle = tr('sign_up');
-        include(view('users/register'));
+        view('users/register', 'main');
     }
 
     public static function doRegister() {
@@ -52,7 +52,7 @@ class UsersController {
 
     public static function remind() {
         $pageTitle = tr('pass_remind');
-        include(view('users/remind'));
+        view('users/remind', 'main');
     }
 
     public static function doRemind() {

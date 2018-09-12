@@ -23,7 +23,7 @@ if (preg_match('/\./', DOMAIN)) {
 else {
     define('ENV', 'local');
 }
-require('app/env-' . ENV . '.php');
+require 'app/env-' . ENV . '.php';
 
 define('FULLHOST', (SSL ? 'https' : 'http') . '://' . DOMAIN);
 

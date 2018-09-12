@@ -15,6 +15,6 @@ foreach ($autoload_dirs as $dir) {
             $model = preg_replace('/\.php/', '', $file);
             array_push($models, $model);
         }
-        require($dir . $file);
+        require $dir . $file;
     }
 }

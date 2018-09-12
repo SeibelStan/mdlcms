@@ -48,13 +48,13 @@ $router->map('GET|POST', '/files/create-dir', 'FilesController::createDir');
 // Admin
 $router->map('GET', '/admin', 'AdminController::index');
 $router->map('GET', '/admin/edit-models', 'AdminController::editModels');
-$router->map('GET', '/admin/edit-models/[a:model]', 'AdminController::editUnit');
-$router->map('GET', '/admin/edit-models/[a:model]/[i:id]', 'AdminController::editUnit');
+$router->map('GET', '/admin/edit-models/[a:modelName]', 'AdminController::editUnit');
+$router->map('GET', '/admin/edit-models/[a:modelName]/[i:id]', 'AdminController::editUnit');
 $router->map('GET|POST', '/admin/[a:model]/filter', 'AdminController::filter');
-$router->map('GET|POST', '/admin/save-models/[a:model]/[i:id]', 'AdminController::save');
-$router->map('GET|POST', '/admin/save-models/[a:model]', 'AdminController::save');
-$router->map('GET|POST', '/admin/delete-models/[a:model]/[i:id]', 'AdminController::delete');
-$router->map('GET', '/admin/table/[a:model]', 'AdminController::table');
+$router->map('GET|POST', '/admin/save-models/[a:modelName]/[i:id]', 'AdminController::save');
+$router->map('GET|POST', '/admin/save-models/[a:modelName]', 'AdminController::save');
+$router->map('GET|POST', '/admin/delete-models/[a:modelName]/[i:id]', 'AdminController::delete');
+$router->map('GET', '/admin/table/[a:modelName]', 'AdminController::table');
 
 // Helpers
 $router->map('GET', '/lang/[a:lang]', 'HelpersController::setLang');

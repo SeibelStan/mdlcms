@@ -6,29 +6,7 @@ var FM = {
     inModal: false,
     outerLink: false,
 
-    dirChange: function (path) {
-        if (!path) {
-            if (FM.inModal) {
-                path = localStorage.getItem('path') ? localStorage.getItem('path') : FM.defaultPath;
-            }
-            else {
-                path = location.hash ? location.hash.replace(/#/, '') : FM.defaultPath;
-            }
-        }
-
-        FM.dir = path;
-        FM.segments = FM.dir.replace(/\/$/, '').split('/');
-        if (FM.inModal) {
-            localStorage.setItem('path', FM.dir);
-        }
-        else {
-            location.hash = FM.dir;
-        }
-        $('.tool_upload_dir').val(FM.dir);
-        FM.filesGet();
-    },
-
-    filesGet: function () {
+    get: function () {
         $('.fm_crumbs').empty();
         for (var i = 0; i < FM.segments.length; i++) {
             var tmp = '';
@@ -65,7 +43,7 @@ var FM = {
         );
     },
 
-    filesDelete: function () {
+    delete: function () {
         if (!confirm('Точно?')) {
             return false;
         }
@@ -80,16 +58,17 @@ var FM = {
         $.post(
             ROOT + 'files/delete',
             {
+                dir: FM.dir,
                 files: files,
                 inUploadPath: true
             },
             function () {
-                FM.filesGet();
+                FM.get();
             }
         );
     },
 
-    fileRename: function (oldName, newName) {
+    rename: function (oldName, newName) {
         $.post(
             ROOT + 'files/rename',
             {
@@ -97,12 +76,12 @@ var FM = {
                 newName: newName
             },
             function () {
-                FM.filesGet();
+                FM.get();
             }
         );
     },
 
-    fileCheck: function () {
+    check: function () {
         FM.outerLink = $('#fm_outerlink').prop('checked');
         $('.fm_links').empty();
         $('.fm_item.checked').each(function () {
@@ -113,6 +92,28 @@ var FM = {
         });
     },
 
+    dirChange: function (path) {
+        if (!path) {
+            if (FM.inModal) {
+                path = localStorage.getItem('path') ? localStorage.getItem('path') : FM.defaultPath;
+            }
+            else {
+                path = location.hash ? location.hash.replace(/#/, '') : FM.defaultPath;
+            }
+        }
+
+        FM.dir = path;
+        FM.segments = FM.dir.replace(/\/$/, '').split('/');
+        if (FM.inModal) {
+            localStorage.setItem('path', FM.dir);
+        }
+        else {
+            location.hash = FM.dir;
+        }
+        $('.tool_upload_dir').val(FM.dir);
+        FM.get();
+    },
+
     dirCreate: function () {
         $.post(
             ROOT + 'files/create-dir',
@@ -120,7 +121,7 @@ var FM = {
                 dir: FM.dir
             },
             function (data) {
-                FM.filesGet();
+                FM.get();
             }
         );
     }
@@ -137,7 +138,7 @@ $(function () {
     });
 
     $('.filemanager').on('change', '.fm_item_title', function () {
-        FM.fileRename(
+        FM.rename(
             $(this).closest('.fm_item').data('fullname'),
             FM.dir + $(this).val()
         );
@@ -152,7 +153,7 @@ $(function () {
     $('.filemanager').on('click', '.fm_item', function (e) {
         if (!$(e.target).hasClass('fm_item_title')) {
             $(this).toggleClass('checked');
-            FM.fileCheck();
+            FM.check();
         }
     });
 
@@ -173,15 +174,15 @@ $(function () {
     });
 
     $('.fm_uploadhere').ajaxForm(function () {
-        FM.filesGet();
+        FM.get();
     });
 
     $('.tool_remove').click(function () {
-        FM.filesDelete();
+        FM.delete();
     });
 
     $('.tool_refresh').click(function () {
-        FM.filesGet();
+        FM.get();
     });
 
     $('#fm_outerlink_toggle').click(function () {

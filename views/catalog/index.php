@@ -1,4 +1,10 @@
-<?php include(view('includes/header')) ?>
+<?php
+    global $model;
+    global $directUnit;
+    global $parentUnit;
+    global $units;
+    global $pagination;
+?>
 
 <div class="nav">
     <li class="nav-item"><a href="<?= ROOT ?><?= $model::getName() ?>" class="nav-link"><?= $model::getTitle() ?></a>
@@ -13,13 +19,13 @@
 <main class="container">
     <?php if ($directUnit) : ?>
         <?php if ($directUnit->iscatalog) : ?>
-            <?php include(view($model::getName() . '/direct-catalog')) ?>
+            <?php include 'views/' . $model::getName() . '/direct-catalog.php' ?>
         <?php else : ?>
-            <?php include(view($model::getName() . '/direct-unit')) ?>
+            <?php include 'views/' . $model::getName() . '/direct-unit.php' ?>
         <?php endif; ?>
     <?php endif; ?>
 
-    <?php include(view('includes/pagination')) ?>
+    <?php include 'views/includes/pagination.php' ?>
 
     <?php if ($units) : ?>
     <div class="row">
@@ -37,7 +43,5 @@
     </div>
     <?php endif; ?>
 
-    <?php include(view('includes/pagination')) ?>
+    <?php include 'views/includes/pagination.php' ?>
 </main>
-
-<?php include(view('includes/footer')) ?>

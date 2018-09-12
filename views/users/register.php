@@ -1,5 +1,3 @@
-<?php include(view('includes/header')) ?>
-
 <main class="container">
     <form class="col-lg-4 col-md-6 col-sm-12 form-ajax autolabel" action="<?= ROOT ?>users/do-register" method="post">
         <div class="form-group">
@@ -14,5 +12,3 @@
         <button class="btn btn-primary" type="submit"><?= tr('sign_up') ?></button>
     </form>
 </main>
-
-<?php include(view('includes/footer')) ?>

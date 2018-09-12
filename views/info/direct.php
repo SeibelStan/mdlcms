@@ -1,4 +1,7 @@
-<?php include(view('includes/header')) ?>
+<?php
+    global $model;
+    global $directUnit;
+?>
 
 <?php if (!$directUnit->static) : ?>
     <ul class="nav">
@@ -22,5 +25,3 @@
         <?= $directUnit->content ?>
     </article>
 </main>
-
-<?php include(view('includes/footer')) ?>

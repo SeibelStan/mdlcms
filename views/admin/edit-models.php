@@ -1,4 +1,6 @@
-<?php include(view('includes/admin/header')) ?>
+<?php
+    global $modelListExemps;
+?>
 
 <main class="container">
 
@@ -25,5 +27,3 @@
 </div>
 
 </main>
-
-<?php include(view('includes/admin/footer')) ?>

@@ -1,4 +1,8 @@
-<?php include(view('includes/admin/header')) ?>
+<?php
+    global $model;
+    global $units;
+    global $pagination;
+?>
 
 <main class="container-fluid">
    <h1 class="d-flex justify-content-between">
@@ -40,5 +44,3 @@
     <?php endforeach; ?>
     </table>
 </main>
-
-<?php include(view('includes/admin/footer')) ?>

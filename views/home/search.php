@@ -1,9 +1,11 @@
-<?php include(view('includes/header')) ?>
+<?php
+    global $result;
+?>
 
 <main class="container">
-    <p class="lead"><?= count($result) ?> результатов по запросу &laquo;<?= $query ?>&raquo;</ph1>
+    <p class="lead"><?= count($units) ?> результатов по запросу &laquo;<?= $query ?>&raquo;</ph1>
     <div class="row">
-    <?php foreach ($result as $unit) : ?>
+    <?php foreach ($units as $unit) : ?>
         <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="card mb-4">
                 <a href="<?= $unit->link ?>"
@@ -28,5 +30,3 @@
     <?php endforeach; ?>
     </div>
 </main>
-
-<?php include(view('includes/footer')) ?>

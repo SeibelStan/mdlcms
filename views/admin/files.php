@@ -1,7 +1,6 @@
 <?php $filesInModal = isset($filesInModal) ? $filesInModal : 1; ?>
 
 <?php if (!$filesInModal) : ?>
-    <?php include(view('includes/admin/header')) ?>
     <main class="container-fluid">
 <?php endif; ?>
 
@@ -34,5 +33,4 @@
 
 <?php if (!$filesInModal) : ?>
     </main>
-    <?php include(view('includes/admin/footer')) ?>
 <?php endif; ?>

@@ -4,6 +4,11 @@ class InfoController {
 
     public static function index() {
         global $router;
+        global $units;
+        global $model;
+        global $pagination;
+        global $pageTitle;
+
         $model = 'info';
         $limit = max(clearRequest('limit'), 12);
         $page = max(clearRequest('page'), 1);
@@ -15,10 +20,14 @@ class InfoController {
 
         $units = noimagize($units, 'image');
         $pageTitle = $model::getTitle();
-        include(view('info/index'));
+        view('info/index', 'main');
     }
 
     public static function direct($url = '') {
+        global $model;
+        global $directUnit;
+        global $pageTitle;
+
         $model = 'info';
 
         $urlType = !preg_match('/^\d+$/', $url) ? 'url' : 'id';
@@ -34,7 +43,7 @@ class InfoController {
 
         $pageTitle = $directUnit->title;
 
-        include(view('info/direct'));
+        view('info/direct', 'main');
     }
 
 }

@@ -4,6 +4,13 @@ class CatalogController {
 
     public static function index($arg = '') {
         global $router;
+        global $model;
+        global $directUnit;
+        global $parentUnit;
+        global $units;
+        global $pagination;
+        global $pageTitle;
+
         $model = 'catalog';
         $limit = max(request('limit'), 12);
         $page = max(request('page'), 1);
@@ -38,7 +45,7 @@ class CatalogController {
         $pagination = $model::paginate($sql, $sort, $limit, $page);
 
         $units = noimagize($units, 'image');
-        include(view('catalog/index'));
+        view('catalog/index', 'main');
     }
 
 }

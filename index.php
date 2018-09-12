@@ -12,14 +12,14 @@ if (!in_array('sessions', scandir('data'))) {
 }
 /* @Setup */
 
-require('system/core.php');
+require 'system/core.php';
 
 /* @Bot
-require('vendor/telegram/Telegram.php');
-require('vendor/telegram/TelegramMethods.php');
+require 'vendor/telegram/Telegram.php';
+require 'vendor/telegram/TelegramMethods.php';
 /* /Bot */
 
-require('app/config.php');
+require 'app/config.php';
 
 /* @ErrorHandler
 $ERRORS = '';
@@ -29,13 +29,13 @@ if (!DEBUG) {
 }
 /* /ErrorHandler */
 
-require('system/sessions_gc.php');
-require('system/autoloader.php');
+require 'system/sessions_gc.php';
+require 'system/autoloader.php';
 if (DEBUG) {
-    require('system/migrator.php');
+    require 'system/migrator.php';
 }
-require('system/AltoRouter.php');
-require('system/router.php');
+require 'system/AltoRouter.php';
+require 'system/router.php';
 
 session('alert', '');
 

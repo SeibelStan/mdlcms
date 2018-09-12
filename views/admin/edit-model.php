@@ -1,12 +1,17 @@
-<?php include(view('includes/admin/header')) ?>
+<?php
+    global $model;
+    global $fields;
+    global $units;
+    $id = $fields->id->value;
+?>
 
 <main class="container">
     <h1><?= $model::getTitle() ?></h1>
     <div class="form-group">
         <select class="custom-select select-links" id="model-units">
-            <option data-id="0" value="<?= ROOT ?>admin/edit-models/<?= $model ?>">Новый</option>
+            <option data-id="0" value="<?= ROOT ?>admin/edit-models/<?= $model::getName() ?>">Новый</option>
             <?php foreach ($units as $unit) : ?>
-                <?php $thisLink = ROOT . 'admin/edit-models/' . $model . '/' . $unit->id; ?>
+                <?php $thisLink = ROOT . 'admin/edit-models/' . $model::getName() . '/' . $unit->id; ?>
                 <option data-id="<?= $unit->id ?>" value="<?= $thisLink ?>" <?= $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '' ?>>
                     <?= $unit->display_name ?>
                 </option>
@@ -16,14 +21,14 @@
         <input type="text" class="form-control col-sm-4" placeholder="Фильтр" data-filter="#model-units">
     </div>
 
-    <form class="main-form form-ajax" action="<?= ROOT ?>admin/save-models/<?= $model ?><?= $id ? '/' . $id : '' ?>" method="post">
-        <?php include(view('includes/fields')) ?>
+    <form class="main-form form-ajax" action="<?= ROOT ?>admin/save-models/<?= $model::getName() ?><?= $id ? '/' . $id : '' ?>" method="post">
+        <?php include 'views/includes/fields.php' ?>
         <div class="form-group flow-btns">
             <?php if ($id || $model::isAddable()) : ?>
                 <button class="btn btn-primary" type="submit">Сохранить</button>
             <?php endif; ?>
             <?php if ($id && $model::isRemovable()) : ?>
-                <a class="btn btn-danger" onclick="if (!confirm('Точно?')) return false;" href="<?= ROOT ?>admin/delete-models/<?= $model ?>/<?= $id ?>">&times;</a>
+                <a class="btn btn-danger" onclick="if (!confirm('Точно?')) return false;" href="<?= ROOT ?>admin/delete-models/<?= $model::getName() ?>/<?= $id ?>">&times;</a>
             <?php endif; ?>
         </div>
     </form>
@@ -39,7 +44,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?php include(view('admin/files')) ?>
+                <?php include 'admin/files.php' ?>
             </div>
             <div class="modal-footer" style="justify-content: flex-start;">
                 <button type="button" class="btn btn-primary" onclick="imagesFieldFill()">Выбрать</button>
@@ -47,5 +52,3 @@
         </div>
     </div>
 </div>
-
-<?php include(view('includes/admin/footer')) ?>

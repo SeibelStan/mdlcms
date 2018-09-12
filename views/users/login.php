@@ -1,5 +1,3 @@
-<?php include(view('includes/header')) ?>
-
 <main class="container">
     <div class="col-lg-4 col-md-6 col-sm-12">
         <form class="form-ajax form-login autolabel" action="<?= ROOT ?>users/do-login" method="post">
@@ -16,5 +14,3 @@
         <p class="mt-4"><a href="<?= ROOT ?>users/remind"><?= tr('pass_remind') ?></a></p>
     </div>
 </main>
-
-<?php include(view('includes/footer')) ?>

@@ -1,4 +1,6 @@
-<?php include(view('includes/header')) ?>
+<?php
+    global $orders;
+?>
 
 <main class="container">
     <table class="table">
@@ -29,5 +31,3 @@
     <?php endforeach; ?>
     </table>
 </main>
-
-<?php include(view('includes/footer')) ?>

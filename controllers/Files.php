@@ -3,11 +3,13 @@
 class FilesController {
 
     public static function index() {
+        global $pageTitle;
+
         Helpers::guardRoles('admin');
         $filesInModal = false;
         $model = new Files();
         $pageTitle = 'Файлы';
-        include(view('admin/files'));
+        view('admin/files', 'main');
     }
 
     public static function upload() {
@@ -34,10 +36,10 @@ class FilesController {
         echo $model->rename(request('oldName'), request('newName'));
     }
 
-    public static function createDir() {
+    public static function dirCreate() {
         Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
-        echo $model->createDir(request('name'));
+        echo $model->dirCreate(request('name'));
     }
 
 }

@@ -8,14 +8,14 @@ if (ATTEMPTS) {
 }
 
 if (ATTEMPTS && Bans::check()) {
-    include(view('errors/403'));
+    view('errors/403', 'main');
     die();
 }
 
 $router = new AltoRouter();
 $router->setBasePath(preg_replace('/^\//', '', ROOT));
 
-require('app/routes.php');
+require 'app/routes.php';
 
 $match = $router->match();
 

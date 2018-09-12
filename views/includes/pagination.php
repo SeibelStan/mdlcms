@@ -1,3 +1,7 @@
+<?php
+    global $pagination;
+?>
+
 <?php if ($pagination) : ?>
 
 <nav>

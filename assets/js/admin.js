@@ -11,7 +11,7 @@ function imagesFieldFill() {
             lastFocused.val($(this).html());
         }
     });
-    FM.filesGet();
+    FM.get();
     $('.fm_links').empty();
     $('#filesModal .close').click();
 }
