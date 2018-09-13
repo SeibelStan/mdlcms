@@ -174,8 +174,12 @@ class A_BaseModel {
 
     public static function save($data, $id = 0, $fillable = false) {
         global $db;
-        $data['dateup'] = date('Y-m-d H:i:s');
-        $fields = static::getFields($id, $fillable);
+
+        if (isset(static::$fields->dateup)) {
+            $data['dateup'] = date('Y-m-d H:i:s');
+        }
+
+        $fields = static::getFields();
 
         foreach ($fields as $field) {
             if ($field->control == 'checkbox' && isset($data[$field->name])) {
@@ -190,23 +194,26 @@ class A_BaseModel {
             $keyVal = $id[$key];
         }
 
-        $sql = "update " . static::getTable() . " set ";
-        foreach ($fields as $field) {
-            if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
-                continue;
+        if (static::getByField($key, $keyVal)) {
+            $sql = "update " . static::getTable() . " set ";
+            foreach ($fields as $field) {
+                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+                    continue;
+                }
+                if (preg_match('/(int)/', $field->type)) {
+                    $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
+                }
+                else {
+                    $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
+                }
             }
-            if (preg_match('/(int)/', $field->type)) {
-                $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
-            }
-            else {
-                $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
-            }
-        }
-        $sql = preg_replace('/,\s+$/', '', $sql);
-        $sql .= " where $key = '$keyVal'";
-        $db->query($sql);
+            $sql = preg_replace('/,\s+$/', '', $sql);
+            $sql .= " where $key = '$keyVal'";
+            $db->query($sql);
 
-        if ($db->affected_rows < 1) {
+            return $db->affected_rows;
+        }
+        else {
             $sql = "insert into " . static::getTable() . " (";
             foreach ($fields as $field) {
                 if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
@@ -233,8 +240,6 @@ class A_BaseModel {
 
             return $db->insert_id;
         }
-
-        return $db->affected_rows;
     }
 
     public static function delete($field, $value = 0, $condition = false) {
