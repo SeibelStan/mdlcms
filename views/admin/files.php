@@ -1,3 +1,7 @@
+<?php
+    global $filesInModal;
+?>
+
 <?php $filesInModal = isset($filesInModal) ? $filesInModal : 1; ?>
 
 <?php if (!$filesInModal) : ?>

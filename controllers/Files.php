@@ -3,13 +3,14 @@
 class FilesController {
 
     public static function index() {
+        global $filesInModal;
         global $pageTitle;
 
         Helpers::guardRoles('admin');
         $filesInModal = false;
         $model = new Files();
         $pageTitle = 'Файлы';
-        view('admin/files', 'main');
+        view('admin/files', 'admin');
     }
 
     public static function upload() {
@@ -27,7 +28,7 @@ class FilesController {
     public static function delete() {
         Helpers::guardRoles('admin');
         $model = new Files(request('dir'));
-        echo json_encode($model->delete(request('files'), request('inUploadPath')));
+        echo json_encode($model->delete(request('files'), 1));
     }
 
     public static function rename() {

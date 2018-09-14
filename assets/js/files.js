@@ -59,8 +59,7 @@ var FM = {
             ROOT + 'files/delete',
             {
                 dir: FM.dir,
-                files: files,
-                inUploadPath: true
+                files: files
             },
             function () {
                 FM.get();

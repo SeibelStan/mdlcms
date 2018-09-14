@@ -89,26 +89,24 @@ class Files {
         return rename($oldName, $newName) ? 1 : 0;
     }
 
-    public function delete($files, $inUploadPath = true) {
-        $uploadRootPrepared = preg_replace('/\//', '\/', $this->uploadRoot);
-        foreach ($files as &$path) {
-            if ($inUploadPath) {
-                $path = $this->uploadPath . preg_replace('/' . $uploadRootPrepared . '/', '', $path);
-            }
-            $this->dirDelete($path);
-        }
-        return 1;
-    }
-
-    public function dirDelete($path) {
-        if (!is_dir($path)) {
-            return unlink($path) ? 1 : 0;
-        }
-        $files = delDots(scandir($path));
+    public function delete($files, $inUploadPath = false) {
         foreach ($files as $file) {
-            is_dir($path . '/' . $file) ? dirDelete($path . '/' . $file) : unlink($path . '/' . $file);
+            $ssUploadPath = preg_replace('/\//', '\/', $this->uploadPath);
+            if ($inUploadPath && !preg_match("/$ssUploadPath/", $file)) {
+                continue;
+            }
+
+            if (!@unlink($file)) {
+                $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($file));
+                foreach ($it as $path) {
+                    $currPath = preg_replace('/\.+$/', '', $path);
+                    @unlink($currPath);
+                    @rmdir($currPath);
+                }
+            }
         }
-        return rmdir($path) ? 1 : 0;
+
+        return 1;
     }
 
     public function dirCreate($name = '') {
