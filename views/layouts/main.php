@@ -78,8 +78,8 @@
                         <li><a class="dropdown-item" href="<?= ROOT ?>orders">Заказы</a>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users/logout">Выход</a>
                     <?php else : ?>
-                        <li><a class="dropdown-item" href="<?= ROOT ?>users/register">Регистрация</a>
                         <li><a class="dropdown-item" href="<?= ROOT ?>users/login">Вход</a>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>users/register">Регистрация</a>
                     <?php endif; ?>
                 </ul>
             </li>

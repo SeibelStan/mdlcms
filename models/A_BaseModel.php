@@ -91,11 +91,11 @@ class A_BaseModel {
 
         switch ($arg) {
             case 'like': {
-                $sql = "* from " . static::$table . " where $fieldName like '%$value%'";
+                $sql = static::$table . " where $fieldName like '%$value%'";
                 break;
             }
             default: {
-                $sql = "* from " . static::$table . " where $fieldName = '$value'";
+                $sql = static::$table . " where $fieldName = '$value'";
             }
         }
 
@@ -114,14 +114,14 @@ class A_BaseModel {
 
     public static function paginate($condition = false, $sort = false, $limit = 1, $page = 1) {
         global $db;
-        $sql = "count(id) as count from " . static::getTable();
+        $sql = "select count(id) as count from " . static::getTable();
         if ($condition) {
             $sql .= " where " . $condition;
         }
         if ($sort) {
             $sql .= " order by " . $sort;
         }
-        $units = dbs($sql);
+        $units = dbs($sql, 'raw');
 
         $count = $units[0]->count;
         if ($count <= $limit) {
@@ -144,7 +144,7 @@ class A_BaseModel {
 
     public static function getUnits($condition = false, $sort = false, $limit = false, $page = false) {
         global $db;
-        $sql = "* from " . static::getTable();
+        $sql = static::getTable();
 
         if ($condition) {
             $sql .= " where " . $condition;
@@ -264,7 +264,7 @@ class A_BaseModel {
         $results = [];
         foreach ($modelsList as $model) {
             if ($searchable = $model::getSearchable()) {
-                $sql = "* from " . $model::getTable() . " where";
+                $sql = $model::getTable() . " where";
                 foreach ($searchable as $field) {
                     $sql .= " $field like '%$query%' or";
                 }

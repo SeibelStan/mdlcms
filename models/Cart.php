@@ -34,13 +34,13 @@ class Cart extends A_BaseModel {
 
     public static function get() {
         $result = [];
-        $cartItems = dbs("* from " . static::getTable() . "
+        $cartItems = dbs(static::getTable() . "
             where (user_id = '" . USERID . "' or session = '" . session_id() . "')
             and order_id = 0 order by date desc");
 
         foreach ($cartItems as $cartItem) {
             $itemModel = $cartItem->model;
-            $item = arrayFirst(dbs("* from " . $itemModel::getTable() . " where id = '$cartItem->item_id'"));
+            $item = arrayFirst(dbs($itemModel::getTable() . " where id = '$cartItem->item_id'"));
             $item->count = $cartItem->count;
             $item->cart_id = $cartItem->id;
             $item->model = $cartItem->model;

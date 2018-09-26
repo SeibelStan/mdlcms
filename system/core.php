@@ -95,9 +95,9 @@ function dbEscape($data) {
     return $db->real_escape_string($data);
 }
 
-function dbs($sql) {
+function dbs($sql, $raw = false) {
     global $db;
-    $result = $db->query("select " . $sql);
+    $result = $db->query(($raw ? "" : "select * from ") . $sql);
     $data = [];
     if ($result->num_rows) {
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -108,23 +108,23 @@ function dbs($sql) {
     return $data;
 }
 
-function dbi($sql) {
+function dbi($sql, $raw = false) {
     global $db;
-    $db->query("insert into " . $sql);
+    $db->query(($raw ? "" : "insert into ") . $sql);
     echo $db->error;
     return $db->insert_id;
 }
 
-function dbu($sql) {
+function dbu($sql, $raw = false) {
     global $db;
     $db->query("update " . $sql);
     echo $db->error;
     return $db->affected_rows;
 }
 
-function dbd($sql) {
+function dbd($sql, $raw = false) {
     global $db;
-    $db->query("delete from " . $sql);
+    $db->query(($raw ? "" : "delete from ") . $sql);
     echo $db->error;
     return $db->affected_rows;
 }
