@@ -40,7 +40,7 @@ foreach ($models as $model) {
             . ($i < count($prepfields) - 1 ? ',' : '')
             . "\n";
     }
-    $sql .= ") ENGINE=InnoDB DEFAULT CHARSET=utf16;\n\n";
+    $sql .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;\n\n";
     $db->query($sql);
     echo $sql . "<br>";
 

@@ -117,7 +117,7 @@ function dbi($sql, $raw = false) {
 
 function dbu($sql, $raw = false) {
     global $db;
-    $db->query("update " . $sql);
+    $db->query($raw ? "" : "update " . $sql);
     echo $db->error;
     return $db->affected_rows;
 }

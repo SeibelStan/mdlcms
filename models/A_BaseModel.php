@@ -56,11 +56,17 @@ class A_BaseModel {
             elseif (preg_match('/(email)/', $name)) {
                 $control = 'email';
             }
-            elseif (in_array($type, ['timestamp', 'datetime'])) {
+            elseif (in_array($type, ['datetime', 'timestamp'])) {
                 $control = 'datetime-local';
+                if ($defValue == 'NOW()') {
+                    $defValue = date('Y-m-d H:i:s');
+                }
             }
             elseif (in_array($type, ['date'])) {
                 $control = 'date';
+                if ($defValue == 'NOW()') {
+                    $defValue = date('Y-m-d');
+                }
             }
             else {
                 $control = 'text';
@@ -72,7 +78,7 @@ class A_BaseModel {
                 'type' => $type,
                 'control' => $control,
                 'required' => static::isRequired($name),
-                'value' => $exemp ? $exemp->$name : ''
+                'value' => $exemp ? htmlentities($exemp->$name) : $defValue
             ];
 
             $prepfields->$name = $field;
@@ -174,6 +180,10 @@ class A_BaseModel {
 
     public static function save($data, $id = 0, $fillable = false) {
         global $db;
+
+        if (!$data) {
+            return false;
+        }
 
         if (isset(static::$fields->dateup)) {
             $data['dateup'] = date('Y-m-d H:i:s');
