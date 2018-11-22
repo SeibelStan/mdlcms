@@ -72,13 +72,17 @@ class A_BaseModel {
                 $control = 'text';
             }
 
+            preg_match('/(\d+)/', $type, $matches);
+            $maxlength = @$matches[1];
+
             $field = (object) [
-                'name' => $name,
-                'title' => static::getFieldTitle($name),
-                'type' => $type,
-                'control' => $control,
-                'required' => static::isRequired($name),
-                'value' => $exemp ? htmlentities($exemp->$name) : $defValue
+                'name'      => $name,
+                'title'     => static::getFieldTitle($name),
+                'type'      => $type,
+                'control'   => $control,
+                'required'  => static::isRequired($name),
+                'maxlength' => $maxlength,
+                'value'     => $exemp ? htmlentities($exemp->$name) : $defValue
             ];
 
             $prepfields->$name = $field;
@@ -110,6 +114,7 @@ class A_BaseModel {
         }
         $result = dbs($sql);
         if ($result) {
+            array_reverse($result);
             $result = $result[0];
             if (isset($result->url) && !$result->url) {
                 $result->url = $result->id;
@@ -185,7 +190,7 @@ class A_BaseModel {
             return false;
         }
 
-        if (isset(static::$fields->dateup)) {
+        if (isset(static::$fields['dateup'])) {
             $data['dateup'] = date('Y-m-d H:i:s');
         }
 
@@ -194,7 +199,7 @@ class A_BaseModel {
         foreach ($fields as $field) {
             if ($field->control == 'checkbox' && isset($data[$field->name])) {
                 $data[$field->name] = $data[$field->name] ? 1 : 0;
-            } 
+            }
         }
 
         $key = 'id';
@@ -207,37 +212,37 @@ class A_BaseModel {
         if (static::getByField($key, $keyVal)) {
             $sql = "update " . static::getTable() . " set ";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
                 if (preg_match('/(int)/', $field->type)) {
-                    $sql .= $field->name . " = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
+                    $sql .= "$field->name = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
                 }
                 else {
-                    $sql .= $field->name . " = '" . $db->real_escape_string($data[$field->name]) . "', ";
+                    $sql .= "$field->name = '" . $db->real_escape_string($data[$field->name]) . "', ";
                 }
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= " where $key = '$keyVal'";
             $db->query($sql);
 
-            return $db->affected_rows;
+            return max(0, $db->affected_rows);
         }
         else {
             $sql = "insert into " . static::getTable() . " (";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
-                $sql .= $field->name . ", ";
+                $sql .= "$field->name, ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ") VALUES (";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name])) {
+                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
-                if (preg_match('/(int|float)/', $field->type)) {
+                if (preg_match('/(int|float|decim)/', $field->type)) {
                     $sql .= ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
                 }
                 else {

@@ -24,8 +24,9 @@
                 <input class="form-control" type="<?= $field->control ?>" name="<?= $field->name ?>" value="<?= $tvalue ?>">
             <?php elseif ($field->control == 'textarea') : ?>
                 <textarea class="form-control"
-                    <?= $field->required ? 'required' : '' ?>
-                      name="<?= $field->name ?>"><?= $field->value ?></textarea>
+                    <?= @$field->required ? 'required' : '' ?>
+                    <?= @$field->maxlength ? 'maxlength="' . $field->maxlength . '"' : '' ?>
+                    name="<?= $field->name ?>"><?= $field->value ?></textarea>
             <?php elseif ($field->control == 'checkbox') : ?>
                 <input type="hidden" name="<?= $field->name ?>" value="0">
                 <input type="<?= $field->control ?>" name="<?= $field->name ?>" <?= $field->value ? 'checked' : '' ?>>
@@ -33,7 +34,8 @@
                 <select class="form-control" name="<?= $field->name ?>" value="<?= $field->value ?>"></select>
             <?php else : ?>
                 <input class="form-control"
-                    <?= $field->required ? 'required' : '' ?>
+                    <?= @$field->required ? 'required' : '' ?>
+                    <?= @$field->maxlength ? 'maxlength="' . $field->maxlength . '"' : '' ?>
                     <?php $pattern = $model::getPattern($field->name); ?>
                     <?php if ($pattern) : ?>
                         <?= $field->control = 'text' ?>
