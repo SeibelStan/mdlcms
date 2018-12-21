@@ -325,13 +325,6 @@ function getLang() {
 }
 /* /i18n */
 
-/* @ErrorHandler
-function errorHandler($num, $type, $file, $line, $context = null) {
-    global $ERRORS;
-    $ERRORS .= $_SERVER['REQUEST_URI'] . ", " . USERID . "<br>$type $file #$line<br><br>";
-}
-/* /ErrorHandler */
-
 /* @Other */
 function hashGen($length = 64) {
     $hash = base64_encode(md5(time()));
@@ -347,4 +340,9 @@ function user($id = USERID) {
 
 function assetTime() {
     return '?v=' . (DEBUG ? time() : date('Y-m-d'));
+}
+
+function errorHandler($num, $type, $file, $line, $context = null) {
+    global $ERRORS;
+    $ERRORS .= $_SERVER['REQUEST_URI'] . ", " . USERID . "<br>$type $file #$line<br><br>";
 }

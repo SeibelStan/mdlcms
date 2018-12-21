@@ -21,13 +21,13 @@ require 'vendor/telegram/TelegramMethods.php';
 
 require 'app/config.php';
 
-/* @ErrorHandler
-$ERRORS = '';
-if (!DEBUG) {
-    set_error_handler('errorHandler');
-    set_exception_handler('errorHandler');
+if (EHANDLER) {
+    $ERRORS = '';
+    if (!DEBUG) {
+        set_error_handler('errorHandler');
+        set_exception_handler('errorHandler');
+    }
 }
-/* /ErrorHandler */
 
 require 'system/sessions_gc.php';
 require 'system/autoloader.php';
@@ -40,14 +40,14 @@ require 'system/router.php';
 session('alert', '');
 mysqli_close($db);
 
-/* @ErrorHandler
-if (!DEBUG && MAILS && $ERRORS) {
-    $logFile = 'data/temp/errors.txt';
-    if ($ERRORS != file_get_contents($logFile)) {
-        $headers = "Content-type: text/html; charset=utf-8\r\n";
-        $headers .= "From: " . SITE_NAME . "<" . NOTIFY_EMAIL . ">\r\n";
-        mail(EMAIL_CONTACT, 'Error', $ERRORS, $headers);
+if (EHANDLER) {
+    if (!DEBUG && MAILS && $ERRORS) {
+        $logFile = 'data/temp/errors.txt';
+        if ($ERRORS != file_get_contents($logFile)) {
+            $headers = "Content-type: text/html; charset=utf-8\r\n";
+            $headers .= "From: " . SITE_NAME . "<" . NOTIFY_EMAIL . ">\r\n";
+            mail(EMAIL_CONTACT, 'Error', $ERRORS, $headers);
+        }
+        file_put_contents($logFile, $ERRORS);
     }
-    file_put_contents($logFile, $ERRORS);
 }
-/* ErrorHandler */
