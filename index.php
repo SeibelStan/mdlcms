@@ -38,6 +38,7 @@ require 'system/AltoRouter.php';
 require 'system/router.php';
 
 session('alert', '');
+mysqli_close($db);
 
 /* @ErrorHandler
 if (!DEBUG && MAILS && $ERRORS) {
