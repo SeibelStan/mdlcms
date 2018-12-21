@@ -1,5 +1,5 @@
 var lastFocused;
-let wysiwyg;
+var inscrybmde;
 
 function imagesFieldFill() {
     $('.fm_links li').each(function () {
@@ -52,7 +52,6 @@ $(function () {
             var collection = $(this).data('filter');
             var filterVal = $(this).val();
 
-            var result = '';
             $.post(
                 baseURL + 'admin/' + $('[name="model"]').val() + '/filter',
                 {
@@ -68,62 +67,6 @@ $(function () {
     $('.last-focused-set').click(function () {
         lastFocused = $(this).parent().find('input, textarea');
     });
-    
-    var markdown = $('[name="markdown"]');
-    var markForm = markdown.closest('form');
-    var content = $('[name="content"]');
-    if (markdown.length && content.length) {
-        markdownLabel = markdown.prev();
-        contentLabel = content.prev();
-        var markdownName = markdown.attr('name');
-        var contentName = content.attr('name');
-        markdown.after('\
-            <ul class="nav nav-tabs" id="content-tabs" role="tablist">\
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab-' + markdownName + '">' + markdownLabel.html() + '</a>\
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-' + contentName + '">' + contentLabel.html() + '</a>\
-            </ul>\
-            <div class="tab-content">\
-                <div class="tab-pane active" id="tab-' + markdownName + '"></div>\
-                <div class="tab-pane" id="tab-' + contentName + '"></div>\
-            </div>\
-        ');
-
-        $('#tab-' + markdownName).html(markdown);
-        $('#tab-' + contentName).html(content);
-
-        var tabs = $('#content-tabs');
-        if (markdown.val()) {
-            tabs.find('[name="' + markdownLabel + '"]').tab('show');
-        }
-        
-        markdownLabel.remove();
-        contentLabel.remove();
-
-        markdown.keyup(function () {
-            markForm.find('[type="submit"]').attr('disabled', 'true');
-        });
-
-        markdown.change(function () {
-            $.post(
-                ROOT + 'helpers/markdown-parse',
-                {
-                    data: markdown.val()
-                },
-                function (data) {
-                    if (typeof wysiwyg != 'undefined') {
-                        wysiwyg.setData(data); 
-                        editor.value = wysiwyg.getData();
-                        markForm.find('[type="submit"]')
-                            .attr('disabled', false)
-                            .click();
-                    }
-                    else {
-                        content.val(data);
-                    }
-                }
-            );
-        });
-    }
 
     if ($('[name="url"]').length) {
         $('[name="title"]').each(function () {
@@ -135,15 +78,21 @@ $(function () {
         });
     }
         
-    if ($('#editor').length) {
-        ClassicEditor
-        .create(document.querySelector('#editor'))
-        .then( editor => {
-            wysiwyg = editor;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }
+    inscrybmde = new InscrybMDE({
+        autosave: {
+            enabled: true,
+            uniqueId: "inscrybmde",
+            delay: 1000
+        },
+        spellChecker: false,
+        forceSync: true,
+        tabSize: 4,
+        previewRender: function (x) {
+            console.log(x);
+        }
+    });
+    inscrybmde.codemirror.on('change', function(){
+        $('[name="content"]').val(inscrybmde.markdown(inscrybmde.value()));
+    });
 
 });

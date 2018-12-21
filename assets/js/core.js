@@ -1,4 +1,4 @@
-var changespy = false;
+var changeSpy = false;
 
 function showAlert(message, type = 'danger', time = 3000) {
     if (!message) {
@@ -25,12 +25,6 @@ function selectVal() {
 }
 
 function attachForms() {
-    $('form').on('submit', function () {
-        if (typeof wysiwyg != 'undefined') {
-            $('.ck-editor').prev().val(wysiwyg.getData());
-        }
-    });
-
     $('.form-ajax').ajaxForm({
         success: function (data) {
             $('.form-resetable').resetForm();
@@ -51,8 +45,8 @@ function attachForms() {
         $(this).closest('form').submit();
     });
 
-    $('.form-changespy *').on('change keyup', function () {
-        changespy = true;
+    $('.form-changeSpy *').on('change keyup', function () {
+        changeSpy = true;
     });
 }
 
@@ -61,7 +55,7 @@ $(function () {
     attachForms();
 
     window.onbeforeunload = function () {
-        if (changespy) {
+        if (changeSpy) {
             return 'Уйти не сохраняя?';
         }
     };

@@ -11,8 +11,8 @@ class Catalog extends A_BaseModel {
         'title'     => 'varchar(100)',
         'url'       => 'varchar(100)',
         'price'     => 'int(11)',
-        'content'   => 'text',
         'markdown'  => 'text',
+        'content'   => 'text',
         'image'     => 'varchar(199)',
         'images'    => 'text',
         'connect'   => 'varchar(50)',
@@ -22,10 +22,11 @@ class Catalog extends A_BaseModel {
         'dateup'    => 'timestamp:NOW()'
     ];
     public static $inputTypes = [
-        'id'      => 'hidden',
-        'date'    => 'hidden',
-        'dateup'  => 'hidden',
-        'content' => 'wysiwyg'
+        'id'       => 'hidden',
+        'date'     => 'hidden',
+        'dateup'   => 'hidden',
+        'markdown' => 'wysiwyg',
+        'content'  => 'hidden'
     ];
     public static $noEmpty = ['date', 'dateup'];
     public static $searchable = ['title', 'url', 'content'];
@@ -33,8 +34,8 @@ class Catalog extends A_BaseModel {
         'title'     => 'Название',
         'url'       => 'Ссылка ЧПУ',
         'price'     => 'Цена',
-        'content'   => 'Описание',
-        'markdown'  => 'Markdown',
+        'markdown'  => 'Описание',
+        'content'   => 'Описание (html)',
         'image'     => 'Главное изображение',
         'images'    => 'Изображения (одно в строку)',
         'connect'   => 'Привязан к',

@@ -32,8 +32,9 @@ class A_BaseModel {
                 continue;
             }
 
-            $pvalue = explode(':', $value);
-            $type = $pvalue[0];
+            $expVal = explode(':', $value);
+            $defVal = @$expVal[1] ?: '';
+            $type = $expVal[0];
 
             if (isset(static::$inputTypes) && isset(static::$inputTypes[$name])) {
                 $tareaClass = $exemp ? preg_match('/class=/', $exemp->$name) : false;
@@ -58,14 +59,14 @@ class A_BaseModel {
             }
             elseif (in_array($type, ['datetime', 'timestamp'])) {
                 $control = 'datetime-local';
-                if ($defValue == 'NOW()') {
-                    $defValue = date('Y-m-d H:i:s');
+                if ($defVal == 'NOW()') {
+                    $defVal = date('Y-m-d H:i:s');
                 }
             }
             elseif (in_array($type, ['date'])) {
                 $control = 'date';
-                if ($defValue == 'NOW()') {
-                    $defValue = date('Y-m-d');
+                if ($defVal == 'NOW()') {
+                    $defVal = date('Y-m-d');
                 }
             }
             else {
@@ -82,7 +83,7 @@ class A_BaseModel {
                 'control'   => $control,
                 'required'  => static::isRequired($name),
                 'maxlength' => $maxlength,
-                'value'     => $exemp ? htmlentities($exemp->$name) : $defValue
+                'value'     => $exemp ? htmlentities($exemp->$name) : $defVal
             ];
 
             $prepfields->$name = $field;

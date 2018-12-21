@@ -10,6 +10,7 @@
     <title><?= isset($pageTitle) ? $pageTitle . ' - ' : '' ?><?= SITE_NAME ?></title>
     <link rel="icon" type="image/png" href="<?= ROOT ?>assets/img/favicon.png">
     <link rel="stylesheet" href="<?= ROOT ?>vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= ROOT ?>vendor/inscrybmde/inscrybmde.min.css">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/app.css<?= assetTime() ?>">
     <link rel="stylesheet" href="<?= ROOT ?>assets/css/admin.css<?= assetTime() ?>">
     <script>
@@ -64,7 +65,7 @@
 </script>
 
 <script src="<?= ROOT ?>vendor/jquery-3.3.1.min.js"></script>
-<script src="<?= ROOT ?>vendor/ckeditor.js"></script>
+<script src="<?= ROOT ?>vendor/inscrybmde/inscrybmde.min.js"></script>
 <script src="<?= ROOT ?>vendor/jquery.generate-url.js"></script>
 <script src="<?= ROOT ?>vendor/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="<?= ROOT ?>vendor/jquery.form.js"></script>

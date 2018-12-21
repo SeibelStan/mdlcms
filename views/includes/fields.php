@@ -15,7 +15,7 @@
             <?php endif; ?>
 
             <?php if ($field->control == 'wysiwyg') : ?>
-                <textarea name="<?= $field->name ?>" id="editor"><?= $field->value ?></textarea>
+                <textarea name="<?= $field->name ?>"><?= $field->value ?></textarea>
             <?php elseif ($field->control == 'datetime-local') : ?>
                 <?php
                     $ttime = strtotime($field->value);

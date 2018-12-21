@@ -10,8 +10,8 @@ class Info extends A_BaseModel {
         'id'       => 'int(11)::key_ai',
         'title'    => 'varchar(100)',
         'url'      => 'varchar(100)',
-        'content'  => 'text',
         'markdown' => 'text',
+        'content'  => 'text',
         'image'    => 'varchar(199)',
         'static'   => 'int(1)',
         'active'   => 'int(1):1',
@@ -19,17 +19,18 @@ class Info extends A_BaseModel {
         'dateup'   => 'timestamp:NOW()'
     ];
     public static $inputTypes = [
-        'id'      => 'hidden',
-        'dateup'  => 'hidden',
-        'content' => 'wysiwyg'
+        'id'       => 'hidden',
+        'dateup'   => 'hidden',
+        'markdown' => 'wysiwyg',
+        'content'  => 'hidden'
     ];
     public static $noEmpty = ['date', 'dateup'];
     public static $searchable = ['title', 'url', 'content'];
     public static $titles = [
         'title'    => 'Название',
         'url'      => 'Ссылка ЧПУ',
-        'content'  => 'Описание',
-        'markdown' => 'Markdown',
+        'markdown' => 'Описание',
+        'content'  => 'Описание (html)',
         'image'    => 'Главное изображение',
         'static'   => 'Статичная',
         'active'   => 'Активен',

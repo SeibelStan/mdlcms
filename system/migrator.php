@@ -16,15 +16,15 @@ foreach ($models as $model) {
 
     $prepfields = [];
     foreach ($fields as $name => $value) {
-        $pvalue = explode(':', $value);
-        $adds = isset($pvalue[2]) ? $pvalue[2] : false;
+        $expVal = explode(':', $value);
+        $adds = isset($expVal[2]) ? $expVal[2] : false;
 
         $field = (object) [
             'name' => $name,
-            'type' => $pvalue[0],
+            'type' => $expVal[0],
             'key' => preg_match('/key/', $adds),
             'ai' => preg_match('/ai/', $adds),
-            'def' => isset($pvalue[1]) ? $pvalue[1] : ''
+            'def' => isset($expVal[1]) ? $expVal[1] : ''
         ];
 
         array_push($prepfields, $field);
