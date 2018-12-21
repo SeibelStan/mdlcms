@@ -45,7 +45,7 @@ function attachForms() {
         $(this).closest('form').submit();
     });
 
-    $('.form-changeSpy *').on('change keyup', function () {
+    $('.form-changespy *').on('change keyup', function () {
         changeSpy = true;
     });
 }

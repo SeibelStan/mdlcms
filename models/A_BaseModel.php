@@ -197,9 +197,12 @@ class A_BaseModel {
 
         $fields = static::getFields();
 
-        foreach ($fields as $field) {
+        foreach ($fields as $k => $field) {
             if ($field->control == 'checkbox' && isset($data[$field->name])) {
                 $data[$field->name] = $data[$field->name] ? 1 : 0;
+            }            
+            if (preg_match('/date/', $field->type) && !@$data[$field->name]) {
+                unset($data[$field->name]);
             }
         }
 
