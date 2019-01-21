@@ -36,6 +36,10 @@ class A_BaseModel {
             $defVal = @$expVal[1] ?: '';
             $type = $expVal[0];
 
+            if ($defValue == 'NOW()') {
+                $defValue = now();
+            }
+
             if (isset(static::$inputTypes) && isset(static::$inputTypes[$name])) {
                 $tareaClass = $exemp ? preg_match('/class=/', $exemp->$name) : false;
                 if ($tareaClass) {
@@ -59,15 +63,9 @@ class A_BaseModel {
             }
             elseif (in_array($type, ['datetime', 'timestamp'])) {
                 $control = 'datetime-local';
-                if ($defVal == 'NOW()') {
-                    $defVal = date('Y-m-d H:i:s');
-                }
             }
             elseif (in_array($type, ['date'])) {
                 $control = 'date';
-                if ($defVal == 'NOW()') {
-                    $defVal = date('Y-m-d');
-                }
             }
             else {
                 $control = 'text';
@@ -89,10 +87,6 @@ class A_BaseModel {
             $prepfields->$name = $field;
         }
         return $prepfields;
-    }
-
-    public static function checkPattern($pattern, $data) {
-        return preg_match('/^' . static::getPattern($pattern)[0] . '$/', $data);
     }
 
     public static function getByField($fieldName, $value, $condition = false) {
@@ -213,50 +207,59 @@ class A_BaseModel {
             $keyVal = $id[$key];
         }
 
-        if (static::getByField($key, $keyVal)) {
+        if (static::getByField(array_keys($keys)[0], array_values($keys)[0])) {
             $sql = "update " . static::getTable() . " set ";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name]) || $field->type == 'virtual') {
+                if (!isset($data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
-                if (preg_match('/(int)/', $field->type)) {
-                    $sql .= "$field->name = " . ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
+                if ($data[$field->name] === '') {
+                    $data[$field->name] = 'NULL';
                 }
                 else {
-                    $sql .= "$field->name = '" . $db->real_escape_string($data[$field->name]) . "', ";
+                    $data[$field->name] = "'" . $db->real_escape_string($data[$field->name]) . "'";
                 }
+                $sql .= "`$field->name` = " . $data[$field->name] . ", ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
-            $sql .= " where $key = '$keyVal'";
-            $db->query($sql);
+            $sql .= " where ";
 
+            $impWhere = [];
+            foreach ($keys as $k => $v)  {
+                $impWhere[] = "$k = '$v'";
+            }
+            $sql .= implode(' and ', $impWhere);
+
+            $db->query($sql);    
+            //echo $sql . "\n";
             return max(0, $db->affected_rows);
         }
         else {
             $sql = "insert into " . static::getTable() . " (";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name]) || $field->type == 'virtual') {
+                if (!isset($data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
-                $sql .= "$field->name, ";
+                $sql .= "`$field->name`, ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ") VALUES (";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || !static::checkNoEmptyFill($field->name, $data[$field->name]) || $field->type == 'virtual') {
+                if (!isset($data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
-                if (preg_match('/(int|float|decim)/', $field->type)) {
-                    $sql .= ($db->real_escape_string($data[$field->name]) ?: 0) . ", ";
+                if ($data[$field->name] === '') {
+                    $data[$field->name] = 'NULL';
                 }
                 else {
-                    $sql .= "'" . $db->real_escape_string($data[$field->name]) . "', ";
+                    $data[$field->name] = "'" . $db->real_escape_string($data[$field->name]) . "'";
                 }
+                $sql .= $data[$field->name] . ", ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";
             $db->query($sql);
-
+            //echo $sql . "\n";
             return $db->insert_id;
         }
     }
@@ -310,17 +313,6 @@ class A_BaseModel {
         return $results;
     }
 
-    public static function checkNoEmptyFill($fieldName, $value) {
-        $noEmpty = isset(static::$noEmpty) ? static::$noEmpty : [];
-        $noEmptyMerged = array_merge($noEmpty, ['id']);
-        if (!(in_array($fieldName, $noEmptyMerged))) {
-            return true;
-        }
-        return $value !== ''
-            && !preg_match('/0000-00-00/', $value)
-            && !preg_match('/1970-01-01/', $value);
-    }
-
     public static function isRemovable() {
         return isset(static::$removable) && static::$removable;
     }
@@ -356,6 +348,10 @@ class A_BaseModel {
 
     public static function getPattern($fieldName) {
         return isset(static::$pattern) && isset(static::$pattern[$fieldName]) ? static::$pattern[$fieldName] : false;
+    }
+
+    public static function checkPattern($pattern, $data) {
+        return preg_match('/^' . static::getPattern($pattern)[0] . '$/', $data);
     }
 
     public static function getTable() {
