@@ -185,10 +185,6 @@ class A_BaseModel {
             return false;
         }
 
-        if (isset(static::$fields['dateup'])) {
-            $data['dateup'] = date('Y-m-d H:i:s');
-        }
-
         $fields = static::getFields();
 
         foreach ($fields as $k => $field) {
@@ -230,8 +226,16 @@ class A_BaseModel {
             }
             $sql .= implode(' and ', $impWhere);
 
-            $db->query($sql);    
             //echo $sql . "\n";
+            $db->query($sql);    
+
+            if ($db->affected_rows) {
+                foreach (['dateup', 'updated_at'] as $field) {
+                    if (isset(static::$fields[$field])) {
+                        dbu(static::getTable() . " set $field = '" . now() . "'");
+                    }
+                }
+            }
             return max(0, $db->affected_rows);
         }
         else {
@@ -258,8 +262,8 @@ class A_BaseModel {
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";
-            $db->query($sql);
             //echo $sql . "\n";
+            $db->query($sql);
             return $db->insert_id;
         }
     }
