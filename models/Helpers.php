@@ -1,6 +1,6 @@
 <?php
 
-class Helpers extends A_BaseModel {
+class Helpers {
 
     public static function getUser($id = USERID) {
         $id = $id ?: session('user_id');

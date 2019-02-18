@@ -232,7 +232,7 @@ class A_BaseModel {
             if ($db->affected_rows) {
                 foreach (['dateup', 'updated_at'] as $field) {
                     if (isset(static::$fields[$field])) {
-                        dbu(static::getTable() . " set $field = '" . now() . "'");
+                        dbu(static::getTable() . " set $field = '" . now() . "' where " . implode(' and ', $impWhere));
                     }
                 }
             }
