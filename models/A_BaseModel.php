@@ -36,8 +36,8 @@ class A_BaseModel {
             $defVal = @$expVal[1] ?: '';
             $type = $expVal[0];
 
-            if ($defValue == 'NOW()') {
-                $defValue = now();
+            if ($defVal == 'NOW()') {
+                $defVal = now();
             }
 
             if (isset(static::$inputTypes) && isset(static::$inputTypes[$name])) {
@@ -49,23 +49,23 @@ class A_BaseModel {
                     $control = static::$inputTypes[$name];
                 }
             }
-            elseif (preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || preg_match('/text/', $type)) {
-                $control = 'textarea';
-            }
-            elseif (preg_match('/int\(1\)/', $type)) {
-                $control = 'checkbox';
-            }
-            elseif (preg_match('/int/', $type)) {
-                $control = 'number';
-            }
-            elseif (preg_match('/(email)/', $name)) {
-                $control = 'email';
-            }
             elseif (in_array($type, ['datetime', 'timestamp'])) {
                 $control = 'datetime-local';
             }
             elseif (in_array($type, ['date'])) {
                 $control = 'date';
+            }
+            elseif (preg_match('/int\(1\)/', $type)) {
+                $control = 'checkbox';
+            }
+            elseif (preg_match('/(int|float)/', $type)) {
+                $control = 'number';
+            }
+            elseif (preg_match('/(email)/', $name)) {
+                $control = 'email';
+            }
+            elseif (preg_match('/varchar\(([2-9]\d{2}|\d{4})\)/', $type) || preg_match('/text/', $type)) {
+                $control = 'textarea';
             }
             else {
                 $control = 'text';
@@ -137,8 +137,13 @@ class A_BaseModel {
         $result = [];
         $iPage = 1;
         for ($i = 1; $i <= $count; $i += $limit) {
+            $_GET['page'] = $iPage;
+            $params = [];
+            foreach ($_GET as $k => $v) {
+                $params[] = "$k=$v";
+            }
             array_push($result, (object) [
-                'link' => ROOT . static::getName() . '?page=' . $iPage,
+                'link' => ROOT . static::getName() . '?' . implode('&', $params),
                 'title' => $iPage,
                 'active' => $iPage == $page,
             ]);
@@ -188,27 +193,22 @@ class A_BaseModel {
         $fields = static::getFields();
 
         foreach ($fields as $k => $field) {
-            if ($field->control == 'checkbox' && isset($data[$field->name])) {
-                $data[$field->name] = $data[$field->name] ? 1 : 0;
-            }            
+            if (!isset($data[$field->name]) || $field->type == 'virtual') {
+                unset($fields->$k);
+            }
             if (preg_match('/date/', $field->type) && !@$data[$field->name]) {
                 unset($data[$field->name]);
             }
+            if ($field->control == 'checkbox' && isset($data[$field->name])) {
+                $data[$field->name] = $data[$field->name] ? 1 : 0;
+            }
         }
 
-        $key = 'id';
-        $keyVal = $id;
-        if (is_array($id)) {
-            $key = array_keys($id)[0];
-            $keyVal = $id[$key];
-        }
+        $keys = is_array($id) ? $id : ['id' => $id];
 
         if (static::getByField(array_keys($keys)[0], array_values($keys)[0])) {
             $sql = "update " . static::getTable() . " set ";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || $field->type == 'virtual') {
-                    continue;
-                }
                 if ($data[$field->name] === '') {
                     $data[$field->name] = 'NULL';
                 }
@@ -241,9 +241,6 @@ class A_BaseModel {
         else {
             $sql = "insert into " . static::getTable() . " (";
             foreach ($fields as $field) {
-                if (!isset($data[$field->name]) || $field->type == 'virtual') {
-                    continue;
-                }
                 $sql .= "`$field->name`, ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
@@ -262,6 +259,7 @@ class A_BaseModel {
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= ")";
+
             //echo $sql . "\n";
             $db->query($sql);
             return $db->insert_id;

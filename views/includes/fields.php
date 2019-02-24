@@ -17,11 +17,7 @@
             <?php if ($field->control == 'wysiwyg') : ?>
                 <textarea name="<?= $field->name ?>"><?= $field->value ?></textarea>
             <?php elseif ($field->control == 'datetime-local') : ?>
-                <?php
-                    $ttime = strtotime($field->value);
-                    $tvalue = date('Y-m-d', $ttime) . 'T' . date('H:i', $ttime);
-                ?>
-                <input class="form-control" type="<?= $field->control ?>" name="<?= $field->name ?>" value="<?= $tvalue ?>">
+                <input class="form-control" type="<?= $field->control ?>" name="<?= $field->name ?>" value="<?= date('Y-m-d\TH:i', strtotime(@$field->value)) ?>">
             <?php elseif ($field->control == 'textarea') : ?>
                 <textarea class="form-control"
                     <?= @$field->required ? 'required' : '' ?>

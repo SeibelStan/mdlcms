@@ -11,15 +11,14 @@ class Files {
         $this->uploadPath = $dir ?: $this->uploadRoot;
     }
 
-    public function upload($data) {
-        $files = $data['files'];
+    public function upload($files) {
         $uploaded = [];
         for ($i = 0; $i < count($files['name']); $i++) {
             $fileName = $files['name'][$i];
             
             $fileExt = mb_strtolower(pathinfo($fileName)['extension']);
             // Загружаемые расширения
-            if (!in_array($fileExt, ['jpg', 'png', 'pdf'])) {
+            if (!in_array($fileExt, ['jpeg', 'jpg', 'png', 'pdf'])) {
                 continue;
             }
             
@@ -32,8 +31,6 @@ class Files {
                 $uploaded[] = $filePath;
             }
 
-            $postfix = false;
-            $matches = [];
             if (preg_match('/-(\d+)px\..+/', $filePath, $matches)) {
                 Files::resize($filePath, $matches[1]);
             }
@@ -118,7 +115,7 @@ class Files {
     public static function resizeEngine($src, $dest, $width, $height, $rgb = 0xFFFFFF, $quality = 95) {
         if (!file_exists($src)) {
             return 0;
-        }  
+        }
         $imgSizes = getimagesize($src);
         $imgFormat = explode('/', $imgSizes['mime'])[1];
         $icFunc = "imagecreatefrom" . $imgFormat;

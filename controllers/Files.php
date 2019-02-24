@@ -15,32 +15,32 @@ class FilesController {
 
     public static function upload() {
         Helpers::guardRoles('admin');
-        $model = new Files(request('dir'));
-        echo json_encode($model->upload($_FILES));
+        $model = new Files(clearRequest('dir'));
+        echo json_encode($model->upload($_FILES['files']));
     }
 
     public static function get() {
         Helpers::guardRoles('admin');
-        $model = new Files(request('dir'));
-        echo json_encode($model->get($_FILES));
+        $model = new Files(clearRequest('dir'));
+        echo json_encode($model->get());
     }
 
     public static function delete() {
         Helpers::guardRoles('admin');
-        $model = new Files(request('dir'));
+        $model = new Files(clearRequest('dir'));
         echo json_encode($model->delete(request('files'), 1));
     }
 
     public static function rename() {
         Helpers::guardRoles('admin');
-        $model = new Files(request('dir'));
-        echo $model->rename(request('oldName'), request('newName'));
+        $model = new Files(clearRequest('dir'));
+        echo $model->rename(clearRequest('oldName'), clearRequest('newName'));
     }
 
     public static function dirCreate() {
         Helpers::guardRoles('admin');
-        $model = new Files(request('dir'));
-        echo $model->dirCreate(request('name'));
+        $model = new Files(clearRequest('dir'));
+        echo $model->dirCreate(clearRequest('name'));
     }
 
 }

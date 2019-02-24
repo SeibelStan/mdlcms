@@ -41,4 +41,28 @@ class Helpers {
         return $result;
     }
 
+    public static function paginate($count, $limit = 1, $page = 1) {
+        if ($count <= $limit) {
+            return [];
+        }
+
+        $result = [];
+        $iPage = 1;
+        for ($i = 1; $i <= $count; $i += $limit) {
+            $_GET['page'] = $iPage;
+            $params = [];
+            foreach ($_GET as $k => $v) {
+                $params[] = "$k=$v";
+            }
+            array_push($result, (object) [
+                'link' => '?' . implode('&', $params),
+                'title' => $iPage,
+                'active' => $iPage == $page,
+            ]);
+            $iPage++;
+        }
+
+        return $result;
+    }
+
 }

@@ -218,6 +218,10 @@ function dateReformat($date, $format = 'd.m.y H:i') {
     return date($format, strtotime($date));
 }
 
+function now() {
+    return date('Y-m-d H:i:s');
+}
+
 function noimagize($data, $prop = 'image') {
     $noImg = ROOT . 'assets/img/noimage.jpg';
 
