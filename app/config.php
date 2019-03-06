@@ -33,6 +33,7 @@ ini_set('session.save_path', SESSION_PATH);
 session_start();
 
 define('USERID', session('user_id') ?: 0);
+define('ROLES',  session('roles')   ?: '');
 
 session('lang', getLang() != '' ? getLang() : getBrowserLang('ru'));
 session('js', getJS() == '' ? 1 : getJS());

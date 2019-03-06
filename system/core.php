@@ -188,6 +188,16 @@ function arrayMultiSort($array, $args = []) {
 
     return $array;
 }
+
+function arrayToObject($data) {
+    return json_decode(json_encode($data));
+}
+
+function object_unshift(&$needle, $haystack) {
+    $needle = (array) $needle;
+    array_unshift($needle, $haystack);
+    return (object) $needle;
+}
 /* /Array */
 
 /* @Mutator */

@@ -12,12 +12,22 @@ class Helpers {
         return $user;
     }
 
-    public static function checkRoles($data) {
-        if (!user()) {
+    public static function checkRoles($data, $excludeAdmin = false) {
+        if (!USERID) {
             return false;
         }
+
+        $userRoles = ROLES;
+        if ($userRoles == 'supermanager') {
+            $userRoles .= '|manager';
+        }
+
+        if (!$excludeAdmin) {
+            $data .= '|admin';
+        }
+
         return array_intersect(
-            explode('|', user()->roles),
+            explode('|', $userRoles),
             explode('|', $data)
         );
     }

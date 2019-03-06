@@ -56,7 +56,7 @@ class AdminController {
 
         $model = new $modelName();
         $fields = $model::getFields($id);
-        $units = $model::getUnits(false, "id desc");
+        $units = $model::getUnits(false, "id desc", 1000);
 
         $pageTitle = $model::getTitle();
         view('admin/edit-model', 'admin');
@@ -109,7 +109,9 @@ class AdminController {
 
         $options = '';
         foreach ($result as $unit) {
-            $options .= '<option data-id="' . $unit->id . '">' . $unit->display_name . '</option>';
+            $thisLink = ROOT . 'admin/edit-models/' . $modelName . '/' . $unit->id;
+            $selected = $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '';
+            $options .= '<option data-id="' . $unit->id . '" value="' . $thisLink . '" ' . $selected . '>' . $unit->display_name . '</option>';
         }
         echo $options;
     }

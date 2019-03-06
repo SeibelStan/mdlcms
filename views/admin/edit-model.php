@@ -11,8 +11,11 @@
         <select class="custom-select select-links" id="model-units">
             <option data-id="0" value="<?= ROOT ?>admin/edit-models/<?= $model::getName() ?>">Новый</option>
             <?php foreach ($units as $unit) : ?>
-                <?php $thisLink = ROOT . 'admin/edit-models/' . $model::getName() . '/' . $unit->id; ?>
-                <option data-id="<?= $unit->id ?>" value="<?= $thisLink ?>" <?= $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '' ?>>
+                <?php
+                    $thisLink = ROOT . 'admin/edit-models/' . $modelName . '/' . $unit->id;
+                    $selected = $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '';
+                ?>
+                <option data-id="<?= $unit->id ?>" value="<?= $thisLink ?>" <?= $selected ?>>
                     <?= $unit->display_name ?>
                 </option>
             <?php endforeach; ?>

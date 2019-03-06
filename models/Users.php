@@ -72,6 +72,7 @@ class Users extends A_BaseModel {
         }
 
         session('user_id', $user->id);
+        session('roles',   $user->roles);
 
         static::save([
             'login_date' => date('Y-m-d H:i:s')
