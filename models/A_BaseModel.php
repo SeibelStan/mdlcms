@@ -13,15 +13,18 @@ class A_BaseModel {
         }
     }
 
-    public static function getFields($id = 0, $fillable = false) {
+    public static function getFields($obj = 0, $fillable = false) {
         $exemp = false;
-        if ($id) {
-            if (is_array($id)) {
-                $key = array_keys($id)[0];
-                $exemp = static::getByField($key, $id[$key]);
+        if ($obj) {
+            if (is_object($obj)) {
+                $exemp = $obj;
+            }
+            elseif (is_array($obj)) {
+                $key = array_keys($obj)[0];
+                $exemp = static::getByField($key, $obj[$key]);
             }
             else {
-                $exemp = static::getByField('id', $id);
+                $exemp = static::getByField('id', $obj);
             }
         }
 
@@ -196,11 +199,16 @@ class A_BaseModel {
             if (!isset($data[$field->name]) || $field->type == 'virtual') {
                 unset($fields->$k);
             }
+            if (isset($data[$field->name])) {
+                if (is_array($data[$field->name])) {
+                    $data[$field->name] = array_pop($data[$field->name]);
+                }
+                if ($field->control == 'checkbox') {
+                    $data[$field->name] = $data[$field->name] ? 1 : 0;
+                }
+            }
             if (preg_match('/date/', $field->type) && !@$data[$field->name]) {
                 unset($data[$field->name]);
-            }
-            if ($field->control == 'checkbox' && isset($data[$field->name])) {
-                $data[$field->name] = $data[$field->name] ? 1 : 0;
             }
         }
 
