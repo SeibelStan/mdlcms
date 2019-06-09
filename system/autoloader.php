@@ -1,19 +1,19 @@
 <?php
 
-$autoload_dirs = [
+$autoloadDirs = [
     'models/',
     'controllers/'
 ];
 
-$models = [];
+$MODELS = [];
 
-foreach ($autoload_dirs as $dir) {
-    $autoload_files = scandir($dir);
-    $autoload_files = delDots($autoload_files);
-    foreach ($autoload_files as $file) {
+foreach ($autoloadDirs as $dir) {
+    $autoloadFiles = scandir($dir);
+    $autoloadFiles = array_splice($autoloadFiles, 2);
+    foreach ($autoloadFiles as $file) {
         if ($dir == 'models/') {
             $model = preg_replace('/\.php/', '', $file);
-            array_push($models, $model);
+            array_push($MODELS, $model);
         }
         require $dir . $file;
     }

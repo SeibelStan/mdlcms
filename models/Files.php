@@ -39,7 +39,7 @@ class Files {
     }
 
     public function get() {
-        $files = delDots(scandir($this->uploadPath));
+        $files = array_splice(scandir($this->uploadPath), 2);
         $iconBase = ROOT . 'assets/img/';
 
         $returnFiles = [];

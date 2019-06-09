@@ -1,6 +1,6 @@
 <?php
 
-foreach ($models as $model) {
+foreach ($MODELS as $model) {
 
     $table = isset($model::$table) ? $model::$table : false;;
 
@@ -59,7 +59,7 @@ foreach ($models as $model) {
 $migrated = false;
 $migrDir = 'data/migrations/';
 $sqlFiles = scandir($migrDir);
-$sqlFiles = delDots($sqlFiles);
+$sqlFiles = array_splice($sqlFiles, 2);
 foreach ($sqlFiles as $file) {
     $table = preg_replace('/\.\w+$/', '', $file);
     if (tableExists($table)) {

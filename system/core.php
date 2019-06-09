@@ -216,14 +216,6 @@ function doubleDig($i) {
     return ($i < 10) ? '0' . $i : $i;
 }
 
-function delDotsFilter($name) {
-    return !preg_match('/^\.{1,2}$/', $name);
-}
-
-function delDots($data) {
-    return array_filter($data, 'delDotsFilter');
-}
-
 function dateReformat($date, $format = 'd.m.y H:i') {
     return date($format, strtotime($date));
 }

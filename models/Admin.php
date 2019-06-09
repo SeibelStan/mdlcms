@@ -3,9 +3,9 @@
 class Admin extends A_BaseModel {
 
     public static function getModelsList() {
-        global $models;
+        global $MODELS;
         $modelsList = [];
-        foreach ($models as $model) {
+        foreach ($MODELS as $model) {
             if (!isset($model::$table)) {
                 continue;
             }
