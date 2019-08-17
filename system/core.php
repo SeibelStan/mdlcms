@@ -212,6 +212,16 @@ function stripWord($str, $length, $addon = '...') {
     return $str;
 }
 
+function numShorten($num, $prec = 3) {
+    $shorts = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi'];
+    foreach ($shorts as $i => $sh) {
+        $div = pow(1000, $i);
+        if (abs($num) < ($div * 1000)) {
+            return number_format($num / $div, $prec) . $sh;
+        }
+    }
+}
+
 function doubleDig($i) {
     return ($i < 10) ? '0' . $i : $i;
 }

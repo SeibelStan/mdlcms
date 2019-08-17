@@ -19,7 +19,6 @@ class Cart extends A_BaseModel {
     public static $inputTypes = [
         'id' => 'hidden'
     ];
-    public static $noEmpty = ['date', 'dateup'];
     public static $titles = [
         'user_id'  => 'Пользователь',
         'session'  => 'Сессия',

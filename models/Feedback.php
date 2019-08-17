@@ -23,7 +23,6 @@ class Feedback extends A_BaseModel {
         'name'  => ['[А-яA-z ]{3,50}', 'Длиннее трёх символов, может содержать буквы и пробел'],
         'email' => ['.+?@.+?\.[A-z]+', '']
     ];
-    public static $noEmpty = ['date'];
     public static $titles = [
         'name'    => 'Имя',
         'tel'     => 'Телефон',

@@ -35,7 +35,6 @@ class Users extends A_BaseModel {
         'full_name' => ['[А-яA-z ]{3,50}', '3+ символов, может содержать буквы и пробел'],
         'password'  => ['.{6,128}', '6+ символов']
     ];
-    public static $noEmpty = ['dateup'];
     public static $titles = [
         'id'         => 'ID',
         'login'      => 'Логин',

@@ -28,7 +28,6 @@ class Catalog extends A_BaseModel {
         'markdown' => 'wysiwyg',
         'content'  => 'hidden'
     ];
-    public static $noEmpty = ['date', 'dateup'];
     public static $searchable = ['title', 'url', 'content'];
     public static $titles = [
         'title'     => 'Название',

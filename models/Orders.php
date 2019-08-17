@@ -18,7 +18,6 @@ class Orders extends A_BaseModel {
         'date'    => 'timestamp:NOW()',
         'dateup'  => 'timestamp:NOW()'
     ];
-    public static $noEmpty = ['date', 'dateup'];
     public static $titles = [
         'id'      => '№ заказа',
         'user_id' => 'Пользователь',
