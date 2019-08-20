@@ -18,7 +18,7 @@ define('BOTMYID', 53540040);
 
 define('DB_TIME_DELTA', 0);
 
-$db = new mysqli($keys->db_prod_host, $KEYS->db_prod_user, $KEYS->db_prod_pass);
+$db = new mysqli($KEYS->db_prod_host, $KEYS->db_prod_user, $KEYS->db_prod_pass);
 $db->select_db($KEYS->db_prod);
 $db->query("SET NAMES utf8");
 

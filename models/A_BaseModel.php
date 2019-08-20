@@ -217,7 +217,7 @@ class A_BaseModel {
         if (static::getByField(array_keys($keys)[0], array_values($keys)[0])) {
             $sql = "update " . static::getTable() . " set ";
             foreach ($fields as $field) {
-                if ($data[$field->name] === '') {
+                if ($data[$field->name] === 'NULL') {
                     $data[$field->name] = 'NULL';
                 }
                 else {
@@ -257,7 +257,7 @@ class A_BaseModel {
                 if (!isset($data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
-                if ($data[$field->name] === '') {
+                if ($data[$field->name] === 'NULL') {
                     $data[$field->name] = 'NULL';
                 }
                 else {
