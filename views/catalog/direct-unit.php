@@ -33,11 +33,10 @@
             <?= CURRENCY ?>
 
         <form class="form-ajax form-inline" action="<?= ROOT ?>cart/add" method="post">
-            <div class="input-group mr-sm-2">
-                <input type="number" name="count" id="direct-unit-count" class="form-control" value="1" placeholder="Количество">
-            </div>
             <div class="input-group">
+                <input type="number" name="count" id="direct-unit-count" class="form-control mr-sm-2" value="1" placeholder="Количество">
                 <button type="submit" class="btn btn-success">В корзину</button>
+
             </div>
             <input type="hidden" name="item_id" value="<?= $directUnit->id ?>">
             <input type="hidden" name="model" value="<?= $model::getName() ?>">

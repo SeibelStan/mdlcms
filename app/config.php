@@ -7,7 +7,7 @@ define('DOMAIN', $_SERVER['HTTP_HOST']);
 define('USER_IP', $_SERVER['REMOTE_ADDR']);
 define('USER_AGENT', $_SERVER['HTTP_USER_AGENT']);
 
-$KEYS = pipeObj(file_get_contents('keys.txt'), '=');
+$KEYS = pipeObj(file_get_contents('app/keys.txt'), '=');
 
 define('CURRENCY', 'KZT');
 
