@@ -198,6 +198,17 @@ function object_unshift(&$needle, $haystack) {
     array_unshift($needle, $haystack);
     return (object) $needle;
 }
+
+function shuffle_assoc(&$array) {
+    $keys = array_keys($array);
+    shuffle($keys);
+    $new = [];
+    foreach($keys as $key) {
+        $new[$key] = $array[$key];
+    }
+    $array = $new;
+    return true;
+}
 /* /Array */
 
 /* @Mutator */
