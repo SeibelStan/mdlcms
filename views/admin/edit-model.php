@@ -12,7 +12,7 @@
             <option data-id="0" value="<?= ROOT ?>admin/edit-models/<?= $model::getName() ?>">Новый</option>
             <?php foreach ($units as $unit) : ?>
                 <?php
-                    $thisLink = ROOT . 'admin/edit-models/' . $modelName . '/' . $unit->id;
+                    $thisLink = ROOT . 'admin/edit-models/' . $model->getName() . '/' . $unit->id;
                     $selected = $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '';
                 ?>
                 <option data-id="<?= $unit->id ?>" value="<?= $thisLink ?>" <?= $selected ?>>

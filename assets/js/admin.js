@@ -86,7 +86,7 @@ $(function () {
         
     inscrybmde = new InscrybMDE({
         autosave: {
-            enabled: true,
+            //enabled: true,
             uniqueId: "inscrybmde",
             delay: 1000
         },

@@ -97,7 +97,7 @@ class AdminController {
 
         $model = new $modelName();
         $model::delete('id', $id);
-        redirect(ROOT . 'admin/edit-models/' . $model);
+        redirect(ROOT . 'admin/edit-models/' . $modelName);
     }
 
     public static function filter($modelName) {
