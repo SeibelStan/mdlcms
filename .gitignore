@@ -4,3 +4,4 @@ data/sessions/*
 data/temp/*
 data/files/*
 mdlcms.sql
+.vscode/*
