@@ -188,6 +188,7 @@ $(function () {
         $('#fm_outerlink').click();
         var outerLinkVal = $('#fm_outerlink').prop('checked');
         $(this).html('Ссылки: ' + (outerLinkVal ? 'внеш.' : 'внутр.'));
+        FM.check();
     });
 
 });
