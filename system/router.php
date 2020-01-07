@@ -2,7 +2,7 @@
 
 if (ATTEMPTS) {
     $attempt = Attempts::add('view');
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $attempt->action) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $attempt->reason) {
         echo json_encode($attempt);
     }
 }

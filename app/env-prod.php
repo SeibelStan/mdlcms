@@ -19,3 +19,11 @@ $db->query("SET NAMES utf8");
 
 define('SESSION_PATH', 'data/sessions');
 define('SESSION_TIME', 7*24*60*60);
+
+$guardCounts = [
+    'view'     => [500, 600],
+    'login'    => [3, 10],
+    'register' => [1, 1],
+    'remind'   => [2, 3],
+    'feedback' => [1, 2],
+];
