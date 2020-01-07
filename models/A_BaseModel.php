@@ -214,7 +214,13 @@ class A_BaseModel {
 
         $keys = is_array($id) ? $id : ['id' => $id];
 
-        if (static::getByField(array_keys($keys)[0], array_values($keys)[0])) {
+        $keysWhere = [];
+        foreach ($keys as $k => $v) {
+            $keysWhere[] = "$k = '$v'";
+        }
+        $keysWhere = implode(' and ', $keysWhere);
+
+        if (static::getUnits($keysWhere)) {
             $sql = "update " . static::getTable() . " set ";
             foreach ($fields as $field) {
                 if ($data[$field->name] === 'NULL') {
@@ -269,8 +275,8 @@ class A_BaseModel {
             $sql .= ")";
 
             //echo $sql . "\n";
-            $db->query($sql);
-            return $db->insert_id;
+            $result = $db->query($sql);
+            return $db->insert_id ?: $result;
         }
     }
 
