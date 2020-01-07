@@ -13,12 +13,6 @@ if (!in_array('sessions', scandir('data'))) {
 /* @Setup */
 
 require 'system/core.php';
-
-/* @Bot
-require 'vendor/telegram/Telegram.php';
-require 'vendor/telegram/TelegramMethods.php';
-/* /Bot */
-
 require 'app/config.php';
 
 if (EHANDLER) {

@@ -11,11 +11,6 @@ define('ATTEMPTS', 1);
 define('MAILS', 1);
 define('EMAIL_CONTACT', 'info@' . DOMAIN);
 
-/* @Bot
-define('BOT', 0);
-define('BOTMYID', 53540040);
-/* /Bot */
-
 define('DB_TIME_DELTA', 0);
 
 $db = new mysqli($KEYS->db_prod_host, $KEYS->db_prod_user, $KEYS->db_prod_pass);

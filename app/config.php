@@ -11,12 +11,6 @@ $KEYS = pipeObj(file_get_contents('app/keys.txt'), '=');
 
 define('CURRENCY', 'KZT');
 
-/* @Bot
-define('BOTTOKEN', $KEYS->telegram);
-define('BOTAPI', 'https://api.telegram.org/bot' . BOTTOKEN . '/');
-$BOT = new Telegram(BOTTOKEN);
-/* /Bot */
-
 if (preg_match('/\./', DOMAIN)) {
     define('ENV', 'prod');
 }

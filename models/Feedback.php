@@ -49,15 +49,6 @@ class Feedback extends A_BaseModel {
             smail('Сообщение от ' . $data['name'], $response, EMAIL_CONTACT);
         }
 
-        /* @Bot
-        if (BOT) {
-            $bot->sendMessage([
-                'chat_id' => BOTMYID,
-                'text' => $response
-            ]);
-        }
-        /* /Bot */
-
         return [
             'message'  => 'Сообщение отправлено',
             'type'     => 'success',
