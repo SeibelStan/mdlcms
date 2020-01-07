@@ -34,7 +34,9 @@
                     <?= @$field->maxlength ? 'maxlength="' . $field->maxlength . '"' : '' ?>
                     <?php $pattern = $model::getPattern($field->name); ?>
                     <?php if ($pattern) : ?>
-                        <?= $field->control = 'text' ?>
+                        <?php if ($field->control == 'number') : ?>
+                            <?= $field->control = 'text' ?>
+                        <?php endif; ?>
                         pattern="<?= $pattern[0] ?>" title="<?= $pattern[1] ?>"
                     <?php endif; ?>
                     <?= $field->type == 'float' ? 'step="any"' : '' ?>
