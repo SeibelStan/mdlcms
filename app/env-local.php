@@ -18,7 +18,7 @@ $db->select_db($KEYS->db_local);
 $db->query("SET NAMES utf8");
 
 define('SESSION_PATH', 'data/sessions');
-define('SESSION_TIME', 1*24*60*60);
+define('SESSION_TIME', 1*1*60*60);
 
 $guardCounts = [
     'view'     => [500, 600],
