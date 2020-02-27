@@ -60,7 +60,7 @@ function abort($code) {
 
 /* @Session */
 function session($name, $value = null) {
-    if (isset($value)) {
+    if (!is_null($value)) {
         $_SESSION[$name] = $value;
     }
     return isset($_SESSION[$name]) ? $_SESSION[$name] : '';
