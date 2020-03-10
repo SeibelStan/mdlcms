@@ -60,9 +60,11 @@ class Users extends A_BaseModel {
             return $attempt;
         }
 
-        $lowerLogin = mb_strtolower($data['login']);
+        $lowerLogin = dbEscape(mb_strtolower($data['login']));
+        $password   = dbEscape($data['password']);
+
         $user = arrayFirst(static::getUnits("(lower(login) = '$lowerLogin' or lower(email) = '$lowerLogin')
-            and password = '" . $data['password'] . "' and active"));
+            and password = '$password' and active"));
 
         if (!$user) {
             return [
