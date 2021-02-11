@@ -46,8 +46,11 @@ $(function () {
                 if ($(this).html().match(reg) || dataId.match(reg)) {
                     $(this).show();
                 }
-                $('.select-links option').first().prop('selected', true);
-                $('.select-links').change();
+                
+                if (e.keyCode == 13) {
+                    $('.select-links option:not([data-id=0])').first().prop('selected', true);
+                    $('.select-links').change();
+                }
             });
         });
     }
@@ -63,8 +66,11 @@ $(function () {
                 },
                 function (data) {
                     $(collection).html(data);
-                    $('.select-links option').first().prop('selected', true);
-                    $('.select-links').change();
+
+                    if (e.keyCode == 13) {
+                        $('.select-links option:not([data-id=0])').first().prop('selected', true);
+                        $('.select-links').change();
+                    }
                 }
             );
         });

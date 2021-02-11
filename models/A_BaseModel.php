@@ -174,7 +174,7 @@ class A_BaseModel {
         }
         $units = dbs($sql);
         foreach ($units as $unit) {
-            foreach (['id', 'login', 'full_name', 'name', 'title'] as $tryName) {
+            foreach (['id', 'login', 'full_name', 'title', 'name'] as $tryName) {
                 if (isset($unit->$tryName) && $unit->$tryName) {
                     $unit->display_name = $unit->$tryName;
                 }
