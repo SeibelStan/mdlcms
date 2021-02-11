@@ -21,6 +21,7 @@
                 <?php endif; ?>
             <?php endforeach; ?>
             <th>
+            <th>
     </thead>
     <?php foreach ($units as $unit) : ?>
         <tr>

@@ -7,21 +7,24 @@
 
 <main class="container">
     <h1><?= $model::getTitle() ?></h1>
-    <div class="form-group">
-        <select class="custom-select select-links" id="model-units">
-            <option data-id="0" value="<?= ROOT ?>admin/edit-models/<?= $model::getName() ?>">Новый</option>
-            <?php foreach ($units as $unit) : ?>
-                <?php
-                    $thisLink = ROOT . 'admin/edit-models/' . $model->getName() . '/' . $unit->id;
-                    $selected = $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '';
-                ?>
-                <option data-id="<?= $unit->id ?>" value="<?= $thisLink ?>" <?= $selected ?>>
-                    <?= $unit->display_name ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-
-        <input type="text" class="form-control col-sm-4" placeholder="Фильтр" data-filter="#model-units">
+    <div class="row mb-3">
+        <div class="col-md-6 col-sm-12">
+            <select class="form-control custom-select select-links" id="model-units">
+                <option data-id="0" value="<?= ROOT ?>admin/edit-models/<?= $model::getName() ?>">Новый</option>
+                <?php foreach ($units as $unit) : ?>
+                    <?php
+                        $thisLink = ROOT . 'admin/edit-models/' . $model->getName() . '/' . $unit->id;
+                        $selected = $_SERVER['REQUEST_URI'] == $thisLink ? 'selected' : '';
+                    ?>
+                    <option data-id="<?= $unit->id ?>" value="<?= $thisLink ?>" <?= $selected ?>>
+                        <?= $unit->display_name ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <input type="text" class="form-control col-sm-4" placeholder="Фильтр" data-filter="#model-units">
+        </div>
     </div>
 
     <form class="main-form form-ajax" action="<?= ROOT ?>admin/save-models/<?= $model::getName() ?><?= $id ? '/' . $id : '' ?>" method="post">
