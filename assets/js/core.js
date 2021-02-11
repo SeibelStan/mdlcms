@@ -1,16 +1,24 @@
 var changeSpy = false;
 
-function showAlert(message, type = 'danger', time = 3000) {
+function showAlert(message, type = '', time = 3000) {
     if (!message) {
         return false;
     }
+
+    var lastAlert = $('.alert-sticky').first();
+    var alertTop = 10;
+    if (lastAlert.length) {
+        alertTop = parseInt(lastAlert.data('top')) + 10 + lastAlert.outerHeight();
+    }
+
     $('main').prepend('<div class="alert alert-' + (type ? type : 'danger') + ' alert-sticky">' + message + '</div>');
-    $('body .alert:first-child')
-        .animate({top: '10px'}, 300)
-        .animate({clear: 'none'}, time)
+    $('.alert-sticky').first()
+        .animate({ top: alertTop }, 300)
+        .animate({ clear: 'none' }, time)
+        .data('top', alertTop)
         .fadeOut(500, function () {
             $(this).remove();
-        })
+        });
 }
 
 function selectVal() {
