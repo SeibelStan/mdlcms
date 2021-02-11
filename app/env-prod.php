@@ -5,7 +5,6 @@ ini_set('date.timezone', 'Asia/Almaty');
 define('ROOT', '/');
 define('SSL', 0);
 define('DEBUG', 0);
-define('EHANDLER', 0);
 define('ATTEMPTS', 1);
 
 define('MAILS', 1);

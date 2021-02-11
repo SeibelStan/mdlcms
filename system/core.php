@@ -291,6 +291,22 @@ function curlGetSeq($urls) {
     curl_close($ch);
     return $result;
 }
+
+function curlShell($url, $data = [], $headers = []) {
+    $cmd = '';
+    foreach ($headers as $unit) {
+        $cmd .= " -H '$unit'";
+    }
+    if (is_array($data)) {
+        foreach ($data as $unit) {
+            $cmd .= " -d " . escapeshellarg("$unit") . "";
+        }
+    }
+    else {
+        $cmd .= " -d " . escapeshellarg("$data") . "";
+    }
+    exec("curl $cmd '$url' > /dev/null &");
+}
 /* /Sender */
 
 /* @i18n */
