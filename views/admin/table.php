@@ -21,7 +21,9 @@
                 <?php endif; ?>
             <?php endforeach; ?>
             <th>
-            <th>
+            <?php if ($model::isRemovable()) : ?>
+                <th>
+            <?php endif; ?>
     </thead>
     <?php foreach ($units as $unit) : ?>
         <tr>
