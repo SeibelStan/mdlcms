@@ -221,40 +221,53 @@ class A_BaseModel {
         $keysWhere = implode(' and ', $keysWhere);
 
         if (static::getUnits($keysWhere)) {
+            $hasUpdate = false;
             $sql = "update " . static::getTable() . " set ";
             foreach ($fields as $field) {
-                if ($data[$field->name] === 'NULL') {
+                if (!isset($data[$field->name]) || $field->type == 'virtual') {
+                    continue;
+                }
+                if ($field->type == 'float') {
+                    $data[$field->name] = preg_replace('/,/', '.', $data[$field->name]);
+                }
+                if ($data[$field->name] === '' || $data[$field->name] === 'NULL') {
                     $data[$field->name] = 'NULL';
                 }
                 else {
                     $data[$field->name] = "'" . $db->real_escape_string($data[$field->name]) . "'";
                 }
                 $sql .= "`$field->name` = " . $data[$field->name] . ", ";
+                $hasUpdate = true;
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
             $sql .= " where ";
-
-            $impWhere = [];
-            foreach ($keys as $k => $v)  {
-                $impWhere[] = "$k = '$v'";
-            }
             $sql .= implode(' and ', $impWhere);
 
-            //echo $sql . "\n";
-            $db->query($sql);    
+            if ($hasUpdate) {
+                //echo $sql . "\n";
+                $db->query($sql);
+                $affected = $db->affected_rows;
+            }
+            else {
+                $affected = 0;
+            }
 
             if ($db->affected_rows) {
-                foreach (['dateup', 'updated_at'] as $field) {
-                    if (isset(static::$fields[$field])) {
-                        dbu(static::getTable() . " set $field = '" . now() . "' where " . implode(' and ', $impWhere));
+                foreach (['updated_at'] as $fieldName) {
+                    if (isset(static::$fields[$fieldName]) && !isset($data[$fieldName])) {
+                        dbu(static::getTable() . " set $fieldName = '" . now() . "' where " . implode(' and ', $impWhere));
                     }
                 }
             }
-            return max(0, $db->affected_rows);
+
+            return max(0, $affected);
         }
         else {
             $sql = "insert into " . static::getTable() . " (";
             foreach ($fields as $field) {
+                if (!isset($data[$field->name]) || $field->type == 'virtual') {
+                    continue;
+                }
                 $sql .= "`$field->name`, ";
             }
             $sql = preg_replace('/,\s+$/', '', $sql);
@@ -263,7 +276,10 @@ class A_BaseModel {
                 if (!isset($data[$field->name]) || $field->type == 'virtual') {
                     continue;
                 }
-                if ($data[$field->name] === 'NULL') {
+                if ($field->type == 'float') {
+                    $data[$field->name] = preg_replace('/,/', '.', $data[$field->name]);
+                }
+                if ($data[$field->name] === '' || $data[$field->name] === 'NULL') {
                     $data[$field->name] = 'NULL';
                 }
                 else {
@@ -276,7 +292,17 @@ class A_BaseModel {
 
             //echo $sql . "\n";
             $result = $db->query($sql);
-            return $db->insert_id ?: $result;
+            $insertId = (int) (string) $db->insert_id;
+
+            if ($insertId) {
+                foreach (['created_at', 'updated_at'] as $fieldName) {
+                    if (isset(static::$fields[$fieldName]) && !isset($data[$fieldName])) {
+                        dbu(static::getTable() . " set $fieldName = '" . now() . "' where " . implode(' and ', $impWhere));
+                    }
+                }
+            }
+
+            return $insertId;
         }
     }
 
