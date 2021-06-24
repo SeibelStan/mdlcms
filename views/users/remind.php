@@ -1,7 +1,7 @@
 <main class="container page-inner">
     <div class="col-lg-4 col-md-6 col-sm-12">
         <form class="form-ajax form-remind mt-3" action="<?= ROOT ?>users/do-remind" method="post">
-            <div class="form-group">
+            <div class="mb-3">
                 <label><?= tr('login_or_email') ?></label>
                 <input class="form-control" type="text" name="login" required>
             </div>

@@ -1,10 +1,10 @@
 <main class="container">
     <form class="col-lg-4 col-md-6 col-sm-12 form-ajax autolabel" action="<?= ROOT ?>users/do-register" method="post">
-        <div class="form-group">
+        <div class="mb-3">
             <label><?= tr('login') ?></label>
             <input class="form-control" type="text" name="login" required>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label><?= tr('password') ?></label>
             <input class="form-control" type="password" name="password" required>
         </div>

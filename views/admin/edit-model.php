@@ -29,7 +29,7 @@
 
     <form class="main-form form-ajax" action="<?= ROOT ?>admin/save-models/<?= $model::getName() ?><?= $id ? '/' . $id : '' ?>" method="post">
         <?php include 'views/includes/fields.php' ?>
-        <div class="form-group flow-btns">
+        <div class="flow-btns">
             <?php if ($id || $model::isAddable()) : ?>
                 <button class="btn btn-primary" type="submit">Сохранить</button>
             <?php endif; ?>

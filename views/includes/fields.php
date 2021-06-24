@@ -1,6 +1,6 @@
 <?php foreach ($fields as $field) : ?>
     <div class="autolabel">
-        <div class="form-group">
+        <div class="mb-3">
             <?php if ($field->control != 'hidden') : ?>
                 <label>
                     <?php
