@@ -8,7 +8,7 @@
    <h1 class="d-flex justify-content-between">
        <?= $model::getTitle() ?>
        <?php if ($model::isAddable()) : ?>
-           <p class="mt-3 mb-3"><a class="btn btn-success" href="<?= ROOT ?>admin/edit-model/<?= $model::getName() ?>">Создать</a>
+           <p class="mt-3 mb-3"><a class="btn btn-success" href="<?= ROOT ?>admin/edit-models/<?= $model::getName() ?>">Создать</a>
        <?php endif; ?>
    </h1>
 

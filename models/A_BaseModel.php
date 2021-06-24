@@ -230,6 +230,9 @@ class A_BaseModel {
                 if ($field->type == 'float') {
                     $data[$field->name] = preg_replace('/,/', '.', $data[$field->name]);
                 }
+                if ($field->type == 'datetime' && preg_match('/1970-01-01/', $data[$field->name])) {
+                    $data[$field->name] = 'NULL';
+                }
                 if ($data[$field->name] === '' || $data[$field->name] === 'NULL') {
                     $data[$field->name] = 'NULL';
                 }
@@ -254,7 +257,7 @@ class A_BaseModel {
 
             if ($db->affected_rows) {
                 foreach (['updated_at'] as $fieldName) {
-                    if (isset(static::$fields[$fieldName]) && !isset($data[$fieldName])) {
+                    if (isset(static::$fields[$fieldName]) && (!isset($data[$fieldName]) || $data[$fieldName] == 'NULL')) {
                         dbu(static::getTable() . " set $fieldName = '" . now() . "' where " . implode(' and ', $impWhere));
                     }
                 }
@@ -279,6 +282,9 @@ class A_BaseModel {
                 if ($field->type == 'float') {
                     $data[$field->name] = preg_replace('/,/', '.', $data[$field->name]);
                 }
+                if ($field->type == 'datetime' && preg_match('/1970-01-01/', $data[$field->name])) {
+                    $data[$field->name] = 'NULL';
+                }
                 if ($data[$field->name] === '' || $data[$field->name] === 'NULL') {
                     $data[$field->name] = 'NULL';
                 }
@@ -296,8 +302,9 @@ class A_BaseModel {
 
             if ($insertId) {
                 foreach (['created_at', 'updated_at'] as $fieldName) {
-                    if (isset(static::$fields[$fieldName]) && !isset($data[$fieldName])) {
-                        dbu(static::getTable() . " set $fieldName = '" . now() . "' where " . implode(' and ', $impWhere));
+                    if (isset(static::$fields[$fieldName]) && (!isset($data[$fieldName]) || $data[$fieldName] == 'NULL')) {
+                        $sql = static::getTable() . " set $fieldName = '" . now() . "' where " . implode(' and ', $impWhere);
+                        dbu($sql);
                     }
                 }
             }
