@@ -24,7 +24,7 @@
 
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="<?= ROOT ?>"><?= SITE_NAME ?></a>
@@ -38,7 +38,7 @@
 
         <form id="search-form" class="form-inline my-2 my-lg-0 me-auto dropdown" action="<?= ROOT ?>search" method="post">
             <input class="form-control me-sm-2 search-widget-trigger" placeholder="Поиск"
-                required data-toggle="dropdown" type="text" name="searchQuery" value="<?= request('searchQuery') ?>">
+                required data-bs-toggle="dropdown" type="text" name="searchQuery" value="<?= request('searchQuery') ?>">
             <button class="btn my-2 my-sm-0" type="submit">Искать</button>
             <ul class="dropdown-menu search-widget">
                 <li class="dropdown-item text-muted">Напишите запрос
@@ -47,7 +47,7 @@
 
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     Корзина
                 </a>
                 <span class="caret"></span>
@@ -61,7 +61,7 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle user-dropdown" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle user-dropdown" data-bs-toggle="dropdown">
                     <?php if (USERID) : ?>
                         <?= user()->login ?>
                     <?php else : ?>

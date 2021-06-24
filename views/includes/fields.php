@@ -46,7 +46,7 @@
             <?php endif; ?>
 
             <?php if (in_array($field->name, ['images', 'image'])) : ?>
-                <div class="mt-2 btn btn-secondary last-focused-set" data-toggle="modal" data-target="#filesModal">Выбрать</div>
+                <div class="mt-2 btn btn-secondary last-focused-set" data-bs-toggle="modal" data-target="#filesModal">Выбрать</div>
             <?php endif; ?>
         </div>
     </div>

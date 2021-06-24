@@ -22,7 +22,7 @@
 
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="<?= ROOT ?>admin">Управление</a>
@@ -35,7 +35,7 @@
 
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <?= user()->login ?>
                 </a>
                 <span class="caret"></span>

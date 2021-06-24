@@ -5,8 +5,8 @@
 <main class="container">
 
 <ul class="nav nav-tabs mb-3" role="tablist">
-    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#forms" role="tab">Формы</a>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table" role="tab">Таблицы</a>
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#forms" role="tab">Формы</a>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#table" role="tab">Таблицы</a>
 </ul>
 
 <div class="tab-content">
