@@ -30,14 +30,14 @@
     <a class="navbar-brand" href="<?= ROOT ?>"><?= SITE_NAME ?></a>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
             <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>catalog">Каталог</a>
             <li class="nav-item"><a class="nav-link" href="http://github.com/Seibelstan/mdlcms">GitHub</a>
             
         </ul>
 
-        <form id="search-form" class="form-inline my-2 my-lg-0 mr-auto dropdown" action="<?= ROOT ?>search" method="post">
-            <input class="form-control mr-sm-2 search-widget-trigger" placeholder="Поиск"
+        <form id="search-form" class="form-inline my-2 my-lg-0 me-auto dropdown" action="<?= ROOT ?>search" method="post">
+            <input class="form-control me-sm-2 search-widget-trigger" placeholder="Поиск"
                 required data-toggle="dropdown" type="text" name="searchQuery" value="<?= request('searchQuery') ?>">
             <button class="btn my-2 my-sm-0" type="submit">Искать</button>
             <ul class="dropdown-menu search-widget">
@@ -104,7 +104,7 @@
     }
 </script>
 
-<script src="<?= ROOT ?>vendor/jquery-3.3.1.min.js"></script>
+<script src="<?= ROOT ?>vendor/jquery.min.js"></script>
 <script src="<?= ROOT ?>vendor/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="<?= ROOT ?>vendor/jquery.form.js"></script>
 <script src="<?= ROOT ?>assets/js/core.js<?= assetTime() ?>"></script>

@@ -28,7 +28,7 @@
     <a class="navbar-brand" href="<?= ROOT ?>admin">Управление</a>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
             <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>admin/edit-models">Модели</a>
             <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>admin/files">Файлы</a>
         </ul>
@@ -64,7 +64,7 @@
     }
 </script>
 
-<script src="<?= ROOT ?>vendor/jquery-3.3.1.min.js"></script>
+<script src="<?= ROOT ?>vendor/jquery.min.js"></script>
 <script src="<?= ROOT ?>vendor/inscrybmde/inscrybmde.min.js"></script>
 <script src="<?= ROOT ?>vendor/jquery.generate-url.js"></script>
 <script src="<?= ROOT ?>vendor/bootstrap/bootstrap.bundle.min.js"></script>

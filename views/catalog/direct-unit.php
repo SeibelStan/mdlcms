@@ -34,7 +34,7 @@
 
         <form class="form-ajax form-inline" action="<?= ROOT ?>cart/add" method="post">
             <div class="input-group">
-                <input type="number" name="count" id="direct-unit-count" class="form-control mr-sm-2" value="1" placeholder="Количество">
+                <input type="number" name="count" id="direct-unit-count" class="form-control me-sm-2" value="1" placeholder="Количество">
                 <button type="submit" class="btn btn-success">В корзину</button>
 
             </div>
